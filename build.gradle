@@ -32,21 +32,26 @@ dependencies {
   implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
   // https://mvnrepository.com/artifact/javax.servlet/jstl
   implementation 'javax.servlet:jstl'
+  // // https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8
+  // implementation 'com.oracle.database.jdbc:ojdbc8:23.2.0.0'
+
   // https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc10 
   implementation 'com.oracle.database.jdbc:ojdbc10:19.17.0.0'
   // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   // 혹시 모르니 thymeleaf도
   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
   implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
   //mustache
+  // Database Connection Pool (HikariCP)
+  implementation 'com.zaxxer:HikariCP:4.0.3' // 예시로 HikariCP를 사용하겠습니다
   implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'com.mysql:mysql-connector-j'
+	// runtimeOnly 'com.h2database:h2'
+	// runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
