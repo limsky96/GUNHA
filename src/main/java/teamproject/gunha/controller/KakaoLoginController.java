@@ -71,7 +71,7 @@ public class KakaoLoginController {
     String red = "/";
     model.addAttribute("msg", msg);
     model.addAttribute("redirect", red);
-    return "redirect:/";
+    return "/alert";
   }
 
   @GetMapping("/logout")
