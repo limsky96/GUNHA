@@ -41,12 +41,12 @@ dependencies {
   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
 	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   // 혹시 모르니 thymeleaf도
-  implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+  // implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
   implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
   //mustache
   // Database Connection Pool (HikariCP)
   implementation 'com.zaxxer:HikariCP:4.0.3' // 예시로 HikariCP를 사용하겠습니다
-  implementation 'org.springframework.boot:spring-boot-starter-mustache'
+  // implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
