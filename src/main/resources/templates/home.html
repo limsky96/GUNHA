@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">  
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>templates</title>
+</head>
+
+<body>
+  <div th:with="cPath=${data}">
+    Context Path: <a th:href="@{/login}"> link</a>
+</div>
+
+
+  
+<span th:text="${#authentication}"></span><br/>
+  <p th:text="'hello, '+ ${data}">hello!</p>
+  <div sec:authorize="isAuthenticated()">
+    <span th:text="${#authentication.principal.username}" ></span>님 환영합니다<br/>
+    <span sec:authentication="principal.username"></span>님 환영합니다<br/>
+  </div>
+</body>
+</html>
