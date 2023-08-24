@@ -18,16 +18,26 @@ insert into netflix_member values(
     '$2a$10$7DxPpaKDw/wcVUT0//J.Aen1gkroamLzBhZOMl2YLy8GUIIdZvVTy',
     null,
     1,
-    'NONE'
+    'none'
 );
 insert into netflix_member values(
-    'tatelulove4@naver.com_KAKAO',
+    'tatelulove4@naver.com_kakao',
     'tatelulove4@naver.com',
     '$2a$10$7DxPpaKDw/wcVUT0//J.Aen1gkroamLzBhZOMl2YLy8GUIIdZvVTy',
     null,
     1,
-    'KAKAO'
+    'kakao'
 );
+
+insert into netflix_member values(
+    'user@example.com',
+    'user@example.com',
+    '$2a$10$CZq2r6Srj6U5u9sxrhX2suWRETivRLWpWRfT7KwG/glQ0kLl4k8HO',
+    '1234567890123456',
+    1,
+    'none'
+);
+
 ----------------------------------------------------------
 
 drop table NETFLIX_AUTH cascade constraints;
@@ -52,9 +62,15 @@ insert into netflix_auth values(
 );
 
 insert into netflix_auth values(
-    'tatelulove4@naver.com_KAKAO',
+    'tatelulove4@naver.com_kakao',
     'ROLE_USER'
 );
+
+insert into netflix_auth values(
+    'user@example.com',
+    'ROLE_USER'
+);
+
 
 ---------------------------------------------------------
 
@@ -191,9 +207,10 @@ create table NETFLIX_SOCIAL(
 --     foreign key (social_account_member_social) references NETFLIX_SOCIAL(social_provider)
 -- on delete cascade;
 
-insert into netflix_social values( (select nvl(max(social_no),0)+1 from netflix_social), 'NONE');
-insert into netflix_social values( (select nvl(max(social_no),0)+1 from netflix_social), 'KAKAO');    
-insert into netflix_social values( (select nvl(max(social_no),0)+1 from netflix_social), 'GOOGLE');
+insert into netflix_social values( (select nvl(max(social_no),0)+1 from netflix_social), 'none');
+insert into netflix_social values( (select nvl(max(social_no),0)+1 from netflix_social), 'kakao');    
+insert into netflix_social values( (select nvl(max(social_no),0)+1 from netflix_social), 'naver');    
+insert into netflix_social values( (select nvl(max(social_no),0)+1 from netflix_social), 'google');
 
 alter table netflix_member
     add constraint fk_member_social
@@ -248,6 +265,8 @@ commit;
 select * from netflix_member mb, netflix_auth au
     where mb.member_id = au.auth_member_id and mb.member_id = 'user@example.com';
 
+select * from netflix_member mb, netflix_auth au
+    where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao';
 
 
 --------------------
