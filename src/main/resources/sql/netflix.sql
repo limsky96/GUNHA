@@ -268,6 +268,8 @@ select * from netflix_member mb, netflix_auth au
 select * from netflix_member mb, netflix_auth au
     where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao';
 
+update netflix_member set member_password = '$2a$10$CZq2r6Srj6U5u9sxrhX2suWRETivRLWpWRfT7KwG/glQ0kLl4k8HO'
+    where member_id= 'user@example.com';
 
 --------------------
 
