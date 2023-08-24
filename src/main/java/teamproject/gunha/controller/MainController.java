@@ -13,7 +13,7 @@ import teamproject.gunha.security.config.auth.NetflixUserDetails;
 @Controller
 @Slf4j
 @RequestMapping("/")
-public class RootController {
+public class MainController {
 
   @GetMapping("/")
   public String hello(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model){

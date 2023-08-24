@@ -92,7 +92,6 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
     log.info(password);
     String userId = kakaoProfile.getKakao_account().getEmail().toString() + "_KAKAO";
     log.info(userId);
-    UserVO user = userMapper.selectUserId(userId);
 
     return userId;
   }

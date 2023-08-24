@@ -10,11 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import teamproject.gunha.security.service.NetflixUserDetailsService;
-
-
 
 @Configuration
 @EnableWebSecurity
@@ -29,11 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
   }
-  
+
   @Override
   public void configure(WebSecurity web) throws Exception {
     web.ignoring()
-      .antMatchers("/css/**", "/icons/**", "/images/**", "/views/**", "/bootstrap/**");
+        .antMatchers("/css/**", "/icons/**", "/images/**", "/views/**", "/bootstrap/**");
   }
 
   @Override
@@ -41,31 +40,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http.csrf().disable();
 
-    http.authorizeHttpRequests()
-      .antMatchers("/emp/**").hasAnyRole("USER")
-      .antMatchers("/admin/**").hasAnyRole("ADMIN")
-      .antMatchers("/").permitAll();
-    
+    http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+        .sessionFixation().migrateSession()
+      .and()
+        .authorizeHttpRequests()
+        .antMatchers("/emp/**").hasAnyRole("USER")
+        .antMatchers("/admin/**").hasAnyRole("ADMIN")
+        .antMatchers("/").permitAll();
+
     http.formLogin()
-    .loginPage("/login").defaultSuccessUrl("/").permitAll();
+        .loginPage("/login").defaultSuccessUrl("/").permitAll();
 
     http.logout()
-      .logoutUrl("/logout")
-      .logoutSuccessUrl("/");
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/");
   }
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    
+
     // auth.inMemoryAuthentication()
     // .withUser("user").password("{noop}user").roles("USER")
     // .and()
     // .withUser("admin").password("{noop}admin").roles("ADMIN");
     auth
-      .userDetailsService(netflixUserDetailsService)   // 구현해야함
-      .passwordEncoder(new BCryptPasswordEncoder());
+        .userDetailsService(netflixUserDetailsService) // 구현해야함
+        .passwordEncoder(new BCryptPasswordEncoder());
 
   }
 }
-
-
