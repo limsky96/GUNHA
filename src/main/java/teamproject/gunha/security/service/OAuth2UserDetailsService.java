@@ -10,8 +10,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.GoogleUserInfo;
 import teamproject.gunha.security.config.auth.KakaoUserInfo;
@@ -21,7 +20,7 @@ import teamproject.gunha.security.config.auth.OAuth2UserInfo;
 import teamproject.gunha.vo.UserVO;
 
 @Service
-@Log4j2
+@Slf4j
 public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
   @Autowired
@@ -51,11 +50,11 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
     String email = oAuth2UserInfo.getEmail();
     String providerId = oAuth2UserInfo.getProviderId();
     String userId = email + "_" + provider;
+    log.info(userId);
     String password = bCryptPasswordEncoder.encode("user"); // 중요하지 않음 그냥 패스워드 암호화 하
 
 
     // Role role = Role.USER;
-    log.info(userId);
     UserVO userVO = userMapper.selectUserId(userId);
     log.info(userVO.toString());
     // 처음 서비스를 이용한 회원일 경우

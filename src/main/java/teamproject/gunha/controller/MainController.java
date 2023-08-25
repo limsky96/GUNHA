@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
-import com.nimbusds.jose.shaded.json.JSONObject;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
@@ -32,10 +31,10 @@ public class MainController {
 
   @GetMapping("/hello")
   @ResponseBody
-  public JsonObject hello2(){
+  public String hello2(){
     JsonObject helloJson = new JsonObject();
     helloJson.addProperty("hello", "hello world");
-    return helloJson;
+    return helloJson.toString();
   }
 
 

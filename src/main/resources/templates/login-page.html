@@ -22,7 +22,18 @@
 .mt-5{
   margin-top: 10rem;
 }
-
+.btn-img{
+  width: 48px;
+  height: 48px;
+}
+.mx-2{
+  margin-left: 2rem;
+  margin-right:2rem;
+}
+.mx-1{
+  margin-left: 1rem;
+  margin-right:1rem;
+}
 </style>
 <body>
   <div class="d-flex flex-column align-items-center mt-5">
@@ -41,11 +52,17 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
     </div>
-    <div>
-      <a href="/oauth2/authorization/kakao"><img src="/images/kakao_login_medium_narrow.png" alt="카카오 로그인" /></a>
-    </div>
-    <div>
-      <a href="/auth/google/login"><img src="/images/btn_google_signin_light_normal_web.png" alt="구글 로그인" /></a>
+    <div class="social-login-container d-flex justify-content-center">
+      <div class="btn mx-1">
+        <a href="/oauth2/authorization/kakao"><img class="btn-img" src="/images/kakao_login_medium_circle.png" alt="카카오 로그인" /></a>
+      </div>
+      <div class="btn mx-1">
+        <a href="/oauth2/authorization/google"><img class="btn-img" src="/images/btn_google_light_normal_ios.png" alt="구글 로그인" /></a>
+      </div>
+      <div class="btn mx-1">
+        <a href="/oauth2/authorization/naver"><img class="btn-img" src="/images/btnG_아이콘원형.png" alt="네이버 로그인" /></a>
+      </div>
+
     </div>
   </div>
 </body>
