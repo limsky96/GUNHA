@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.vo.UserVO;
 
 
+@Transactional
 @Service
+@Slf4j
 public class UserLoginServiceImpl implements UserLoginService {
 
   @Autowired
@@ -25,4 +28,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     return userMapper.loginUser(userVO.getUserId(), userVO.getPassword());
   }
+
+  @Override
+  public int createAccount(UserVO userVO){
+    log.info(userVO.toString());
+    //int rn = userMapper.insertUser(userVO);
+    return 1;
+  }
+
 }

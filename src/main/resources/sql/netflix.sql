@@ -2,6 +2,7 @@ connect netflix/netflix;
 
 drop table NETFLIX_MEMBER cascade constraints;
 
+desc netflix_member;
 
 create table NETFLIX_MEMBER(
     member_id varchar2(60) primary key,
@@ -38,6 +39,15 @@ insert into netflix_member values(
     'none'
 );
 
+insert into netflix_member values(
+    'tatelulove4@naver.com_naver',
+    'tatelulove4@naver.com',
+    '$2a$10$CZq2r6Srj6U5u9sxrhX2suWRETivRLWpWRfT7KwG/glQ0kLl4k8HO',
+    '1234567890123456',
+    1,
+    'naver'
+);
+
 ----------------------------------------------------------
 
 drop table NETFLIX_AUTH cascade constraints;
@@ -68,6 +78,12 @@ insert into netflix_auth values(
 
 insert into netflix_auth values(
     'user@example.com',
+    'ROLE_USER'
+);
+
+
+insert into netflix_auth values(
+    'tatelulove4@naver.com_naver',
     'ROLE_USER'
 );
 
@@ -218,7 +234,7 @@ alter table netflix_member
 on delete cascade;
 
 
-
+commit;
 
 ------------------
 
@@ -267,6 +283,9 @@ select * from netflix_member mb, netflix_auth au
 
 select * from netflix_member mb, netflix_auth au
     where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao';
+
+select * from netflix_member mb, netflix_auth au
+    where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_naver';
 
 update netflix_member set member_password = '$2a$10$CZq2r6Srj6U5u9sxrhX2suWRETivRLWpWRfT7KwG/glQ0kLl4k8HO'
     where member_id= 'user@example.com';
