@@ -6,5 +6,5 @@ public interface UserLoginService {
 
   UserVO getUser(String userId);
   UserVO loginUser(UserVO userDTO);
-  int createAccount(UserVO userVO);
+  boolean createAccount(UserVO userVO);
 }

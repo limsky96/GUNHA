@@ -19,12 +19,15 @@ public class NetflixUserDetailsService implements UserDetailsService {
   private UserMapper userMapper;
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    log.warn("Load User By UserVO number: " + username);
-
-    UserVO user = userMapper.selectUserId(username);
+  public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+    
+    UserVO user = userMapper.selectUserId(userId);
     log.warn("queried by UserVO mapper: " + user);
-    return user == null ? null : new NetflixUserDetails(user); // 시큐리티 세션에 유저 정보 저장
+    if("none".equals(user.getSocial())){
+      
+      return new NetflixUserDetails(user); // 시큐리티 세션에 유저 정보 저장
+    }
+    return null;
   }
-
+  
 }

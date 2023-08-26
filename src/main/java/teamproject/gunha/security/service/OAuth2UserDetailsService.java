@@ -49,13 +49,16 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
     String provider = oAuth2UserInfo.getProvider(); // google , naver, facebook etc
     String email = oAuth2UserInfo.getEmail();
     String providerId = oAuth2UserInfo.getProviderId();
+    
     String userId = email + "_" + provider;
     log.info(userId);
     String password = bCryptPasswordEncoder.encode("user"); // 중요하지 않음 그냥 패스워드 암호화 하
-
-
+    
+    
     // Role role = Role.USER;
     UserVO userVO = userMapper.selectUserId(userId);
+    //log.info("password: " + bCryptPasswordEncoder.encode("2577013424"));
+    log.info("" +bCryptPasswordEncoder.matches(providerId, userVO.getPassword()));
     log.info(userVO.toString());
     // 처음 서비스를 이용한 회원일 경우
     // if (userEntity == null) {
