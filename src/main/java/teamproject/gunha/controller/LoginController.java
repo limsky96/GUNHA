@@ -31,8 +31,11 @@ public class LoginController {
           @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
           Model model) {
     if(netflixUserDetails != null){
-      model.addAttribute("user", netflixUserDetails.getUserVO());
-      return "sign-up-social";
+      UserVO userVO = netflixUserDetails.getUserVO();
+      if("00000000000000".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())){
+        model.addAttribute("user", userVO);
+        return "sign-up-social";
+      }
     }
     return "sign-up";
   }
