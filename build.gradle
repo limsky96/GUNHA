@@ -46,13 +46,17 @@ dependencies {
   //mustache
   // Database Connection Pool (HikariCP)
   implementation 'com.zaxxer:HikariCP:4.0.3' // 예시로 HikariCP를 사용하겠습니다
-  implementation 'org.springframework.boot:spring-boot-starter-mustache'
+  // implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	// runtimeOnly 'com.h2database:h2'
 	// runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+	// oauth2-client 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api

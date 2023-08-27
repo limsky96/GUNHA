@@ -3,28 +3,39 @@ package teamproject.gunha.security.config.auth;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import teamproject.gunha.vo.AuthVO;
 import teamproject.gunha.vo.UserVO;
-
-
-
 
 /**
  * NetflixUserDetails
  */
-public class NetflixUserDetails implements UserDetails {
+@Getter @Setter
+@ToString
+public class NetflixUserDetails implements UserDetails, OAuth2User {
 
   private UserVO userVO;
   private List<GrantedAuthority> authorities;
+  private Map<String, Object> attributes;
 
-  public NetflixUserDetails(UserVO userVO) {
-    this.setAuthorities(userVO);
-    this.setUserVO(userVO);
+  public NetflixUserDetails(UserVO user) {
+    this.setAuthorities(user);
+    this.setUserVO(user);
+  }
+
+  public NetflixUserDetails(UserVO user, Map<String, Object> attributes) {
+    this.setUserVO(user);
+    this.setAuthorities(user);
+    this.setAttributes(attributes);
   }
 
   public void setUserVO(UserVO userVO) {
@@ -34,9 +45,9 @@ public class NetflixUserDetails implements UserDetails {
   public void setAuthorities(UserVO userVO) {
     List<GrantedAuthority> authorities = new ArrayList<>();
 
-      for (AuthVO auth : userVO.getAuthList()) {
-         authorities.add(new SimpleGrantedAuthority(auth.getAuthority()));
-      }
+    for (AuthVO auth : userVO.getAuthList()) {
+      authorities.add(new SimpleGrantedAuthority(auth.getAuthority()));
+    }
 
     this.authorities = authorities;
   }
@@ -77,8 +88,12 @@ public class NetflixUserDetails implements UserDetails {
   }
 
   @Override
-  public String toString(){
-    return "NetflixUserDetails[UserVO userVO="+userVO+"], [List<GrantedAuthority> authorities="+authorities+"]";
+  public Map<String, Object> getAttributes() {
+    return attributes;
   }
 
+  @Override
+  public String getName() {
+    return null;
+  }
 }

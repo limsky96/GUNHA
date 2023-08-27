@@ -15,6 +15,7 @@
   <result property="membershipNo" column="member_membership_no" />
   <result property="social" column="member_social" />
   <collection property="authList" resultMap="authMap"></collection>
+  <collection property="profileList" resultMap="profileMap"></collection>
 </resultMap>
 
 <!-- <resultMap id="userMap" type="edu.global.demo.vo.UserVO">
@@ -36,5 +37,9 @@
  <result property="authority" column="auth_member_authority"/>
 </resultMap>
 
+<resultMap id="profileMap" type="teamproject.gunha.vo.ProfileVO">
+  <result property="userId" column="member_profile_member_id"/>
+  <result property="profileName" column="member_profile_name"/>
+</resultMap>
 
 </mapper>
