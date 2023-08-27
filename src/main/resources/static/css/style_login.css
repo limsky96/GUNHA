@@ -1,0 +1,132 @@
+*{
+    margin : 0;
+    padding : 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background-color: black;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+.main{
+    
+    width: 100%;
+    height: 57vh;
+    background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(/images/beforeLoginBack.jpg); 
+    /* 그라데이션 넣는것 = 0.7 불투명도 */
+    background-size: cover;
+    /* 헤더 전체를 덮는것 */
+    background-position: center;
+    /* 이미지 가운데 고정 */
+    padding: 10px ;
+    position: relative;
+}
+
+.content-introduction{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    max-width: 80%; /* 최대 넓이를 지정하여 화면을 줄여도 삐져나오지 않도록 함 */
+    margin-top: 50px;
+}
+
+.content-introduction h1{
+    font-size: 3em;
+    line-height: 70px;
+    font-weight: 600;
+    max-width: 800px;
+    /* max-width = 요소의 최대 넓이 */
+}
+
+.content-introduction h3{
+    font-size:1.5em;
+    font-weight: 400;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.content-introduction p{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size:1em;
+}
+
+form.email-signup {
+    margin-top: 1pc;
+}
+.email-signup input{
+    width:20vw;
+    height: 5vh;
+    border-radius: 5px;
+    font-size: 1em;
+    color:white;
+    background-color: rgba(0,0,0,0.4);
+    border: 1px solid #ddd;
+}
+
+.email-signup button{
+    width:10vw;
+    height: 5vh;
+    margin-left: 5px;
+    font-size: 1.4px;
+    background-color:red;
+    border-radius: 3px;
+    border: 1px solid red ;
+    color: white;
+    cursor: pointer; /*요소위에 마우스 커서를 가져가면 커서가 포인터 형태로 변하게 된다.*/
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+.main-bnr{
+    flex-direction: column;
+    background: radial-gradient( 51.39% 511.66% at 47.68% -217.91%, #ff9900 0%, #e50914 17.27%, #0e1b4f 79.44%, #000413 100% );
+    box-shadow: 0px -8px 25px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 13vh;
+}
+
+.promotion-bnr h3{
+    font-size: 1rem;
+} 
+
+.promotion-bnr{
+    display: flex;
+    align-items: center; /* 세로 정렬 */
+    top: 50%;
+    left: 50%;
+    margin-top: 1rem;
+    margin-left: 40%;
+}
+
+.promotion-bnr p{
+    margin-top: 0.5px;
+    margin-bottom: 0.7rem;
+    font-size: 0.7rem;
+}
+
+.promotion-bnr a{
+    color: powderblue;
+    margin-bottom: 0.7rem;
+    font-size: 0.7rem;
+}
+  
+.text-content h3,
+.text-content p,
+.text-content a {
+  margin-left: 20px; /* 텍스트 요소와 이미지 사이 간격 설정 */
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 나열 */
+}
+
+.promotion-bnr img{
+    width: 3rem;
+    height: 3rem;
+}
