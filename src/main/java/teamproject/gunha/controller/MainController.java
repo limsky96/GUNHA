@@ -22,6 +22,9 @@ public class MainController {
   public String hello(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model){
     if(netflixUserDetails != null){
       UserVO userVO = netflixUserDetails.getUserVO();
+      if("0000000000000000".equals(userVO.getCardNumber())){
+        return "redirect:/sign-up";
+      }
       String userEmail = userVO.getUserEmail();
       log.info("user: "+ userEmail);
       model.addAttribute("user", userEmail);

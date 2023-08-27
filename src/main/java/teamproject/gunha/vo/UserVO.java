@@ -7,6 +7,7 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor @AllArgsConstructor
+@Builder
 public class UserVO {
   private String userId;
   private String userEmail;

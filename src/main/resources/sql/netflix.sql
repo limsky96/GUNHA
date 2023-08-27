@@ -125,6 +125,10 @@ create table NETFLIX_MEMBERSHIP(
     membership_grade varchar2(10) unique
 );
 insert into netflix_membership values(
+    0,
+    'none'
+);
+insert into netflix_membership values(
     1,
     'basic'
 );
@@ -281,8 +285,8 @@ commit;
 select * from netflix_member mb, netflix_auth au
     where mb.member_id = au.auth_member_id and mb.member_id = 'user@example.com';
 
-select * from netflix_member mb, netflix_auth au
-    where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao';
+select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
+    where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao' and mb.member_id = mp.member_profile_member_id;
 
 select * from netflix_member mb, netflix_auth au
     where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_naver';
@@ -293,4 +297,4 @@ update netflix_member set member_password = '$2a$10$tbmvHLrNpUmlMkj5i8FLl.QASVka
 --------------------
 
 delete from netflix_member where member_email = 'user@example.com';
-delete from netflix_member where member_email = 'tatelulove4@naver.com';
+delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';

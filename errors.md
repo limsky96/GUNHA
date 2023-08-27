@@ -32,7 +32,12 @@
 </resultMap> -->
 이런 방식으로..?
 
+  -> NoArgsConstructor annotation 추가해주면 해결.(아니면 default 생성자를 만들든가)
+
 
 6. 소셜 로그인 Autowired해도 되고 아니면 SecurityContextHolder에 넣어줄 때 authorities도 넣어준다..
+
+
+
 
 

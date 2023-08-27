@@ -17,6 +17,7 @@ import teamproject.gunha.security.config.auth.KakaoUserInfo;
 import teamproject.gunha.security.config.auth.NaverUserInfo;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.security.config.auth.OAuth2UserInfo;
+import teamproject.gunha.vo.ProfileVO;
 import teamproject.gunha.vo.UserVO;
 
 @Service
@@ -57,24 +58,32 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
     
     // Role role = Role.USER;
     UserVO userVO = userMapper.selectUserId(userId);
+    log.info("OAuth method() -> userVO: " + userVO);
     //log.info("password: " + bCryptPasswordEncoder.encode("2577013424"));
-    log.info("" +bCryptPasswordEncoder.matches(providerId, userVO.getPassword()));
-    log.info(userVO.toString());
     // 처음 서비스를 이용한 회원일 경우
-    // if (userEntity == null) {
-    //   LocalDateTime createTime = LocalDateTime.now();
-    //   userEntity = User.builder()
-    //       .username(username)
-    //       .password(password)
-    //       .email(email)
-    //       .role(role)
-    //       .provider(provider)
-    //       .provideId(providerId)
-    //       .createDate(createTime)
-    //       .build();
+    if (userVO == null) {
+      
+      userVO = UserVO.builder()
+          .userId(userId)
+          .userEmail(email)
+          .password(password)
+          .cardNumber("0000000000000000")
+          .membershipNo(0)
+          .social(provider)
+          .build();
+      log.info("builded userVO : " + userVO);
+      ProfileVO profileVO = ProfileVO.builder()
+          .userId(userId)
+          .profileName("테스트")
+          .build();
 
+      log.info("builded profileVO : " + profileVO);
+      userMapper.insertUser(userVO);
+      userMapper.insertAuthorities(userVO);
+      userMapper.insertProfile(profileVO);
     //   userRepository.save(userEntity);
     // }
+    }
     log.info(new NetflixUserDetails(userVO).toString());
     return new NetflixUserDetails(userVO);
   }
