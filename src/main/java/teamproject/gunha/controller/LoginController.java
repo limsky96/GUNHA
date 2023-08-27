@@ -37,6 +37,7 @@ public class LoginController {
 
   @PostMapping("/sign-up")
   public String signUp(UserVO userVO) {
+    log.info("signUp() :" + userVO);
     userLoginService.createAccount(userVO);
     return "redirect:/";
   }

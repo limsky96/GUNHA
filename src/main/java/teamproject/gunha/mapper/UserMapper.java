@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import teamproject.gunha.vo.ProfileVO;
 import teamproject.gunha.vo.UserVO;
 
 
@@ -22,7 +23,7 @@ public interface UserMapper {
   @Insert("insert into netflix_auth (auth_member_id, auth_member_authority) values(#{userId},'ROLE_USER')")
   public void insertAuthorities(UserVO UserVO);
 
-  @Insert("insert into NETFLIX_MEMBER_PROFILE(member_profile_member_id, member_profile_name), values(#{userId}, #{profileName})")
-  public void insertProfile(UserVO userVO);
+  @Insert("insert into NETFLIX_MEMBER_PROFILE(member_profile_member_id, member_profile_name) values(#{userId}, #{profileName})")
+  public void insertProfile(ProfileVO profileVO);
 
 }
