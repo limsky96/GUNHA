@@ -4,8 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamproject.gunha.mapper.UserMapper">
 <select id="selectUserId" resultMap="userMap">
-  select * from NETFLIX_MEMBER , NETFLIX_AUTH 
-  where NETFLIX_MEMBER.member_id = NETFLIX_AUTH.auth_member_id and NETFLIX_MEMBER.member_id = #{userId}
+  select * from NETFLIX_MEMBER mb , NETFLIX_AUTH au, netflix_member_profile mp
+  where mb.member_id = au.auth_member_id and mb.member_id = mp.member_profile_member_id and mb.member_id = #{userId}
 </select>
 <resultMap id="userMap" type="teamproject.gunha.vo.UserVO">
   <result property="userId" column="member_id" />

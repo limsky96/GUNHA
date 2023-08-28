@@ -1,9 +1,7 @@
 package teamproject.gunha.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +18,9 @@ public class UserLoginServiceImpl implements UserLoginService {
   @Autowired
   private UserMapper userMapper;
 
+  @Autowired
+  private BCryptPasswordEncoder passwordEncoder;
+
   @Override
   public UserVO getUser(String userId) {
     return userMapper.selectUserId(userId);
@@ -33,18 +34,25 @@ public class UserLoginServiceImpl implements UserLoginService {
   @Override
   @Transactional // insert 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
   public boolean createAccount(UserVO userVO){
+    userVO.setUserEmail(userVO.getUserId());
+    userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
     userVO.setSocial("none");
-    List<ProfileVO> profileList = new ArrayList<>();
     ProfileVO defaultProfile = new ProfileVO(userVO.getUserId(), "테스트");
-    profileList.add(defaultProfile);
-    userVO.setProfileList(profileList);
-    log.info("profile list: " + profileList);
-    // userMapper.insertUser(userVO);
-    // userMapper.insertAuthorities(userVO);
-    // userMapper.insertProfile(userVO);
-    log.info("create Account : " + userVO);
+    userMapper.insertUser(userVO);
+    userMapper.insertAuthorities(userVO);
+    userMapper.insertProfile(defaultProfile);
 
     return true;
   }
+
+  @Override
+  @Transactional // insert 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
+  public boolean signupSocial(UserVO userVO){
+    userMapper.updateUser(userVO);
+    
+    return true;
+  }
+
+
 
 }

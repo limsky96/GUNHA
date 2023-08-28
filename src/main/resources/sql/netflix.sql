@@ -8,7 +8,7 @@ create table NETFLIX_MEMBER(
     member_id varchar2(60) primary key,
     member_email varchar2(50),
     member_password varchar2(60) not null,
-    member_card_number char(16),
+    member_card_number char(19),
     member_membership_no number not null,
     member_social varchar2(10) default 'NONE'
 );
@@ -123,6 +123,10 @@ drop table NETFLIX_MEMBERSHIP cascade constraints;
 create table NETFLIX_MEMBERSHIP(
     membership_no number primary key,
     membership_grade varchar2(10) unique
+);
+insert into netflix_membership values(
+    0,
+    'none'
 );
 insert into netflix_membership values(
     1,
@@ -281,8 +285,8 @@ commit;
 select * from netflix_member mb, netflix_auth au
     where mb.member_id = au.auth_member_id and mb.member_id = 'user@example.com';
 
-select * from netflix_member mb, netflix_auth au
-    where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao';
+select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
+    where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao' and mb.member_id = mp.member_profile_member_id;
 
 select * from netflix_member mb, netflix_auth au
     where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_naver';
@@ -293,4 +297,4 @@ update netflix_member set member_password = '$2a$10$tbmvHLrNpUmlMkj5i8FLl.QASVka
 --------------------
 
 delete from netflix_member where member_email = 'user@example.com';
-delete from netflix_member where member_email = 'tatelulove4@naver.com';
+delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';
