@@ -1,7 +1,6 @@
 package teamproject.gunha.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,6 @@ public class LoginController {
 
   @GetMapping("/login")
   public String loginPage(Model model) {
-
     return "login-page";
   }
 
@@ -32,7 +30,7 @@ public class LoginController {
           Model model) {
     if(netflixUserDetails != null){
       UserVO userVO = netflixUserDetails.getUserVO();
-      if("00000000000000".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())){
+      if("결제정보 없음".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())){
         model.addAttribute("user", userVO);
         return "sign-up-social";
       }
@@ -44,6 +42,13 @@ public class LoginController {
   public String signUp(UserVO userVO) {
     log.info("signUp() :" + userVO);
     userLoginService.createAccount(userVO);
+    return "redirect:/";
+  }
+
+  @PostMapping("/account-update")
+  public String updateAccount(UserVO userVO){
+    log.info("updateAccount() :" + userVO);
+    userLoginService.signupSocial(userVO);
     return "redirect:/";
   }
 

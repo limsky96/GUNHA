@@ -49,7 +49,6 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
     String provider = oAuth2UserInfo.getProvider(); // google , naver, facebook etc
     String email = oAuth2UserInfo.getEmail();
-    String providerId = oAuth2UserInfo.getProviderId();
     
     String userId = email + "_" + provider;
     log.info(userId);
@@ -67,10 +66,11 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
           .userId(userId)
           .userEmail(email)
           .password(password)
-          .cardNumber("0000000000000000")
+          .cardNumber("결제정보 없음")
           .membershipNo(0)
           .social(provider)
           .build();
+          
       log.info("builded userVO : " + userVO);
       ProfileVO profileVO = ProfileVO.builder()
           .userId(userId)
@@ -81,8 +81,6 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
       userMapper.insertUser(userVO);
       userMapper.insertAuthorities(userVO);
       userMapper.insertProfile(profileVO);
-    //   userRepository.save(userEntity);
-    // }
     }
     log.info(new NetflixUserDetails(userVO).toString());
     return new NetflixUserDetails(userVO);

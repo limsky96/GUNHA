@@ -8,7 +8,7 @@ create table NETFLIX_MEMBER(
     member_id varchar2(60) primary key,
     member_email varchar2(50),
     member_password varchar2(60) not null,
-    member_card_number char(16),
+    member_card_number char(19),
     member_membership_no number not null,
     member_social varchar2(10) default 'NONE'
 );

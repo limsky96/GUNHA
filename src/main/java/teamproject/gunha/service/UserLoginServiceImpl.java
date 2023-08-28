@@ -45,4 +45,14 @@ public class UserLoginServiceImpl implements UserLoginService {
     return true;
   }
 
+  @Override
+  @Transactional // insert 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
+  public boolean signupSocial(UserVO userVO){
+    userMapper.updateUser(userVO);
+    
+    return true;
+  }
+
+
+
 }
