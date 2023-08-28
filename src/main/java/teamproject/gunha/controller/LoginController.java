@@ -20,10 +20,10 @@ public class LoginController {
 
   @GetMapping("/login")
   public String loginPage(Model model) {
-    try{
+    try {
 
-    }catch(InternalAuthenticationServiceException e){
-      model.addAttribute("error", e.getMessage() );
+    } catch (InternalAuthenticationServiceException e) {
+      model.addAttribute("error", e.getMessage());
       return "login-page";
     } finally {
     }
