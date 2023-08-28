@@ -294,7 +294,10 @@ select * from netflix_member mb, netflix_auth au
 update netflix_member set member_password = '$2a$10$tbmvHLrNpUmlMkj5i8FLl.QASVkazZfRsapVH7lo8xTAPFYVgG72C'
     where member_id= 'tatelulove4@naver.com_kakao';
 
---------------------
+select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
+    where mb.member_id = au.auth_member_id and mb.member_id = 'seralove4@gmail.com_google' and mb.member_id = mp.member_profile_member_id;
 
+--------------------
+delete from netflix_member where member_id = 'seralove4@gmail.com_google';
 delete from netflix_member where member_email = 'user@example.com';
 delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';

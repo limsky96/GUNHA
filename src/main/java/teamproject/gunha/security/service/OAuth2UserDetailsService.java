@@ -1,5 +1,7 @@
 package teamproject.gunha.security.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import teamproject.gunha.security.config.auth.KakaoUserInfo;
 import teamproject.gunha.security.config.auth.NaverUserInfo;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.security.config.auth.OAuth2UserInfo;
+import teamproject.gunha.security.vo.KakaoProfile.KakaoAccount.Profile;
+import teamproject.gunha.vo.AuthVO;
 import teamproject.gunha.vo.ProfileVO;
 import teamproject.gunha.vo.UserVO;
 
@@ -62,21 +66,30 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
     // 처음 서비스를 이용한 회원일 경우
     if (userVO == null) {
       
-      userVO = UserVO.builder()
-          .userId(userId)
-          .userEmail(email)
-          .password(password)
-          .cardNumber("결제정보 없음")
-          .membershipNo(0)
-          .social(provider)
-          .build();
-          
       log.info("builded userVO : " + userVO);
+      AuthVO authVO = AuthVO.builder()
+        .userId(userId)
+        .authority("ROLE_USER")
+        .build();
+      List<AuthVO> authList = new ArrayList<>();
+      authList.add(authVO);
       ProfileVO profileVO = ProfileVO.builder()
-          .userId(userId)
-          .profileName("테스트")
-          .build();
-
+        .userId(userId)
+        .profileName("테스트")
+        .build();
+      List<ProfileVO> profileList = new ArrayList<>();
+      profileList.add(profileVO);
+      userVO = UserVO.builder()
+        .userId(userId)
+        .userEmail(email)
+        .password(password)
+        .cardNumber("결제정보 없음")
+        .membershipNo(0)
+        .social(provider)
+        .authList(authList)
+        .profileList(profileList)
+        .build();
+          
       log.info("builded profileVO : " + profileVO);
       userMapper.insertUser(userVO);
       userMapper.insertAuthorities(userVO);

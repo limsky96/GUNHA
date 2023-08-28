@@ -58,7 +58,7 @@
 
       <div class="mb-3">
         <div sec:authorize="isAuthenticated()">
-          <label for="address">소셜회원 여부</label>
+          <label for="social">소셜회원 여부</label>
           <input type="hidden" name="userEmail" th:value="${user.userEmail}" required readonly>
           <input type="text" class="form-control" id="social" name="social" th:value="${user.social}" required readonly>
           <input type="hidden" name="password" th:value="${user.password}" >

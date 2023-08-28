@@ -1,12 +1,16 @@
 package teamproject.gunha.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.mapper.UserMapper;
+import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.vo.ProfileVO;
 import teamproject.gunha.vo.UserVO;
 
@@ -50,6 +54,15 @@ public class UserLoginServiceImpl implements UserLoginService {
   public boolean signupSocial(UserVO userVO){
     userMapper.updateUser(userVO);
     
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    // Principal 정보 업데이트 (예: 사용자 이름 변경)
+    NetflixUserDetails updatedPrincipal = (NetflixUserDetails) authentication.getPrincipal();
+    updatedPrincipal.setUserVO(userMapper.selectUserId(userVO.getUserId()));
+
+    // SecurityContext 업데이트
+    Authentication newAuthentication = new UsernamePasswordAuthenticationToken(updatedPrincipal, authentication.getCredentials(), authentication.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+
     return true;
   }
 
