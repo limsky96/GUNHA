@@ -23,6 +23,7 @@
   function fnInit(){
     
     //임시 TITLE 증가값
+    var isLoading = false; //새 콘텐츠 로딩여부 추적
     var count = 1;
     //무한스크롤 START
     //DOCUMENT 스크롤 이벤트 감지
@@ -32,10 +33,12 @@
       //현재 스크롤 위치
       var currentScroll = $(window).scrollTop() + $(window).height();
 
-      if (maxHeight <= currentScroll + 50) {
+      if (maxHeight <= currentScroll + 50 && !isLoading) {
+        isLoading = true;
         //무한스크롤 END
         //화면에 추가로 보여줄 요소 생성 (AJAX) START
         //category Class내에 추가시킬 html소스 생성 위한 String 변수
+        setTimeout(function() {
         var htmlText = "";
         for(var i=0; i<3; i++){
           htmlText+= '<div class="title" class="fstScl">스크롤컨텐츠'+count+'</div>';
@@ -50,6 +53,9 @@
           count++;
         }
         $("#category").append(htmlText);
+        isLoading = false; // 로딩 상태 초기화
+        }, 2000); //2초 딜레이 지정
+
         //화면에 추가로 보여줄 요소 생성 (AJAX) END
             
       //ajax 대충예시 START
