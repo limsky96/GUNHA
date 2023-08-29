@@ -9,7 +9,7 @@
       box-sizing: border-box;
     }
 
-    #modalWrap {
+    .modal-wrap {
       position: fixed;
       /* Stay in place */
       z-index: 1;
@@ -29,7 +29,7 @@
       display: none;
     }
 
-    #modalBody {
+    .modal-body {
       width: 500px;
       height: 300px;
       padding: 30px 30px;
@@ -69,13 +69,18 @@
   <div sec:authorize="isAuthenticated()">
 
     <div class="modalBody">
-      <div th:each="profile: ${user.profileList}" style="display: flex; justify-content: center;">
-        <div class="open-modal" style="display: flex; justify-content: center;"><input type="button" th:value="${profile.profileName}"></div>
+      <div class="profile-container"style="display: flex; justify-content: center;" >
+      <div th:each="profile: ${user.profileList}">
+        <div class="open-modal" style="display: flex; justify-content: center;">
+          <div type="button" th:text="${profile.profileName}" style="width: 100px; height:100px; text-align: center; line-height: 100px;"></div>
+        </div>
         <div class="modal-wrap">
           <div class="modal-body">
-            asdas
+            <label for="profileName" >프로필명: <input name="profileName" type="text" th:value="${profile.profileName}"/>
+            </label>
           </div>
         </div>
+      </div>
       </div>
     </div>
     <div style="width: 500px; height: 500px;">
@@ -87,8 +92,18 @@
     const modal = document.querySelectorAll('.modal-wrap');
     // const closeBtn = document.getElementById('closeBtn');
     const modalBody = document.querySelectorAll(".modal-body");
-    openBtn.forEach((e, index)=>{
-      console.log(`element: ${e}, index: ${index}`)
+    openBtn.forEach((elmnt, index)=>{
+      elmnt.addEventListener("click", e=>{
+        e.stopPropagation();
+        modal[index].style.display='block';
+      });
+      window.addEventListener("click", (e) => {
+        e.stopPropagation();
+        modal[index].style.display = 'none';
+      });
+      modalBody[index].addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
     })
     console.log(openBtn);
     console.log(modal);
@@ -102,10 +117,7 @@
     //   e.stopPropagation();
     //   modal.style.display = 'none';
     // });
-    // window.addEventListener("click", (e) => {
-    //   e.stopPropagation();
-    //   modal.style.display = 'none';
-    // });
+    
     // modalBody.addEventListener('click', (e) => {
     //   e.stopPropagation();
     // });

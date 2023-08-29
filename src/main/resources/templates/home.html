@@ -64,9 +64,11 @@
       <div id="modalBody">
         <span id="closeBtn">&times;</span>
         <p>modal-popup 입니다.</p>
-        <div th:each="profile: ${user.profileList}" style="display: flex; justify-content: center;">
+        <div class="profile-container"style="display: flex; justify-content: center;" >
+        <div th:each="profile: ${user.profileList}" >
           <div th:text="${profile.profileName}" style="text-align: center; line-height: 100px; width:100px; height:100px;"></div>
         </div>
+      </div>
         <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
       </div>
   </div>

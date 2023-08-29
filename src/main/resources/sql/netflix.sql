@@ -107,6 +107,11 @@ insert into NETFLIX_MEMBER_PROFILE values(
     'ADMIN'
 );
 
+insert into NETFLIX_MEMBER_PROFILE values(
+    'tatelulove4@naver.com_kakao',
+    '테스트2'
+);
+
 
 
 --------------------------------------------------------
