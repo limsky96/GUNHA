@@ -23,10 +23,10 @@ public class MainController {
         return "login/login-page";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/admins")
     public String admin() {
         log.info("hello()...");
-        return "admin/admin";
+        return "admins/admin";
     }
 
 
