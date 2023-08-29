@@ -47,27 +47,57 @@
     </div>
 </div>
 
-<div class="netflix-introduction1">
-   <div class="netflix-introduction-box d-flex justify-content-center">
-   <div class="netflix-introduction-content">
-   <h1><strong>TV로 즐기세요</strong></h1>
-   <h3>스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어등 다양한 디바이스에서 시청하세요.</h3>
-   </div>
-   <div class="img-fluid"><img src="/images/index-tv.png"></div>
-   </div>
+<div class="netflix-intro1">
+    <div class="wrap">
+        <div class="netflix-introduction-box d-flex justify-content-center align-items-center intro-box">
+            <div class="netflix-introduction-content intro-cont col justify-content-center" style="width:30em;">
+                <h1><strong>TV로 즐기세요</strong></h1>
+                <h3>스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어등 다양한 디바이스에서 시청하세요.</h3>
+            </div>
+            <div class="intro-video"> <!-- 부모 컨테이너 -->
+                <div data-uia="nmhp-card-animation-asset-motion" class="default-ltr-cache-m5f3qu e15c37ii14 video">
+                    <video data-uia="nmhp-card-animation-asset-video" autoplay="" playsinline="" muted="" loop="" style="z-index: 1;"> <!-- 비디오 위에 이미지 배치 -->
+                        <source src="/video/video-tv-0819.m4v" type="video/mp4">
+                    </video>
+                </div>
+                <div class="frame"> <!-- 이미지는 비디오 위에 배치 -->
+                    <img src="/images/index-tv.png">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="netflix-introduction2">
-   <div  class=" d-flex justify-content-center">
-   <div class="img"><img src="/images/index-introduction.png"></div>
-   <div>글</div>
-   </div>
+<div class="netflix-intro2">
+    <div class="wrap d-flex"> <!-- 부모 컨테이너 (d-flex를 이용하여 가로로 나열) -->
+        <div class="intro-video" style="position: relative;"> <!-- 동영상 -->
+            <div data-uia="nmhp-card-animation-asset-motion" class="default-ltr-cache-m5f3qu e15c37ii14 video">
+                <video data-uia="nmhp-card-animation-asset-video" autoplay="" playsinline="" muted="" loop="" style="z-index: 1; width:27em;">
+                    <source src="/video/video-devices.m4v" type="video/mp4">
+                </video>
+            </div>
+            <div class="frame" style="position: absolute; top: -37px; left: -126px; z-index: 2;">
+                <img src="/images/index-introduction.png">
+            </div>
+        </div>    
+        <div class="netflix-introduction-box d-flex justify-content-center align-items-center intro-box" style="flex: 1;"> <!-- "intro-box" -->
+            <div class="netflix-introduction-content intro-cont col justify-content-center" style="width:30em;">
+                <h1><strong>어디서나 자유롭게 시청하세요</strong></h1>
+                <h3>각종 영화와 시리즈를 스마트폰, 태블릿, 노트북, TV에서 무제한으로 스트리밍하세요.</h3>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 <div class="netflix-introduction3">
    <div  class=" d-flex justify-content-center">
    <div class="img"><img src="/images/index-mobile.jpg"></div>
-   <div>글</div>
+   <div class="netflix-introduction-content" style="width:35em; margin-top:8em;">
+   <h1><strong>즐겨 보는 콘텐츠를 저장해 오프라인으로 시청하세요</strong></h1>
+   <h3>광고 없는 멤버십에서만 이용 가능합니다.</h3>
+   </div>
    </div>
 </div>
 
