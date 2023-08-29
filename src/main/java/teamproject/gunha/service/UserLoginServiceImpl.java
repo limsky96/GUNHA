@@ -32,7 +32,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 
   @Override
   public UserVO loginUser(UserVO userVO) {
-    return userMapper.loginUser(userVO.getUserId(), userVO.getPassword());
+    return userVO;
+    // return userMapper.loginUser(userVO.getUserId(), userVO.getPassword());
   }
 
   @Override
@@ -51,17 +52,35 @@ public class UserLoginServiceImpl implements UserLoginService {
 
   @Override
   @Transactional // insert 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
-  public boolean signupSocial(UserVO userVO){
-    userMapper.updateUser(userVO);
-    
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+  public boolean updateAccount(UserVO userVO){
+    log.info(userVO.toString());
     // Principal 정보 업데이트 (예: 사용자 이름 변경)
-    NetflixUserDetails updatedPrincipal = (NetflixUserDetails) authentication.getPrincipal();
-    updatedPrincipal.setUserVO(userMapper.selectUserId(userVO.getUserId()));
+    NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    UserVO curUser = netflixUserDetails.getUserVO();
+    if(userVO.getUserEmail()==null){
+      userVO.setUserEmail(curUser.getUserEmail());
+    }
+    if(userVO.getPassword()==null || "".equals(userVO.getPassword())){
+      userVO.setPassword(curUser.getPassword());
+    } else{
+      userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
+    }
+    if(userVO.getSocial()==null){
+      userVO.setSocial(curUser.getSocial());
+    }
+    if(userVO.getAuthList()==null){
+      userVO.setAuthList(curUser.getAuthList());
+    }
+    if(userVO.getProfileList()==null){
+      userVO.setProfileList(curUser.getProfileList());
+    }
 
+
+    netflixUserDetails.setUserVO(userVO);
+    userMapper.updateUser(userVO);
     // SecurityContext 업데이트
-    Authentication newAuthentication = new UsernamePasswordAuthenticationToken(updatedPrincipal, authentication.getCredentials(), authentication.getAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails, netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
 
     return true;
   }

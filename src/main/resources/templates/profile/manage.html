@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>templates</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #modalWrap {
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+      display: none;
+    }
+
+    #modalBody {
+      width: 500px;
+      height: 300px;
+      padding: 30px 30px;
+      margin: 0 auto;
+      border: 1px solid #777;
+      background-color: #fff;
+    }
+
+    .modalBody {
+      width: 500px;
+      height: 300px;
+      padding: 30px 30px;
+      margin: 0 auto;
+      border: 1px solid #777;
+      background-color: #fff;
+    }
+    #closeBtn {
+      float: right;
+      font-weight: bold;
+      color: #777;
+      font-size: 25px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <div th:with="loginPage=${/login}"> -->
+  <div sec:authorize="!isAuthenticated()">
+    <div><a th:href="@{/login}"> 로그인</a></div>
+    <div><a href="/sign-up">회원가입</a></div>
+  </div>
+  <!-- </div> -->
+
+
+
+  <div sec:authorize="isAuthenticated()">
+
+    <div class="modalBody">
+      <div th:each="profile: ${user.profileList}" style="display: flex; justify-content: center;">
+        <div class="open-modal" style="display: flex; justify-content: center;"><input type="button" th:value="${profile.profileName}"></div>
+        <div class="modal-wrap">
+          <div class="modal-body">
+            asdas
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width: 500px; height: 500px;">
+
+  </div>
+  </div>
+  <script>
+    const openBtn = document.querySelectorAll(".open-modal");
+    const modal = document.querySelectorAll('.modal-wrap');
+    // const closeBtn = document.getElementById('closeBtn');
+    const modalBody = document.querySelectorAll(".modal-body");
+    openBtn.forEach((e, index)=>{
+      console.log(`element: ${e}, index: ${index}`)
+    })
+    console.log(openBtn);
+    console.log(modal);
+    console.log(modalBody);
+    // openBtn.addEventListener("click", (e) => {
+    //   e.stopPropagation();
+    //   modal.style.display = `block`;
+    // });
+
+    // closeBtn.addEventListener('click', (e) => {
+    //   e.stopPropagation();
+    //   modal.style.display = 'none';
+    // });
+    // window.addEventListener("click", (e) => {
+    //   e.stopPropagation();
+    //   modal.style.display = 'none';
+    // });
+    // modalBody.addEventListener('click', (e) => {
+    //   e.stopPropagation();
+    // });
+  </script>
+</body>
+
+</html>

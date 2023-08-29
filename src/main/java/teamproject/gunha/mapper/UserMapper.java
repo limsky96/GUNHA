@@ -12,10 +12,7 @@ import teamproject.gunha.vo.UserVO;
 @Mapper
 public interface UserMapper {
 
-  UserVO selectUserId(String userId);
-	
-	@Select("select * from netflix_member where member_id = #{userId} and member_password=#{password}")
-  UserVO loginUser(String userId, String password);
+  UserVO selectUserId(String userId); 
 
   @Insert("insert into netflix_member(member_id, member_email, member_password, member_card_number, member_membership_no, member_social )"
     + " values(#{userId}, #{userEmail}, #{password}, #{cardNumber}, #{membershipNo}, #{social})")
@@ -31,4 +28,6 @@ public interface UserMapper {
   @Update("update NETFLIX_MEMBER set member_email=#{userEmail}, member_password=#{password},"
     + " member_card_number=#{cardNumber}, member_membership_no=#{membershipNo} where member_id=#{userId}")
   public void updateUser(UserVO userVO);
+
+
 }

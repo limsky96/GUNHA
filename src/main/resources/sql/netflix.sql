@@ -16,9 +16,9 @@ create table NETFLIX_MEMBER(
 insert into netflix_member values(
     'tatelulove4@naver.com',
     'tatelulove4@naver.com',
-    '$2a$10$7DxPpaKDw/wcVUT0//J.Aen1gkroamLzBhZOMl2YLy8GUIIdZvVTy',
-    null,
-    1,
+    '$2a$10$cZ.aG4niQaxb.HkBgXLrVecmCDeWmQftbfHLjjTzoq1N8aLfoPQE6',
+    '1234-5678-1234-5678',
+    3,
     'none'
 );
 insert into netflix_member values(
@@ -93,6 +93,7 @@ insert into netflix_auth values(
 drop table NETFLIX_MEMBER_PROFILE cascade constraints;
 
 create table NETFLIX_MEMBER_PROFILE(
+    member_profile_no nuumber primary key,
     member_profile_member_id varchar2(60) not null,
     member_profile_name varchar2(50) not null,
     
@@ -100,6 +101,13 @@ create table NETFLIX_MEMBER_PROFILE(
         foreign key (member_profile_member_id) references NETFLIX_MEMBER(member_id)
         on delete cascade
 );
+
+insert into NETFLIX_MEMBER_PROFILE values(
+    'tatelulove4@naver.com',
+    'ADMIN'
+);
+
+
 
 --------------------------------------------------------
 
@@ -282,8 +290,8 @@ commit;
 
 
 
-select * from netflix_member mb, netflix_auth au
-    where mb.member_id = au.auth_member_id and mb.member_id = 'user@example.com';
+select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
+    where mb.member_id = au.auth_member_id and mb.member_id = mp.member_profile_member_id and mb.member_id = 'user@example.com';
 
 select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
     where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao' and mb.member_id = mp.member_profile_member_id;
@@ -300,4 +308,5 @@ select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
 --------------------
 delete from netflix_member where member_id = 'seralove4@gmail.com_google';
 delete from netflix_member where member_email = 'user@example.com';
+delete from netflix_member where member_id = 'tatelulove4@naver.com';
 delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';
