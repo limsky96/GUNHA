@@ -29,5 +29,11 @@ public class MainController {
         return "admins/admin";
     }
 
+    @GetMapping("/regi")
+    public String regi() {
+        log.info("hello()...");
+        return "login/regi";
+    }
+
 
 }

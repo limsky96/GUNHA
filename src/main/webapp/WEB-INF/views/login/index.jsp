@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>원건보다하늘</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/index-style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -50,7 +53,7 @@
    <h1><strong>TV로 즐기세요</strong></h1>
    <h3>스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어등 다양한 디바이스에서 시청하세요.</h3>
    </div>
-   <div class="img"><img src="/images/index-tv.png"></div>
+   <div class="img-fluid"><img src="/images/index-tv.png"></div>
    </div>
 </div>
 
@@ -69,10 +72,38 @@
 </div>
 
 <div class="netflix-qna" >
-   <div class="text-center">
-   <div> <h1><strong>자주묻는 질문</strong></h1></div>
-   <div>질문들</div>
-   </div>
+   <div class="text-center md-2">
+   <h1><strong>자주묻는 질문</strong></h1>
+    <div class="align-self-center wrap ">
+        <div class="panel-group p-3" id="accParent" role="tablist">
+            <!-- 첫번째 아이템 -->
+            <div class="panel panel-default border border-dark">
+            <div class="panel-heading" role="tab"  style="background-color: #646464; font-size:2.5rem; text-align:left; border border-dark">
+                <a role="button" class="text-decoration-none" data-toggle="collapse" data-parent="#accParent" href="#accEx1" aria-constrols="addEx1" style="color:white; margin:5px;">
+                첫번째. 여기를 클릭해 주세요.
+                </a>
+            </div>
+            <div id="accEx1" class="panel-collapse collapse" role="tabpanel">
+                <div class="panel-body"  style="background-color: #505050; color:white; font-size:2rem; text-align:left;">
+                href="#accEx1" 예시 입니다.
+                </div>
+            </div>
+            </div>
+
+            <!-- 두번째 아이템 -->
+            <div class="panel panel-default border border-dark">
+            <div class="panel-heading " role="tab"  style="background-color: #646464; font-size:2.5rem; text-align:left; border border-dark">
+                <a role="button" data-toggle="collapse" data-parent="#accParent" data-target="#accEx2" aria-constrols="addEx2" style="color:white; margin:5px;">
+                두번째. 여기를 클릭해 주세요.
+                </a>
+            </div>
+            <div id="accEx2" class="panel-collapse collapse" role="tabpanel">
+                <div class="panel-body" style="background-color: #505050; color:white; font-size:2rem; text-align:left;">
+                data-target="#accEx2" 예시입니다.
+                </div>
+            </div>
+        </div>
+    </div> <!-- id=accParent -->
 
     <div class="text-center">
         <h4>시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.</h4>
