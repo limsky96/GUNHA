@@ -113,6 +113,7 @@ insert into NETFLIX_MEMBER_PROFILE values(
 );
 
 
+commit;
 
 --------------------------------------------------------
 
