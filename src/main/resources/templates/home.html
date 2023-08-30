@@ -8,10 +8,10 @@
 
 <body>
   <!-- <div th:with="loginPage=${/login}"> -->
-    <div sec:authorize="!isAuthenticated()">
+  <div sec:authorize="!isAuthenticated()">
     <div><a th:href="@{/login}"> 로그인</a></div>
     <div><a href="/sign-up">회원가입</a></div>
-    </div>
+  </div>
   <!-- </div> -->
 
 
@@ -25,6 +25,26 @@
       <button type="submit">logout</button>
     </form>
   </div>
+
+  <!-- 영화 리스트 -->
+  <script>
+    fetch('/api/movies') // UTL로 HTTP요청 보내고 데이터 처리 (GET)
+      .then(response => response.json()) // json 형식으로 변환
+      .then(data => { // 이전 단계에서 변환된 json데이터를 사용하여 실제 영화 목록 처리하고 웹 페이지에 표시
+        const movieList = document.getElementById('movieList'); // HTML문서 내 id가 "movieList"인 요소를 찾아 가져옴
+        data.forEach(movie => { // 가져온 영화 데이터 배열 반복 
+          const movieDiv = document.createElement('div'); // 각 영화를 표시할 새로운 <div>요소 생성. 영화마다 생성되며 영화 정보가 포함
+          movieDiv.innerHTML = ` 
+                    <img src="${movie.posterUrl}" alt="${movie.title}" />
+                    <h2>${movie.title}</h2>
+                    <p>${movie.genre}</p>
+                `; // 생성된 div 안에 영화 정보를 HTML 형식으로 추가. 포스터 이미지, 제목 및 장르 포함. ${} : 템플릿 리터럴을 사용하여 변수값을 문자열에 삽입
+          movieList.appendChild(movieDiv); // 생성된 영화 정보가 포함된 div를 이전에 가져온 movieList요소에 추가. 각 영화 정보가 웹페이지에 표시
+        });
+      })
+      .catch(error => console.error('Error fetching movies:', error)); // 데이터 가져오기나 처리 중 오류가 발생하면 오류를 콘솔에 출력
+  </script>
+
 </body>
 
 </html>
