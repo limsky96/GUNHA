@@ -15,7 +15,6 @@
 /*로그인창*/
 #login-container{
     background-color: black;
-    opacity:0.8;
     width: 450px; 
     height: 600px;
 }

@@ -17,15 +17,16 @@
         <div>
             <p class="fs-2 m-2">로그인</p>
         </div>
+        
         <form>
-            <div class="p-2">
-                <input class="form-control form-control-lg" type="text" placeholder="이메일주소 또는 전화번호" aria-label=".form-control-lg example">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="이메일주소 또는 전화번호">
+                <label for="floatingInput" style="color:black;">이메일주소 또는 전화번호</label>
             </div>
-
-            <div class="p-2">
-                <input class="form-control form-control-lg" type="password" placeholder="비밀번호" aria-label=".form-control-lg example">
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
+                <label for="floatingPassword" style="color:black;"> 비밀번호</label>
             </div>
-
             <div class="col-auto1 pt-4 align-self-center d-grid">
                 <button id="login-button" type="submit" class="btn btn-danger btn-lg ">
                     <strong>로그인</strong>
@@ -52,6 +53,7 @@
             <div> <a href="/" style="color:white;"> <strong>지금 가입하세요</strong></a> </div>
             </div>
         </form>
+
     <div>    
     
    </div>
