@@ -35,8 +35,9 @@ public class MainController {
       log.info("user: " + userEmail);
       model.addAttribute("user", userEmail);
     }
-    return "home";
+    return "index";
   }
+
 
   @GetMapping("/hello")
   @ResponseBody
@@ -50,6 +51,22 @@ public class MainController {
     jsonObject.put("key3", jsonObject2);
     // ResponseEntity를 사용하여 JSON 객체 반환
     return ResponseEntity.ok(jsonObject);
+  }
+
+
+
+  @GetMapping("/home")
+  public String home() {
+      log.info("home()...");
+      return "home";
+  }
+
+
+  @GetMapping("/watch")
+  public String watch(UserVO userVO, Model model) {
+      log.info("watch()...");
+      model.addAttribute("영상Key", userVO);
+      return "watch";
   }
 
 }
