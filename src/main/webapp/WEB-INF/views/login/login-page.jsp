@@ -20,11 +20,11 @@
         
         <form>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="이메일주소 또는 전화번호">
+                <input type="email" class="form-control" id="id" placeholder="이메일주소 또는 전화번호">
                 <label for="floatingInput" style="color:black;">이메일주소 또는 전화번호</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
+                <input type="password" class="form-control" id="password" placeholder="비밀번호">
                 <label for="floatingPassword" style="color:black;"> 비밀번호</label>
             </div>
             <div class="col-auto1 pt-4 align-self-center d-grid">
