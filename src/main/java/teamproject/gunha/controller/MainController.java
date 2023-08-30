@@ -19,7 +19,6 @@ import teamproject.gunha.vo.UserVO;
 
 @Controller
 @Slf4j
-@RequestMapping("/")
 public class MainController {
 
   @Autowired
@@ -38,7 +37,7 @@ public class MainController {
       log.info("user: " + userVO);
       model.addAttribute("user", userVO);
     }
-    return "home";
+          return "login/index";
   }
 
   @GetMapping("/hello")
@@ -54,5 +53,31 @@ public class MainController {
     // ResponseEntity를 사용하여 JSON 객체 반환
     return ResponseEntity.ok(jsonObject);
   }
+
+  @GetMapping("/home")
+  public String home() {
+    log.info("home()...");
+    return "home";
+  }
+
+  @GetMapping("/watch")
+  public String watch(UserVO userVO, Model model) {
+    log.info("watch()...");
+    model.addAttribute("영상Key", userVO);
+    return "watch";
+  }
+
+  @GetMapping("/admins")
+  public String admin() {
+      log.info("hello()...");
+      return "admins/admin";
+  }
+
+  @GetMapping("/regi")
+  public String regi() {
+      log.info("hello()...");
+      return "login/regi";
+  }
+
 
 }
