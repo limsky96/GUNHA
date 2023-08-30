@@ -20,9 +20,11 @@ public class LoginController {
   public UserLoginService userLoginService;
 
   @GetMapping("/login")
-  public String loginPage(Model model) {
-    return "login-page";
+  public String login() {
+      log.info("hello()...");
+      return "login/login-page";
   }
+
 
   @GetMapping("/sign-up")
   public String signUpPage(
@@ -32,10 +34,10 @@ public class LoginController {
       UserVO userVO = netflixUserDetails.getUserVO();
       if("결제정보 없음".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())){
         model.addAttribute("user", userVO);
-        return "sign-up-social";
+        return "login/sign-up-social";
       }
     }
-    return "sign-up";
+    return "login/sign-up";
   }
 
   @PostMapping("/sign-up")
