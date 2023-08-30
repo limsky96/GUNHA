@@ -65,8 +65,12 @@ public class ProfileController {
   public Map<String, Object> deleteProfile(ProfileVO profileVO){
     log.info(profileVO + "");
     Map<String, Object> json = new HashMap<>();
-    if(true){
+    if(profileService.removeProfile(profileVO)){
       json.put("msg", "delete done");
+      json.put("returnedValue", true);
+    }else{
+      json.put("msg", "delete failed");
+      json.put("returnedValue", false);
     }
     return json; 
   }

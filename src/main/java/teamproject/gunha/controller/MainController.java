@@ -30,12 +30,14 @@ public class MainController {
       Model model) {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
+      String profile = netflixUserDetails.getSelectedProfile();
       if (0 == userVO.getMembershipNo()) {
         return "redirect:/sign-up";
       }
 
-      log.info("user: " + userVO);
+      log.info("userDateils: " + netflixUserDetails);
       model.addAttribute("user", userVO);
+      model.addAttribute("selectedProfile", profile);
       return "redirect:/home";
     }
     return "login/index";
