@@ -19,7 +19,6 @@ import teamproject.gunha.vo.UserVO;
 
 @Controller
 @Slf4j
-@RequestMapping("/")
 public class MainController {
 
   @GetMapping("/")
@@ -35,9 +34,8 @@ public class MainController {
       log.info("user: " + userEmail);
       model.addAttribute("user", userEmail);
     }
-    return "index";
+          return "login/index";
   }
-
 
   @GetMapping("/hello")
   @ResponseBody
@@ -53,20 +51,30 @@ public class MainController {
     return ResponseEntity.ok(jsonObject);
   }
 
-
-
   @GetMapping("/home")
   public String home() {
-      log.info("home()...");
-      return "home";
+    log.info("home()...");
+    return "home";
   }
-
 
   @GetMapping("/watch")
   public String watch(UserVO userVO, Model model) {
-      log.info("watch()...");
-      model.addAttribute("영상Key", userVO);
-      return "watch";
+    log.info("watch()...");
+    model.addAttribute("영상Key", userVO);
+    return "watch";
   }
+
+  @GetMapping("/admins")
+  public String admin() {
+      log.info("hello()...");
+      return "admins/admin";
+  }
+
+  @GetMapping("/regi")
+  public String regi() {
+      log.info("hello()...");
+      return "login/regi";
+  }
+
 
 }

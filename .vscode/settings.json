@@ -1,4 +1,3 @@
 {
-  "liveServer.settings.port": 8081,
-  "java.configuration.updateBuildConfiguration": "interactive"
+    "java.compile.nullAnalysis.mode": "automatic"
 }
