@@ -9,8 +9,11 @@
 <script src="/js/jquery/3.6.4/jquery-3.7.0.min.js"></script>
 <script src="https://kit.fontawesome.com/cc89ddadc0.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.css"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <link rel="stylesheet" href="/css/home.css"/>
+
 
 <title>NETFLIX</title>
 </head>
@@ -238,8 +241,62 @@
             <img src="https://source.unsplash.com/224x126/?random" alt="">
           </div>            
         </div>
+
+        <div class="container">
+          <div class="title">슬라이드테스트</div>
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>              
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+              <div class="swiper-slide">
+                <img src="https://source.unsplash.com/224x126/?random" alt="">
+              </div>
+            </div>
+            
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+
+
       </div>  
     </div>
+
+
+
+    
+
 
   <div id="ex1" class="modal">
     <video
@@ -289,4 +346,35 @@
   </div>
 
 </body>
+<script>
+const swiper = new Swiper(".swiper-container", {
+  slidesPerView: 6,
+  slidesPerGroup: 6,
+  centeredSlides: false,
+  loop: false,
+  navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+   breakpoints: {
+      // when window width is >= 800px
+    800: {
+      slidesPerView: 4,
+      slidesPerGroup: 4,
+      spaceBetween: 5,
+      centeredSlides: false
+    },
+     
+     // when window width is >= 1100px
+     1100: {
+       slidesPerView: 6,
+       slidesPerGroup: 6,
+       spaceBetween: 1,
+       centeredSlides: false
+     }
+     
+  }
+});
+
+</script>
 </html>
