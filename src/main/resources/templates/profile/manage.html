@@ -9,7 +9,7 @@
       box-sizing: border-box;
     }
 
-    .modal-wrap {
+    #modal-wrap {
       position: fixed;
       /* Stay in place */
       z-index: 1;
@@ -29,7 +29,7 @@
       display: none;
     }
 
-    .modal-body {
+    #modal-body {
       width: 500px;
       height: 300px;
       padding: 30px 30px;
@@ -74,13 +74,13 @@
         <div class="open-modal" style="display: flex; justify-content: center;">
           <div type="button" th:text="${profile.profileName}" style="width: 100px; height:100px; text-align: center; line-height: 100px;"></div>
         </div>
-        <div class="modal-wrap">
-          <div class="modal-body">
-            <label for="profileName" >프로필명: <input name="profileName" type="text" th:value="${profile.profileName}"/>
-            </label>
-          </div>
-        </div>
       </div>
+      </div>
+      <div id="modal-wrap">
+        <!-- <div id="modal-body">
+          <label for="profileName" >프로필명: </label>
+          <input id="profile-name" name="profileName" type="text" value="profileName"/>
+        </div> -->
       </div>
     </div>
     <div style="width: 500px; height: 500px;">
@@ -89,22 +89,55 @@
   </div>
   <script>
     const openBtn = document.querySelectorAll(".open-modal");
-    const modal = document.querySelectorAll('.modal-wrap');
-    // const closeBtn = document.getElementById('closeBtn');
-    const modalBody = document.querySelectorAll(".modal-body");
+    const modal = document.querySelector('#modal-wrap');
+    // const cancelBtn = document.querySelector('#caancel-btn');
+
+    
     openBtn.forEach((elmnt, index)=>{
-      elmnt.addEventListener("click", e=>{
-        e.stopPropagation();
-        modal[index].style.display='block';
+      elmnt.addEventListener("click", e =>{
+        e.stopPropagation();    
+        modal.style.display='block';
+        const modalBody = document.createElement('form');
+        const profileLabel = document.createElement('label');
+        const profileName = document.createElement("input");
+        const cancelBtn = document.createElement('input');
+        
+        modalBody.setAttribute('id', 'modal-body');
+        
+        profileLabel.setAttribute('for', 'profileName');
+        profileLabel.textContent = "프로필명: ";
+        
+        profileName.setAttribute('id', "profile-name");
+        profileName.setAttribute('name', "profileName");
+        profileName.setAttribute("value", elmnt.innerText);
+        
+        cancelBtn.setAttribute('type','button');
+        cancelBtn.setAttribute('id', '#caancel-btn');
+        cancelBtn.setAttribute('value', '취소');
+
+        cancelBtn.addEventListener("click", (e)=>{
+          e.stopPropagation();
+          modal.style.display = 'none';
+          const modalBody = document.querySelector('#modal-body');
+          modalBody.remove();
+        })
+
+        modal.append(modalBody);
+        modalBody.append(profileLabel, profileName,cancelBtn);
+        modalBody.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
       });
-      window.addEventListener("click", (e) => {
-        e.stopPropagation();
-        modal[index].style.display = 'none';
-      });
-      modalBody[index].addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
+      
+
     })
+    window.addEventListener("click", (e) => {
+        e.stopPropagation();
+        modal.style.display = 'none';
+        const modalBody = document.querySelector('#modal-body');
+        modalBody.remove();
+      });
+    
     console.log(openBtn);
     console.log(modal);
     console.log(modalBody);
