@@ -1,6 +1,10 @@
-package teamproject.gunha.model;
+package teamproject.gunha.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,10 +12,10 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Data
-@Entity
-public class Movie {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class MovieVO {
     private Long movieId;
     private String movieName;
     private String movieContent;
