@@ -113,11 +113,17 @@ video {
     width : 34px;
     height : 34px;
 }
+
+.category-title {
+    padding: 0 0 0 20px;
+    font-size: 1.4vw;
+    color: white;
+}
 .category-list {
     position: absolute;
     width: clac(100% - 50px);
-    top: 700px;
-    left: 50px;
+    top: 550px;
+    /* left: 50px; */
 }
 .category .title {
     font-size: 18px;
@@ -151,11 +157,24 @@ video {
   
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-body {
+body {    
     overflow-x: hidden;
   } 
+
+  .swiper-button-next {
+    right: 0;
+    
+    
+  }
+  .swiper-button-prev {
+    left: 0;
+    
+  }
+
   .container {
     margin-top: 2rem;
+    width: 1400px;
+    position: relative;
   }
   
   .swiper-container {
@@ -167,17 +186,16 @@ body {
   }
   
   .swiper-slide {
-    padding: 0.2px;
+    padding: 2px;
     transition: all 300ms ease-in-out;
     border-radius: 5px;
   }
   
   .swiper-slide img {
     border-radius: 5px;
-    max-width: 18rem;
+    /* max-width: 18rem; */
     cursor: grab;
-    /* width: 225px;
-    height: 126px; */
+
   }
   
   .swiper-slide img:active {
