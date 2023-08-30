@@ -30,14 +30,15 @@ public class MainController {
       Model model) {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
-      if ("0".equals(userVO.getMembershipNo())) {
+      if (0 == userVO.getMembershipNo()) {
         return "redirect:/sign-up";
       }
-      
+
       log.info("user: " + userVO);
       model.addAttribute("user", userVO);
+      return "redirect:/home";
     }
-          return "login/index";
+    return "login/index";
   }
 
   @GetMapping("/hello")
@@ -55,8 +56,15 @@ public class MainController {
   }
 
   @GetMapping("/home")
-  public String home() {
-    log.info("home()...");
+  public String home(
+      @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
+      Model model) {
+    if (netflixUserDetails == null) {
+      return "redirect:/login";
+    }
+    UserVO userVO = netflixUserDetails.getUserVO();
+    log.info("user: " + userVO);
+    model.addAttribute("user", userVO);
     return "home";
   }
 
@@ -69,15 +77,14 @@ public class MainController {
 
   @GetMapping("/admins")
   public String admin() {
-      log.info("hello()...");
-      return "admins/admin";
+    log.info("hello()...");
+    return "admins/admin";
   }
 
   @GetMapping("/regi")
   public String regi() {
-      log.info("hello()...");
-      return "login/regi";
+    log.info("hello()...");
+    return "login/regi";
   }
-
 
 }

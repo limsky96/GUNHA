@@ -19,7 +19,6 @@ import teamproject.gunha.security.config.auth.KakaoUserInfo;
 import teamproject.gunha.security.config.auth.NaverUserInfo;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.security.config.auth.OAuth2UserInfo;
-import teamproject.gunha.security.vo.KakaoProfile.KakaoAccount.Profile;
 import teamproject.gunha.vo.AuthVO;
 import teamproject.gunha.vo.ProfileVO;
 import teamproject.gunha.vo.UserVO;
