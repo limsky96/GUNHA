@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamproject.gunha.mapper.MovieMapper">
+<select id="findMovieList" resultMap="movieMap">
+  select * from NETFLIX_MOVIE
+</select>
+<resultMap id="movieMap" type="teamproject.gunha.vo.MovieVO">
+  <result property="movieId" column="movie_id" />
+  <result property="movieName" column="movie_name" />
+  <result property="movieGenre" column="movie_genre" />
+  <result property="movieCast" column="movie_cast" />
+  <result property="movieReleaseDate" column="movie_release_date" />
+  <result property="movieFavorite" column="movie_favorite" />
+</resultMap>
+
+<!-- <resultMap id="userMap" type="edu.global.demo.vo.UserVO">
+  <constructor>
+    <idArg column="member_id" javaType="java.lang.String" />
+    <arg column="member_email" javaType="java.lang.String" />
+    <arg column="member_password" javaType="java.lang.String" />
+    <arg column="member_card_number" javaType="java.lang.String" />
+    <arg column="member_membership_no" javaType="int" />
+    <arg column="member_social" javaType="java.lang.String" />
+  </constructor>
+  <collection property="authList" resultMap="authMap"></collection>
+</resultMap> -->
+
+
+
+<resultMap id="authMap" type="teamproject.gunha.vo.AuthVO">
+ <result property="userId" column="auth_member_id"/>
+ <result property="authority" column="auth_member_authority"/>
+</resultMap>
+
+<resultMap id="profileMap" type="teamproject.gunha.vo.ProfileVO">
+  <result property="userId" column="member_profile_member_id"/>
+  <result property="profileName" column="member_profile_name"/>
+</resultMap>
+
+</mapper>
