@@ -12,23 +12,19 @@ import teamproject.gunha.vo.UserVO;
 @Mapper
 public interface UserMapper {
 
-  UserVO selectUserId(String userId);
-	
-	@Select("select * from netflix_member where member_id = #{userId} and member_password=#{password}")
-  UserVO loginUser(String userId, String password);
+  UserVO selectUserId(String userId); 
 
-  @Insert("insert into netflix_member(member_id, member_email, member_password, member_card_number, member_membership_no, member_social )"
-    + " values(#{userId}, #{userEmail}, #{password}, #{cardNumber}, #{membershipNo}, #{social})")
+  @Insert("insert into NETFLIX_MEMBER(member_id, member_email, member_password, member_card_number, member_membership_no, member_social) "
+        + "values(#{userId}, #{userEmail}, #{password}, #{cardNumber}, #{membershipNo}, #{social})")
   public int insertUser(UserVO userVO);
 
-  @Insert("insert into netflix_auth (auth_member_id, auth_member_authority) values(#{userId},'ROLE_USER')")
-  public void insertAuthorities(UserVO userVO);
-
-  @Insert("insert into NETFLIX_MEMBER_PROFILE(member_profile_member_id, member_profile_name) values(#{userId}, #{profileName})")
-  public void insertProfile(ProfileVO profileVO);
+  @Insert("insert into NETFLIX_AUTH(auth_member_id, auth_member_authority) values(#{userId},'ROLE_USER')")
+  public int insertAuthorities(UserVO userVO);
 
 
-  @Update("update NETFLIX_MEMBER set member_email=#{userEmail}, member_password=#{password},"
-    + " member_card_number=#{cardNumber}, member_membership_no=#{membershipNo} where member_id=#{userId}")
-  public void updateUser(UserVO userVO);
+  @Update("update NETFLIX_MEMBER set member_email=#{userEmail}, member_password=#{password}, "
+        + "member_card_number=#{cardNumber}, member_membership_no=#{membershipNo} where member_id=#{userId}")
+  public int updateUser(UserVO userVO);
+
+
 }

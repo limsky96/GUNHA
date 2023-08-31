@@ -7,5 +7,5 @@ public interface UserLoginService {
   UserVO getUser(String userId);
   UserVO loginUser(UserVO userVO);
   boolean createAccount(UserVO userVO);
-  boolean signupSocial(UserVO userVO);
+  boolean updateAccount(UserVO userVO);
 }
