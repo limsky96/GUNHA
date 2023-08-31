@@ -12,7 +12,7 @@
     position: relative;
     color: #fff;
 }
-
+/*맨위 이메일 주소 넣는 칸*/
 .content-introduction {
     position: absolute;
     top: 50%;
@@ -40,9 +40,11 @@
 }
 
 .col-auto {
-    width: 70%;
+    width: 70%; 
 }
 
+
+/*멤버십 설명*/
 .main-bnr{
     flex-direction: column;
     background: radial-gradient( 51.39% 511.66% at 47.68% -217.91%, #ff9900 0%, #e50914 17.27%, #0e1b4f 79.44%, #000413 100% );
@@ -51,6 +53,7 @@
     height: 18vh;
 }
 
+/*넷플 설명*/
 .netflix-intro1 {
     width: 100%;
     height: 500px;
