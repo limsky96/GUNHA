@@ -93,14 +93,18 @@ insert into netflix_auth values(
 drop table NETFLIX_MEMBER_PROFILE cascade constraints;
 
 create table NETFLIX_MEMBER_PROFILE(
-    member_profile_no nuumber primary key,
     member_profile_member_id varchar2(60) not null,
     member_profile_name varchar2(50) not null,
     
     constraint fk_member_profile_member_id
         foreign key (member_profile_member_id) references NETFLIX_MEMBER(member_id)
-        on delete cascade
+        on delete cascade,
+    constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name)
 );
+
+alter table NETFLIX_MEMBER
+add constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name);
+
 
 insert into NETFLIX_MEMBER_PROFILE values(
     'tatelulove4@naver.com',
@@ -699,8 +703,10 @@ select * from netflix_social;
 
 commit;
 
+delete from netflix_member_profile where member_profile_member_id = 'tatelulove4@naver.com_kakao';
 
-
+insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트1');
+insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트2');
 
 
 select * from netflix_member mb, netflix_auth au, netflix_member_profile mp

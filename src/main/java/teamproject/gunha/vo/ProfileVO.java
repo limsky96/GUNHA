@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProfileVO {
   private String userId;
+  private String originName;
   private String profileName;
 }

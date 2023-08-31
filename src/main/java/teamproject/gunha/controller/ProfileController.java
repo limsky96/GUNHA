@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,13 +48,38 @@ public class ProfileController {
     return "profile/manage";
   }
 
-  @PatchMapping("/update")
+  @PostMapping("/create")
   @ResponseBody
-  public Map<String, Object> updateProfile(ProfileVO profileVO){
+  public Map<String, Object> createProfile(
+    ProfileVO profileVO){
     log.info(profileVO + "");
     Map<String, Object> json = new HashMap<>();
-    if(true){
-      json.put("msg", "delete done");
+    if(profileService.createProfile(profileVO)){
+      json.put("msg", "create done");
+      json.put("redirectPage", "/profile/manage");
+      json.put("returnedValue", true);
+    }else{
+      json.put("msg", "update failed");
+      json.put("returnedValue", false);
+    }
+    return json;
+  } 
+
+
+  
+  @PatchMapping("/update")
+  @ResponseBody
+  public Map<String, Object> updateProfile(
+    ProfileVO profileVO){
+    log.info(profileVO + "");
+    Map<String, Object> json = new HashMap<>();
+    if(profileService.updateProfile(profileVO)){
+      json.put("msg", "update done");
+      json.put("redirectPage", "/profile/manage");
+      json.put("returnedValue", true);
+    }else{
+      json.put("msg", "update failed");
+      json.put("returnedValue", false);
     }
     return json;
   } 
@@ -67,6 +93,7 @@ public class ProfileController {
     Map<String, Object> json = new HashMap<>();
     if(profileService.removeProfile(profileVO)){
       json.put("msg", "delete done");
+      json.put("redirectPage", "/profile/manage");
       json.put("returnedValue", true);
     }else{
       json.put("msg", "delete failed");

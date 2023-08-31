@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.mapper.ProfileMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.GoogleUserInfo;
 import teamproject.gunha.security.config.auth.KakaoUserInfo;
@@ -32,6 +33,9 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
   @Autowired
   private UserMapper userMapper;
+
+  @Autowired
+  private ProfileMapper profileMapper;
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -92,7 +96,7 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
       log.info("builded profileVO : " + profileVO);
       userMapper.insertUser(userVO);
       userMapper.insertAuthorities(userVO);
-      userMapper.insertProfile(profileVO);
+      profileMapper.insertProfile(profileVO);
     }
     log.info(new NetflixUserDetails(userVO).toString());
     return new NetflixUserDetails(userVO);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.mapper.ProfileMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.vo.ProfileVO;
@@ -21,6 +22,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 
   @Autowired
   private UserMapper userMapper;
+
+  @Autowired
+  private ProfileMapper profileMapper;
 
   @Autowired
   private BCryptPasswordEncoder passwordEncoder;
@@ -42,11 +46,13 @@ public class UserLoginServiceImpl implements UserLoginService {
     userVO.setUserEmail(userVO.getUserId());
     userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
     userVO.setSocial("none");
-    ProfileVO defaultProfile = new ProfileVO(userVO.getUserId(), "테스트");
+    ProfileVO defaultProfile = ProfileVO.builder()
+        .userId(userVO.getUserId())
+        .profileName("테스트")
+        .build();
     userMapper.insertUser(userVO);
     userMapper.insertAuthorities(userVO);
-    userMapper.insertProfile(defaultProfile);
-
+    profileMapper.insertProfile(defaultProfile);
     return true;
   }
 
