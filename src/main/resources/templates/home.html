@@ -26,23 +26,76 @@
     </form>
   </div>
 
+  <!-- 영화 리스트 + 지울까말까  ==== > 이거 쓰면 스파이패밀리보다 위에 나옴 
+  <div id="movieList"></div> 영화 목록이 표시되는 부분 -->
+
   <!-- 영화 리스트 -->
   <script>
     fetch('/api/movies') // UTL로 HTTP요청 보내고 데이터 처리 (GET)
       .then(response => response.json()) // json 형식으로 변환
       .then(data => { // 이전 단계에서 변환된 json데이터를 사용하여 실제 영화 목록 처리하고 웹 페이지에 표시
+        console.log(data);
         const movieList = document.getElementById('movieList'); // HTML문서 내 id가 "movieList"인 요소를 찾아 가져옴
         data.forEach(movie => { // 가져온 영화 데이터 배열 반복 
           const movieDiv = document.createElement('div'); // 각 영화를 표시할 새로운 <div>요소 생성. 영화마다 생성되며 영화 정보가 포함
           movieDiv.innerHTML = ` 
-                    <img src="${movie.posterUrl}" alt="${movie.title}" />
-                    <h2>${movie.title}</h2>
+                    <img src="${movie.posterUrl}" alt="${movie.name}" />
+                    <h2>${movie.name}</h2>
                     <p>${movie.genre}</p>
                 `; // 생성된 div 안에 영화 정보를 HTML 형식으로 추가. 포스터 이미지, 제목 및 장르 포함. ${} : 템플릿 리터럴을 사용하여 변수값을 문자열에 삽입
           movieList.appendChild(movieDiv); // 생성된 영화 정보가 포함된 div를 이전에 가져온 movieList요소에 추가. 각 영화 정보가 웹페이지에 표시
         });
       })
       .catch(error => console.error('Error fetching movies:', error)); // 데이터 가져오기나 처리 중 오류가 발생하면 오류를 콘솔에 출력
+
+    // 영화 정보 추가 Create
+    function addMovie(newMovie) { // 영화 정보 받아와 서버에 추가 -> newMovie 새로 추가될 영화 정보
+      fetch('/api/movies', {  // 새로운 영화 정보를 추가하기 위해 api 엔드포인트로 요청 보냄
+        method: 'POST', // 서버 측에 새로운 데이터 생성
+        headers: { // 요청의 헤더에 json형식의 데이터 전송함 
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newMovie) // newMovie 객체를 json형식으로 변환하여 전송~ 
+      })
+        .then(response => response.json()) // 서버로부터 받은 응답을 json으로 파싱
+        .then(movie => { // 파싱된 json 데이터를 이용하여, 추가된 영화 정보를 웹 페이지에 랜더링하는 renderMovie함수 호출 
+          renderMovie(movie);
+        })
+        .catch(error => console.error('Error adding movie:', error)); // 오류 콘솔로
+    }
+
+
+
+    //영화 정보 수정 update 
+    function updateMovie(id, updatedMovie) { // 특정 영화 정보 업데이트 
+      fetch(`/api/movies/${id}`, { // %{id} 고유 식별자를 나타내어 특정 영화 정보 업데이트 엔드포인트로..
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedMovie)
+      })
+        .then(response => response.json())
+        .then(movie => {  // 업데이트된 영화 정보를 화면에 반영하는 코드 
+        })
+        .catch(error => console.error('Error updating movie:', error));
+    }
+
+    // 영화 정보 삭제 delete
+    function deleteMovie(id) { // 삭제 ~ 
+      fetch(`/api/movies/${id}`, { // 지정된 id를 사용하여 해당 영화의 삭제 요청을 서버에 
+        method: 'DELETE'
+      })
+        .then(response => { // 서버로부터 응답받은 후에 처리하는 콜백 함수 
+          if (response.status === 204) { // 응답 상태 코드가 204인 경우 처리 진행 !
+            const movieElement = document.querySelector(`[data-movie-id="${id}"]`); // 삭제된 영화의 고유 식별자 id를 가진 영화 엘리먼트를 html에서 찾음. (data-moive-id속성이 id와 일치)
+            if (movieElement) { // 삭제할 영화의 엘리먼트를 찾았다면 해당 엘리먼트 삭제 -> UI에서도 제거 
+              movieElement.remove();
+            }
+          }
+        })
+        .catch(error => console.error('Error deleting movie:', error));
+    }
   </script>
 
 </body>
@@ -54,13 +107,14 @@
   <script src="https://kit.fontawesome.com/cc89ddadc0.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js"></script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.css"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
   <link rel="stylesheet" href="/css/home.css" />
 
 
   <title>NETFLIX</title>
 </head>
+
 <script>
 
   $(document).ready(function () {
@@ -387,6 +441,9 @@
   </div>
 
 </body>
+
+
+
 <script>
   const swiper = new Swiper(".swiper-container", {
     slidesPerView: 6,
@@ -416,22 +473,6 @@
 
     }
   });
-  fetch('/api/movies') // UTL로 HTTP요청 보내고 데이터 처리 (GET)
-    .then(response => response.json()) // json 형식으로 변환
-    .then(data => { // 이전 단계에서 변환된 json데이터를 사용하여 실제 영화 목록 처리하고 웹 페이지에 표시
-      console.log(data);
-      const movieList = document.getElementById('movieList'); // HTML문서 내 id가 "movieList"인 요소를 찾아 가져옴
-      data.forEach(movie => { // 가져온 영화 데이터 배열 반복 
-        const movieDiv = document.createElement('div'); // 각 영화를 표시할 새로운 <div>요소 생성. 영화마다 생성되며 영화 정보가 포함
-        movieDiv.innerHTML = ` 
-                    <img src="${movie.posterUrl}" alt="${movie.title}" />
-                    <h2>${movie.title}</h2>
-                    <p>${movie.genre}</p>
-                `; // 생성된 div 안에 영화 정보를 HTML 형식으로 추가. 포스터 이미지, 제목 및 장르 포함. ${} : 템플릿 리터럴을 사용하여 변수값을 문자열에 삽입
-        movieList.appendChild(movieDiv); // 생성된 영화 정보가 포함된 div를 이전에 가져온 movieList요소에 추가. 각 영화 정보가 웹페이지에 표시
-      });
-    })
-    .catch(error => console.error('Error fetching movies:', error)); // 데이터 가져오기나 처리 중 오류가 발생하면 오류를 콘솔에 출력
 </script>
 
 </html>
