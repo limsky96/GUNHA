@@ -7,8 +7,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
+
+
 </head>
 <body>
-asdklfjlasldkjalcjkasdjk
+
+
+ <header><jsp:include page="header.jsp"></jsp:include></header>
+
+
+
 </body>
 </html>
