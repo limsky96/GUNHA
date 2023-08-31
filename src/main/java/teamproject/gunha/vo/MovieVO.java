@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 @Data
@@ -18,4 +19,7 @@ public class MovieVO {
     private String movieCast;
     private Date movieReleaseDate;
     private boolean movieFavorite;
-}
+    
+    public void updateFrom(MovieVO updatedMovie) {
+        }
+    }
