@@ -19,4 +19,7 @@ public class MovieVO {
     private String movieCast;
     private Date movieReleaseDate;
     private boolean movieFavorite;
-}
+    
+    public void updateFrom(MovieVO updatedMovie) {
+        }
+    }
