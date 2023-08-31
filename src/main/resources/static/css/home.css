@@ -4,6 +4,7 @@
 body {
     background-color: rgb(20, 20, 20);
     margin: 0;
+    overflow-x: hidden;
 }
 .modal {
     background-color: rgb(20, 20, 20);
@@ -154,12 +155,6 @@ video {
     --swiper-theme-color: #e5e5e5 !important;
   }
   
-  
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-
-body {    
-    overflow-x: hidden;
-  } 
 
   .swiper-button-next {
     right: 0;
@@ -215,5 +210,85 @@ body {
   }
   
 
+/*  
 
+  
+  .image{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+   transition: all 0.3s ease-in-out;
+     z-index: 20;
+  
+    box-shadow: 10px 10px 53px 0px rgba(0,0,0,0.49);
+    
+  } */
+  .card-wrapper{
+    position: relative;
+    width: 400px;
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+      .image{
+         filter: blur(1.4px);
+         transform: scale(1.5);
+         overflow: hidden;
+         transition: all 0.3s linear;
+         box-shadow: inset -6px -1px 32px 0px rgba(0,0,0,0.75);
+      }
+      .card-bottom{
+         transform: translate(0%, -50%);
+         transition: all 0.8s ease;
+         background-color:rgba(110, 122, 92, 0.7);
+      }
+    }
+    box-shadow: 10px 10px 53px 0px rgba(0,0,0,0.49);
+  }
+  
+  .card-top{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .card-bottom{
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+    display: nonee;
+    top: 50%;
+    background-color:rgba(110, 122, 92, 0);
+    padding: 100px 20px;
+    color: #ffffff;
+    transform: translate(100%, -50%);
+  }
+  
+  .top-text{
+    font-size: 25px;
+    line-height: 40px;
+    font-weight: bold;
+    letter-spacing: 1px
+  }
+  
+  .bottom-text{
+   font-size: 15px;
+   
+  }
+  
+  
+  .button{
+    position: relative;
+    display: block;
+    outline: none;
+    cursor: pointer;
+    margin-top: 25px;
+    border: none;
+    border-radius: 3px;
+    background-color: #f8961e;
+    color: #ffffff;
+    padding: 5px 20px
+  }
   
