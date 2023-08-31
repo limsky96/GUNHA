@@ -34,7 +34,7 @@ public class MainController {
       log.info("user: " + userEmail);
       model.addAttribute("user", userEmail);
     }
-          return "login/index";
+    return "login/index";
   }
 
   @GetMapping("/hello")
@@ -52,8 +52,16 @@ public class MainController {
   }
 
   @GetMapping("/home")
-  public String home() {
+  public String home(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
+      Model model) {
     log.info("home()...");
+    if (netflixUserDetails != null) {
+      UserVO userVO = netflixUserDetails.getUserVO();
+
+      String userEmail = userVO.getUserEmail();
+      log.info("user: " + userEmail);
+      model.addAttribute("user", userEmail);
+    }
     return "home";
   }
 
@@ -66,15 +74,14 @@ public class MainController {
 
   @GetMapping("/admins")
   public String admin() {
-      log.info("hello()...");
-      return "admins/admin";
+    log.info("hello()...");
+    return "admins/admin";
   }
 
   @GetMapping("/regi")
   public String regi() {
-      log.info("hello()...");
-      return "login/regi";
+    log.info("hello()...");
+    return "login/regi";
   }
-
 
 }
