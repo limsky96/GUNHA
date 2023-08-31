@@ -63,48 +63,95 @@
 </head>
 <script>
 
-  $(document).ready(function () {
-    fnInit();
-  });
-
-  function fnInit() {
-
-    //임시 TITLE 증가값
-    var isLoading = false; //새 콘텐츠 로딩여부 추적
-    var count = 1;
-    //무한스크롤 START
-    //DOCUMENT 스크롤 이벤트 감지
-    $(document).scroll(function () {
-      //문서전체 높이값
-      var maxHeight = $(document).height();
-      //현재 스크롤 위치
-      var currentScroll = $(window).scrollTop() + $(window).height();
-
-      if (maxHeight <= currentScroll + 50 && !isLoading) {
-        isLoading = true;
-        //무한스크롤 END
-        //화면에 추가로 보여줄 요소 생성 (AJAX) START
-        //category Class내에 추가시킬 html소스 생성 위한 String 변수
-        setTimeout(function () {
+$(document).ready(function() {
+      fnInit();  
+    });
+  
+    function fnInit(){
+      
+      //임시 TITLE 증가값
+      var isLoading = false; //새 콘텐츠 로딩여부 추적
+      var count = 1;
+      //무한스크롤 START
+      //DOCUMENT 스크롤 이벤트 감지
+      $(document).scroll(function(){
+        //문서전체 높이값
+        var maxHeight = $(document).height();
+        //현재 스크롤 위치
+        var currentScroll = $(window).scrollTop() + $(window).height();
+  
+        if (maxHeight <= currentScroll + 50 && !isLoading) {
+          isLoading = true;
+          //무한스크롤 END
+          //화면에 추가로 보여줄 요소 생성 (AJAX) START
+          //category Class내에 추가시킬 html소스 생성 위한 String 변수
+          setTimeout(function() {
           var htmlText = "";
-          for (var i = 0; i < 3; i++) {
-            htmlText += '<div class="title" class="fstScl">스크롤컨텐츠' + count + '</div>';
-            htmlText += '<div class="list" class="fstScl">';
-            htmlText += '<div class="movie">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="movie">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '</div>';
+          var byunsuArr = [];
+          for(var i=0; i<3; i++){
+            byunsuArr.push("byunsu"+count);
+            htmlText+='<div class="container">';
+            htmlText+=  '<div class="category-title">지금뜨는컨텐츠'+count+'</div>';
+            htmlText+=  '<div class="swiper-container byunsu'+count+'Container">';
+            htmlText+=  '<div class="swiper-wrapper">';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+=  '<div class="swiper-slide">';
+            htmlText+=    '<img src="https://source.unsplash.com/224x126/?random" alt="">';
+            htmlText+=  '</div>';
+            htmlText+='</div>';
+            htmlText+='</div>';
+            htmlText+='<div class="swiper-button-next byunsu'+count+'Next"></div>';
+            htmlText+='<div class="swiper-button-prev byunsu'+count+'Prev"></div>';
+            htmlText+='</div>';
+
             count++;
+            
           }
           $("#category").append(htmlText);
+
+          //여기서 스와이프 변수 선언이 되야함
+          for(var i=0; i<byunsuArr.length; i++){
+            eval(
+              "const swiper"+byunsuArr[i]+"= new Swiper('."+byunsuArr[i]+"Container', {slidesPerView: 6, slidesPerGroup: 6, centeredSlides: false, loop: false, navigation: { nextEl: '."+byunsuArr[i]+"Next', prevEl: '."+byunsuArr[i]+"Prev',}})"
+            );
+          }
           isLoading = false; // 로딩 상태 초기화
-        }, 2000); //2초 딜레이 지정
-
-        //화면에 추가로 보여줄 요소 생성 (AJAX) END
-
+          }, 2000); //2초 딜레이 지정
+  
+          //화면에 추가로 보여줄 요소 생성 (AJAX) END
+              
         //ajax 대충예시 START
         /*ajax.success(result){
           var titleList = result.titleList;
@@ -217,7 +264,7 @@
         <div class="category" id="category">
           <div class="container">
             <div class="category-title">지금뜨는컨텐츠</div>
-            <div class="swiper-container">
+            <div class="swiper-container hotContainer">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
                   <img src="https://source.unsplash.com/224x126/?random" alt="">
@@ -259,13 +306,13 @@
               
               
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next hotNext"></div>
+            <div class="swiper-button-prev hotPrev"></div>
           </div>
   
           <div class="container">
             <div class="category-title">시청중인컨텐츠</div>
-            <div class="swiper-container">
+            <div class="swiper-container ingContainer">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
                   <img src="https://source.unsplash.com/224x126/?random" alt="">
@@ -307,13 +354,13 @@
               
               
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next ingNext"></div>
+            <div class="swiper-button-prev ingPrev"></div>
           </div>
   
           <div class="container">
             <div class="category-title">찜한컨텐츠</div>
-            <div class="swiper-container">
+            <div class="swiper-container zzimContainer">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
                   <img src="https://source.unsplash.com/224x126/?random" alt="">
@@ -355,13 +402,13 @@
               
               
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next zzimNext"></div>
+            <div class="swiper-button-prev zzimPrev"></div>
           </div>
   
           <div class="container">
             <div class="category-title">슬라이드테스트</div>
-            <div class="swiper-container">
+            <div class="swiper-container slideContainer">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
                   <img src="https://source.unsplash.com/224x126/?random" alt="">
@@ -403,8 +450,8 @@
               
               
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next slideNext"></div>
+            <div class="swiper-button-prev slidePrev"></div>
           </div>
   
   
@@ -462,14 +509,58 @@
 
 </body>
 <script>
-  const swiper = new Swiper(".swiper-container", {
+  const swiper = new Swiper(".hotContainer", {
     slidesPerView: 6,
     slidesPerGroup: 6,
     centeredSlides: false,
     loop: false,
     navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: '.hotNext',
+          prevEl: '.hotPrev',
+        },
+    breakpoints: {
+      // 화면의 넓이가 320px 이상일 때
+      320: {
+        slidesPerView: 6,
+        slidesPerGroup: 6,
+      },
+      // 화면의 넓이가 640px 이상일 때
+      640: {
+        slidesPerView: 6,
+        slidesPerGroup: 6,
+      }
+    }});
+
+    const swiper2 = new Swiper(".ingContainer", {
+    slidesPerView: 6,
+    slidesPerGroup: 6,
+    centeredSlides: false,
+    loop: false,
+    navigation: {
+          nextEl: '.ingNext',
+          prevEl: '.ingPrev',
+        }
+    });
+
+    const swiper3 = new Swiper(".zzimContainer", {
+    slidesPerView: 6,
+    slidesPerGroup: 6,
+    centeredSlides: false,
+    loop: false,
+    navigation: {
+          nextEl: '.zzimNext',
+          prevEl: '.zzimPrev',
+        }
+    });
+
+    const swiper4 = new Swiper(".slideContainer", {
+    slidesPerView: 6,
+    slidesPerGroup: 6,
+    centeredSlides: false,
+    loop: false,
+    navigation: {
+          nextEl: '.slideNext',
+          prevEl: '.slidePrev',
         }
     //  breakpoints: {
     //   700: {
