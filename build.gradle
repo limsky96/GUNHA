@@ -66,7 +66,7 @@ dependencies {
   // implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
   // implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4', version: '1.16'
   
-  testAnnotationProcessor('org.projectlombok:lombok')
+  // testAnnotationProcessor('org.projectlombok:lombok')
 
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <!-- default header name is X-CSRF-TOKEN -->
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <!-- ... -->
+  <title>templates</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #modal-wrap {
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+      display: none;
+    }
+
+    #modal-body {
+      width: 500px;
+      height: 300px;
+      padding: 30px 30px;
+      margin: 0 auto;
+      border: 1px solid #777;
+      background-color: #fff;
+    }
+
+    .modalBody {
+      width: 500px;
+      height: 300px;
+      padding: 30px 30px;
+      margin: 0 auto;
+      border: 1px solid #777;
+      background-color: #fff;
+    }
+
+    #closeBtn {
+      float: right;
+      font-weight: bold;
+      color: #777;
+      font-size: 25px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <div th:with="loginPage=${/login}"> -->
+  <div sec:authorize="!isAuthenticated()">
+    <div><a th:href="@{/login}"> 로그인</a></div>
+    <div><a href="/sign-up">회원가입</a></div>
+  </div>
+  <!-- </div> -->
+
+
+
+  <div sec:authorize="isAuthenticated()">
+
+    <div class="modalBody">
+      <div class="profile-container" style="display: flex; justify-content: center;">
+        <div id="user-id" style="display: none;" th:text="${user.userId}"></div>
+        <div th:each="profile: ${user.profileList}">
+          <div class="open-modal" style="display: flex; justify-content: center;">
+            <div type="button" th:text="${profile.profileName}"
+              style="width: 100px; height:100px; text-align: center; line-height: 100px;"></div>
+          </div>
+        </div>
+        <div id="add-profile" style="width:100px; height:100px; text-align:center; font-size:30px; line-height: 100px;">
+          +</div>
+      </div>
+      <div id="modal-wrap">
+        <!-- <div id="modal-body">
+          <label for="profileName" >프로필명: </label>
+          <input id="profile-name" name="profileName" type="text" value="profileName"/>
+        </div> -->
+      </div>
+    </div>
+    <div style="width: 500px; height: 500px;">
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const openBtn = document.querySelectorAll(".open-modal");
+    const addBtn = document.querySelector('#add-profile');
+    const modal = document.querySelector('#modal-wrap');
+    // const cancelBtn = document.querySelector('#caancel-btn');
+    function closeProfileModal(e) {
+
+    }
+
+    openBtn.forEach(elmnt => {
+      elmnt.addEventListener("click", e => {
+        e.stopPropagation();
+        modal.style.display = 'block';
+        const modalForm = document.createElement('div');
+        const profileLabel = document.createElement('label');
+        const profileName = document.createElement("input");
+        const cancelBtn = document.createElement('input');
+        const deleteBtn = document.createElement('input');
+        const confirmBtn = document.createElement('input');
+
+        modalForm.setAttribute('id', 'modal-body');
+
+        profileLabel.setAttribute('for', 'profileName');
+        profileLabel.textContent = "프로필명: ";
+
+        profileName.setAttribute('id', "profile-name");
+        profileName.setAttribute('name', "profileName");
+        profileName.setAttribute("value", elmnt.innerText);
+
+        cancelBtn.setAttribute('type', 'button');
+        cancelBtn.setAttribute('id', '#caancel-btn');
+        cancelBtn.setAttribute('value', '취소');
+
+        cancelBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          modal.style.display = 'none';
+          const modalBody = document.querySelector('#modal-body');
+          modalBody.remove();
+        })
+
+        modal.append(modalForm);
+        modalForm.append(profileLabel, profileName, cancelBtn);
+        modalForm.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+
+        deleteBtn.setAttribute('id', 'delete-btn');
+        deleteBtn.setAttribute('type', 'button');
+        deleteBtn.setAttribute('value', '프로필삭제');
+        deleteBtn.addEventListener('click', async e => {
+          e.stopPropagation();
+          const { returnedValue, redirectPage } = await deleteProfile(profileName.value);
+          console.log(returnedValue)
+          if (returnedValue) {
+            modal.style.display = 'none';
+            const modalBody = document.querySelector('#modal-body');
+            modalBody.remove();
+            location.href = redirectPage;
+          }
+        })
+        modalForm.append(deleteBtn);
+
+        confirmBtn.setAttribute('id', 'confirm-btn');
+        confirmBtn.setAttribute('type', 'button');
+        confirmBtn.setAttribute('value', '확인');
+        confirmBtn.addEventListener('click', async e => {
+          e.stopPropagation();
+          const { returnedValue, redirectPage } = await updateProfile(elmnt.innerText, profileName.value);
+          console.log(returnedValue);
+          if (returnedValue) {
+            modal.style.display = 'none';
+            const modalBody = document.querySelector('#modal-body');
+            modalBody.remove();
+            location.href = redirectPage;
+          }
+        })
+        modalForm.append(confirmBtn);
+
+      });
+
+
+
+    })
+
+    addBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      modal.style.display = 'block';
+      const modalForm = document.createElement('div');
+
+      modalForm.setAttribute('id', 'modal-body');
+      modal.append(modalForm);
+      modalForm.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      const profileLabel = document.createElement('label');
+      const profileName = document.createElement("input");
+      const cancelBtn = document.createElement('input');
+      const deleteBtn = document.createElement('input');
+      const confirmBtn = document.createElement('input');
+
+      modalForm.setAttribute('id', 'modal-body');
+
+      profileLabel.setAttribute('for', 'profileName');
+      profileLabel.textContent = "프로필명: ";
+
+      profileName.setAttribute('id', "profile-name");
+      profileName.setAttribute('name', "profileName");
+
+      cancelBtn.setAttribute('type', 'button');
+      cancelBtn.setAttribute('id', '#caancel-btn');
+      cancelBtn.setAttribute('value', '취소');
+
+      cancelBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        modal.style.display = 'none';
+        const modalBody = document.querySelector('#modal-body');
+        modalBody.remove();
+      })
+
+      modal.append(modalForm);
+      modalForm.append(profileLabel, profileName, cancelBtn);
+      modalForm.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      confirmBtn.setAttribute('id', 'confirm-btn');
+      confirmBtn.setAttribute('type', 'button');
+      confirmBtn.setAttribute('value', '생성');
+      confirmBtn.addEventListener('click', async e => {
+        e.stopPropagation();
+        const { returnedValue, redirectPage } = await createProfile(profileName.value);
+        console.log(returnedValue);
+        if (returnedValue) {
+          modal.style.display = 'none';
+          const modalBody = document.querySelector('#modal-body');
+          modalBody.remove();
+          location.href = redirectPage;
+        }
+      })
+      modalForm.append(confirmBtn);
+
+    });
+
+    window.addEventListener("click", (e) => {
+      e.stopPropagation();
+      modal.style.display = 'none';
+      const modalBody = document.querySelector('#modal-body');
+      modalBody.remove();
+    });
+
+    console.log(openBtn);
+    console.log(modal);
+    // openBtn.addEventListener("click", (e) => {
+    //   e.stopPropagation();
+    //   modal.style.display = `block`;
+    // });
+
+    // closeBtn.addEventListener('click', (e) => {
+    //   e.stopPropagation();
+    //   modal.style.display = 'none';
+    // });
+
+    // modalBody.addEventListener('click', (e) => {
+    //   e.stopPropagation();
+    // });
+
+
+
+
+    async function createProfile(newProfileName) {
+      const formData = new FormData();
+      const userId = document.querySelector('#user-id').textContent;
+      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+
+      formData.append('_csrf', csrfToken);
+      formData.append('userId', userId);
+      formData.append('profileName', newProfileName);
+      const formDataString = new URLSearchParams(formData).toString();
+      try {
+        const response = await axios.post('/profile/create', formDataString, {
+          headers: {
+            [csrfHeader]: csrfToken,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        const { msg, returnedValue, redirectPage } = response.data;
+        if (response.status === 200) {
+          alert(msg);
+          return { returnedValue, redirectPage };
+        } else {
+          alert("연결이 정상적이지 않습니다.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+      return false;
+    }
+
+
+    async function deleteProfile(selectedProfile) {
+      const formData = new FormData();
+      const userId = document.querySelector('#user-id').textContent;
+
+      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+      // formData.append('action', '/profile/delete');
+      formData.append('_csrf', csrfToken);
+      formData.append('userId', userId);
+      formData.append('profileName', selectedProfile);
+
+      const formDataString = new URLSearchParams(formData).toString();
+      try {
+        const response = await axios.delete('/profile/delete', {
+          data: formDataString,
+          headers: {
+            [csrfHeader]: csrfToken,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        const { msg, returnedValue, redirectPage } = response.data;
+        console.log(response.data);
+        if (response.status === 200) {
+          alert(msg);
+          return { returnedValue, redirectPage };
+        } else {
+          alert("연결이 정상적이지 않습니다.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+      return false;
+    }
+
+    async function updateProfile(originProfile, selectedProfile) {
+      const formData = new FormData();
+      const userId = document.querySelector('#user-id').textContent;
+      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+      // formData.append('action', '/profile/delete');
+      formData.append('_csrf', csrfToken);
+      formData.append('userId', userId);
+      formData.append('originName', originProfile);
+      formData.append('profileName', selectedProfile);
+      console.log(formData);
+      const formDataString = new URLSearchParams(formData).toString();
+      try {
+        const response = await axios.patch('/profile/update', formDataString, {
+          headers: {
+            [csrfHeader]: csrfToken,
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        const { msg, returnedValue, redirectPage } = response.data;
+        if (response.status === 200) {
+          alert(msg);
+          return { returnedValue, redirectPage };
+        } else {
+          alert("연결이 정상적이지 않습니다.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+      return false;
+    }
+  </script>
+</body>
+
+</html>

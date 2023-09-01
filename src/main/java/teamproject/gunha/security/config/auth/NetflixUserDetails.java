@@ -25,6 +25,7 @@ import teamproject.gunha.vo.UserVO;
 public class NetflixUserDetails implements UserDetails, OAuth2User {
 
   private UserVO userVO;
+  private String selectedProfile;
   private List<GrantedAuthority> authorities;
   private Map<String, Object> attributes;
 
@@ -37,10 +38,6 @@ public class NetflixUserDetails implements UserDetails, OAuth2User {
     this.setUserVO(user);
     this.setAuthorities(user);
     this.setAttributes(attributes);
-  }
-
-  public void setUserVO(UserVO userVO) {
-    this.userVO = userVO;
   }
 
   public void setAuthorities(UserVO userVO) {

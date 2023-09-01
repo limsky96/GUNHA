@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <title>templates</title>
-</head>
-
 <body>
   <!-- <div th:with="loginPage=${/login}"> -->
   <div sec:authorize="isAnonymous()">
@@ -13,9 +8,6 @@
     <div><a href="/sign-up">회원가입</a></div>
   </div>
   <!-- </div> -->
-
-
-
   <!-- <span th:text="${#authentication}"></span><br /> -->
   <div sec:authorize="isAuthenticated()">
     <span th:text="${user}"></span>님 환영합니다<br />
@@ -24,6 +16,22 @@
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
       <button type="submit">logout</button>
     </form>
+    <a href="/member"><input type="button" value="마이페이지"></a>
+    <div id="open-modal"><input type="button" value="프로필창 열기"></div>
+    <div th:text="${selectedProfile}"></div>
+    <div id="modalWrap">
+      <div id="modalBody">
+        <span id="closeBtn">&times;</span>
+        <p>modal-popup 입니다.</p>
+        <div class="profile-container" style="display: flex; justify-content: center;">
+          <div th:each="profile: ${user.profileList}">
+            <div th:text="${profile.profileName}"
+              style="text-align: center; line-height: 100px; width:100px; height:100px;"></div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
+      </div>
+    </div>
   </div>
 
   <!-- 영화 리스트 + 지울까말까  ==== > 이거 쓰면 스파이패밀리보다 위에 나옴 
@@ -113,6 +121,50 @@
 
 
   <title>NETFLIX</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>templates</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #modalWrap {
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+      display: block;
+    }
+
+    #modalBody {
+      width: 500px;
+      height: 300px;
+      padding: 30px 30px;
+      margin: 0 auto;
+      border: 1px solid #777;
+      background-color: #fff;
+    }
+
+    #closeBtn {
+      float: right;
+      font-weight: bold;
+      color: #777;
+      font-size: 25px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <script>
@@ -547,11 +599,6 @@
     </div>
   </div>
 
-
-
-
-
-
   <div id="ex1" class="modal">
     <video src="/mp4/spyfamily.mp4" poster="http://ottnews.kr/Files/173/News/202205/3333_20220506143031148_c.JPG"
       autoplay muted>
@@ -678,6 +725,26 @@
     //    }
 
     // }
+  });
+  const openBtn = document.querySelector("#open-modal");
+  const modal = document.getElementById('modalWrap');
+  const closeBtn = document.getElementById('closeBtn');
+  const modalBody = document.querySelector("#modalBody");
+  openBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    modal.style.display = `block`;
+  });
+
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    modal.style.display = 'none';
+  });
+  window.addEventListener("click", (e) => {
+    e.stopPropagation();
+    modal.style.display = 'none';
+  });
+  modalBody.addEventListener('click', (e) => {
+    e.stopPropagation();
   });
 
 </script>

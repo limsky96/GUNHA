@@ -50,8 +50,17 @@ public class LoginController {
   @PostMapping("/account-update")
   public String updateAccount(UserVO userVO){
     log.info("updateAccount() :" + userVO);
-    userLoginService.signupSocial(userVO);
+    userLoginService.updateAccount(userVO);
     return "redirect:/";
   }
+
+  @GetMapping("/member")
+  public String updateMember(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model){
+    UserVO userVO = netflixUserDetails.getUserVO();
+    log.info(userVO+"");
+    model.addAttribute("user",userVO);
+    return "update-member";
+  }
+
 
 }
