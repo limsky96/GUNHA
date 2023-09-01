@@ -16,9 +16,9 @@ create table NETFLIX_MEMBER(
 insert into netflix_member values(
     'tatelulove4@naver.com',
     'tatelulove4@naver.com',
-    '$2a$10$7DxPpaKDw/wcVUT0//J.Aen1gkroamLzBhZOMl2YLy8GUIIdZvVTy',
-    null,
-    1,
+    '$2a$10$cZ.aG4niQaxb.HkBgXLrVecmCDeWmQftbfHLjjTzoq1N8aLfoPQE6',
+    '1234-5678-1234-5678',
+    3,
     'none'
 );
 insert into netflix_member values(
@@ -98,8 +98,26 @@ create table NETFLIX_MEMBER_PROFILE(
     
     constraint fk_member_profile_member_id
         foreign key (member_profile_member_id) references NETFLIX_MEMBER(member_id)
-        on delete cascade
+        on delete cascade,
+    constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name)
 );
+
+alter table NETFLIX_MEMBER
+add constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name);
+
+
+insert into NETFLIX_MEMBER_PROFILE values(
+    'tatelulove4@naver.com',
+    'ADMIN'
+);
+
+insert into NETFLIX_MEMBER_PROFILE values(
+    'tatelulove4@naver.com_kakao',
+    '테스트2'
+);
+
+
+commit;
 
 --------------------------------------------------------
 
@@ -685,12 +703,14 @@ select * from netflix_social;
 
 commit;
 
+delete from netflix_member_profile where member_profile_member_id = 'tatelulove4@naver.com_kakao';
+
+insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트1');
+insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트2');
 
 
-
-
-select * from netflix_member mb, netflix_auth au
-    where mb.member_id = au.auth_member_id and mb.member_id = 'user@example.com';
+select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
+    where mb.member_id = au.auth_member_id and mb.member_id = mp.member_profile_member_id and mb.member_id = 'user@example.com';
 
 select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
     where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao' and mb.member_id = mp.member_profile_member_id;
@@ -701,7 +721,11 @@ select * from netflix_member mb, netflix_auth au
 update netflix_member set member_password = '$2a$10$tbmvHLrNpUmlMkj5i8FLl.QASVkazZfRsapVH7lo8xTAPFYVgG72C'
     where member_id= 'tatelulove4@naver.com_kakao';
 
---------------------
+select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
+    where mb.member_id = au.auth_member_id and mb.member_id = 'seralove4@gmail.com_google' and mb.member_id = mp.member_profile_member_id;
 
+--------------------
+delete from netflix_member where member_id = 'seralove4@gmail.com_google';
 delete from netflix_member where member_email = 'user@example.com';
+delete from netflix_member where member_id = 'tatelulove4@naver.com';
 delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';

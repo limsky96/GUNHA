@@ -24,7 +24,6 @@ public class NetflixUserDetailsService implements UserDetailsService {
     UserVO user = userMapper.selectUserId(userId);
     log.warn("queried by UserVO mapper: " + user);
     if("none".equals(user.getSocial())){
-      
       return new NetflixUserDetails(user); // 시큐리티 세션에 유저 정보 저장
     }
     return null;
