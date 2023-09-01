@@ -54,4 +54,29 @@ public class LoginController {
     return "redirect:/";
   }
 
+  
+  @GetMapping("/regi")
+  public String regi() {
+      log.info("legister()...");
+      return "login/regi1";
+  }
+
+  @GetMapping("/regi2")
+  public String regi2() {
+      log.info("legister()...");
+      return "login/regi2";
+  }
+
+  @GetMapping("/regi3")
+  public String regi3() {
+      log.info("legister()...");
+      return "login/regi3";
+  }
+
+  @GetMapping("/planform")
+  public String planform() {
+      log.info("planform()...");
+      return "login/planform";
+  }
+
 }

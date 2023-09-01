@@ -1,0 +1,16 @@
+.wrap {max-width: calc(83.33333333333334% - 6rem); margin: 0 auto; }
+
+
+/*멤버십 설명*/
+#step p{
+    font-size: small;
+    margin-bottom: 1px;
+}
+
+#regi-content{
+    margin-top: 30px;
+}
+
+.fs-5{
+    margin: 3px;}
+    
