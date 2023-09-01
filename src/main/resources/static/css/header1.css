@@ -1,0 +1,50 @@
+*{
+    border: 1px solid greenyellow;
+}
+
+.home{
+    position: relative;
+    background-color: black;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0; 
+    width: calc(100% - 100px);
+    padding: 10px 50px;
+}
+
+.header{
+    display: flex;
+}
+
+.logo{
+    color: red;
+    margin-right: 40px;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 36px;
+}
+
+.nav{
+    display: flex;
+    color: white;
+    line-height: 36px;
+}
+
+.nav-item{
+    padding: 0 10px;
+}
+
+.menu{
+    display: flex;
+    margin-left: auto;
+    color: white;
+    line-height: 36px;
+}
+
+.menu-item{
+    padding: 0 10px;
+}
+
