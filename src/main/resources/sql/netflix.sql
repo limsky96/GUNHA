@@ -181,8 +181,8 @@ drop table NETFLIX_MOVIE cascade constraints;
 
 create table NETFLIX_MOVIE(
     movie_id Number primary key, -- 영상 번호
-    movie_postUrl varchar2(500), -- 포스터 url
-    movie_name varchar2(200), -- 영화 이름 
+    movie_name varchar2(200), -- 영화 이름
+    moive_posterUrl varchar2(500), -- 이미지 링크 
     movie_content varchar2(4000), -- 줄거리 
     movie_genre varchar2(50), -- 장르 
     movie_cast varchar2(500), -- 출연진 
