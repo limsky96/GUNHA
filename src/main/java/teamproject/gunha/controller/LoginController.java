@@ -54,6 +54,32 @@ public class LoginController {
     return "redirect:/";
   }
 
+<<<<<<< HEAD
+  
+  @GetMapping("/regi")
+  public String regi() {
+      log.info("legister()...");
+      return "login/regi1";
+  }
+
+  @GetMapping("/regi2")
+  public String regi2() {
+      log.info("legister()...");
+      return "login/regi2";
+  }
+
+  @GetMapping("/regi3")
+  public String regi3() {
+      log.info("legister()...");
+      return "login/regi3";
+  }
+
+  @GetMapping("/planform")
+  public String planform() {
+      log.info("planform()...");
+      return "login/planform";
+  }
+=======
   @GetMapping("/member")
   public String updateMember(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model){
     UserVO userVO = netflixUserDetails.getUserVO();
@@ -62,5 +88,6 @@ public class LoginController {
     return "update-member";
   }
 
+>>>>>>> 0b474c2b6acd0cafe419f2bb05dc764608e91a4b
 
 }

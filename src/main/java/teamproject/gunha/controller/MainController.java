@@ -96,10 +96,22 @@ public class MainController {
     return "admins/admin";
   }
 
+<<<<<<< HEAD
+  @GetMapping("/qna")
+  public String qna() {
+      log.info("qna()...");
+      return "qna";
+  }
+
+
+
+
+=======
   @GetMapping("/regi")
   public String regi() {
     log.info("hello()...");
     return "login/regi";
   }
 
+>>>>>>> 0b474c2b6acd0cafe419f2bb05dc764608e91a4b
 }
