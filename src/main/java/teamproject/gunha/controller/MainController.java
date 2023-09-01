@@ -3,23 +3,39 @@ package teamproject.gunha.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.JsonObject;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
+import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.UserVO;
 
 @Controller
 @Slf4j
 public class MainController {
+
+  @Autowired
+  private UserLoginService userLoginService;
+
+  // 헤더-화이트
+  @GetMapping("/header")
+  public String header(){
+
+    return "header_white";
+  }
+
+  // 해더-블랙
+  @GetMapping("/header2")
+  public String header2(){
+
+    return "header-black";
+  }
 
   @GetMapping("/")
   public String hello(
@@ -27,14 +43,17 @@ public class MainController {
       Model model) {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
-      if ("결제정보 없음".equals(userVO.getCardNumber())) {
+      String profile = netflixUserDetails.getSelectedProfile();
+      if (0 == userVO.getMembershipNo()) {
         return "redirect:/sign-up";
       }
-      String userEmail = userVO.getUserEmail();
-      log.info("user: " + userEmail);
-      model.addAttribute("user", userEmail);
+
+      log.info("userDateils: " + netflixUserDetails);
+      model.addAttribute("user", userVO);
+      model.addAttribute("selectedProfile", profile);
+      return "redirect:/home";
     }
-          return "login/index";
+    return "login/index";
   }
 
   @GetMapping("/hello")
@@ -52,8 +71,15 @@ public class MainController {
   }
 
   @GetMapping("/home")
-  public String home() {
-    log.info("home()...");
+  public String home(
+      @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
+      Model model) {
+    if (netflixUserDetails == null) {
+      return "redirect:/login";
+    }
+    UserVO userVO = netflixUserDetails.getUserVO();
+    log.info("user: " + userVO);
+    model.addAttribute("user", userVO);
     return "home";
   }
 
@@ -66,10 +92,11 @@ public class MainController {
 
   @GetMapping("/admins")
   public String admin() {
-      log.info("hello()...");
-      return "admins/admin";
+    log.info("hello()...");
+    return "admins/admin";
   }
 
+<<<<<<< HEAD
   @GetMapping("/qna")
   public String qna() {
       log.info("qna()...");
@@ -79,4 +106,12 @@ public class MainController {
 
 
 
+=======
+  @GetMapping("/regi")
+  public String regi() {
+    log.info("hello()...");
+    return "login/regi";
+  }
+
+>>>>>>> 0b474c2b6acd0cafe419f2bb05dc764608e91a4b
 }

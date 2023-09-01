@@ -50,10 +50,11 @@ public class LoginController {
   @PostMapping("/account-update")
   public String updateAccount(UserVO userVO){
     log.info("updateAccount() :" + userVO);
-    userLoginService.signupSocial(userVO);
+    userLoginService.updateAccount(userVO);
     return "redirect:/";
   }
 
+<<<<<<< HEAD
   
   @GetMapping("/regi")
   public String regi() {
@@ -78,5 +79,15 @@ public class LoginController {
       log.info("planform()...");
       return "login/planform";
   }
+=======
+  @GetMapping("/member")
+  public String updateMember(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model){
+    UserVO userVO = netflixUserDetails.getUserVO();
+    log.info(userVO+"");
+    model.addAttribute("user",userVO);
+    return "update-member";
+  }
+
+>>>>>>> 0b474c2b6acd0cafe419f2bb05dc764608e91a4b
 
 }

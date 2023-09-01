@@ -16,9 +16,9 @@ create table NETFLIX_MEMBER(
 insert into netflix_member values(
     'tatelulove4@naver.com',
     'tatelulove4@naver.com',
-    '$2a$10$7DxPpaKDw/wcVUT0//J.Aen1gkroamLzBhZOMl2YLy8GUIIdZvVTy',
-    null,
-    1,
+    '$2a$10$cZ.aG4niQaxb.HkBgXLrVecmCDeWmQftbfHLjjTzoq1N8aLfoPQE6',
+    '1234-5678-1234-5678',
+    3,
     'none'
 );
 insert into netflix_member values(
@@ -98,8 +98,26 @@ create table NETFLIX_MEMBER_PROFILE(
     
     constraint fk_member_profile_member_id
         foreign key (member_profile_member_id) references NETFLIX_MEMBER(member_id)
-        on delete cascade
+        on delete cascade,
+    constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name)
 );
+
+alter table NETFLIX_MEMBER
+add constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name);
+
+
+insert into NETFLIX_MEMBER_PROFILE values(
+    'tatelulove4@naver.com',
+    'ADMIN'
+);
+
+insert into NETFLIX_MEMBER_PROFILE values(
+    'tatelulove4@naver.com_kakao',
+    '테스트2'
+);
+
+
+commit;
 
 --------------------------------------------------------
 
@@ -163,7 +181,8 @@ drop table NETFLIX_MOVIE cascade constraints;
 
 create table NETFLIX_MOVIE(
     movie_id Number primary key, -- 영상 번호
-    movie_name varchar2(200), -- 영화 이름 
+    movie_name varchar2(200), -- 영화 이름
+    moive_posterUrl varchar2(500), -- 이미지 링크 
     movie_content varchar2(4000), -- 줄거리 
     movie_genre varchar2(50), -- 장르 
     movie_cast varchar2(500), -- 출연진 
@@ -174,6 +193,7 @@ create table NETFLIX_MOVIE(
 insert into NETFLIX_MOVIE values(
     1,
     '어바웃타임',
+    'https://postfiles.pstatic.net/MjAyMTAxMjRfMjAx/MDAxNjExNDY2MDY1MTI5.0bXztU3RbnmiN3unhTQl_bXRK-E2WaH-mW7rdDcqJ98g.XUcrlmv_dFjM9i1hrhpSbPOK_ACJTk67KtiKBH0PuxIg.JPEG.jeffbridges/unacuestiontiempo13003.jpg?type=w966',
     '모태솔로 팀(돔놀 글리슨)은 성인이 된 날, 아버지(빌 나이)로부터 놀랄만한 가문의 비밀을 듣게 된다. 바로 시간을 되돌릴 수 있는 능력이 있다는 것! 그것이 비록 히틀러를 죽이거나 여신과 뜨거운 사랑을 할 수는 없지만, 여자친구는 만들어 줄 순 있으리.. 꿈을 위해 런던으로 간 팀은 우연히 만난 사랑스러운 여인 메리에게 첫눈에 반하게 된다. 그녀의 사랑을 얻기 위해 자신의 특별한 능력을 마음껏 발휘하는 팀. 어설픈 대시, 어색한 웃음은 리와인드! 뜨거웠던 밤은 더욱 뜨겁게 리플레이! 꿈에 그리던 그녀와 매일매일 최고의 순간을 보낸다. 하지만 그와 그녀의 사랑이 완벽해질수록 팀을 둘러싼 주변 상황들은 미묘하게 엇갈리고, 예상치 못한 사건들이 여기저기 나타나기 시작하는데… 어떠한 순간을 다시 살게 된다면, 과연 완벽한 사랑을 이룰 수 있을까?',
     '로맨스',
     '["도널 글리슨", "레이첼 맥아담스"]',
@@ -182,6 +202,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     2,
     '타이타닉',
+    'https://upload.wikimedia.org/wikipedia/ko/a/a0/%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89.jpg',
     '내 인생의 가장 큰 행운은 당신을 만난 거야" 우연한 기회로 티켓을 구해 타이타닉호에 올라탄 자유로운 영혼을 가진 화가 ‘잭’(레오나르도 디카프리오)은 막강한 재력의 약혼자와 함께 1등실에 승선한 ‘로즈’(케이트 윈슬렛)에게 한눈에 반한다. 진실한 사랑을 꿈꾸던 ‘로즈’ 또한 생애 처음 황홀한 감정에 휩싸이고, 둘은 운명 같은 사랑에 빠지는데… 가장 차가운 곳에서 피어난 뜨거운 사랑! 영원히 가라앉지 않는 세기의 사랑이 펼쳐진다!',
     '로맨스',
     '["레오나르도 디카프리오", "케이트 윈슬렛"]',
@@ -190,6 +211,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     3,
     '비포선라이즈',
+    'https://www.themoviedb.org/t/p/original/fbVO1qBOt3jiWQTJpwHvSMUT0lf.jpg',
     '파리로 돌아가는 셀린과 비엔나로 향하는 제시. 기차 안에서 우연히 만난 그들은 짧은 시간에 서로에게 빠져든다. “나와 함께 비엔나에 내려요” 그림 같은 도시와 꿈같은 대화 속에서 발견한 서로를 향한 강한 이끌림은 풋풋한 사랑으로 물들어 간다. 밤새도록 계속된 그들의 사랑 이야기 끝에 해가 떠오르기 시작하고 그들은 헤어져야만 하는데… 단 하루, 사랑에 빠지기 충분한 시간 낭만적인 로맨스가 다시 피어오른다.',
     '로맨스',
     '["도널 글리슨", "레이첼 맥아담스"]',
@@ -198,6 +220,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     4,
     '이프온리',
+    'https://ojsfile.ohmynews.com/PHT_IMG_FILE/2016/1222/IE002072244_PHT.jpg',
     '눈앞에서 사랑하는 연인을 잃은 남자는 다음 날 아침, 자신의 옆에서 자고 있는 연인을 보고 소스라치게 놀란다. 기쁨도 잠시, 정해진 운명은 바꿀 수 없단 것을 깨달은 그는 더 늦기 전에 자신의 진정한 사랑을 전하기로 마음먹는데… 네가 아니었다면 난 영영 사랑을 몰랐을 거야 사랑하는 법을 알게 해줘서 고마워, 사랑받는 법도.',
     '로맨스',
     '["제니퍼 러브휴잇", "폴 니콜스"]',
@@ -206,6 +229,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     5,
     '노트북',
+    'https://ojsfile.ohmynews.com/down/images/1/betrayed_198876_1[259756].jpg',
     '17살, ‘노아’는 밝고 순수한 ‘앨리’를 보고 첫눈에 반한다. 빠른 속도로 서로에게 빠져드는 둘. 그러나 이들 앞에 놓인 장벽에 막혀 이별하게 된다. 24살, ‘앨리’는 우연히 신문에서 ‘노아’의 소식을 접하고 잊을 수 없는 첫사랑 앞에서 다시 한 번 선택의 기로에 서게 되는데… 열일곱의 설렘, 스물넷의 아픈 기억, 그리고 마지막까지… 한 사람을 지극히 사랑했으니 내 인생은 성공한 인생입니다',
     '로맨스',
     '["라이언 고슬링", "레이첼 맥아담스"]',
@@ -214,6 +238,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     6,
     '500일의 썸머',
+    'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/G64/image/1XBxBg5M2CLuNRgp116gA9y8sms.jpg',
     '운명적 사랑을 믿는 남자 ‘톰’ 모든 것이 특별한 여자 ‘썸머’에 완전히 빠졌다. 사랑은 환상일 뿐이라고 생각하는 여자 ‘썸머’ 친구인 듯 연인 같은 ‘톰’과의 부담 없는 썸이 즐겁다. “저기… 우리는 무슨 관계야?” 설렘으로 가득한 시간도 잠시 두 사람에게도 피할 수 없는 선택의 순간이 찾아오는데… “우리 모두의 단짠단짠 연애담!” 설레는 1일부터 씁쓸한 500일까지 서로 다른 남녀의 극사실주의 하트시그널!',
     '로맨스',
     '["조셉 고든 레빗", "주이 디샤넬"]',
@@ -222,6 +247,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     7,
     '러브 액츄얼리',
+    'https://upload.wikimedia.org/wikipedia/ko/e/e0/%EB%9F%AC%EB%B8%8C%EC%95%A1%EC%B8%84%EC%96%BC%EB%A6%AC_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg',
     '사랑에 상처받은 당신을 위해, 사랑하지만 말하지 못했던 당신을 위해, 사랑에 확신하지 못했던 당신을 위해, 모두의 마음을 따뜻하게 할 선물이 찾아옵니다.',
     '로맨스',
     '["휴 그랜트", "리암 니슨", "콜린 퍼스", "로라 리니", "엠마 톰슨", "앨런 릭먼", "키이라 니이틀리", "마틴 맥커친", "빌 나이"]',
@@ -230,6 +256,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     8,
     '라라랜드',
+    'https://i.pinimg.com/550x/d8/73/c5/d873c5098705172190f2fdbc7e4abe72.jpg',
     '꿈을 꾸는 사람들을 위한 별들의 도시 ‘라라랜드’. 재즈 피아니스트 ‘세바스찬’(라이언 고슬링)과 배우 지망생 ‘미아’(엠마 스톤), 인생에서 가장 빛나는 순간 만난 두 사람은 미완성인 서로의 무대를 만들어가기 시작한다.',
     '로맨스',
     '["라이언 고슬링", "엠마 스톤"]',
@@ -238,6 +265,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     9,
     '너의 이름은',
+    'https://upload.wikimedia.org/wikipedia/ko/d/d1/%EB%84%88%EC%9D%98_%EC%9D%B4%EB%A6%84%EC%9D%80.jpg',
     '아직 만난 적 없는 너를, 찾고 있어 천년 만에 다가오는 혜성 기적이 시작된다 도쿄에 사는 소년 ‘타키’와 시골에 사는 소녀 ‘미츠하’는 서로의 몸이 뒤바뀌는 신기한 꿈을 꾼다 낯선 가족, 낯선 친구들, 낯선 풍경들... 반복되는 꿈과 흘러가는 시간 속, 마침내 깨닫는다 우리, 서로 뒤바뀐 거야? 절대 만날 리 없는 두 사람 반드시 만나야 하는 운명이 되다 서로에게 남긴 메모를 확인하며 점점 친구가 되어가는 ‘타키’와 ‘미츠하’ 언제부턴가 더 이상 몸이 바뀌지 않자 자신들이 특별하게 이어져있었음을 깨달은 ‘타키’는 ‘미츠하’를 만나러 가는데... 잊고 싶지 않은 사람 잊으면 안 되는 사람 너의 이름은?',
     '로맨스',
     '["카미키 류노스케", "카미시라이시 모네"]',
@@ -246,6 +274,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     10,
     '비긴 어게인',
+    'https://www.themoviedb.org/t/p/original/xABk5PBEPYD6YxLdWGZjMjAktR2.jpg',
     '싱어송라이터인 ‘그레타’(키이라 나이틀리)는 남자친구 ‘데이브’(애덤 리바인)가 메이저 음반회사와 계약을 하게 되면서 뉴욕으로 오게 된다. 그러나 행복도 잠시, 오랜 연인이자 음악적 파트너로서 함께 노래를 만들고 부르는 것이 좋았던 그레타와 달리 스타가 된 데이브의 마음은 어느새 변해버린다. 스타 음반프로듀서였지만 이제는 해고된 ‘댄’(마크 러팔로)은 미치기 일보직전 들른 뮤직바에서 그레타의 자작곡을 듣게 되고 아직 녹슬지 않은 촉을 살려 음반제작을 제안한다. 거리 밴드를 결성한 그들은 뉴욕의 거리를 스튜디오 삼아 진짜로 부르고 싶었던 노래를 만들어가는데…',
     '로맨스',
     '["키이라 나이틀리", "마크 러팔로", "애덤 리바인", "헤일리 스테인펠드"]',
@@ -255,6 +284,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     11,
     '엑시트',
+    'https://i.namu.wiki/i/7K9dzEVD5c2R5hl1kNjyMqXeaYpteSl3OKkIudRLzM9A7lPRsYYh3xAHDxROiyAYoWYIu6ypb_v37jreRjgF7A.webp',
     '대학교 산악 동아리 에이스 출신이지만 졸업 후 몇 년째 취업 실패로 눈칫밥만 먹는 용남은 온 가족이 참석한 어머니의 칠순 잔치에서 연회장 직원으로 취업한 동아리 후배 의주를 만난다 어색한 재회도 잠시, 칠순 잔치가 무르익던 중 의문의 연기가 빌딩에서 피어 오르며 피할 새도 없이 순식간에 도심 전체는 유독가스로 뒤덮여 일대혼란에 휩싸이게 된다. 용남과 의주는 산악 동아리 시절 쌓아 뒀던 모든 체력과 스킬을 동원해 탈출을 향한 기지를 발휘하기 시작하는데…',
     '코미디',
     '["조정석", "윤아"]',
@@ -263,6 +293,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     12,
     '헬로우 고스트',
+    'https://www.themoviedb.org/t/p/original/eABJoKMxXky1R13aR2E9It90Djm.jpg',
     '죽는 게 소원인 외로운 남자 상만(차태현). 어느 날 그에게 귀신이 보이기 시작한다. 거머리처럼 딱 달라붙은 변태귀신, 꼴초귀신, 울보귀신, 초딩귀신. 소원을 들어달라는 귀신과 그들 때문에 죽지도 못하게 된 상만. 결국 그들의 소원을 들어주는 사이, 예상치 못했던 생애 최고의 순간과 마주하게 되는데…',
     '코미디',
     '["차태현", "강예원", "이문수", "고창석", "장영남", "천보근"]',
@@ -271,6 +302,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     13,
     '수상한 그녀',
+    'https://img.hankyung.com/photo/202104/0Q.26019307.1-1200x.jpg',
     '아들 자랑이 유일한 낙인 욕쟁이 칠순 할매 오말순(나문희分)은 어느 날, 가족들이 자신을 요양원으로 독립(?)시키려 한다는 청천벽력 같은 사실을 알게 된다. 뒤숭숭한 마음을 안고 밤길을 방황하던 할매 말순은 오묘한 불빛에 이끌려 ‘청춘 사진관’으로 들어간다. 난생 처음 곱게 꽃단장을 하고 영정사진을 찍고 나오는 길, 그녀는 버스 차창 밖에 비친 자신의 얼굴을 보고 경악을 금치 못한다. 오드리 헵번처럼 뽀얀 피부, 날렵한 몸매... 주름진 할매에서 탱탱한 꽃처녀의 몸으로 돌아간 것! 아무도 알아보지 못하는 자신의 젊은 모습에 그녀는 스무살 ‘오두리’가 되어 빛나는 전성기를 즐겨 보기로 마음 먹는데... 2014년 새해, 대한민국에 웃음 보따리를 안겨줄 <수상한 그녀>가 온다!',
     '코미디',
     '["심은경", "나문희", "박인환", "성동일", "이진욱"]',
@@ -279,6 +311,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     14,
     '극한직업',
+    'https://web-cf-image.cjenm.com/crop/660x950/public/share/metamng/programs/extremejob-movie-poster-ko-001-01.jpg_1645638949085.jpg?v=1679468009',
     '불철주야 달리고 구르지만 실적은 바닥, 급기야 해체 위기를 맞는 마약반! 더 이상 물러설 곳이 없는 팀의 맏형 고반장은 국제 범죄조직의 국내 마약 밀반입 정황을 포착하고 장형사, 마형사, 영호, 재훈까지 4명의 팀원들과 함께 잠복 수사에 나선다. 마약반은 24시간 감시를 위해 범죄조직의 아지트 앞 치킨집을 인수해 위장 창업을 하게 되고, 뜻밖의 절대미각을 지닌 마형사의 숨은 재능으로 치킨집은 일약 맛집으로 입소문이 나기 시작한다. 수사는 뒷전, 치킨장사로 눈코 뜰 새 없이 바빠진 마약반에게 어느 날 절호의 기회가 찾아오는데… 범인을 잡을 것인가, 닭을 잡을 것인가!',
     '코미디',
     '["류승룡", "이하늬", "진선규", "이동휘" ,"공명"]',
@@ -287,6 +320,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     15,
     '웜 바디스',
+    'https://t1.daumcdn.net/cfile/125AD14851243BEC26',
     '이름도, 나이도, 자신이 누구였는지 전혀 기억하지 못하는 좀비 ‘R’. 폐허가 된 공항에서 다른 좀비들과 무기력하게 살아가고 있던 ‘R’은 우연히 아름다운 소녀 ‘줄리’를 만난다. 이때부터 차갑게 식어있던 ‘R’의 심장이 다시 뛰고, 그의 삶에 놀라운 변화가 시작되는데... ‘줄리’를 헤치려는 좀비들 사이에서 그녀를 지켜내기 위해 고군분투 하는 ‘R’. 그리고 좀비를 죽이려는 인간들로부터 ‘R’을 지켜주려는 ‘줄리’. 누구도 상상하지 못했던 둘의 사랑은 전쟁터가 되어버린 세상을 바꾸기 시작한다. 사랑할 수 밖에 없는 좀비 ‘R’과 ‘줄리’의 유쾌하고 치열한 로맨스가 시작된다!',
     '코미디',
     '["니콜라스 홀트", "테레사 팔머", "존 말코비치"]',
@@ -295,6 +329,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     16,
     '세얼간이',
+    'https://mblogthumb-phinf.pstatic.net/20110601_174/editoremail_1306917116992q2BRM_JPEG/3_IDIOTS_MAIN_IMAGES_1.JPG?type=w420',
     '천재들만 간다는 일류 명문대 ICE, 성적과 취업만을 강요하는 학교를 발칵 뒤집어 놓은 대단한 녀석 란초! 아버지가 정해준 꿈, `공학자`가 되기 위해 정작 본인이 좋아하는 일은 포기하고 공부만하는 파파보이 파르한! 찢어지게 가난한 집, 병든 아버지와 식구들을 책임지기 위해 무조건 대기업에 취직해야만 하는 라주! 친구의 이름으로 뭉친 `세 얼간이`! 삐딱한 천재들의 진정한 꿈을 찾기 위한 세상 뒤집기 한판이 시작된다!',
     '코미디',
     '["아미르 칸", "마드하반", "셔먼 조쉬", "카리나 카푸르", "보만 이라니", "오미 베이디아"]',
@@ -303,6 +338,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     17,
     '7번방의 선물',
+    'https://images.squarespace-cdn.com/content/v1/586ebc34d482e9c69268b69a/1546907892392-8O2KV2S3J48IKUVKFKKP/7%EB%B2%88%EB%B0%A9%EC%9D%98+%EC%84%A0%EB%AC%BC.jpg',
     '최악의 흉악범들이 모인 교도소 7번방에 이상한 놈이 들어왔다! 그는 바로 6살 지능의 딸바보 용구! 평생 죄만 짓고 살아온 7번방 패밀리들에게 떨어진 미션은 바로 용구 딸 예승이를 외부인 절대 출입금지인 교도소에 반.입.하.는.것! 2013년 새해, 웃음과 감동 가득한 사상초유의 합동작전이 시작된다!',
     '코미디',
     '["류승룡", "박신혜", "갈소원", "오달수", "박원상", "김정태", "정만식", "김기천"]',
@@ -311,6 +347,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     18,
     '과속스캔들',
+    'https://image.tving.com/upload/cms/caim/CAIM0400/M000333433.jpg/dims/resize/1280',
     '한때 아이돌 스타로 10대 소녀 팬들의 영원한 우상이었던 남현수(차태현). 지금은 서른 중반의 나이지만, 그래도 아직까지는 잘나가는 연예인이자, 청취율 1위의 인기 라디오 DJ. 어느 날 애청자를 자처하며 하루도 빠짐없이 라디오에 사연을 보내오던 황.정.남(박보영)이 느닷없이 찾아와 자신이 현수가 과속해서 낳은 딸이라며 바득바득 우겨대기 시작하는데!! 그것도 애까지 달고 나타나서…… 집은 물론 현수의 나와바리인 방송국까지. 어디든 물불 안 가리고 쫓아다니는 스토커 정남으로 인해 완벽했던 인생에 태클 한방 제대로 걸린 현수. 설상가상 안 그래도 머리 복잡한 그에게 정남과 스캔들까지 휩싸이게 되는데… 나 이제, 이거 한방 터지면 정말 끝이다! 끝!!',
     '코미디',
     '["차태현", "박보영", "왕석현"]',
@@ -319,6 +356,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     19,
     '조조 래빗',
+    'https://www.themoviedb.org/t/p/original/zyKOqb4K8UVBnhvKJ3qiqF2l8jq.jpg',
     '제2차 세계대전 말기, 엄마 ‘로지’(스칼렛 요한슨)와 단둘이 살고 있는 10살 소년 ‘조조’(로만 그리핀 데이비스). 원하던 독일 소년단에 입단하지만 겁쟁이 토끼라 놀림 받을 뿐이다. 상심한 ‘조조’에게 상상 속 친구 ‘히틀러’(타이카 와이티티)는 유일한 위안이 된다. ‘조조’는 어느 날 우연히 집에 몰래 숨어 있던 미스터리한 소녀 ‘엘사’(토마신 맥켄지)를 발견하게 된다. 세상에서 가장 위험한 인물이 왜 여기에?! 당신을 웃긴 만큼 따뜻하게 안아줄 이야기가 펼쳐진다!',
     '코미디',
     '["스칼릿 조핸슨", "로만 그리핀 데이비스", "타이카 와이티티", "토마신 맥켄지"]',
@@ -326,7 +364,8 @@ insert into NETFLIX_MOVIE values(
     'N');
 insert into NETFLIX_MOVIE values(
     20,
-    '패밀리',
+    '위험한 패밀리',
+    'https://t1.daumcdn.net/cfile/tistory/2566143456F4A41914',
     '범죄조직 보스 프레드(로버트 드 니로)가 그의 조직을 밀고했다! 막강한 권력 버리고, 조직원에 쫓기는 신세가 된 전직 보스와 그의 가족들! 퇴물 CIA요원 스탠스필드(토미 리 존스)는 증인보호 자격으로 이들 가족을 프랑스 작은 시골마을로 보내는데.. 조용해도 너무 조용한 시골마을! 잠재울 수 없는 액션 본능이, 전직 보스 가족을 자극한다! 위험한 패밀리에 의해 초토화가 될 위기에 빠진 평화로운 마을! 과연, 위험한 패밀리는 액션 본능을 잠재우고 무사히 지낼 수 있을까?',
     '코미디',
     '["로버트 드 니로", "미셸 파이퍼", "토미 리 존스"]',
@@ -336,6 +375,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     21,
     '해리 포터와 마법사의 돌',
+    'https://www.themoviedb.org/t/p/original/kOmSNeF3yFtIgATyV544C2w8yM8.jpg',
     '해리 포터(다니엘 래드클리프 분)는 위압적인 버논 숙부(리챠드 그리피스 분)와 냉담한 이모 페투니아 (피오나 쇼 분), 욕심 많고 버릇없는 사촌 더즐리(해리 멜링 분) 밑에서 갖은 구박을 견디며 계단 밑 벽장에서 생활한다. 이모네 식구들 역시 해리와의 동거가 불편하기는 마찬가지. 이모 페투니아에겐 해리가 이상한(?) 언니 부부에 관한 기억을 떠올리게 만드는 달갑지 않은 존재다. 열 한살 생일이 며칠 앞으로 다가왔지만 한번도 생일파티를 치르거나 제대로 된 생일선물을 받아 본 적이 없는 해리로서는 특별히 신날 것도 기대 할 것도 없다. 열 한 살 생일을 며칠 앞둔 어느 날 해리에게 초록색 잉크로 쓰여진 한 통의 편지가 배달된다. 그 편지의 내용은 다름 아닌 해리의 열 한 살 생일을 맞이하여 전설적인호그와트 마법학교에서 보낸 입학초대장이었다. 그리고 해리의 생일을 축하하러 온 거인 해그리드는 해리가 모르고 있었던 해리의 진정한 정체를 알려주는데. 그것은 바로 해리가 굉장한 능력을 지닌 마법사라는 것! 해리는 해그리드의 지시대로 자신을 구박하던 이모네 집을 주저없이 떠나 호그와트행을 택한다. 런던의 킹스크로스 역에 있는 비밀의 승장장에서 호그와트 특급열차를 탄 해리는 열차 안에서 같은 호그와트 마법학교 입학생인 헤르미온느 그레인저(엠마 왓슨 분)와 론 위즐리 (루퍼트 그린트 분)를 만나 친구가 된다. 이들과 함께 호그와트에 입학한 해리는, 놀라운 모험의 세계를 경험하며 갖가지 신기한 마법들을 배워 나간다. 또한 빗자루를 타고 공중을 날아다니며 경기하는 스릴 만점의 퀴디치 게임에서 스타로 탄생하게 되며, 용, 머리가 셋 달린 개, 유니콘, 켄타우루스, 히포그리프(말 몸에 독수리 머리와 날개를 가진 괴물)등 신비한 동물들과 마주치며 모험을 즐긴다. 그러던 어느 날 해리는 호그와트 지하실에 영원한 생을 가져다주는 마법사의 돌이 비밀리에 보관되어 있다는 것을 알게되고, 해리의 부모님을 죽인 볼드모트가 그 돌을 노린다는 사실도 알게 된다. 볼드모트는 바로 해리를 죽이려다 실패하고 이마에 번개모양의 흉터를 남긴 장본인이다. 해리는 볼드모트로부터 마법의 돌과 호그와트 마법학교를 지키기 위해 필사의 노력을 하는데...',
     '판타지',
     '["다니엘 래드 클리프", "루퍼트 그린트", "엠마 왓슨"]',
@@ -344,6 +384,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     22,
     '나니아 연대기-사자, 마녀 그리고 옷장',
+    'https://www.themoviedb.org/t/p/original/vSY6MgDWD5Ch5I87X8BaxZyydCI.jpg',
     '<반지의 제왕> 제작진이 선사하는 2005년 판타지 액션 대작 <나니아 연대기:사자, 마녀, 그리고 옷장>! 판타지 소설의 걸작 C. S. 루이스 원작을 바탕으로 한 <나니아 연대기:사자, 마녀, 그리고 옷장>은 총 7편의 작품 중 그 서막을 여는 첫번째 이야기이다. 2차 세계대전 중, 전쟁을 피해 먼 친척 집에 맡겨진 네 남매들은 어느날, 그 저택에 있는 마법의 옷장을 통해 환상의 나라 나니아에 들어가게 된다. 마녀의 마법에 빠져 영원히 겨울만 계속되는 나니아... 아이들은 위대한 사자 아슬란과 함께 위험에 빠진 나니아를 구하기 위해 불가능한 모험을 시작하는데.... 올 겨울, 운명이 열리는 순간 신화의 연대기가 시작된다!',
     '판타지',
     '["조지 헨리", "윌리암 모즐리", "스캔다 케인즈", "안나 팝플웰", "틸다 스윈튼", "리암 니슨"]',
@@ -352,6 +393,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     23,
     '쥬라기 월드:도미니언',
+    'https://cdn.imweb.me/upload/S201706085938a6d7c7272/4bca8c4494f95.jpg',
     '공룡들의 터전이었던 이슬라 누블라 섬이 파괴된 후, 마침내 공룡들은 섬을 벗어나 세상 밖으로 출몰한다. 지상에 함께 존재해선 안 될 위협적 생명체인 공룡의 등장으로 인류 역사상 겪어보지 못한 사상 최악의 위기를 맞이한 인간들. 지구의 최상위 포식자 자리를 걸고 인간과 공룡의 최후의 사투가 펼쳐진다.',
     '판타지',
     '["크리스 프랫", "브라이스 달라스 하워드"]',
@@ -360,6 +402,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     24,
     '신과 함께-죄와 벌',
+    'https://i.namu.wiki/i/-nFZ5XeXyYtQiAtj8eutI8iTNsBJ2yrtfY404Qe8IP6wgHeutdz5f-RrqX4acFcR3fn8RUeLccSzGUkBxw1zYw.webp',
     '저승 법에 의하면, 모든 인간은 사후 49일 동안 7번의 재판을 거쳐야만 한다. 살인, 나태, 거짓, 불의, 배신, 폭력, 천륜 7개의 지옥에서 7번의 재판을 무사히 통과한 망자만이 환생하여 새로운 삶을 시작할 수 있다. “김자홍 씨께선, 오늘 예정 대로 무사히 사망하셨습니다” 화재 사고 현장에서 여자아이를 구하고 죽음을 맞이한 소방관 자홍, 그의 앞에 저승차사 해원맥과 덕춘이 나타난다. 자신의 죽음이 아직 믿기지도 않는데 덕춘은 정의로운 망자이자 귀인이라며 그를 치켜세운다. 저승으로 가는 입구, 초군문에서 그를 기다리는 또 한 명의 차사 강림, 그는 차사들의 리더이자 앞으로 자홍이 겪어야 할 7개의 재판에서 변호를 맡아줄 변호사이기도 하다. 염라대왕에게 천년 동안 49명의 망자를 환생시키면 자신들 역시 인간으로 환생시켜 주겠다는 약속을 받은 삼차사들, 그들은 자신들이 변호하고 호위해야 하는 48번째 망자이자 19년 만에 나타난 의로운 귀인 자홍의 환생을 확신하지만, 각 지옥에서 자홍의 과거가 하나 둘씩 드러나면서 예상치 못한 고난과 맞닥뜨리는데… 누구나 가지만 아무도 본 적 없는 곳, 새로운 세계의 문이 열린다!',
     '판타지',
     '["하정우", "차태현", "주지훈", "김향기", "김동욱", "마동석"]',
@@ -368,6 +411,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     25,
     '판의 미로-오필리아와 세 개의 열쇠',
+    'https://www.themoviedb.org/t/p/original/gtce25cra64QLmnbK6dnqzfRcRz.jpg',
     '1944년 스페인, 내전은 끝났지만 숲으로 숨은 시민군은 파시스트 정권에 계속해서 저항했고 그들을 진압하기 위해 정부군이 곳곳에 배치된다. ‘오필리아’는 만삭의 엄마 ‘카르멘’과 함께 새아버지 ‘비달’ 대위가 있는 숲속 기지로 거처를 옮긴다. 정부군 소속으로 냉정하고 무서운 비달 대위를 비롯해 모든 것이 낯설어 두려움을 느끼던 오필리아는 어느 날 숲속에서 숨겨진 미로를 발견한다. 그리고 그곳에서 자신을 “산이고 숲이자 땅”이라 소개하는 기괴한 모습의 요정 ‘판’과 만난다. 오필리아를 반갑게 맞이한 판은, 그녀가 지하 왕국의 공주 ‘모안나’이며 보름달이 뜨기 전까지 세 가지 임무를 끝내면 돌아갈 수 있다고 알려주면서 미래를 볼 수 있는 “선택의 책”을 건넨다. 오필리아는 전쟁보다 더 무서운 현실 속에서 인간 세계를 떠나 지하 왕국으로 돌아가기로 결심하게 되는데… 용기, 인내, 그리고 마지막 임무… 판의 미로가 다시 열리고, 환상과 현실의 경계가 무너진다!',
     '판타지',
     '["이바나 바쿠에로", "더그 존스"]',
@@ -376,6 +420,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     26,
     '인셉션',
+    'https://newsimg.sedaily.com/2020/01/01/1YXH78H3R5_1.jpg',
     '타인의 꿈에 들어가 생각을 훔치는 특수 보안요원 코브. 그를 이용해 라이벌 기업의 정보를 빼내고자 하는 사이토는 코브에게 생각을 훔치는 것이 아닌, 생각을 심는 ‘인셉션’ 작전을 제안한다. 성공 조건으로 국제적인 수배자가 되어있는 코브의 신분을 바꿔주겠다는 거부할 수 없는 제안을 하고, 사랑하는 아이들에게 돌아가기 위해 그 제안을 받아들인다. 최강의 팀을 구성, 표적인 피셔에게 접근해서 ‘인셉션’ 작전을 실행하지만 예기치 못한 사건들과 마주하게 되는데… 꿈 VS 현실 시간, 규칙, 타이밍 모든 것이 완벽해야만 하는, 단 한 번도 성공한 적 없는 ‘인셉션’ 작전이 시작된다!',
     '판타지',
     '["레오나르도 디카프리오", "와타나베 켄", "조셉 고든 레빗", "마리옹 꼬띠아르", "엘리엇 페이지", "톰 하디"]',
@@ -384,6 +429,7 @@ insert into NETFLIX_MOVIE values(
 insert into NETFLIX_MOVIE values(
     27,
     '포레스트 검프',
+    'https://image.chosun.com/sitedata/image/201709/27/2017092702031_0.jpg',
     '불편한 다리, 남들보다 조금 떨어지는 지능을 가진 외톨이 소년 ‘포레스트 검프’ 헌신적이고 강인한 어머니의 보살핌과 콩깍지 첫사랑 소녀 ‘제니’와의 만남으로 사회의 편견과 괴롭힘 속에서도 따뜻하고 순수한 마음을 지니고 성장한다. 여느 날과 같이 또래들의 괴롭힘을 피해 도망치던 포레스트는 누구보다 빠르게 달릴 수 있는 자신의 재능을 깨닫고 늘 달리는 삶을 살아간다. 포레스트의 재능을 발견한 대학에서 그를 미식축구 선수로 발탁하고, 졸업 후에도 뛰어난 신체능력으로 군에 들어가 누구도 예상치 못한 성과를 거둬 무공훈장을 수여받는 등 탄탄한 인생 가도에 오르게 된 포레스트. 하지만 영원히 행복할 것만 같았던 시간도 잠시, 어머니가 병에 걸려 죽음을 맞이하고 첫사랑 제니 역시 그의 곁을 떠나가며 다시 한번 인생의 전환점을 맞이하게 되는데… 과연, 포레스트는 진정한 삶의 행복을 발견할 수 있을까? 진정한 삶의 가치와 의미를 제시하는 감동 바이블! 올 가을, 다시 한번 세상에서 가장 눈부신 달리기가 시작된다! “Run! Forrest Run!”',
     '판타지',
     '["톰 행크스"]',
@@ -685,12 +731,14 @@ select * from netflix_social;
 
 commit;
 
+delete from netflix_member_profile where member_profile_member_id = 'tatelulove4@naver.com_kakao';
+
+insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트1');
+insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트2');
 
 
-
-
-select * from netflix_member mb, netflix_auth au
-    where mb.member_id = au.auth_member_id and mb.member_id = 'user@example.com';
+select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
+    where mb.member_id = au.auth_member_id and mb.member_id = mp.member_profile_member_id and mb.member_id = 'user@example.com';
 
 select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
     where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_kakao' and mb.member_id = mp.member_profile_member_id;
@@ -701,7 +749,11 @@ select * from netflix_member mb, netflix_auth au
 update netflix_member set member_password = '$2a$10$tbmvHLrNpUmlMkj5i8FLl.QASVkazZfRsapVH7lo8xTAPFYVgG72C'
     where member_id= 'tatelulove4@naver.com_kakao';
 
---------------------
+select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
+    where mb.member_id = au.auth_member_id and mb.member_id = 'seralove4@gmail.com_google' and mb.member_id = mp.member_profile_member_id;
 
+--------------------
+delete from netflix_member where member_id = 'seralove4@gmail.com_google';
 delete from netflix_member where member_email = 'user@example.com';
+delete from netflix_member where member_id = 'tatelulove4@naver.com';
 delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';
