@@ -30,23 +30,29 @@
   <div id="movieList"></div> 영화 목록이 표시되는 부분 -->
 
   <!-- 영화 리스트 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-    fetch('/api/movies') // UTL로 HTTP요청 보내고 데이터 처리 (GET)
-      .then(response => response.json()) // json 형식으로 변환
-      .then(data => { // 이전 단계에서 변환된 json데이터를 사용하여 실제 영화 목록 처리하고 웹 페이지에 표시
-        console.log(data);
-        const movieList = document.getElementById('movieList'); // HTML문서 내 id가 "movieList"인 요소를 찾아 가져옴
-        data.forEach(movie => { // 가져온 영화 데이터 배열 반복 
-          const movieDiv = document.createElement('div'); // 각 영화를 표시할 새로운 <div>요소 생성. 영화마다 생성되며 영화 정보가 포함
-          movieDiv.innerHTML = ` 
-                    <img src="${movie.posterUrl}" alt="${movie.name}" />
-                    <h2>${movie.name}</h2>
-                    <p>${movie.genre}</p>
-                `; // 생성된 div 안에 영화 정보를 HTML 형식으로 추가. 포스터 이미지, 제목 및 장르 포함. ${} : 템플릿 리터럴을 사용하여 변수값을 문자열에 삽입
-          movieList.appendChild(movieDiv); // 생성된 영화 정보가 포함된 div를 이전에 가져온 movieList요소에 추가. 각 영화 정보가 웹페이지에 표시
-        });
-      })
-      .catch(error => console.error('Error fetching movies:', error)); // 데이터 가져오기나 처리 중 오류가 발생하면 오류를 콘솔에 출력
+//     const movies = [
+//     { name: "어바웃타임", posterUrl: "images/sample.jpg", genre: "로맨스" },
+
+// ];
+
+    // fetch('/api/movies') // UTL로 HTTP요청 보내고 데이터 처리 (GET)
+    //   .then(response => response.json()) // json 형식으로 변환
+    //   .then(data => { // 이전 단계에서 변환된 json데이터를 사용하여 실제 영화 목록 처리하고 웹 페이지에 표시
+    //     console.log(data);
+    //     const movieList = document.getElementById('movieList'); // HTML문서 내 id가 "movieList"인 요소를 찾아 가져옴
+    //     data.forEach(movie => { // 가져온 영화 데이터 배열 반복 
+    //       const movieDiv = document.createElement('div'); // 각 영화를 표시할 새로운 <div>요소 생성. 영화마다 생성되며 영화 정보가 포함
+    //       movieDiv.innerHTML = ` 
+    //                 <img src="${movie.posterUrl}" alt="${movie.name}" />
+    //                 <h2>${movie.name}</h2>
+    //                 <p>${movie.genre}</p>
+    //             `; // 생성된 div 안에 영화 정보를 HTML 형식으로 추가. 포스터 이미지, 제목 및 장르 포함. ${} : 템플릿 리터럴을 사용하여 변수값을 문자열에 삽입
+    //       movieList.appendChild(movieDiv); // 생성된 영화 정보가 포함된 div를 이전에 가져온 movieList요소에 추가. 각 영화 정보가 웹페이지에 표시
+    //     });
+    //   })
+    //   .catch(error => console.error('Error fetching movies:', error)); // 데이터 가져오기나 처리 중 오류가 발생하면 오류를 콘솔에 출력
 
     // 영화 정보 추가 Create
     function addMovie(newMovie) { // 영화 정보 받아와 서버에 추가 -> newMovie 새로 추가될 영화 정보
@@ -115,7 +121,7 @@
   <title>NETFLIX</title>
 </head>
 
-<script>
+<!-- <script>
 
 $(document).ready(function() {
       fnInit();  
@@ -250,12 +256,16 @@ $(document).ready(function() {
     }
   
     
-  </script>
+  </script> -->
   
   
   
   <body>
-    
+    <style>
+      div{
+        color:white;
+      }
+    </style>
     <div class="home" id="home">
       
       <video 
@@ -598,7 +608,66 @@ $(document).ready(function() {
 
 
 <script>
-  const swiper = new Swiper(".hotContainer", {
+      getMovies(); 
+    async function getMovies(){
+      const {data} = await axios.get('/api/movies')
+      // <div class="swiper-slide">
+      //             <img src="https://source.unsplash.com/224x126/?random" alt="">
+      //           </div>
+      // console.log(data);
+      console.log(data[0].movieName);
+      let container;
+      let containerHtml;
+      const containerList = [];
+      for(let i =0;i<5;i++){
+        containerList.push(`list${i}`);
+      }
+      
+      for(let i = 0;i<data.length/10;i++){
+        containerHtml = "";
+        containerHtml += `
+          <div id="wrapper-${containerList[i]}" class="category-title">${containerList[i]}</div>
+          <div class="swiper-container ${containerList[i]}Container">
+            <div class="swiper-wrapper">
+            `
+                //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
+                //  ${data[i*10+slideIndex].movieName}
+        for(let slideIndex = 0 ; slideIndex<10;slideIndex++){
+          containerHtml += `
+              <div class="swiper-slide">
+                <img src="/images/sample.jpg" alt="" style="width: 224px; height:126px;">
+                ${data[i*10+slideIndex].movieName}
+              </div>`
+        }
+        containerHtml += `
+            </div>
+          </div>
+          <div class="swiper-button-next ${containerList[i]}Next"></div>
+          <div class="swiper-button-prev ${containerList[i]}Prev"></div>
+        `
+        container = document.createElement("div");
+        container.setAttribute("class", "container");
+        container.innerHTML = containerHtml;
+        const list = document.querySelector("#category");
+        list.appendChild(container);
+        const swiper = new Swiper(`.${containerList[i]}Container`, {
+          slidesPerView: 6,
+          slidesPerGroup: 6,
+          centeredSlides: false,
+          loop: false,
+          navigation: {
+            nextEl: `.${containerList[i]}Next`,
+            prevEl: `.${containerList[i]}Prev`,
+          }
+        });
+
+        console.log(container);
+        console.log(list);
+      }
+
+      console.log(containerHtml);
+    }
+      const swiper = new Swiper(".hotContainer", {
     slidesPerView: 6,
     slidesPerGroup: 6,
     centeredSlides: false,
@@ -651,6 +720,7 @@ $(document).ready(function() {
           nextEl: '.slideNext',
           prevEl: '.slidePrev',
         }
+      });
     //  breakpoints: {
     //   700: {
     //     slidesPerView: 4,
@@ -675,7 +745,10 @@ $(document).ready(function() {
     //    }
        
     // }
-  });
+
+    // }
+  
+  
 
 </script>
 
