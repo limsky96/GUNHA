@@ -23,6 +23,20 @@ public class MainController {
   @Autowired
   private UserLoginService userLoginService;
 
+  // 헤더-화이트
+  @GetMapping("/header")
+  public String header(){
+
+    return "header_white";
+  }
+
+  // 해더-블랙
+  @GetMapping("/header2")
+  public String header2(){
+
+    return "header-black";
+  }
+
   @GetMapping("/")
   public String hello(
       @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
