@@ -662,7 +662,7 @@ $(document).ready(function() {
       //             <img src="https://source.unsplash.com/224x126/?random" alt="">
       //           </div>
       // console.log(data);
-      console.log(data[0].movieName);
+      console.log(data);
       let container;
       let containerHtml;
       const containerList = [];
@@ -682,7 +682,8 @@ $(document).ready(function() {
         for(let slideIndex = 0 ; slideIndex<10;slideIndex++){
           containerHtml += `
               <div class="swiper-slide">
-                <img src="/images/sample.jpg" alt="" style="width: 224px; height:126px;">
+                <img src="/images/sample.jpg" alt="">
+                <img src="${data[i*10+slideIndex].postUrl}" alt="">
                 ${data[i*10+slideIndex].movieName}
               </div>`
         }
