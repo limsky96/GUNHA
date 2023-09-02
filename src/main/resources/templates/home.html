@@ -665,7 +665,7 @@
     //           </div>
     // console.log(data);
     console.log(data);
-    let container;
+    
     let containerHtml;
     const containerList = [];
     for (let i = 0; i < 5; i++) {
@@ -676,7 +676,7 @@
       containerHtml = "";
       containerHtml += `
           <div id="wrapper-${containerList[i]}" class="category-title">${containerList[i]}</div>
-          <div class="swiper-container ${containerList[i]}Container">
+          <div class="swiper-container swiper-container-${containerList[i]}">
             <div class="swiper-wrapper">
             `
       //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
@@ -684,30 +684,50 @@
       for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
         containerHtml += `
               <div class="swiper-slide">
-                <img src="/images/sample.jpg" alt="" style="width: 224px; height:126px;">
+                <img src="/images/sample.jpg" alt="">
                 ${data[i * 10 + slideIndex].movieName}
               </div>`
       }
       containerHtml += `
             </div>
           </div>
-          <div class="swiper-button-next ${containerList[i]}Next"></div>
-          <div class="swiper-button-prev ${containerList[i]}Prev"></div>
+          <div class="swiper-button-next next-${containerList[i]}"></div>
+          <div class="swiper-button-prev prev-${containerList[i]}"></div>
         `
-      container = document.createElement("div");
+      const container = document.createElement("div");
       container.setAttribute("class", "container");
       container.innerHTML = containerHtml;
       const list = document.querySelector("#category");
       list.appendChild(container);
-      const swiper = new Swiper(`.${containerList[i]}Container`, {
-        slidesPerView: 6,
-        slidesPerGroup: 6,
+      const swiper = new Swiper(`.swiper-container-${containerList[i]}`, {
+        slidesPerView: 2,
+        slidesPerGroup: 1,
         centeredSlides: false,
         loop: false,
         navigation: {
-          nextEl: `.${containerList[i]}Next`,
-          prevEl: `.${containerList[i]}Prev`,
-        }
+          nextEl: `.next-${containerList[i]}`,
+          prevEl: `.prev-${containerList[i]}`,
+        },
+        breakpoints: {
+      // 화면의 넓이가 800px 이상일 때
+      800: {
+        slidesPerView: 5,
+        slidesPerGroup: 1,
+      },
+      // 화면의 넓이가 1100px 이상일 때
+      1100: {
+        slidesPerView: 6,
+        slidesPerGroup: 1,
+      },
+      1600:{
+        slidesPerView: 7,
+        slidesPerGroup: 1,
+      },
+      2560: {
+        slidesPerView: 8,
+        slidesPerGroup: 1,
+      }
+    }
       });
 
       console.log(container);
