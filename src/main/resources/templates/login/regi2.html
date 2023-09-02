@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>원건보다하늘</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="/css/regi2-style.css" rel="stylesheet">
+</head>
+<body>
+    <!--헤더 영역-->
+    <header class="content-header header bg-header-theme text-center"><h1>헤더영역</h1></header>
+
+    <!--본문 영역-->
+    <div class="main">
+        <div>
+            <div id="step"><p>1/3단계</p></div>
+            <h2>비밀번호를 설정해 멤버십을 시작하세요.</h2>
+        </div> 
+        <div id="regi-content">
+            <p class="fs-5"> 
+                몇 단계만 더 거치면 넷플릭스 가입 완료!<br> 
+                복잡한 단계는 모두 없앴습니다.
+            </p>
+        </div> 
+        <form class="cloumn g-3 needs-validation" novalidate>
+            <div class="col">
+            <input type="text" class="form-control form-control-lg" id="validationCustom01" placeholder="이메일주소 또는 전화번호" required>
+            <div class="invalid-feedback">
+                이메일 주소를 써주세요
+            </div>
+            </div>
+            <div class="col">
+            <input type="password" class="form-control form-control-lg" id="validationCustom03" placeholder="비밀번호" required>
+            <div class="invalid-feedback">
+                비밀번호를 추가하세요
+            </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                            예, 저는 개인정보 처리방침에 따른 개인정보 수집 및 활용에 동의합니다.(상세 정보)
+                        </label>
+                        <div class="invalid-feedback">
+                        먼저 이용약관에 동의하셔야 합니다.
+                        </div>
+                </div>
+                <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                        예, 넷플릭스 특별 할인 알림 이메일을 보내주세요(선택 사항)
+                        </label>
+                </div>  
+            </div>
+
+            <div class="col-auto1 pt-4 align-self-center d-grid">
+                <button id="agree-button" type="submit" class="btn btn-danger btn-lg">
+                    <a href="/regi3" style="text-decoration: none; color: azure;"><strong>동의하고 계속</strong></a>
+                </button>
+            </div>
+        </form>
+    </div>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
