@@ -38,6 +38,9 @@
 6. 소셜 로그인 Autowired해도 되고 아니면 SecurityContextHolder에 넣어줄 때 authorities도 넣어준다..
 
 
+7. 크롬 개발자 도구 문제
+   - 이유는 모르겠지만 jsSwiper를 이용할 때 크롬 개발자 도구에서 반응형이 제대로 동작하지 않는다.(예로 만약 breakPoints를 500으로 줬을 시, 125px에서 동작을 한다.. 원인 불명)
+
 
 
 
