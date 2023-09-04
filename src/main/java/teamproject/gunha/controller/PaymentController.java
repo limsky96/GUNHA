@@ -1,5 +1,6 @@
 package teamproject.gunha.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.sound.sampled.Port;
@@ -29,12 +30,16 @@ public class PaymentController {
 
   @PostMapping("/subscription/issue-billing")
   @ResponseBody
-  public String subBilling(PortOneVO portOneVO){
+  public Map<String, Object> subBilling(PortOneVO portOneVO){
     
     Map<String, Object> getToken = paymentService.getAccessToken();
     log.info(getToken.toString());
     String accessToken = (String)getToken.get("access_token");
-    return accessToken;
+    // log.info(paymentService.useAccessToken(accessToken).toString());
+    // paymentService.issueBilling(portOneVO, accessToken);
+
+    return paymentService.issueBilling(portOneVO, accessToken);
+    // return new HashMap<String, Object>();
   }
 
 }

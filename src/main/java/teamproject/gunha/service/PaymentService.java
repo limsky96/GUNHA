@@ -8,5 +8,6 @@ import teamproject.gunha.vo.PortOneVO;
 
 public interface PaymentService {
   Map<String, Object> getAccessToken();
-  Map<String, Object> issueBiling(PortOneVO portOneVO, String accessToken);
+  // Map<String,Object> useAccessToken(String accessToken);
+  Map<String, Object> issueBilling(PortOneVO portOneVO, String accessToken);
 }
