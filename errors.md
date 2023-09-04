@@ -44,3 +44,6 @@
 
 
 
+8. 결제모듈 참고
+   - https://admin.portone.io 여기는 rest api key 등이 있는 페이지
+   - https://developers.portone.io/docs/ko/readme 여기는 developers docs 페이지
