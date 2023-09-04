@@ -56,7 +56,6 @@ dependencies {
 	// oauth2-client 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
-  //google
   // //google
   // implementation 'org.springframework.boot:spring-boot-starter-test'
   // implementation'org.springframework.boot:spring-boot-starter-actuator'
