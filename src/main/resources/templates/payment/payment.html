@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>templates</title>
+</head>
+<body>
+  <form action="/subscription/issue-billing" method="post">
+    <!--예: https://www.myservice.com/subscription/issue-billing-->
+      <div>
+          <label for="card-number">카드 번호: </label>
+          <input id="card-number" type="text" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX">
+      </div>
+      <div>
+          <label for="expiry">카드 유효기간: </label>
+          <input id="expiry" type="text" name="expiry" placeholder="YYYY-MM">
+      </div>
+      <div>
+          <label for="birth">생년월일: </label>
+          <input id="birth" type="text" name="birth" placeholder="YYMMDD">
+      </div>
+      <div>
+          <label for="pwd-2digit">카드 비밀번호 앞 두자리: </label>
+          <input id="pwd-2digit" type="text" name="pwd2digit" placeholder="XX">**
+      </div>
+      <input type="hidden" value="gildong_0001_1234" name="customerUid">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <input type="submit" value="결제하기">
+    </form>
+</body>
+</html>
