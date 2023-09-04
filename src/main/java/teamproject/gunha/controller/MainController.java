@@ -25,14 +25,14 @@ public class MainController {
 
   // 헤더-화이트
   @GetMapping("/header")
-  public String header(){
+  public String header() {
 
     return "header_white";
   }
 
   // 해더-블랙
   @GetMapping("/header2")
-  public String header2(){
+  public String header2() {
 
     return "header-black";
   }
@@ -96,22 +96,10 @@ public class MainController {
     return "admins/admin";
   }
 
-<<<<<<< HEAD
   @GetMapping("/qna")
   public String qna() {
-      log.info("qna()...");
-      return "qna";
+    log.info("qna()...");
+    return "qna";
   }
 
-
-
-
-=======
-  @GetMapping("/regi")
-  public String regi() {
-    log.info("hello()...");
-    return "login/regi";
-  }
-
->>>>>>> 0b474c2b6acd0cafe419f2bb05dc764608e91a4b
 }
