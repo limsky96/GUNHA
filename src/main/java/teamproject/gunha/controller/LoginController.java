@@ -78,6 +78,7 @@ public class LoginController {
       log.info("planform()...");
       return "login/planform";
   }
+
   @GetMapping("/member")
   public String updateMember(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model){
     UserVO userVO = netflixUserDetails.getUserVO();
@@ -85,6 +86,7 @@ public class LoginController {
     model.addAttribute("user",userVO);
     return "update-member";
   }
+
 
 
 }
