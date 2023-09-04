@@ -107,11 +107,8 @@ public class MainController {
       log.info("qna()...");
       return "qna";
   }
-  
-  @GetMapping("/regi")
-  public String regi() {
-    log.info("hello()...");
-    return "login/regi";
-  }
+
+
+
 
 }
