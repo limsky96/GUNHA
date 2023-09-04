@@ -54,7 +54,6 @@ public class LoginController {
     return "redirect:/";
   }
 
-<<<<<<< HEAD
   
   @GetMapping("/regi")
   public String regi() {
@@ -79,7 +78,6 @@ public class LoginController {
       log.info("planform()...");
       return "login/planform";
   }
-=======
   @GetMapping("/member")
   public String updateMember(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model){
     UserVO userVO = netflixUserDetails.getUserVO();
@@ -88,6 +86,5 @@ public class LoginController {
     return "update-member";
   }
 
->>>>>>> 0b474c2b6acd0cafe419f2bb05dc764608e91a4b
 
 }
