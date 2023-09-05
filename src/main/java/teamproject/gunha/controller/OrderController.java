@@ -13,33 +13,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
-import teamproject.gunha.service.PaymentService;
+import teamproject.gunha.service.OrderService;
 import teamproject.gunha.vo.PortOneVO;
 
 @Controller
 @Slf4j
-public class PaymentController {
+public class OrderController {
 
   @Autowired
-  private PaymentService paymentService;
-  
-  @GetMapping("/payment")
-  public String paymentInit(){
-    return "payment/payment";
+  private OrderService paymentService;
+
+  @GetMapping("/order")
+  public String orderPage() {
+    return "order/order-page";
   }
 
   @PostMapping("/subscription/issue-billing")
   @ResponseBody
-  public Map<String, Object> subBilling(PortOneVO portOneVO){
-    
+  public Map<String, Object> subBilling(PortOneVO portOneVO) {
+
     Map<String, Object> getToken = paymentService.getAccessToken();
     log.info(getToken.toString());
-    String accessToken = (String)getToken.get("access_token");
+    String accessToken = (String) getToken.get("access_token");
     // log.info(paymentService.useAccessToken(accessToken).toString());
     // paymentService.issueBilling(portOneVO, accessToken);
 
     return paymentService.issueBilling(portOneVO, accessToken);
     // return new HashMap<String, Object>();
+  }
+
+  @GetMapping(("/get-bill"))
+  @ResponseBody
+  public Map<String, Object> getBill() {
+    Map<String, Object> getToken = paymentService.getAccessToken();
+    String accessToken = (String) getToken.get("access_token");
+    return paymentService.getBillingKey(accessToken);
   }
 
 }

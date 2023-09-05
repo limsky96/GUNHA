@@ -1,6 +1,5 @@
 package teamproject.gunha.vo;
 
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +17,6 @@ public class PortOneVO {
   private String birth;
   private String pwd2digit;
   private String customerUid;
-  private String pg;
+  private String name;
+  
 }
