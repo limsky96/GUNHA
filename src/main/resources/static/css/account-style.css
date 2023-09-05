@@ -1,0 +1,33 @@
+.wrap {max-width: calc(83.33333333333334% - 6rem); margin: 0 auto; }
+
+#head-info{
+    margin-right: 10px;
+}
+
+/* 멤버십 정보 영역 */
+#membership-info{
+    margin-right: 30px;
+    width: 15em;
+
+}
+#membership-info-left{
+    width: 75%;
+}
+
+.row{
+    text-align: end;
+}
+
+/* 멤버십 상세정보 영역 */
+#membership-detail{
+    width: 90%;
+    justify-content: space-between
+}
+
+
+/* button */
+#membershipB{
+    width: 12em;
+    height: 2.5em;
+    border: 0px;
+}

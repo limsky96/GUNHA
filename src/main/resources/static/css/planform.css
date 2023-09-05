@@ -1,4 +1,4 @@
-.wrap {max-width: calc(83.33333333333334% - 6rem); margin: 0 auto; }
+.wrap {max-width: calc(75% - 6rem); margin: 0 auto; }
 
 
 /*멤버십 설명*/
@@ -9,8 +9,54 @@
 
 #regi-content{
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 .fs-5{
     margin: 3px;}
+
+
+/* pricing table */   
+table{
+    margin-top: 15px;
     
+}
+
+ /*내용은 가운데 정렬*/
+table td{
+    text-align: center;
+}
+
+/*가격표 버튼*/
+#basic-button{
+    width: 100px;
+    height: 100px; 
+    text-align: center;  
+    border-radius: 0px; 
+}
+#standard-button{
+    width: 100px;
+    height: 100px; 
+    text-align: center;  
+    border-radius: 0px; 
+}
+#premium-button{
+    width: 100px;
+    height: 100px; 
+    text-align: center;  
+    border-radius: 0px; 
+}
+
+/*맨 밑에 설명페이지*/
+#planform-info{
+    margin-top: 50px;
+    color: gray;
+    font-size: small;
+}
+
+ /*다음 버튼*/
+.col-auto1{
+    width: 35em;
+    height: 6em;
+    margin: 0 auto;
+}
