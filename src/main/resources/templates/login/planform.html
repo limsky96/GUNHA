@@ -112,55 +112,44 @@
     </div>
 
     <script>
-        // "베이식" 버튼을 클릭할 때 해당 열의 모든 셀을 빨간색으로 변경
-        document.getElementById("basic-button").onclick = function () {
-            document.getElementById("basic-price").style.color = 'red';
-            document.getElementById("basic-quality").style.color = 'red';
-            document.getElementById("basic-resolution").style.color = 'red';
-            document.getElementById("basic-devices").style.color = 'red';
-            document.getElementById("basic-save").style.color = 'red';
-        };
+        // 버튼을 클릭할 때 해당 열을 빨간색으로 변경하고 다른 열 리셋
+        function highlightColumn(buttonId) {
+            const columns = ["basic", "standard", "premium"];
+            columns.forEach(function (column) {
+                // 다른 열의 버튼 클래스 초기화
+                document.getElementById(column + "-button").classList.remove('btn-danger');
+                // 다른 열의 요소 색상 초기화
+                document.getElementById(column + "-price").style.color = '';
+                document.getElementById(column + "-quality").style.color = '';
+                document.getElementById(column + "-resolution").style.color = '';
+                document.getElementById(column + "-devices").style.color = '';
+                document.getElementById(column + "-save").style.color = '';
+            });
     
-        // 다른 버튼을 클릭할 때 모든 열의 모든 셀을 원래 색상으로 되돌림
-        document.getElementById("standard-button").onclick = function () {
-            resetColors();
-            document.getElementById("standard-price").style.color = 'red';
-            document.getElementById("standard-quality").style.color = 'red';
-            document.getElementById("standard-resolution").style.color = 'red';
-            document.getElementById("standard-devices").style.color = 'red';
-            document.getElementById("standard-save").style.color = 'red';
-        };
-    
-        document.getElementById("premium-button").onclick = function () {
-            resetColors();
-            document.getElementById("premium-price").style.color = 'red';
-            document.getElementById("premium-quality").style.color = 'red';
-            document.getElementById("premium-resolution").style.color = 'red';
-            document.getElementById("premium-devices").style.color = 'red';
-            document.getElementById("premium-save").style.color = 'red';
-        };
-    
-        function resetColors() {
-            document.getElementById("basic-price").style.color = '';
-            document.getElementById("basic-quality").style.color = '';
-            document.getElementById("basic-resolution").style.color = '';
-            document.getElementById("basic-devices").style.color = '';
-            document.getElementById("basic-save").style.color = '';
-
-            document.getElementById("standard-price").style.color = '';
-            document.getElementById("standard-quality").style.color = '';
-            document.getElementById("standard-resolution").style.color = '';
-            document.getElementById("standard-devices").style.color = '';
-            document.getElementById("standard-save").style.color = '';
-
-            document.getElementById("premium-price").style.color = '';
-            document.getElementById("premium-quality").style.color = '';
-            document.getElementById("premium-resolution").style.color = '';
-            document.getElementById("premium-devices").style.color = '';
-            document.getElementById("premium-save").style.color = '';
+            // 클릭한 버튼에 클래스 추가
+            document.getElementById(buttonId + "-button").classList.add('btn-danger');
+            // 클릭한 버튼에 해당하는 요소의 색상을 빨간색으로 변경
+            document.getElementById(buttonId + "-price").style.color = 'red';
+            document.getElementById(buttonId + "-quality").style.color = 'red';
+            document.getElementById(buttonId + "-resolution").style.color = 'red';
+            document.getElementById(buttonId + "-devices").style.color = 'red';
+            document.getElementById(buttonId + "-save").style.color = 'red';
         }
+    
+        // 각 버튼에 이벤트 리스너 등록
+        document.getElementById("basic-button").addEventListener('click', function () {
+            highlightColumn("basic");
+        });
+    
+        document.getElementById("standard-button").addEventListener('click', function () {
+            highlightColumn("standard");
+        });
+    
+        document.getElementById("premium-button").addEventListener('click', function () {
+            highlightColumn("premium");
+        });
     </script>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous">

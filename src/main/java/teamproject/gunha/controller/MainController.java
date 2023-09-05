@@ -99,12 +99,12 @@ public class MainController {
   @GetMapping("/qna")
   public String qna() {
       log.info("qna()...");
-      return "qna";
+      return "homepage/qna";
   }
 
   @GetMapping("/accountpage")
   public String accountpage() {
     log.info("accountpage()...");
-    return "accountpage";
+    return "homepage/accountpage";
   }
 }
