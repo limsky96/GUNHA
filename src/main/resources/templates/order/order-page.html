@@ -24,7 +24,7 @@
           <label for="pwd-2digit">카드 비밀번호 앞 두자리: </label>
           <input id="pwd-2digit" type="text" name="pwd2digit" placeholder="XX">**
       </div>
-      <input type="hidden" value="gildong_0001_1234" name="customerUid">
+      <input type="hidden" th:if="${userId != null}" th:value="${userId}" name="userId">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
       <input type="submit" value="결제하기">
     </form>

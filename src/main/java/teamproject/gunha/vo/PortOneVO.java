@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class PortOneVO {
+  private String userId;
   private String merchantUid;
   private double amount;
   private String cardNumber;
