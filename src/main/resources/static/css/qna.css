@@ -1,0 +1,56 @@
+.wrap {max-width: calc(80% - 6rem); margin: 0 auto; }
+
+/* index-main */
+body {
+    color: #fff;
+    background-color: #222;
+}
+
+/*패널*/
+
+.panel-default { 
+    border-color: black;
+}
+
+/*패널과 패널 사이*/
+.panel-group .panel {
+    margin-bottom: 0.5em;
+    border-radius: 0px;
+}
+.panel-default>.panel-heading> h4> a {
+    text-decoration: none;
+    font-size: x-large;
+}
+
+/*패널 머리*/
+.panel-default>.panel-heading {
+    color: white;
+    background-color: #333;
+    border-radius: 0%;
+    height: 4em;
+    padding-top: 1.3em;
+}
+
+.panel-default>.panel-heading> h4> a {
+    text-decoration: none;
+    font-size: medium;
+}
+
+/*패널 대답*/
+.panel-body {
+    padding: 15px;
+    font-size: 1.3em;
+    background-color: dimgray;
+}
+
+/*register container*/
+.text-center{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+/*register button*/
+.row{
+    display: flex;
+    flex-wrap: nowrap;
+}
