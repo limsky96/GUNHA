@@ -167,12 +167,14 @@ public class OrderServiceImpl implements OrderService {
     requestBody.put("schedules", scheduleList);
     log.info(requestBody.toString());
     // HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-    HttpEntity<Map<String, Object>> scheduleRequest = new HttpEntity<>(requestBody, requestHeader);
-    ResponseEntity<Map> scheduleResponse = rt.exchange(url, HttpMethod.POST,
-        scheduleRequest, Map.class);
+    // HttpEntity<Map<String, Object>> scheduleRequest = new HttpEntity<>(requestBody, requestHeader);
+
+    // 요청 후 response 받기
+    // ResponseEntity<Map> scheduleResponse = rt.exchange(url, HttpMethod.POST,
+    //     scheduleRequest, Map.class);
 
 
-    log.info(""+scheduleResponse);
+    // log.info(""+scheduleResponse);
     Map<String, Object> resp = new HashMap<>();
     resp.put("status", "failed");
     // int code = (int) billResponse.getBody().get("code");
