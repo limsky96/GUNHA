@@ -13,7 +13,7 @@
     <span th:text="${user}"></span>님 환영합니다<br />
     <span sec:authentication="principal.username"></span>님 환영합니다<br />
     <form id="logoutForm" action="/logout" method="POST">
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
       <button type="submit">logout</button>
     </form>
     <a href="/member"><input type="button" value="마이페이지"></a>

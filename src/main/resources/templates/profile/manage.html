@@ -3,9 +3,9 @@
 
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <meta name="_csrf" th:content="${_csrf.token}" />
+  <!-- <meta name="_csrf" th:content="${_csrf.token}" /> -->
   <!-- default header name is X-CSRF-TOKEN -->
-  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}" /> -->
   <!-- ... -->
   <title>templates</title>
   <style>
@@ -285,10 +285,10 @@
       //method, action, selectedProfile, originProfile
       const formData = new FormData();
       const userId = document.querySelector('#user-id').textContent;
-      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-      const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+      // const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      // const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
       // formData.append('action', '/profile/delete');
-      formData.append('_csrf', csrfToken);
+      // formData.append('_csrf', csrfToken);
       formData.append('userId', userId);
       formData.append('profileName', arguments[2]);
       if (arguments.length === 4) {
@@ -302,13 +302,13 @@
           response = await ajax(arguments[0], arguments[1], header = {
             data: formDataString,
             headers: {
-              [csrfHeader]: csrfToken,
+              // [csrfHeader]: csrfToken,
               "Content-Type": "application/x-www-form-urlencoded"
             }
           });
         } else{
           response = await ajax(arguments[0], arguments[1], formDataString, header = {
-            [csrfHeader]: csrfToken,
+            // [csrfHeader]: csrfToken,
             "Content-Type": "application/x-www-form-urlencoded"
           });
         }

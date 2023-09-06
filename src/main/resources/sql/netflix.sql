@@ -128,7 +128,7 @@ create table NETFLIX_ORDER(
     order_member_id varchar2(60) not null,
     order_member_card_number char(19),
     order_start_date date default sysdate,
-    order_valid char(1) default 'V', -- V(valid), C(canceled), E(expired)
+    order_valid char(1) default 'T', -- V(valid), C(canceled), E(expired), T(temporary)
     constraint fk_order_member_id
         foreign key (order_member_id) references NETFLIX_MEMBER(member_id)
         on delete cascade
@@ -139,9 +139,11 @@ create table NETFLIX_ORDER(
 insert into netflix_order values((select nvl(max(order_id),0)+1 from netflix_order), 'tatelulove4@naver.com_kakao', '1234-5678-1234-5678', '2023-09-05', 'V');
 
 select * from netflix_order;
-
+select count(*)+1 from netflix_order;
+select count(*)+1 from netflix_order where order_member_id = 'tatelulove4@naver.com_kakao';
+select count(*)+1 from netflix_order where order_member_id = 'tatelulove4@naver.com';
 commit;
-
+delete from netflix_order where order_id = 2;
 -- member_id + order_id -> customer_uid -> ex) tatelulove4@naver.com_kakao_cuid_order_000001
 -- projectname + order_id -> merchant_uid -> ex) project_netflix_muid_order_000001
 
@@ -634,6 +636,9 @@ insert into NETFLIX_MOVIE values(
     'N');
     
     commit;
+    
+    
+select * from netflix_movie where movie_id <=10 and movie_id >=0  ;
 ------------------
 
 drop table NETFLIX_QA_BOARD cascade constraints;
@@ -766,5 +771,5 @@ select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
 --------------------
 delete from netflix_member where member_id = 'seralove4@gmail.com_google';
 delete from netflix_member where member_email = 'user@example.com';
-delete from netflix_member where member_id = 'tatelulove4@naver.com';
+delete from netflix_member where member_id = 'tatelulove4@naver.com_naver';
 delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';

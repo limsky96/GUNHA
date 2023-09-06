@@ -1,6 +1,10 @@
 package teamproject.gunha.vo;
 
 
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +23,5 @@ public class PortOneVO {
   private String pwd2digit;
   private String customerUid;
   private String name;
-  
+  private List<Map<String, Object>> schedules;
 }

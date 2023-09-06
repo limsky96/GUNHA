@@ -5,6 +5,22 @@
 <mapper namespace="teamproject.gunha.mapper.OrderMapper">
 
 
+  <select id="selectLastOrderId" resultType="int">
+    <![CDATA[ 
+      select count(*) from netflix_order
+    ]]>
+  </select>
+
+  <select id="selectUserLastOrderId" resultType="int">
+    select count(*) from netflix_order
+      <where>
+        <if test="userId != null">
+          AND order_member_id = #{userId}
+        </if>
+      </where>
+    
+  </select>
+
 
 
   <resultMap id="orderMap" type="teamproject.gunha.vo.OrderVO">

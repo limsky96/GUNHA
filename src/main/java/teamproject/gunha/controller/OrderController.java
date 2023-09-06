@@ -1,15 +1,12 @@
 package teamproject.gunha.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.sound.sampled.Port;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,7 +33,7 @@ public class OrderController {
     return "order/order-page";
   }
 
-  @PostMapping("/subscription/issue-billing")
+  // @PostMapping("/subscription/issue-billing")
   @ResponseBody
   public Map<String, Object> subBilling(PortOneVO portOneVO) {
 
@@ -50,12 +47,16 @@ public class OrderController {
     // return new HashMap<String, Object>();
   }
 
-  @GetMapping(("/get-bill"))
+  @PostMapping("/subscription/issue-billing")
   @ResponseBody
-  public Map<String, Object> getBill() {
+  public Map<String, Object> subscribePass(PortOneVO portOneVO) {
     Map<String, Object> getToken = paymentService.getAccessToken();
+    log.info(getToken.toString());
     String accessToken = (String) getToken.get("access_token");
-    return paymentService.getBillingKey(accessToken);
+    // log.info(paymentService.useAccessToken(accessToken).toString());
+    paymentService.issueBilling(portOneVO, accessToken);
+
+    return paymentService.issueScheduleBilling(portOneVO, accessToken);
   }
 
 }
