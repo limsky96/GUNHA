@@ -23,23 +23,24 @@ public class ProfileServiceImpl implements ProfileService {
 
   @Autowired
   private UserMapper userMapper;
+
   @Override
   public boolean createProfile(ProfileVO profileVO) {
     log.info(profileVO + "");
     int resultRowLine = profileMapper.insertProfile(profileVO);
-    if(resultRowLine >= 1){
+    if (resultRowLine >= 1) {
       refreshUser();
       return true;
     }
     return false;
   }
-  
+
   @Override
   @Transactional
   public boolean updateProfile(ProfileVO profileVO) {
     log.info(profileVO + "");
     int resultRowLine = profileMapper.updateProfile(profileVO);
-    if(resultRowLine >= 1){
+    if (resultRowLine >= 1) {
       refreshUser();
       return true;
     }
@@ -50,17 +51,19 @@ public class ProfileServiceImpl implements ProfileService {
   @Transactional
   public boolean removeProfile(ProfileVO profileVO) {
     int resultRowLine = profileMapper.deleteProfile(profileVO);
-    if(resultRowLine >= 1){
+    if (resultRowLine >= 1) {
       refreshUser();
       return true;
     }
     return false;
   }
 
-  private void refreshUser(){
-    NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+  private void refreshUser() {
+    NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
     netflixUserDetails.setUserVO(userMapper.selectUserId(netflixUserDetails.getUsername()));
-    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails, netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
+        netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
   }
 }
