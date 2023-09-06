@@ -66,14 +66,14 @@ public class MainController {
     UserVO userVO = netflixUserDetails.getUserVO();
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
-    return "home";
+    return "/homepage/home";
   }
 
   @GetMapping("/watch")
   public String watch(UserVO userVO, Model model) {
     log.info("watch()...");
     model.addAttribute("영상Key", userVO);
-    return "watch";
+    return "/watch/watch";
   }
 
   @GetMapping("/admins")
@@ -86,6 +86,13 @@ public class MainController {
   public String regi() {
     log.info("hello()...");
     return "login/regi";
+  }
+
+  
+  @GetMapping("/card")//지효가 사용, 테스트하고 지울께요
+  public String card() {
+    log.info("hello()...");
+    return "cardtest";
   }
 
 }

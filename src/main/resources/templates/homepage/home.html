@@ -123,7 +123,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-  <link rel="stylesheet" href="/css/home.css" />
+  <link rel="stylesheet" href="/css/homepage/home.css" />
 
 
   <title>NETFLIX</title>
@@ -173,7 +173,7 @@
   </style>
 </head>
 
-<!-- <script>
+<script>
 
   $(document).ready(function () {
     fnInit();
@@ -200,7 +200,7 @@
         setTimeout(function () {
           var htmlText = "";
           var byunsuArr = [];
-          for (var i = 0; i < 3; i++) {
+          for (var i = 0; i < 1; i++) {
             byunsuArr.push("byunsu" + count);
             htmlText += '<div class="container">';
             htmlText += '<div class="category-title">지금뜨는컨텐츠' + count + '</div>';
@@ -296,19 +296,13 @@
   
   
   
-      $("#btnMovePlay").click(function(){
-        var srcCd = $("#mainVideo").val();
-        srcCd = "test"
-        //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-        location.href= "//localhost:8888/watch?"+srcCd
-        //location.href= "https://www.naver.com"
-      });
+      
   
   
     }
   
     
-  </script> -->
+  </script>
 
 
 
@@ -351,7 +345,7 @@
         </div>
         <div class="buttons">
           <div class="white-button">
-            <i id="btnMovePlay" class="fa-solid fa-play">재생</i>
+            <i id="btnMovePlay" class="fa-solid fa-play" style="cursor: pointer">재생</i>
             <input type="hidden" id="mainVideo" value="">
           </div>
           <div class="grey-button">
@@ -375,90 +369,6 @@
 
     <div class="category-list" id="category-list">
       <div class="category" id="category">
-
-        <div class="card-wrapper">
-          <div class="card-top">
-            <img class="image"
-              src="https://images.unsplash.com/photo-1499676763409-c0211693a66b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80">
-          </div>
-
-          <div class="card-bottom">
-            <span class="top-text">Premium Membership</span><br>
-            <span class="bottom-text">Join our membership program to download music for free, listen offline and skip
-              songs</span>
-            <br>
-            <button class="button">Join Us</button>
-          </div>
-        </div>
-
-
-
-        <div class="container">
-          <div class="category-title">지금뜨는컨텐츠</div>
-          <div class="swiper-container hotContainer">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-
-              <div class="card-bottom">
-                <span class="top-text">Premium Membership</span><br>
-                <span class="bottom-text">Join our membership program to download music for free, listen offline and
-                  skip songs</span>
-                <br>
-                <button class="button">Join Us</button>
-              </div>
-
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-
-              <div class="card-bottom">
-                <span class="top-text">Premium Membership</span><br>
-                <span class="bottom-text">Join our membership program to download music for free, listen offline and
-                  skip songs</span>
-                <br>
-                <button class="button">Join Us</button>
-              </div>
-
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="https://source.unsplash.com/224x126/?random" alt="">
-              </div>
-            </div>
-
-
-          </div>
-          <div class="swiper-button-next hotNext"></div>
-          <div class="swiper-button-prev hotPrev"></div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -469,7 +379,7 @@
     </video>
     <div class="buttons">
       <div class="white-button">
-        <i id="btnMovePlay" class="fa-solid fa-play">재생</i>
+        <i class="fa-solid fa-play">재생</i>
         <input type="hidden" id="mainVideo" value="">
       </div>
     </div>
@@ -504,7 +414,6 @@
 
 
 
-  </div>
 
 </body>
 
@@ -526,6 +435,7 @@
       }
       
       for(let i = 0;i<data.length/10;i++){
+        
         containerHtml = "";
         containerHtml += `
           <div id="wrapper-${containerList[i]}" class="category-title">${data[i*10].movieGenre}</div>
@@ -536,11 +446,28 @@
       //  ${data[i*10+slideIndex].movieName}
       for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
         containerHtml += `
-              <div class="swiper-slide">
-                <img src="${data[i*10+slideIndex].moviepostUrl}" alt="">                
+              <div class="swiper-slide">   
+                <img src="${data[i*10+slideIndex].moviepostUrl}" alt="">
+                <div class="imgbody">
+                  <section class="imgbody-detail">
+                    <div style="display:flex">
+                      <i class="fa-regular fa-circle-play card-icon"></i>
+                      <i class="fa-solid fa-circle-plus card-icon"></i>
+                    </div>
+                    <div>                      
+                      <a class="fa-solid fa-circle-chevron-down card-icon" href="#ex1" rel="modal:open"></a>                                           
+                    </div>
+                  </section>
+                  <section class="imgbody-detail" >
+                    <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
+                    <div class="m-2 netflix-card-text text-white">Limited Series</div>
+                    <div class="border netflix-card-text p-1 text-white">HD</div>                
+                  </section>
+                  <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
+                </div>              
               </div>`
       }
-      containerHtml += `
+      containerHtml += `              
             </div>
           </div>
           <div class="swiper-button-next ${containerList[i]}Next"></div>
@@ -561,16 +488,16 @@
           prevEl: `.${containerList[i]}Prev`,
         },
         breakpoints: {
-      // 화면의 넓이가 320px 이상일 때
+      // 화면의 넓이가 50px 이상일 때
       50: {
         slidesPerView: 2,
         slidesPerGroup: 1,
       },
+      // 화면의 넓이가 500px 이상일 때
       500: {
         slidesPerView: 3,
         slidesPerGroup: 1,
-      },
-      // 화면의 넓이가 640px 이상일 때
+      },    
       800: {
         slidesPerView: 4,
         slidesPerGroup: 1,
@@ -593,6 +520,14 @@
 
     console.log(containerHtml);
   }
+
+  $("#btnMovePlay").click(function(){
+        var srcCd = $("#mainVideo").val();
+        srcCd = "test"
+        //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+        location.href= "//localhost:8888/watch?"+srcCd
+        //location.href= "https://www.naver.com"
+      });
   // const swiper = new Swiper(".hotContainer", {
   //   slidesPerView: 6,
   //   slidesPerGroup: 6,
