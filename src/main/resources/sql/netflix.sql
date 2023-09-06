@@ -142,7 +142,7 @@ select * from netflix_order;
 
 commit;
 
--- member_id + order_id -> customr_uid -> ex) tatelulove4@naver.com_kakao_cuid_order_000001
+-- member_id + order_id -> customer_uid -> ex) tatelulove4@naver.com_kakao_cuid_order_000001
 -- projectname + order_id -> merchant_uid -> ex) project_netflix_muid_order_000001
 
 -----------------------------------------------
