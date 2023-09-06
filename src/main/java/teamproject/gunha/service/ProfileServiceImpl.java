@@ -12,7 +12,6 @@ import teamproject.gunha.mapper.ProfileMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.vo.ProfileVO;
-import teamproject.gunha.vo.UserVO;
 
 @Service
 @Slf4j

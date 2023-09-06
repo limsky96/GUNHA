@@ -21,7 +21,8 @@ import teamproject.gunha.vo.UserVO;
  */
 
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class NetflixUserDetails implements UserDetails, OAuth2User {
 
   private UserVO userVO;
@@ -30,8 +31,8 @@ public class NetflixUserDetails implements UserDetails, OAuth2User {
   private Map<String, Object> attributes;
 
   public NetflixUserDetails(UserVO user) {
-    this.setAuthorities(user);
     this.setUserVO(user);
+    this.setAuthorities(user);
   }
 
   public NetflixUserDetails(UserVO user, Map<String, Object> attributes) {
