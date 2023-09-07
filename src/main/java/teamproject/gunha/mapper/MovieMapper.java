@@ -19,14 +19,18 @@ public interface MovieMapper {
 
     // boolean existsById(Long id);
 
-    // void deleteById(Long id);
+    // 오류 나기 싫으면 붙여...
+    boolean existsById(Long id);
 
-    // void save(MovieVO movie);
+    void deleteById(Long id);
 
-    // MovieVO findById(Long id);
+    void save(MovieVO movie);
 
-    // void update(MovieVO movie);
+    MovieVO findById(Long id);
+
+    void update(MovieVO movie);
 
     // List<MovieVO> findPageMovieList(int startIndex, int count);
+    // List<MovieVO> findMovieList();
 
 }

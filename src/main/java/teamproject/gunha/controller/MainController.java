@@ -23,6 +23,20 @@ public class MainController {
   @Autowired
   private UserLoginService userLoginService;
 
+  // 헤더-화이트
+  @GetMapping("/header")
+  public String header() {
+
+    return "header_white";
+  }
+
+  // 해더-블랙
+  @GetMapping("/header2")
+  public String header2() {
+
+    return "header-black";
+  }
+
   @GetMapping("/")
   public String hello(
       @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
@@ -82,12 +96,17 @@ public class MainController {
     return "admins/admin";
   }
 
-  @GetMapping("/regi")
-  public String regi() {
-    log.info("hello()...");
-    return "login/regi";
+  @GetMapping("/qna")
+  public String qna() {
+      log.info("qna()...");
+      return "homepage/qna";
   }
 
+  @GetMapping("/accountpage")
+  public String accountpage() {
+    log.info("accountpage()...");
+    return "homepage/accountpage";
+  }
   
   @GetMapping("/movie")
   public String card() {

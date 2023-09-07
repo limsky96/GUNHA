@@ -10,11 +10,13 @@
   <result property="movieId" column="movie_id" />
   <result property="movieName" column="movie_name" />
   <result property="moviepostUrl" column="movie_postUrl" />
+  <result property="movietrailerUrl" column="movie_trailerUrl" />
   <result property="movieContent" column="movie_content" />
   <result property="movieGenre" column="movie_genre" />
   <result property="movieCast" column="movie_cast" />
   <result property="movieReleaseDate" column="movie_release_date" />
   <result property="movieFavorite" column="movie_favorite" />
+  <result property="autoplay" column="autoplay" />
 </resultMap>
 
 <select id="selectPagedMovieList" resultMap="movieMap">

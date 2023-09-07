@@ -21,18 +21,17 @@ public class LoginController {
 
   @GetMapping("/login")
   public String login() {
-      log.info("hello()...");
-      return "login/login-page";
+    log.info("hello()...");
+    return "login/login-page";
   }
-
 
   @GetMapping("/sign-up")
   public String signUpPage(
-          @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
-          Model model) {
-    if(netflixUserDetails != null){
+      @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
+      Model model) {
+    if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
-      if("결제정보 없음".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())){
+      if ("결제정보 없음".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())) {
         model.addAttribute("user", userVO);
         return "login/sign-up-social";
       }
@@ -48,19 +47,42 @@ public class LoginController {
   }
 
   @PostMapping("/account-update")
-  public String updateAccount(UserVO userVO){
+  public String updateAccount(UserVO userVO) {
     log.info("updateAccount() :" + userVO);
     userLoginService.updateAccount(userVO);
     return "redirect:/";
   }
 
-  @GetMapping("/member")
-  public String updateMember(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model){
-    UserVO userVO = netflixUserDetails.getUserVO();
-    log.info(userVO+"");
-    model.addAttribute("user",userVO);
-    return "update-member";
+  @GetMapping("/regi")
+  public String regi() {
+    log.info("legister()...");
+    return "login/regi1";
   }
 
+  @GetMapping("/regi2")
+  public String regi2() {
+    log.info("legister()...");
+    return "login/regi2";
+  }
+
+  @GetMapping("/regi3")
+  public String regi3() {
+    log.info("legister()...");
+    return "login/regi3";
+  }
+
+  @GetMapping("/planform")
+  public String planform() {
+    log.info("planform()...");
+    return "login/planform";
+  }
+
+  @GetMapping("/member")
+  public String updateMember(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
+    UserVO userVO = netflixUserDetails.getUserVO();
+    log.info(userVO + "");
+    model.addAttribute("user", userVO);
+    return "update-member";
+  }
 
 }
