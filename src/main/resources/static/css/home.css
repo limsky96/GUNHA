@@ -292,3 +292,7 @@ video {
     padding: 5px 20px
   }
   
+  img {
+    width: 224px;
+    height: 126px;
+  }
