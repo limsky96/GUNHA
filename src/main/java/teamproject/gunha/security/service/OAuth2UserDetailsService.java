@@ -56,43 +56,46 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
     String provider = oAuth2UserInfo.getProvider(); // google , naver, facebook etc
     String email = oAuth2UserInfo.getEmail();
-    
+
     String userId = email + "_" + provider;
     log.info(userId);
     String password = bCryptPasswordEncoder.encode("user"); // 중요하지 않음 그냥 패스워드 암호화 하
-    
-    
+
     // Role role = Role.USER;
     UserVO userVO = userMapper.selectUserId(userId);
     log.info("OAuth method() -> userVO: " + userVO);
-    //log.info("password: " + bCryptPasswordEncoder.encode("2577013424"));
+    // log.info("password: " + bCryptPasswordEncoder.encode("2577013424"));
     // 처음 서비스를 이용한 회원일 경우
     if (userVO == null) {
-      
+
       log.info("builded userVO : " + userVO);
       AuthVO authVO = AuthVO.builder()
-        .userId(userId)
-        .authority("ROLE_USER")
-        .build();
+          .userId(userId)
+          .authority("ROLE_USER")
+          .build();
+
       List<AuthVO> authList = new ArrayList<>();
       authList.add(authVO);
+
       ProfileVO profileVO = ProfileVO.builder()
-        .userId(userId)
-        .profileName("테스트")
-        .build();
+          .userId(userId)
+          .profileName("테스트")
+          .build();
+
       List<ProfileVO> profileList = new ArrayList<>();
       profileList.add(profileVO);
+
       userVO = UserVO.builder()
-        .userId(userId)
-        .userEmail(email)
-        .password(password)
-        .cardNumber("결제정보 없음")
-        .membershipNo(0)
-        .social(provider)
-        .authList(authList)
-        .profileList(profileList)
-        .build();
-          
+          .userId(userId)
+          .userEmail(email)
+          .password(password)
+          .cardNumber("결제정보 없음")
+          .membershipNo(0)
+          .social(provider)
+          .authList(authList)
+          .profileList(profileList)
+          .build();
+
       log.info("builded profileVO : " + profileVO);
       userMapper.insertUser(userVO);
       userMapper.insertAuthorities(userVO);

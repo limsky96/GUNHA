@@ -3,7 +3,7 @@ package teamproject.gunha.security.config.auth;
 import java.util.Map;
 
 public class GoogleUserInfo implements OAuth2UserInfo {
-  
+
     private Map<String, Object> attributes;
 
     public GoogleUserInfo(Map<String, Object> attributes) {
@@ -13,7 +13,7 @@ public class GoogleUserInfo implements OAuth2UserInfo {
 
     @Override
     public String getProviderId() {
-        return String.valueOf(attributes.get("sub"));
+        return String.valueOf(attributes.get("sub")); // google key : sub
     }
 
     @Override
