@@ -89,10 +89,10 @@ public class MainController {
   }
 
   
-  @GetMapping("/card")//지효가 사용, 테스트하고 지울께요
+  @GetMapping("/movie")
   public String card() {
     log.info("hello()...");
-    return "cardtest";
+    return "/category/movie";
   }
 
 }

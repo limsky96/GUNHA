@@ -1,5 +1,7 @@
 * {
     /* border: 1px solid greenyellow; */
+          box-sizing: border-box;
+
 }
 body {
     background-color: rgb(20, 20, 20);
@@ -22,6 +24,9 @@ a {
     /* overflow-x: hidden; 입력했더니 2중 스크롤이생김*/
 }
 video {
+    width: 100%;
+}
+iframe {
     width: 100%;
 }
 .overlay {

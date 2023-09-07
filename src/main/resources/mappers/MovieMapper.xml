@@ -3,7 +3,7 @@
     "-//mybatis.org//DTD Config 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamproject.gunha.mapper.MovieMapper">
-<select id="findMovieList" resultMap="movieMap">
+<select id="selectMovieList" resultMap="movieMap">
   select * from NETFLIX_MOVIE
 </select>
 <resultMap id="movieMap" type="teamproject.gunha.vo.MovieVO">
@@ -16,6 +16,13 @@
   <result property="movieReleaseDate" column="movie_release_date" />
   <result property="movieFavorite" column="movie_favorite" />
 </resultMap>
+
+<select id="selectPagedMovieList" resultMap="movieMap">
+  <![CDATA[ 
+    select * from NETFLIX_MOVIE where movie_id > #{startIndex}
+     and movie_id <= #{endIndex}
+  ]]>
+</select>
 
 <!-- <resultMap id="userMap" type="edu.global.demo.vo.UserVO">
   <constructor>

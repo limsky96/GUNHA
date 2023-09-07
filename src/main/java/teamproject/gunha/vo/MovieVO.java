@@ -21,6 +21,4 @@ public class MovieVO {
     private Date movieReleaseDate;
     private boolean movieFavorite;
 
-    public void updateFrom(MovieVO updatedMovie) {
-    }
 }

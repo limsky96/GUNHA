@@ -173,136 +173,7 @@
   </style>
 </head>
 
-<script>
 
-  $(document).ready(function () {
-    fnInit();
-  });
-
-  function fnInit() {
-
-    //임시 TITLE 증가값
-    var isLoading = false; //새 콘텐츠 로딩여부 추적
-    var count = 1;
-    //무한스크롤 START
-    //DOCUMENT 스크롤 이벤트 감지
-    $(document).scroll(function () {
-      //문서전체 높이값
-      var maxHeight = $(document).height();
-      //현재 스크롤 위치
-      var currentScroll = $(window).scrollTop() + $(window).height();
-
-      if (maxHeight <= currentScroll + 50 && !isLoading) {
-        isLoading = true;
-        //무한스크롤 END
-        //화면에 추가로 보여줄 요소 생성 (AJAX) START
-        //category Class내에 추가시킬 html소스 생성 위한 String 변수
-        setTimeout(function () {
-          var htmlText = "";
-          var byunsuArr = [];
-          for (var i = 0; i < 1; i++) {
-            byunsuArr.push("byunsu" + count);
-            htmlText += '<div class="container">';
-            htmlText += '<div class="category-title">지금뜨는컨텐츠' + count + '</div>';
-            htmlText += '<div class="swiper-container byunsu' + count + 'Container">';
-            htmlText += '<div class="swiper-wrapper">';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-slide">';
-            htmlText += '<img src="https://source.unsplash.com/224x126/?random" alt="">';
-            htmlText += '</div>';
-            htmlText += '</div>';
-            htmlText += '</div>';
-            htmlText += '<div class="swiper-button-next byunsu' + count + 'Next"></div>';
-            htmlText += '<div class="swiper-button-prev byunsu' + count + 'Prev"></div>';
-            htmlText += '</div>';
-
-            count++;
-
-          }
-          $("#category").append(htmlText);
-
-          //여기서 스와이프 변수 선언이 되야함
-          for (var i = 0; i < byunsuArr.length; i++) {
-            eval(
-              "const swiper" + byunsuArr[i] + "= new Swiper('." + byunsuArr[i] + "Container', {slidesPerView: 6, slidesPerGroup: 6, centeredSlides: false, loop: false, navigation: { nextEl: '." + byunsuArr[i] + "Next', prevEl: '." + byunsuArr[i] + "Prev',}})"
-            );
-          }
-          isLoading = false; // 로딩 상태 초기화
-        }, 2000); //2초 딜레이 지정
-
-        //화면에 추가로 보여줄 요소 생성 (AJAX) END
-
-        //ajax 대충예시 START
-        /*ajax.success(result){
-          var titleList = result.titleList;
-          var srcList = ruesult.srcList;
-          //+[{title:1, src:"xxxx"},{title:1, src:"xxxx"},{title:2, src:"xxxx"},{title:2, src:"xxxx"}];
-  
-          if(titleList.length > 0){
-             for(var i=0; i<titleList.length; i++){
-            htmlText+= '<div class="title" class="fstScl">'+titleList[i]+'</div>';
-            htmlText+= '<div class="list" class="fstScl">';
-            for(var j=0; j<srcList.length; j++){
-              if(titleList[i].title == srcList[j].title){
-                htmlText+= '<div class="movie">';
-                htmlText+= '<img src="'+srcList[j].src+'" alt="">';
-                htmlText+= '</div>';
-              }
-            }
-            htmlText+= '</div>';
-          }
-          $("#category").append(htmlText); 
-          }
-          
-        }
-        , error(error){
-          alert('리스트를 불러오는데 실패했습니다.');
-        }*/
-        //ajax 대충예시 END
-        }  
-      })
-  
-  
-  
-      
-  
-  
-    }
-  
-    
-  </script>
 
 
 
@@ -420,114 +291,115 @@
 
 
 <script>
-      getMovies(); 
-      async function getMovies(){
-      const {data} = await axios.get('/api/movies')
-      // <div class="swiper-slide">
-      //             <img src="https://source.unsplash.com/224x126/?random" alt="">
-      //           </div>
-      // console.log(data);
-      console.log(data);      
-      let containerHtml;
-      const containerList = [];
-      for(let i =0;i<5;i++){
-        containerList.push(`list${i}`);
-      }
-      
-      for(let i = 0;i<data.length/10;i++){
-        
-        containerHtml = "";
-        containerHtml += `
-          <div id="wrapper-${containerList[i]}" class="category-title">${data[i*10].movieGenre}</div>
-          <div class="swiper-container ${containerList[i]}Container">
-            <div class="swiper-wrapper">
-            `
-      //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
-      //  ${data[i*10+slideIndex].movieName}
-      for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
-        containerHtml += `
-              <div class="swiper-slide">   
-                <img src="${data[i*10+slideIndex].moviepostUrl}" alt="">
-                <div class="imgbody">
-                  <section class="imgbody-detail">
-                    <div style="display:flex">
-                      <i class="fa-regular fa-circle-play card-icon"></i>
-                      <i class="fa-solid fa-circle-plus card-icon"></i>
-                    </div>
-                    <div>                      
-                      <a class="fa-solid fa-circle-chevron-down card-icon" href="#ex1" rel="modal:open"></a>                                           
-                    </div>
-                  </section>
-                  <section class="imgbody-detail" >
-                    <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
-                    <div class="m-2 netflix-card-text text-white">Limited Series</div>
-                    <div class="border netflix-card-text p-1 text-white">HD</div>                
-                  </section>
-                  <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
-                </div>              
-              </div>`
-      }
-      containerHtml += `              
-            </div>
-          </div>
-          <div class="swiper-button-next ${containerList[i]}Next"></div>
-          <div class="swiper-button-prev ${containerList[i]}Prev"></div>
-        `
-      const container = document.createElement("div");
-      container.setAttribute("class", "container");
-      container.innerHTML = containerHtml;
-      const list = document.querySelector("#category");
-      list.appendChild(container);
-      const swiper = new Swiper(`.${containerList[i]}Container`, {
-        slidesPerView: 2,
-        slidesPerGroup: 1,
-        centeredSlides: false,
-        loop: true,
-        navigation: {
-          nextEl: `.${containerList[i]}Next`,
-          prevEl: `.${containerList[i]}Prev`,
-        },
-        breakpoints: {
-      // 화면의 넓이가 50px 이상일 때
-      50: {
-        slidesPerView: 2,
-        slidesPerGroup: 1,
-      },
-      // 화면의 넓이가 500px 이상일 때
-      500: {
-        slidesPerView: 3,
-        slidesPerGroup: 1,
-      },    
-      800: {
-        slidesPerView: 4,
-        slidesPerGroup: 1,
-      },
-      1100: {
-        slidesPerView: 5,
-        slidesPerGroup: 1,
-      },
-      1400: {
-        slidesPerView: 6,
-        slidesPerGroup: 1,
-      }
-      }
 
-      });
-      
-      console.log(container);
-      console.log(list);
-    }
+  //     getMovies(); 
+  //     async function getMovies(){
+  //     const {data} = await axios.get('/api/movies')
+  //     // <div class="swiper-slide">
+  //     //             <img src="https://source.unsplash.com/224x126/?random" alt="">
+  //     //           </div>
+  //     // console.log(data);
+  //     console.log(data);      
+  //     let containerHtml;
+  //     const containerList = [];
+  //     for(let i =0;i<5;i++){
+  //       containerList.push(`list${i}`);
+  //     }
 
-    console.log(containerHtml);
-  }
+  //     for(let i = 0;i<data.length/10;i++){
 
-  $("#btnMovePlay").click(function(){
-        var srcCd = $("#mainVideo").val();
-        srcCd = "test"
-        //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-        location.href= "//localhost:8888/watch?"+srcCd
-        //location.href= "https://www.naver.com"
-      });
+  //       containerHtml = "";
+  //       containerHtml += `
+  //         <div id="wrapper-${containerList[i]}" class="category-title">${data[i*10].movieGenre}</div>
+  //         <div class="swiper-container ${containerList[i]}Container">
+  //           <div class="swiper-wrapper">
+  //           `
+  //     //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
+  //     //  ${data[i*10+slideIndex].movieName}
+  //     for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
+  //       containerHtml += `
+  //             <div class="swiper-slide">   
+  //               <img src="${data[i*10+slideIndex].moviepostUrl}" alt="">
+  //               <div class="imgbody">
+  //                 <section class="imgbody-detail">
+  //                   <div style="display:flex">
+  //                     <i class="fa-regular fa-circle-play card-icon"></i>
+  //                     <i class="fa-solid fa-circle-plus card-icon"></i>
+  //                   </div>
+  //                   <div>                      
+  //                     <a class="fa-solid fa-circle-chevron-down card-icon" href="#ex1" rel="modal:open"></a>                                           
+  //                   </div>
+  //                 </section>
+  //                 <section class="imgbody-detail" >
+  //                   <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
+  //                   <div class="m-2 netflix-card-text text-white">Limited Series</div>
+  //                   <div class="border netflix-card-text p-1 text-white">HD</div>                
+  //                 </section>
+  //                 <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
+  //               </div>              
+  //             </div>`
+  //     }
+  //     containerHtml += `              
+  //           </div>
+  //         </div>
+  //         <div class="swiper-button-next ${containerList[i]}Next"></div>
+  //         <div class="swiper-button-prev ${containerList[i]}Prev"></div>
+  //       `
+  //     const container = document.createElement("div");
+  //     container.setAttribute("class", "container");
+  //     container.innerHTML = containerHtml;
+  //     const list = document.querySelector("#category");
+  //     list.appendChild(container);
+  //     const swiper = new Swiper(`.${containerList[i]}Container`, {
+  //       slidesPerView: 2,
+  //       slidesPerGroup: 1,
+  //       centeredSlides: false,
+  //       loop: true,
+  //       navigation: {
+  //         nextEl: `.${containerList[i]}Next`,
+  //         prevEl: `.${containerList[i]}Prev`,
+  //       },
+  //       breakpoints: {
+  //     // 화면의 넓이가 50px 이상일 때
+  //     50: {
+  //       slidesPerView: 2,
+  //       slidesPerGroup: 1,
+  //     },
+  //     // 화면의 넓이가 500px 이상일 때
+  //     500: {
+  //       slidesPerView: 3,
+  //       slidesPerGroup: 1,
+  //     },    
+  //     800: {
+  //       slidesPerView: 4,
+  //       slidesPerGroup: 1,
+  //     },
+  //     1100: {
+  //       slidesPerView: 5,
+  //       slidesPerGroup: 1,
+  //     },
+  //     1400: {
+  //       slidesPerView: 6,
+  //       slidesPerGroup: 1,
+  //     }
+  //     }
+
+  //     });
+
+  //     console.log(container);
+  //     console.log(list);
+  //   }
+
+  //   console.log(containerHtml);
+  // }
+
+  $("#btnMovePlay").click(function () {
+    var srcCd = $("#mainVideo").val();
+    srcCd = "test"
+    //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+    location.href = "//localhost:8888/watch?" + srcCd
+    //location.href= "https://www.naver.com"
+  });
   // const swiper = new Swiper(".hotContainer", {
   //   slidesPerView: 6,
   //   slidesPerGroup: 6,
