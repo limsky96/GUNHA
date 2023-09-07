@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 //  ORDER_MEMBER_CARD_NUMBER                           CHAR(19)
 //  ORDER_START_DATE                                   DATE
 //  ORDER_VALID                                        CHAR(1)
+//  ORDER_CUSTOMER_UID                        NOT NULL varchar2(80)
+//  
 
 @Data
 @NoArgsConstructor @AllArgsConstructor
@@ -23,4 +25,7 @@ public class OrderVO {
   private String cardNumber;
   private Date startDate;
   private String orderValid;
+  private String customerUid;
+  private String membershipGrade;
+  private String amount;
 }
