@@ -5,10 +5,14 @@
 }
 
 /* 멤버십 정보 영역 */
+
 #membership-info{
     margin-right: 30px;
     width: 15em;
 
+}
+#membership-info2{
+    width:100%
 }
 #membership-info-left{
     width: 75%;
@@ -16,6 +20,12 @@
 
 .row{
     text-align: end;
+}
+
+/* 내가 원하는 부분 정보랑 링크랑 서로 떼어놓으려고 하는것 */
+#d-flex {
+    display: flex!important;
+    justify-content: space-between;
 }
 
 /* 멤버십 상세정보 영역 */
