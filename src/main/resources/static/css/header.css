@@ -165,7 +165,7 @@
 .dropdown-main-menu {
   width: 240px; /* 드롭 다운 메뉴 너비 변경 */
   padding: 20px 10px 0;
-  border-top: 3px solid rgba(0, 0, 0, 0.8); /* 검은색 색상, 50% 투명도 */
+  border-top: 3px solid rgba(255, 255, 255, 0.8); /* 검은색 색상, 50% 투명도 */
 }
 
 /*반응형이랑 오른쪽 둘다 만들어드롭다운 메뉴 배경색과 텍스트 색상 변경 */
@@ -216,7 +216,7 @@
 /* 스크립트 - 화이트 헤더 css 부분 */
 header.hd-white {
   /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
-  .navbar { background: #fff !important; color: #333 !important; border-bottom: 1px solid #e6e6e6; height: 75px; };
+  .navbar { background: #fff !important; color: #333 !important; border-bottom: 1px solid #e6e6e6; height: 93px; };
   .logo img { width: 180px; height: 50px; margin-left: 8px; /* 수평으로 이동 (원하는 만큼 조절) */};
   /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
   .navbar-toggler .navbar-nav, .dropdown-main, .right-menu { display: none; };

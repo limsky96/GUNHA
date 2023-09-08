@@ -59,7 +59,7 @@ public class ProfileController {
       json.put("redirectPage", "/profile/manage");
       json.put("returnedValue", true);
     }else{
-      json.put("msg", "update failed");
+      json.put("msg", "create failed");
       json.put("returnedValue", false);
     }
     return json;

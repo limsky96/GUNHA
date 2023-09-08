@@ -21,7 +21,7 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     // 로그인 시 csrf토큰을 받아야 하는가
-    // http.csrf().disable();
+    http.csrf().disable();
 
     http.sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -31,7 +31,7 @@ public class SecurityConfig {
         .antMatchers("/css/**", "/icons/**", "/images/**", "/views/**", "/bootstrap/**").permitAll()
         .antMatchers("/emp/**").hasAnyRole("USER")
         .antMatchers("/admin/**").hasAnyRole("ADMIN")
-        .antMatchers("/").permitAll();
+        .antMatchers("/**").permitAll();
 
     http.formLogin()
         .loginPage("/login") // 미인증자일경우 해당 uri를 호출

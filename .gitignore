@@ -120,3 +120,5 @@ gradle-app.setting
 
 # 프로젝트 sql
 !netflix.sql
+
+todolist.md
