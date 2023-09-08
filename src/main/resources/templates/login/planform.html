@@ -9,11 +9,11 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="/css/planform.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/179a863a03.js" crossorigin="anonymous"></script>
-    
+
 </head>
 
 <body>
-    
+
     <!--헤더 영역-->
     <header class="content-header header bg-header-theme text-center">
         <h1>헤더영역</h1>
@@ -91,24 +91,26 @@
                 </tr>
             </tbody>
         </table>
-         
 
-          <div>         
-          <p  id="planform-info">
-            HD(720p), 풀 HD(1080p), UHD(4K), HDR 화질 제공 여부는 사용하는 인터넷 서비스와 디바이스의 성능에 따라 달라질 수 있습니다. 모든 콘텐츠가 모든 화질로 제공되지는 않습니다. 자세한 내용은 이용 약관을 확인하세요.
-            <br><br>
-            함께 거주하는 사람들만 계정을 함께 이용할 수 있습니다. 프리미엄 멤버십은 동시접속 4명, 스탠다드 또는 광고형 스탠다드는 2명, 베이식은 1명까지 가능합니다.
-          </p>
+
+        <div>
+            <p id="planform-info">
+                HD(720p), 풀 HD(1080p), UHD(4K), HDR 화질 제공 여부는 사용하는 인터넷 서비스와 디바이스의 성능에 따라 달라질 수 있습니다. 모든 콘텐츠가 모든 화질로
+                제공되지는 않습니다. 자세한 내용은 이용 약관을 확인하세요.
+                <br><br>
+                함께 거주하는 사람들만 계정을 함께 이용할 수 있습니다. 프리미엄 멤버십은 동시접속 4명, 스탠다드 또는 광고형 스탠다드는 2명, 베이식은 1명까지 가능합니다.
+            </p>
         </div>
 
     </div>
     <!--Next button-->
-            
-        <div class="col-auto1 pt-4 align-self-center d-grid">
-            <button id="next-button" type="submit" class="btn btn-danger btn-lg">
-                <a href="#" style="text-decoration: none; color: azure;"><strong>다음</strong></a>
-            </button>
-        </div>
+
+    <div class="col-auto1 pt-4 align-self-center d-grid">
+        <button id="next-button" type="submit" class="btn btn-danger btn-lg"
+            onclick="window.location.href='/paymentCard'">
+            <a href="#" style="text-decoration: none; color: azure;"><strong>다음</strong></a>
+        </button>
+    </div>
     </div>
 
     <script>
@@ -125,7 +127,7 @@
                 document.getElementById(column + "-devices").style.color = '';
                 document.getElementById(column + "-save").style.color = '';
             });
-    
+
             // 클릭한 버튼에 클래스 추가
             document.getElementById(buttonId + "-button").classList.add('btn-danger');
             // 클릭한 버튼에 해당하는 요소의 색상을 빨간색으로 변경
@@ -135,25 +137,24 @@
             document.getElementById(buttonId + "-devices").style.color = 'red';
             document.getElementById(buttonId + "-save").style.color = 'red';
         }
-    
+
         // 각 버튼에 이벤트 리스너 등록
         document.getElementById("basic-button").addEventListener('click', function () {
             highlightColumn("basic");
         });
-    
+
         document.getElementById("standard-button").addEventListener('click', function () {
             highlightColumn("standard");
         });
-    
+
         document.getElementById("premium-button").addEventListener('click', function () {
             highlightColumn("premium");
         });
     </script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous">
-    </script>
-    </body>
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+</body>
 
 </html>
