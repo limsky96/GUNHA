@@ -102,11 +102,10 @@ public class MainController {
       return "homepage/qna";
   }
 
-  // @GetMapping("/accountpage")
-  // public String accountpage() {
-  //   log.info("accountpage()...");
-  //   return "homepage/accountpage";
-  // }
-
+  @GetMapping("/nodata")
+  public String nofunction() {
+      log.info("qna()...");
+      return "homepage/nofunction";
+  }
   
 }
