@@ -23,19 +23,21 @@ public class MainController {
   @Autowired
   private UserLoginService userLoginService;
 
-  // 헤더-화이트
+  // 헤더
   @GetMapping("/header")
   public String header(){
 
-    return "header_white";
+    return "header/header";
   }
 
-  // 해더-블랙
-  @GetMapping("/header2")
-  public String header2(){
+  // 결제창-카드
+  @GetMapping("/paymentCard")
+  public String paymentCard(){
 
-    return "header-black";
+    return "login/paymentCard";
   }
+
+
 
   @GetMapping("/")
   public String hello(
