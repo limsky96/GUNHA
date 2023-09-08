@@ -26,6 +26,7 @@
 /*이메일주소와 비밀번호 쓰는 칸*/
 .form-check{
     font-size: 17px;
+    margin-bottom: 0.525rem;
 }
 .form-control{
     width: 100%;
@@ -46,7 +47,4 @@
     height: 70px;
 }
 
-.modalbtn{border: none; background-color:#fff;}      
-.modal-dialog{overflow-y: initial !important;}
-.modal-body{max-height: calc(100vh - 200px); overflow-y: auto;
-         font-size: 12px;}
+
