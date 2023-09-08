@@ -32,12 +32,10 @@ public class MainController {
 
   // 결제창-카드
   @GetMapping("/paymentCard")
-  public String paymentCard(){
+  public String paymentCard() {
 
     return "login/paymentCard";
   }
-
-
 
   @GetMapping("/")
   public String hello(
@@ -98,10 +96,16 @@ public class MainController {
     return "admins/admin";
   }
 
+  @GetMapping("/admin-home")
+  public String adminHome() {
+
+    return "admin-home";
+  }
+
   @GetMapping("/qna")
   public String qna() {
-      log.info("qna()...");
-      return "homepage/qna";
+    log.info("qna()...");
+    return "homepage/qna";
   }
 
   @GetMapping("/accountpage")

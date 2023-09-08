@@ -89,7 +89,9 @@
         })
         .catch(error => console.error('Error deleting movie:', error));
     }
+
   </script>
+
 
 </body>
 
@@ -151,6 +153,7 @@
     }
   </style>
 </head>
+
 <body>
   <style>
     div {
@@ -292,13 +295,21 @@
               </div>
             </div>
 
-
           </div>
-          <div class="swiper-button-next hotNext"></div>
-          <div class="swiper-button-prev hotPrev"></div>
-        </div>
+          <!-- 영화 관리자 버튼 -->
+          <div class="movie-admin">
+            <button onclick="addMovie()">추가</button>
+            <button onclick="updateMovie()">수정</button>
+            <button onclick="deleteMovie()">삭제</button>
+          </div>
 
-        <!-- <div class="container">
+
+        </div>
+        <div class="swiper-button-next hotNext"></div>
+        <div class="swiper-button-prev hotPrev"></div>
+      </div>
+
+      <!-- <div class="container">
           <div class="category-title">시청중인컨텐츠</div>
           <div class="swiper-container ingContainer">
             <div class="swiper-wrapper">
@@ -443,8 +454,8 @@
         </div> -->
 
 
-      </div>
     </div>
+  </div>
   </div>
 
   <div id="ex1" class="modal">
@@ -487,32 +498,29 @@
   </div>
 
 
-
-  </div>
-
 </body>
 
 
 
 <script>
-      getMovies(); 
-    async function getMovies(){
-      const {data} = await axios.get('/api/movies')
-      // <div class="swiper-slide">
-      //             <img src="https://source.unsplash.com/224x126/?random" alt="">
-      //           </div>
-      // console.log(data);
-      console.log(data);
-      let container;
-      let containerHtml;
-      const containerList = [];
-      for(let i =0;i<5;i++){
-        containerList.push(`list${i}`);
-      }
-      
-      for(let i = 0;i<data.length/10;i++){
-        containerHtml = "";
-        containerHtml += `
+  getMovies();
+  async function getMovies() {
+    const { data } = await axios.get('/api/movies')
+    // <div class="swiper-slide">
+    //             <img src="https://source.unsplash.com/224x126/?random" alt="">
+    //           </div>
+    // console.log(data);
+    console.log(data);
+    let container;
+    let containerHtml;
+    const containerList = [];
+    for (let i = 0; i < 5; i++) {
+      containerList.push(`list${i}`);
+    }
+
+    for (let i = 0; i < data.length / 10; i++) {
+      containerHtml = "";
+      containerHtml += `
           <div id="wrapper-${containerList[i]}" class="category-title">${containerList[i]}</div>
           <div class="swiper-container swiper-container-${containerList[i]}">
             <div class="swiper-wrapper">
@@ -522,8 +530,8 @@
       for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
         containerHtml += `
               <div class="swiper-slide">
-                <img src="${data[i*10+slideIndex].moviepostUrl}" alt="">
-                ${data[i*10+slideIndex].movieName}
+                <img src="${data[i * 10 + slideIndex].moviepostUrl}" alt="">
+                ${data[i * 10 + slideIndex].movieName}
               </div>`
       }
       containerHtml += `
@@ -557,7 +565,7 @@
             slidesPerView: 4,
             slidesPerGroup: 1,
           },
-          1100:{
+          1100: {
             slidesPerView: 5,
             slidesPerGroup: 1,
           },
@@ -628,30 +636,30 @@
   //     nextEl: '.slideNext',
   //     prevEl: '.slidePrev',
   //   }
-    //  breakpoints: {
-    //   700: {
-    //     slidesPerView: 4,
-    //     slidesPerGroup: 4,
-    //     spaceBetween: 3,
-    //     centeredSlides: false
-    //   },
-    //     // when window width is >= 800px
-    //   800: {
-    //     slidesPerView: 5,
-    //     slidesPerGroup: 5,
-    //     spaceBetween: 2,
-    //     centeredSlides: false
-    //   },
+  //  breakpoints: {
+  //   700: {
+  //     slidesPerView: 4,
+  //     slidesPerGroup: 4,
+  //     spaceBetween: 3,
+  //     centeredSlides: false
+  //   },
+  //     // when window width is >= 800px
+  //   800: {
+  //     slidesPerView: 5,
+  //     slidesPerGroup: 5,
+  //     spaceBetween: 2,
+  //     centeredSlides: false
+  //   },
 
-    //    // when window width is >= 1100px
-    //    1100: {
-    //      slidesPerView: 6,
-    //      slidesPerGroup: 6,
-    //      spaceBetween: 1,
-    //      centeredSlides: false
-    //    }
+  //    // when window width is >= 1100px
+  //    1100: {
+  //      slidesPerView: 6,
+  //      slidesPerGroup: 6,
+  //      spaceBetween: 1,
+  //      centeredSlides: false
+  //    }
 
-    // }
+  // }
   // });
 
   const openBtn = document.querySelector("#open-modal");
