@@ -3,7 +3,7 @@
     "-//mybatis.org//DTD Config 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamproject.gunha.mapper.MovieMapper">
-<select id="findMovieList" resultMap="movieMap">
+<select id="selectMovieList" resultMap="movieMap">
   select * from NETFLIX_MOVIE
 </select>
 <resultMap id="movieMap" type="teamproject.gunha.vo.MovieVO">
@@ -18,6 +18,13 @@
   <result property="movieFavorite" column="movie_favorite" />
   <result property="autoplay" column="autoplay" />
 </resultMap>
+
+<select id="selectPagedMovieList" resultMap="movieMap">
+  <![CDATA[ 
+    select * from NETFLIX_MOVIE where movie_id > #{startIndex}
+     and movie_id <= #{endIndex}
+  ]]>
+</select>
 
 <!-- <resultMap id="userMap" type="edu.global.demo.vo.UserVO">
   <constructor>
@@ -42,46 +49,5 @@
   <result property="userId" column="member_profile_member_id"/>
   <result property="profileName" column="member_profile_name"/>
 </resultMap>
-
-
-
-<!--  관리자 영화  관리 -->
-
-    <!-- 전체 영화 목록 조회 -->
-    <select id="findAllMovies" resultMap="movieMap">
-        SELECT * FROM NETFLIX_MOVIE
-    </select>
-
-    <!-- 영화 정보 조회 by ID -->
-    <select id="findMovieById" resultMap="movieMap">
-        SELECT * FROM NETFLIX_MOVIE WHERE movie_id = #{movieId}
-    </select>
-
-    <!-- 새로운 영화 추가 -->
-    <insert id="insertMovie" parameterType="teamproject.gunha.vo.MovieVO">
-        INSERT INTO NETFLIX_MOVIE (movie_id, movie_name, movie_postUrl, movie_trailerUrl, movie_content, movie_genre, movie_cast, movie_release_date, movie_favorite, autoplay)
-        VALUES (#{movieId}, #{movieName}, #{moviepostUrl}, #{movietrailerUrl}, #{movieContent}, #{movieGenre}, #{movieCast}, #{movieReleaseDate}, #{movieFavorite}, #{autoplay})
-    </insert>
-
-    <!-- 영화 정보 업데이트 -->
-    <update id="updateMovie" parameterType="teamproject.gunha.vo.MovieVO">
-        UPDATE NETFLIX_MOVIE
-        SET
-        movie_name = #{movieName},
-        movie_postUrl = #{moviepostUrl},
-        movie_trailerUrl = #{movietrailerUrl},
-        movie_content = #{movieContent},
-        movie_genre = #{movieGenre},
-        movie_cast = #{movieCast},
-        movie_release_date = #{movieReleaseDate},
-        movie_favorite = #{movieFavorite},
-        autoplay = #{autoplay}
-        WHERE movie_id = #{movieId}
-    </update>
-
-    <!-- 영화 정보 삭제 by ID -->
-    <delete id="deleteMovieById">
-        DELETE FROM NETFLIX_MOVIE WHERE movie_id = #{movieId}
-    </delete>
 
 </mapper>

@@ -80,26 +80,26 @@ public class MainController {
     UserVO userVO = netflixUserDetails.getUserVO();
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
-    return "home";
+    return "/homepage/home";
+  }
+
+  @GetMapping("/admin-home")
+  public String adminHome() {
+
+    return "homepage/admin-home";
   }
 
   @GetMapping("/watch")
   public String watch(UserVO userVO, Model model) {
     log.info("watch()...");
     model.addAttribute("영상Key", userVO);
-    return "watch";
+    return "/watch/watch";
   }
 
   @GetMapping("/admins")
   public String admin() {
     log.info("hello()...");
     return "admins/admin";
-  }
-
-  @GetMapping("/admin-home")
-  public String adminHome() {
-
-    return "admin-home";
   }
 
   @GetMapping("/qna")
@@ -113,4 +113,11 @@ public class MainController {
     log.info("accountpage()...");
     return "homepage/accountpage";
   }
+
+  @GetMapping("/movie")
+  public String card() {
+    log.info("hello()...");
+    return "/category/movie";
+  }
+
 }

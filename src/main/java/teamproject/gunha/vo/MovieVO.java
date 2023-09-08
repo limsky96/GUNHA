@@ -48,4 +48,7 @@ public class MovieVO {
         this.movieFavorite = updatedMovie.isMovieFavorite();
         this.autoplay = updatedMovie.isAutoplay();
     }
+
+    public void setId(Long id) {
+    }
 }
