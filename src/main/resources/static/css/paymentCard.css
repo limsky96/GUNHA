@@ -1,0 +1,225 @@
+*{
+  /* border: 1px solid greenyellow;  */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  
+  overflow-y: scroll; /* 세로 스크롤만 허용 */
+  height: 1650px;
+}
+
+.box-boundary{
+  min-width: 200px; 
+  max-width: 450px;
+
+  margin: 0 auto; /* 좌우 중앙 정렬 */
+  padding: 30px 0px 0px 0px; 
+
+  white-space: nowrap; /* 내용물이 줄지 않도록 설정 */
+} */
+
+/* 애 없애면 카드사 마크 사라짐 */
+.step3 {
+  
+}
+
+/* 카드 사 이미지 */
+.bordered {
+  border: 1px solid #ccc;
+  border-radius: 2px; /* 테두리 모서리를 둥글게 설정 */
+  margin-right: 5px;
+  padding: 5px;
+  width: 40px;
+  display: flex; /* 자식 요소를 수직으로 정렬하기 위해 flex 사용 */
+}
+
+/* 이미지를 수평으로 배열하고 왼쪽 정렬하는 Flexbox 스타일 설정 */
+.image-container {
+  display: flex;
+  margin-top: 15px; /*카드사 이미지 상하 여백*/
+  margin-bottom: 8px;
+}
+
+/* 카드사 이미지 크기*/
+.image {
+  min-width: 25px;
+  max-width: 25px;
+}
+
+/* card */
+/* .credit-card { position: relative; width: 100%; padding-bottom: 5px; margin-top: 0px;} */
+
+
+input[type="text"], input[type="password"] {
+  /* padding: 10px; */
+  border: 1px solid #8c8c8c; /*테두리*/
+}
+
+.card-box{
+  margin-bottom: 10px; /* 윗 칸 들끼리 간격*/
+}
+
+.form-control{
+  height: 60px; /* 카드 번호 칸 높이ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ*/
+}
+
+.credit-card{
+  margin-bottom: 8px; /* 카드번호 유효기간 사이 간격*/
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 8px;
+  color: #8c8c8c;
+}
+
+.custom-select select { /* 선택 칸 css*/
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #8c8c8c;
+  border-radius: 1px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="%238c8c8c"><path d="M2 12l14 14 14-14z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%, 0 0;
+  background-size: 12px auto, 100%;
+  cursor: pointer;
+  color: #8c8c8c;
+}
+
+.custom-select select option {
+  /*color: red; 버튼 안에 글자 */
+}
+
+
+.choice-type, .choice-type1 { /*결제 종류 선택 밑줄 빼기*/
+  text-decoration: none;
+}
+
+.pay-choice { /*결제 종류 선택 칸*/
+  padding: 0px; /* 안쪽 여백 설정 */
+  margin-bottom: 14px;
+
+
+
+ 
+  
+}
+
+.pay-choice-box{
+  background-color: #f4f4f4; /* 상자 배경색 설정 */
+    border-radius: 5px;
+    align-items: center;
+    display: flex; /* 인라인 블록 요소로 설정하여 텍스트나 링크 크기에 맞게 상자 크기 조정 */
+    height: 65px;
+}
+
+.choice-type{ /*결제 종류 칸 글씨*/
+    font-size: 15px;
+    font-weight: bold;
+
+    
+}
+
+.choice-type p { /*결제 종류 칸 글씨 간격*/
+  margin: 0;
+}
+
+.hr1{
+  margin-bottom: 8px;
+  margin-top: 10px;
+  width: 200px;
+
+}
+
+.hr2{
+  margin-top: 8px;
+}
+
+.month { /*매월 17,000원*/
+  color: black;
+  padding-left: 10px;
+}
+
+.premium{ /*프리미엄*/
+  color :#8c8c8c;
+    padding-left: 10px;
+
+}
+
+.choice-type1 p {/*변경 글자 위치 조정*/
+  margin: 0; /* 기본 마진을 제거합니다. */
+  margin-right: 5px;
+  margin-left: 270px;
+}
+
+/*체크박스 사이즈조절*/
+.custom-checkbox input[type="checkbox"] {
+  width: 30px; /* 원하는 너비 값으로 조정 */
+  height: 30px; /* 원하는 높이 값으로 조정 */
+
+  position: relative;
+    top: -5px; /* 체크 박스 위치 이동 */
+    left: -3px; 
+}
+
+.custom-checkbox1 input[type="checkbox"] {
+  width: 30px; /* 원하는 너비 값으로 조정 */
+  height: 30px; /* 원하는 높이 값으로 조정 */
+
+  position: relative;
+    top: -5px; /* 체크 박스 위치 이동 */
+    left: -3px; 
+}
+
+
+
+.checkbox-label a {
+    text-decoration: none; /* 이용약관 밑줄 제거 */
+}
+
+
+
+
+
+.button{ /* 유료 멤버십 시작 버튼 */
+ background-color: #c52e27;
+height: 70px; 
+width: 500px;
+margin: 0 auto;
+border-radius: 5px;
+
+
+color: #f4f4f4;
+font-size: 24px;
+
+border: 1px solid #c52e27
+
+}
+
+.centered-button-container {
+  display: flex;
+  margin-bottom: 30px; /* 버튼과 맨밑 텍스트 간격 조절 */
+
+}
+
+.text-alarm{
+  margin-top: 50px;
+  font-size: 12.5px;
+  
+}
+
+/* 밑줄 제거 */
+.text-alarm2 {
+  text-decoration: none;
+}
+
+
+/* @media (min-width: 880px) {
+  .container, .container-sm { max-width: 90%; margin: 0 auto; }
+}  */
