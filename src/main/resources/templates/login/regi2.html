@@ -58,7 +58,6 @@
 
             <div class="col-auto1 pt-4 align-self-center d-grid">
                 <button class="btn btn-danger btn-lg" type="submit">
-                    <!-- onclick="window.location.href = '/regi3'" -->
                    <strong>동의하고 계속</strong>
                 </button>
             </div>
@@ -68,7 +67,7 @@
             (function () {
                 'use strict'
 
-                var forms = document.querySelectorAll('.needs-validation')
+                const forms = document.querySelectorAll('.needs-validation')
                 
                 Array.prototype.slice.call(forms)
                 .forEach(function (form) {
