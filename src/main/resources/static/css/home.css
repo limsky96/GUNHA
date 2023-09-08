@@ -35,7 +35,6 @@ video {
     font-size: 28px;
     font-weight: 900;
     line-height: 36px;
-
 }
 .nav {
     display: flex;
@@ -94,7 +93,6 @@ video {
     right: 0;
     width: 140px;
     display: flex;
-    
 }
 .replay-button {
     display: inline-block;
@@ -154,21 +152,20 @@ video {
 :root {
     --swiper-theme-color: #e5e5e5 !important;
   }
-  
 
   .swiper-button-next {
-    right: 0;
-    
-    
+    position:absolute;
+    right: 20px;
   }
   .swiper-button-prev {
-    left: 0;
-    
+    position:absolute;
+    left: 10px;
   }
+
 
   .container {
     margin-top: 2rem;
-    width: 1400px;
+    width: 100vw;
     position: relative;
   }
   
@@ -184,15 +181,16 @@ video {
     padding: 2px;
     transition: all 300ms ease-in-out;
     border-radius: 5px;
+    position:relative;
   }
   
-  .swiper-slide img {
-    border-radius: 5px;
-    /* max-width: 18rem; */
-    cursor: grab;
-
-  }
   
+    .swiper-slide img {
+      border-radius: 2px;
+      width: 100%;
+      height: 126px;
+      cursor: grab;
+    }
   .swiper-slide img:active {
     cursor: grabbing;
   }
@@ -208,11 +206,8 @@ video {
     transition-delay: 300ms;
     box-shadow: 0 0 5px 1px rgba(0,0,0,0.5);
   }
-  
 
-/*  
-
-  
+  /*
   .image{
     width: 100%;
     height: 100%;
