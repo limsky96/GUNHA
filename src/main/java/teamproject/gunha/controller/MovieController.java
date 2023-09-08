@@ -48,6 +48,7 @@ public class MovieController {
         }
     }
 
+    // update
     @PutMapping("/{id}")
     public ResponseEntity<MovieVO> updateMovie(@PathVariable Long id, @RequestBody MovieVO updatedMovie) {
         MovieVO movie = movieMapper.findById(id);
@@ -60,6 +61,7 @@ public class MovieController {
         }
     }
 
+    // delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         if (movieMapper.existsById(id)) {

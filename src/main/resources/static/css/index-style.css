@@ -1,4 +1,4 @@
-.wrap {max-width: calc(83.33333333333334% - 6rem); margin: 0 auto; }
+.wrap {max-width: calc(75% - 6rem); margin: 0 auto; }
 
 /* index-main */
 .main {
@@ -12,9 +12,9 @@
     position: relative;
     color: #fff;
 }
-
+/*맨위 이메일 주소 넣는 칸*/
 .content-introduction {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -28,9 +28,11 @@
     margin-bottom: 1.7rem;
 }
 
+/*맨위 이메일 주소 넣는 칸 위치*/
 .row {
     display: flex;
     flex-wrap: nowrap;
+    justify-content: space-evenly;
 }
 
 .row>* {
@@ -40,9 +42,17 @@
 }
 
 .col-auto {
-    width: 70%;
+    width: 70%; 
 }
 
+/*중간중간 인터벌*/
+#interval{
+    width: 100%;
+    height: 0.7em;
+    background-color: rgb(38, 38, 38);
+}
+
+/*멤버십 설명*/
 .main-bnr{
     flex-direction: column;
     background: radial-gradient( 51.39% 511.66% at 47.68% -217.91%, #ff9900 0%, #e50914 17.27%, #0e1b4f 79.44%, #000413 100% );
@@ -51,6 +61,8 @@
     height: 18vh;
 }
 
+
+/*넷플 설명*/
 .netflix-intro1 {
     width: 100%;
     height: 500px;
@@ -61,20 +73,11 @@
     /* position: relative; */
     color: #fff;
 }
-
-.netflix-intro1 .intro-box { margin: 8rem 0; overflow: hidden;  }
+.netflix-intro1 .intro-box { margin: 8rem 0; overflow: hidden; }
 .netflix-intro1 .intro-box .intro-cont { padding-right: 30px; margin-right: 7em;}
 .netflix-intro1 .intro-box .intro-video { position: relative;}
-.netflix-intro1 .intro-box .intro-video .video { width: 35em; }
-.netflix-intro1 .intro-box .intro-video .frame { position: absolute; top: -35%; left: -16%;z-index: 10; }
-
-
-.netflix-intro2 .intro-box { margin: 8rem 0; overflow: hidden;  }
-.netflix-intro2 .intro-box .intro-cont { padding-left: 30px; margin-left: 7em;}
-.netflix-intro2 .intro-box .intro-video { position: relative; width: 26em;}
-.netflix-intro2 .intro-box .intro-video .video { z-index: 1; max-width: 100%; height: auto; }
-.netflix-intro2 .intro-box .intro-video .frame { position: absolute; top: -35%; left: -16%;z-index: 10; }
-
+.netflix-intro1 .intro-box .intro-video .video { width: 35em;z-index: 1; width:27em; }
+.netflix-intro1 .intro-box .intro-video .frame { position: absolute; top: -35%; left: -16%; z-index: 10; }
 
 .netflix-intro2 {
     width: 100%;
@@ -85,8 +88,13 @@
     padding: 10px;
     color: #fff;
 }
+.netflix-intro2 .intro-box { margin: 8rem 0; overflow: hidden;  }
+.netflix-intro2 .intro-box .intro-cont { padding-left: 30px; margin-left: 7em; width: 30em;}
+.netflix-intro2 .intro-box .intro-video { position: relative; width: 26em;}
+.netflix-intro2 .intro-box .intro-video .video { z-index: 1; max-width: 100%; height: auto; }
+.netflix-intro2 .intro-box .intro-video .frame { position: absolute; top: -35%; left: -16%;z-index: 10; }
 
-.netflix-introduction3 {
+.netflix-intro3 {
     width: 100%;
     height: 500px;
     background-color: #000413;
@@ -95,21 +103,65 @@
     padding: 10px;
     position: relative;
     color: #fff;
+    overflow: hidden
 }
+.netflix-intro3 > .d-flex { display: flex!important; align-items: center;}
+
 
 /* index-main-qna */
-.netflix-qna {
-    width: 100%;
-    height: 700px;
-    background-color: #000413;
-    background-size: cover;
-    background-position: center;
-    padding: 10px;
-    position: relative;
-    color: #fff;
-}
+    .netflix-qna {
+        color: #fff;
+        background-color: #000413;
+    }
 
+    /*패널*/
 
+    .panel-default { 
+        border-color: black;
+    }
+
+    /*패널과 패널 사이*/
+    .panel-group .panel {
+        margin-bottom: 0.5em;
+        border-radius: 0px;
+    }
+    .panel-default>.panel-heading> h4> a {
+        text-decoration: none;
+        font-size: x-large;
+    }
+
+    /*패널 머리*/
+    .panel-default>.panel-heading {
+        color: white;
+        background-color: #333;
+        border-radius: 0%;
+        height: 4em;
+        padding-top: 1.3em;
+    }
+
+    .panel-default>.panel-heading> h4> a {
+        text-decoration: none;
+        font-size: medium;
+    }
+
+    /*패널 대답*/
+    .panel-body {
+        padding: 15px;
+        font-size: 1.3em;
+        background-color: dimgray;
+    }
+
+    /* register container */
+    .text-center{
+        padding-top: 2REM;
+        padding-bottom: 2em;
+    }
+
+    /*register button*/
+    .row{
+        display: flex;
+        flex-wrap: nowrap;
+    }
 
 
 /* login */
@@ -119,3 +171,48 @@
 .inner-wrap .inr-box  .img img { height: 100%; }
 
 #index-bottom-signup { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+
+/*반응형*/
+
+@media (max-width: 960px) {
+    /*각 소개 박스*/
+    .d-flex {
+        display: flex!important;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+    }
+    .netflix-intro1, .netflix-intro2, .netflix-intro3{
+        height: 700px;
+    }
+    /*intro1박스에 위치*/
+    .netflix-intro1 .intro-box {
+        margin: 0;
+        overflow: hidden;
+        height: 40em;
+    }
+    .netflix-introduction-content > h1, h3{text-align: center;}
+    .netflix-introduction-content > h1{font-size: 2.4em;}
+    .netflix-introduction-content > h3{font-size: 1.5em;}
+
+    .netflix-introduction-content{
+        height: 6em;
+    }
+    .netflix-intro1 .intro-box .intro-cont {
+        padding-right: 0px;
+        margin-right: 0em;
+        padding-top: 2em;
+        padding-left: 3em;
+    }
+    .netflix-intro2 .intro-box {
+        margin: 8rem 0;
+        overflow: hidden;
+        padding-top: 8em;
+        width: 30em;
+    }
+    .netflix-intro2 .intro-box .intro-cont {
+        padding-left: 0;
+        margin-left: 0;
+    }
+    .netflix-intro3 >img{ width:80%; }
+}

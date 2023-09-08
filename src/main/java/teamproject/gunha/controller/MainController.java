@@ -25,7 +25,7 @@ public class MainController {
 
   // 헤더
   @GetMapping("/header")
-  public String header(){
+  public String header() {
 
     return "header/header";
   }
@@ -98,10 +98,15 @@ public class MainController {
     return "admins/admin";
   }
 
-  @GetMapping("/regi")
-  public String regi() {
-    log.info("hello()...");
-    return "login/regi";
+  @GetMapping("/qna")
+  public String qna() {
+      log.info("qna()...");
+      return "homepage/qna";
   }
 
+  @GetMapping("/accountpage")
+  public String accountpage() {
+    log.info("accountpage()...");
+    return "homepage/accountpage";
+  }
 }
