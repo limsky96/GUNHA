@@ -23,16 +23,16 @@
       <div class="input-form col-md-12 mx-auto">
         <h2 class="mb-5"><strong>회원정보 수정</strong></h2>
         <form class="validation-form" method="POST" action="/account-update" novalidate>
-            <div sec:authorize="isAuthenticated()" class="mb-3">
-              <label for="email">아이디(이메일)</label>
-              <input type="email" class="form-control" id="email" name="userId" placeholder="user@example.com"
-                th:value="${user.userId}" required readonly>
-            </div>
-            <div sec:authorize="!isAuthenticated()" class="mb-3">
-              <label for="email">아이디(이메일)</label>
-              <input type="email" class="form-control" id="email" name="userId" placeholder="user@example.com" required>
-              <div class="invalid-feedback">이메일을 입력해주세요.</div>
-            </div>
+          <div sec:authorize="isAuthenticated()" class="mb-3">
+            <label for="email">아이디(이메일)</label>
+            <input type="email" class="form-control" id="email" name="userId" placeholder="user@example.com"
+              th:value="${user.userId}" required readonly>
+          </div>
+          <div sec:authorize="!isAuthenticated()" class="mb-3">
+            <label for="email">아이디(이메일)</label>
+            <input type="email" class="form-control" id="email" name="userId" placeholder="user@example.com" required>
+            <div class="invalid-feedback">이메일을 입력해주세요.</div>
+          </div>
 
       <div class="mb-3">
         <div th:if="${user.social}!='none'">

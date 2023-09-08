@@ -23,19 +23,21 @@ public class MainController {
   @Autowired
   private UserLoginService userLoginService;
 
-  // 헤더-화이트
+  // 헤더
   @GetMapping("/header")
   public String header() {
 
-    return "header_white";
+    return "header/header";
   }
 
-  // 해더-블랙
-  @GetMapping("/header2")
-  public String header2() {
+  // 결제창-카드
+  @GetMapping("/paymentCard")
+  public String paymentCard(){
 
-    return "header-black";
+    return "login/paymentCard";
   }
+
+
 
   @GetMapping("/")
   public String hello(
@@ -80,14 +82,14 @@ public class MainController {
     UserVO userVO = netflixUserDetails.getUserVO();
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
-    return "home";
+    return "/homepage/home";
   }
 
   @GetMapping("/watch")
   public String watch(UserVO userVO, Model model) {
     log.info("watch()...");
     model.addAttribute("영상Key", userVO);
-    return "watch";
+    return "/watch/watch";
   }
 
   @GetMapping("/admins")
@@ -108,4 +110,11 @@ public class MainController {
       return "homepage/nofunction";
   }
   
+  
+  @GetMapping("/movie")
+  public String card() {
+    log.info("hello()...");
+    return "/category/movie";
+  }
+
 }

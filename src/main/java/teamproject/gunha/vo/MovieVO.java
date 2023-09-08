@@ -23,6 +23,4 @@ public class MovieVO {
     private boolean movieFavorite;
     private boolean autoplay;
 
-    public void updateFrom(MovieVO updatedMovie) {
-    }
 }
