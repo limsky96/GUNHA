@@ -100,6 +100,7 @@
   
 </head>
 
+
 <script>
 
 $(document).ready(function () {
@@ -160,7 +161,7 @@ $(document).ready(function () {
                       <i class="fa-solid fa-circle-plus card-icon"></i>
                     </div>
                     <div>                      
-                      <a class="fa-solid fa-circle-chevron-down card-icon" href="#ex1" rel="modal:open"></a>                                           
+                      <a class="fa-solid fa-circle-chevron-down card-icon" href="#modalcontainer" rel="modal:open"></a>                                           
                     </div>
                   </section>
                   <section class="imgbody-detail" >
@@ -261,62 +262,7 @@ $(document).ready(function () {
   </script>
 
 
-<script>
 
-getPlays();
-
-async function getPlays() {
-const { data } = await axios.get(`/api/movies`)
-
-modalcontainerHtml = "";
-modalcontainerHtml += `
-<div id="wrapper-list${[currentDataIndex /10]}" class="category-title">${data[0].movieGenre}</div>
-<div class="swiper-container list${[currentDataIndex /10]}Container">
-<div class="swiper-wrapper">
-`;
-//  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
-//  ${data[i*10+slideIndex].movieName}
-for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
- containerHtml += `
- <div class="swiper-slide">   
-   <img src="${data[slideIndex].moviepostUrl}" alt="">
-   <div class="imgbody">
-     <section class="imgbody-detail">
-       <div style="display:flex">
-         <i class="fa-regular fa-circle-play card-icon"></i>
-         <i class="fa-solid fa-circle-plus card-icon"></i>
-       </div>
-       <div>                      
-         <a class="fa-solid fa-circle-chevron-down card-icon" href="#ex1" rel="modal:open"></a>                                           
-       </div>
-     </section>
-     <section class="imgbody-detail" >
-       <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
-       <div class="m-2 netflix-card-text text-white">Limited Series</div>
-       <div class="border netflix-card-text p-1 text-white">HD</div>                
-     </section>
-     <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
-   </div>              
- </div>`;
-}
-containerHtml += `              
-</div>
-</div>
-<div class="swiper-button-next list${[currentDataIndex /10]}Next"></div>
-<div class="swiper-button-prev list${[currentDataIndex /10]}Prev"></div>
-`;
-const container = document.createElement("div");
-container.setAttribute("class", "container");
-container.innerHTML = containerHtml;
-const list = document.querySelector("#category");
-list.appendChild(container)
-
-  
-
-
-}
-
-</script>
 
 
 <body>
@@ -327,7 +273,7 @@ list.appendChild(container)
   </style>
   <div class="home" id="home">
 
-    <video src="/mp4/abouttime.mp4" poster="https://postfiles.pstatic.net/20150108_188/gidrl0351_14207073863934LxGX_PNG/%BE%EE%B9%D9%BF%F4%C5%B8%C0%D3_2.PNG?type=w3"
+    <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
       autoplay muted>
     </video>
 
@@ -388,7 +334,7 @@ list.appendChild(container)
   </div>
 
   <div id="ex1" class="modal">
-    <video src="/mp4/abouttime.mp4" poster="https://postfiles.pstatic.net/20150108_188/gidrl0351_14207073863934LxGX_PNG/%BE%EE%B9%D9%BF%F4%C5%B8%C0%D3_2.PNG?type=w3"
+    <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
       autoplay muted>
     </video>
     <div class="buttons">
@@ -426,6 +372,49 @@ list.appendChild(container)
 
   </div>
 
+  <div id="ex2" class="modal">
+    <div class="datail-warp">
+      <div class="datail-body">
+        <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
+          autoplay muted>
+        </video>
+        <div class="buttons">
+          <div class="white-button">
+            <i class="fa-solid fa-play">재생</i>
+            <input type="hidden" id="mainVideo" value="">
+          </div>
+        </div>
+
+        <div class="detail-container">
+          <div class="detail-left">
+            <div class="probability">일치</div>
+            <div class="detail-rating">관람등급</div>
+            <div class="content">회차줄거리</div>
+          </div>
+
+          <div class="detail-right">
+            <div class="actor">출연</div>
+            <div class="genre">장르</div>
+            <div class="feature">특징</div>
+          </div>
+        </div>
+
+        <div class="content-list">
+          <div class="content-num">1</div>
+          <div class="content-num">2</div>
+          <div class="content-num">3</div>
+          <div class="content-num">4</div>
+        </div>
+
+        <div class="content-detail">
+          여러가지 쭉 넣으세요
+          출연, 장르, 특징, 관람등급, 출시일 등등
+        </div>
+      </div>
+    </div>  
+
+  </div>
+
 
 
 
@@ -441,51 +430,67 @@ list.appendChild(container)
         location.href= "//localhost:8888/watch?"+srcCd
         //location.href= "https://www.naver.com"
       });
-  // const swiper = new Swiper(".hotContainer", {
-  //   slidesPerView: 6,
-  //   slidesPerGroup: 6,
-  //   centeredSlides: false,
-  //   loop: false,
-  //   navigation: {
-  //     nextEl: '.hotNext',
-  //     prevEl: '.hotPrev',
-  //   },
-  //   breakpoints: {
-  //     // 화면의 넓이가 320px 이상일 때
-  //     800: {
-  //       slidesPerView: 4,
-  //       slidesPerGroup: 4,
-  //     },
-  //     // 화면의 넓이가 640px 이상일 때
-  //     1100: {
-  //       slidesPerView: 5,
-  //       slidesPerGroup: 5,
-  //     }
-  //   }
+      
+  // const openBtn = document.querySelector("#ex2");
+  // const modal = document.getElementById('datail-warp');
+  // const closeBtn = document.getElementById('closeBtn');
+  // const modalBody = document.querySelector(".datail-body");
+  // openBtn.addEventListener("click", (e) => {
+  //   e.stopPropagation();
+  //   modal.style.display = `block`;
   // });
 
-  const openBtn = document.querySelector("#open-modal");
-  const modal = document.getElementById('modalWrap');
-  const closeBtn = document.getElementById('closeBtn');
-  const modalBody = document.querySelector("#modalBody");
-  openBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    modal.style.display = `block`;
-  });
-
-  closeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    modal.style.display = 'none';
-  });
-  window.addEventListener("click", (e) => {
-    e.stopPropagation();
-    modal.style.display = 'none';
-  });
-  modalBody.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
+  // closeBtn.addEventListener('click', (e) => {
+  //   e.stopPropagation();
+  //   modal.style.display = 'none';
+  // });
+  // window.addEventListener("click", (e) => {
+  //   e.stopPropagation();
+  //   modal.style.display = 'none';
+  // });
+  // modalBody.addEventListener('click', (e) => {
+  //   e.stopPropagation();
+  // });
 
 
 </script>
+<script>
+  getMovies();
 
+async function getMovies() {
+const { data } = await axios.get(`/api/movies`)
+           
+let modalHtml;
+
+modalHtml = "";
+modalHtml += `
+<div id="datail" class="datail-warp">
+<div class="datail-body">
+<div class="swiper-wrapper">
+`;
+//  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
+//  ${data[i*10+slideIndex].movieName}
+if(data=0, data.length>0 , data++)
+  modalHtml += ` 
+  <iframe src="${data[0].movietrailerUrl.split("?")[0]}?mute=1&autoplay=1&controls=0"frameborder="0" allowfullscreen></iframe>
+   <div class="imgbody">
+     <section class="imgbody-detail">
+      <div class="buttons">
+          <div class="white-button">
+            <i class="fa-solid fa-play">재생</i>
+            <input type="hidden" id="mainVideo" value="">
+          </div>
+        </div>
+              
+</div>
+</div>
+</div>
+`;
+const modal = document.createElement("div");
+modal.setAttribute("class", "modal");
+modal.innerHTML = modalHtml;
+const list = document.querySelector("#modal");
+list.appendChild(modal);
+}
+</script>
 </html>
