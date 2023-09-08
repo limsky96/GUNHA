@@ -95,11 +95,7 @@ public class OrderServiceImpl implements OrderService {
     String url = "https://api.iamport.kr/subscribe/customers/" + customerUid;
 
     Map<String, Object> requestBody = new HashMap<>();
-    // card_number, // 카드 번호
-    // expiry, // 카드 유효기간
-    // birth, // 생년월일
-    // pwd_2digit, // 카드 비밀번호 앞 두자리
-    // pg: YOUR_PG_HERE, // 빌링키 발급에 사용할 PG
+
     requestBody.put("merchant_uid", portOneVO.getMerchantUid());
     requestBody.put("customer_uid", portOneVO.getCustomerUid());
     requestBody.put("card_number", portOneVO.getCardNumber());
