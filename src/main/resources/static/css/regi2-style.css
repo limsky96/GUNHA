@@ -46,3 +46,7 @@
     height: 70px;
 }
 
+.modalbtn{border: none; background-color:#fff;}      
+.modal-dialog{overflow-y: initial !important;}
+.modal-body{max-height: calc(100vh - 200px); overflow-y: auto;
+         font-size: 12px;}
