@@ -15,6 +15,7 @@ public interface MovieMapper {
     // 모든 영화를 가져오는 메소드
     List<MovieVO> findMovieList();
 
+    // 오류 나기 싫으면 붙여...
     boolean existsById(Long id);
 
     void deleteById(Long id);

@@ -212,7 +212,6 @@
       </div>
     </div>
 
-
     <div class="category-list" id="category-list">
       <div class="category" id="category">
 
@@ -299,7 +298,7 @@
           <div class="swiper-button-prev hotPrev"></div>
         </div>
 
-        <div class="container">
+        <!-- <div class="container">
           <div class="category-title">시청중인컨텐츠</div>
           <div class="swiper-container ingContainer">
             <div class="swiper-wrapper">
@@ -441,7 +440,7 @@
           </div>
           <div class="swiper-button-next slideNext"></div>
           <div class="swiper-button-prev slidePrev"></div>
-        </div>
+        </div> -->
 
 
       </div>
@@ -496,25 +495,24 @@
 
 
 <script>
-  getMovies();
-  async function getMovies() {
-    const { data } = await axios.get('/api/movies')
-    // <div class="swiper-slide">
-    //             <img src="https://source.unsplash.com/224x126/?random" alt="">
-    //           </div>
-    // console.log(data);
-    console.log(data);
-    
-    let containerHtml;
-
-    const containerList = [];
-    for (let i = 0; i < 5; i++) {
-      containerList.push(`list${i}`);
-    }
-
-    for (let i = 0; i < data.length / 10; i++) {
-      containerHtml = "";
-      containerHtml += `
+      getMovies(); 
+    async function getMovies(){
+      const {data} = await axios.get('/api/movies')
+      // <div class="swiper-slide">
+      //             <img src="https://source.unsplash.com/224x126/?random" alt="">
+      //           </div>
+      // console.log(data);
+      console.log(data);
+      let container;
+      let containerHtml;
+      const containerList = [];
+      for(let i =0;i<5;i++){
+        containerList.push(`list${i}`);
+      }
+      
+      for(let i = 0;i<data.length/10;i++){
+        containerHtml = "";
+        containerHtml += `
           <div id="wrapper-${containerList[i]}" class="category-title">${containerList[i]}</div>
           <div class="swiper-container swiper-container-${containerList[i]}">
             <div class="swiper-wrapper">
@@ -524,8 +522,8 @@
       for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
         containerHtml += `
               <div class="swiper-slide">
-                <img src="${data[i * 10 + slideIndex].moviepostUrl}" alt="">
-                ${data[i * 10 + slideIndex].movieName}
+                <img src="${data[i*10+slideIndex].moviepostUrl}" alt="">
+                ${data[i*10+slideIndex].movieName}
               </div>`
       }
       containerHtml += `
