@@ -10,40 +10,18 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="/css/update-member.css" rel="stylesheet">
 
-  <style>
-    body {
-      min-height: 100vh;
-
-      background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
-      background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
-      background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
-      background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
-      background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
-    }
-
-    .input-form {
-      max-width: 680px;
-
-      margin-top: 80px;
-      padding: 32px;
-
-      background: #fff;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
-    }
-  </style>
 </head>
 
 <body>
+
+  <header class="content-header header bg-header-theme text-center"> <h1>헤더영역</h1> </header>
+
   <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
-        <h4 class="mb-3">회원정보 수정</h4>
+        <h2 class="mb-5"><strong>회원정보 수정</strong></h2>
         <form class="validation-form" method="POST" action="/account-update" novalidate>
             <div sec:authorize="isAuthenticated()" class="mb-3">
               <label for="email">아이디(이메일)</label>
@@ -88,15 +66,14 @@
         <label class="custom-control-label" for="agreement">결제 이용에 동의합니다.</label>
       </div>
       <div class="mb-4"></div>
+      
 
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-      <button class="btn btn-primary btn-lg btn-block" type="submit">회원정보 수정</button>
+      <button class="btn btn-danger btn-lg btn-block" type="submit">회원정보 수정</button>
       </form>
     </div>
   </div>
-  <footer class="my-3 text-center text-small">
-    <p class="mb-1">&copy; 2023 WH.co.,Ltd. All rights reserved.</p>
-  </footer>
+  <footer class="content-footer footer bg-footer-theme text-center"><h1>푸터영역</h1></footer>
   </div>
   <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
