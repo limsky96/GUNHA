@@ -24,14 +24,14 @@ import teamproject.gunha.vo.UserVO;
 public class OrderController {
 
   @Autowired
-  private OrderService paymentService;
+  private OrderService orderService;
 
   @GetMapping("/order")
   public String orderPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
-    if(netflixUserDetails == null) return "order/order-page";
-    UserVO user = netflixUserDetails.getUserVO();
-    model.addAttribute("userId", user.getUserId());
-
+    if(netflixUserDetails != null){
+      UserVO user = netflixUserDetails.getUserVO();
+      model.addAttribute("userId", user.getUserId());
+    }
     return "order/order-page";
   }
 
@@ -39,7 +39,7 @@ public class OrderController {
   @ResponseBody
   public Map<String, Object> subBilling(PortOneVO portOneVO) {
 
-    Map<String, Object> getToken = paymentService.getAccessToken();
+    Map<String, Object> getToken = orderService.getAccessToken();
     log.info(getToken.toString());
     String accessToken = (String) getToken.get("access_token");
     // log.info(paymentService.useAccessToken(accessToken).toString());
@@ -62,7 +62,7 @@ public class OrderController {
 
     // log.info(paymentService.useAccessToken(accessToken).toString());
     // paymentService.issueBilling(portOneVO, accessToken);
-    Map<String, Object> resultMap = paymentService.issueScheduleBilling(portOneVO);
+    Map<String, Object> resultMap = orderService.issueScheduleBilling(portOneVO);
     log.info(resultMap.toString());
     return resultMap;
   }
@@ -73,7 +73,7 @@ public class OrderController {
     public Map<String, Object> scheduleAlert(@RequestBody Map<String,Object> jsonObject) {
     log.info(jsonObject.toString());
 
-    paymentService.issueSchedulePayment(jsonObject);
+    orderService.issueSchedulePayment(jsonObject);
 
     
     return jsonObject;

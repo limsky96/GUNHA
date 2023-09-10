@@ -5,7 +5,7 @@ import teamproject.gunha.vo.UserVO;
 public interface UserLoginService {
 
   UserVO getUser(String userId);
-  UserVO loginUser(UserVO userVO);
+  boolean loginAccount(UserVO userVO);
   boolean createAccount(UserVO userVO);
-  boolean updateAccount(UserVO userVO);
+  boolean modifyAccount(UserVO userVO);
 }

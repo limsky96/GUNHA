@@ -1,6 +1,8 @@
 package teamproject.gunha.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +16,6 @@ import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.vo.ProfileVO;
 import teamproject.gunha.vo.UserVO;
-
 
 @Service
 @Slf4j
@@ -35,14 +36,18 @@ public class UserLoginServiceImpl implements UserLoginService {
   }
 
   @Override
-  public UserVO loginUser(UserVO userVO) {
-    return userVO;
+  public boolean loginAccount(UserVO userVO) {
+    NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
+    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
+        netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    return true;
     // return userMapper.loginUser(userVO.getUserId(), userVO.getPassword());
   }
 
   @Override
   @Transactional // insert 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
-  public boolean createAccount(UserVO userVO){
+  public boolean createAccount(UserVO userVO) {
     userVO.setUserEmail(userVO.getUserId());
     userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
     userVO.setSocial("none");
@@ -58,39 +63,38 @@ public class UserLoginServiceImpl implements UserLoginService {
 
   @Override
   @Transactional // insert 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
-  public boolean updateAccount(UserVO userVO){
+  public boolean modifyAccount(UserVO userVO) {
     log.info(userVO.toString());
     // Principal 정보 업데이트 (예: 사용자 이름 변경)
-    NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
     UserVO curUser = netflixUserDetails.getUserVO();
-    if(userVO.getUserEmail()==null){
+    if (userVO.getUserEmail() == null) {
       userVO.setUserEmail(curUser.getUserEmail());
     }
-    if(userVO.getPassword()==null || "".equals(userVO.getPassword())){
+    if (userVO.getPassword() == null || "".equals(userVO.getPassword())) {
       userVO.setPassword(curUser.getPassword());
-    } else{
+    } else {
       userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
     }
-    if(userVO.getSocial()==null){
+    if (userVO.getSocial() == null) {
       userVO.setSocial(curUser.getSocial());
     }
-    if(userVO.getAuthList()==null){
+    if (userVO.getAuthList() == null) {
       userVO.setAuthList(curUser.getAuthList());
     }
-    if(userVO.getProfileList()==null){
+    if (userVO.getProfileList() == null) {
       userVO.setProfileList(curUser.getProfileList());
     }
-
 
     netflixUserDetails.setUserVO(userVO);
     userMapper.updateUser(userVO);
     // SecurityContext 업데이트
-    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails, netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
+        netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     return true;
   }
-
-
 
 }
