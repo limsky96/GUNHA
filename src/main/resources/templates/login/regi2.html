@@ -26,7 +26,8 @@
         </div> 
         <form class="cloumn g-3 needs-validation" novalidate>
             <div class="col">
-            <input type="email" class="form-control form-control-lg" id="uemail" placeholder="이메일주소 또는 전화번호" required>
+            <input type="email" class="form-control form-control-lg" id="uemail"
+            pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" placeholder="이메일주소 또는 전화번호" required>
             <div class="invalid-feedback">
                 이메일 주소를 써주세요
             </div>

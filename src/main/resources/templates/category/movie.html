@@ -97,13 +97,13 @@
   <title>NETFLIX</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <title>templates</title>
-  
+
 </head>
 
 
 <script>
 
-$(document).ready(function () {
+  $(document).ready(function () {
     fnInit();
   });
 
@@ -132,20 +132,20 @@ $(document).ready(function () {
           if (currentDataIndex <= 40)
             getMovies();
 
-             async function getMovies() {
-             const { data } = await axios.get(`/api/movies?startIndex=${currentDataIndex}&count=10`)
+          async function getMovies() {
+            const { data } = await axios.get(`/api/movies?startIndex=${currentDataIndex}&count=10`)
 
             if (data.length < 10) {
               isAllDataReceived = true; // 모든 데이터를 받아왔다고 표시
             }
 
-            currentDataIndex += 10;                 
+            currentDataIndex += 10;
             let containerHtml;
 
             containerHtml = "";
             containerHtml += `
-          <div id="wrapper-list${[currentDataIndex /10]}" class="category-title">${data[0].movieGenre}</div>
-          <div class="swiper-container list${[currentDataIndex /10]}Container">
+          <div id="wrapper-list${[currentDataIndex / 10]}" class="category-title">${data[0].movieGenre}</div>
+          <div class="swiper-container list${[currentDataIndex / 10]}Container">
             <div class="swiper-wrapper">
             `;
             //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
@@ -176,22 +176,22 @@ $(document).ready(function () {
             containerHtml += `              
             </div>
           </div>
-          <div class="swiper-button-next list${[currentDataIndex /10]}Next"></div>
-          <div class="swiper-button-prev list${[currentDataIndex /10]}Prev"></div>
+          <div class="swiper-button-next list${[currentDataIndex / 10]}Next"></div>
+          <div class="swiper-button-prev list${[currentDataIndex / 10]}Prev"></div>
         `;
             const container = document.createElement("div");
             container.setAttribute("class", "container");
             container.innerHTML = containerHtml;
             const list = document.querySelector("#category");
             list.appendChild(container);
-            const swiper = new Swiper(`.list${[currentDataIndex /10]}Container`, {
+            const swiper = new Swiper(`.list${[currentDataIndex / 10]}Container`, {
               slidesPerView: 2,
               slidesPerGroup: 1,
               centeredSlides: false,
               loop: true,
               navigation: {
-                nextEl: `.list${[currentDataIndex /10]}Next`,
-                prevEl: `.list${[currentDataIndex /10]}Prev`,
+                nextEl: `.list${[currentDataIndex / 10]}Next`,
+                prevEl: `.list${[currentDataIndex / 10]}Prev`,
               },
               breakpoints: {
                 // 화면의 넓이가 50px 이상일 때
@@ -256,10 +256,10 @@ $(document).ready(function () {
           alert('리스트를 불러오는데 실패했습니다.');
         }*/
         //ajax 대충예시 END
-        }  
-      })  
-    }    
-  </script>
+      }
+    })
+  }    
+</script>
 
 
 
@@ -273,7 +273,8 @@ $(document).ready(function () {
   </style>
   <div class="home" id="home">
 
-    <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
+    <video src="/mp4/abouttime.mp4"
+      poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
       autoplay muted>
     </video>
 
@@ -334,7 +335,8 @@ $(document).ready(function () {
   </div>
 
   <div id="ex1" class="modal">
-    <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
+    <video src="/mp4/abouttime.mp4"
+      poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
       autoplay muted>
     </video>
     <div class="buttons">
@@ -375,7 +377,8 @@ $(document).ready(function () {
   <div id="ex2" class="modal">
     <div class="datail-warp">
       <div class="datail-body">
-        <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
+        <video src="/mp4/abouttime.mp4"
+          poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
           autoplay muted>
         </video>
         <div class="buttons">
@@ -411,7 +414,7 @@ $(document).ready(function () {
           출연, 장르, 특징, 관람등급, 출시일 등등
         </div>
       </div>
-    </div>  
+    </div>
 
   </div>
 
@@ -423,14 +426,14 @@ $(document).ready(function () {
 
 
 <script>
-  $("#btnMovePlay").click(function(){
-        var srcCd = $("#mainVideo").val();
-        srcCd = "test"
-        //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-        location.href= "//localhost:8888/watch?"+srcCd
-        //location.href= "https://www.naver.com"
-      });
-      
+  $("#btnMovePlay").click(function () {
+    var srcCd = $("#mainVideo").val();
+    srcCd = "test"
+    //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+    location.href = "//localhost:8888/watch?" + srcCd
+    //location.href= "https://www.naver.com"
+  });
+
   // const openBtn = document.querySelector("#ex2");
   // const modal = document.getElementById('datail-warp');
   // const closeBtn = document.getElementById('closeBtn');
@@ -457,23 +460,23 @@ $(document).ready(function () {
 <script>
   getMovies();
 
-async function getMovies() {
-const { data } = await axios.get(`/api/movies`)
-           
-let modalHtml;
+  async function getMovies() {
+    const { data } = await axios.get(`/api/movies`)
 
-modalHtml = "";
-modalHtml += `
-<div id="datail" class="datail-warp">
-<div class="datail-body">
-<div class="swiper-wrapper">
+    let modalHtml;
+
+    modalHtml = "";
+    modalHtml += `
+    <div id="datail" class="datail-warp">
+      <div class="datail-body">
+        <div class="swiper-wrapper">
 `;
-//  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
-//  ${data[i*10+slideIndex].movieName}
-if(data=0, data.length>0 , data++)
-  modalHtml += ` 
-  <iframe src="${data[0].movietrailerUrl.split("?")[0]}?mute=1&autoplay=1&controls=0"frameborder="0" allowfullscreen></iframe>
-   <div class="imgbody">
+    //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
+    //  ${data[i*10+slideIndex].movieName}
+    for (let i = 0 ; data.length> 0; i++)
+      modalHtml += ` 
+      <iframe src="${data[0].movietrailerUrl.split("?")[0]}?mute=1&autoplay=1&controls=0"frameborder="0" allowfullscreen></iframe>
+        <div class="imgbody">
      <section class="imgbody-detail">
       <div class="buttons">
           <div class="white-button">
@@ -486,11 +489,12 @@ if(data=0, data.length>0 , data++)
 </div>
 </div>
 `;
-const modal = document.createElement("div");
-modal.setAttribute("class", "modal");
-modal.innerHTML = modalHtml;
-const list = document.querySelector("#modal");
-list.appendChild(modal);
-}
+    const modal = document.createElement("div");
+    modal.setAttribute("class", "modal");
+    modal.innerHTML = modalHtml;
+    const list = document.querySelector("#modal");
+    list.appendChild(modal);
+  }
 </script>
+
 </html>
