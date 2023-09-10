@@ -82,7 +82,7 @@ public class MainController {
     UserVO userVO = netflixUserDetails.getUserVO();
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
-    return "/homepage/home";
+    return "homepage/home";
   }
 
   @GetMapping("/watch")

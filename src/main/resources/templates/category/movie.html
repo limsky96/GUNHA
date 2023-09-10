@@ -90,22 +90,34 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+  <link rel="stylesheet" href="/js/jquery/3.6.4/jquery.modal.min.css" />
   <link rel="stylesheet" href="/css/category/movie.css" />
 
 
   <title>NETFLIX</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <title>templates</title>
-  
+
 </head>
 
 
 <script>
 
-$(document).ready(function () {
+  $(document).ready(function () {
     fnInit();
+    fnPageStart();
   });
+
+  async function fnPageStart() {
+    /*0~9사이 랜덤 뽑기*/
+    const randomNumber = Math.floor(Math.random() * 50);
+    const { data } = await axios.get(`/api/movies?startIndex=0&count=50`);
+    $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&controls=0")//index는 랜덤으로 만든 값
+
+
+    $(".video-stream").attr('style', 'top:0px');
+
+  }
 
   let currentDataIndex = 0; // 현재까지 받은 데이터의 인덱스
   var isAllDataReceived = false; // 모든 데이터를 받아왔는지 여부
@@ -115,6 +127,8 @@ $(document).ready(function () {
     //임시 TITLE 증가값
     var isLoading = false; //새 콘텐츠 로딩여부 추적
     var count = 1;
+    var containerZindex = 10;
+
     //무한스크롤 START
     //DOCUMENT 스크롤 이벤트 감지
     $(document).scroll(function () {
@@ -132,37 +146,36 @@ $(document).ready(function () {
           if (currentDataIndex <= 40)
             getMovies();
 
-             async function getMovies() {
-             const { data } = await axios.get(`/api/movies?startIndex=${currentDataIndex}&count=10`)
+          async function getMovies() {
+            const { data } = await axios.get(`/api/movies?startIndex=${currentDataIndex}&count=10`);
 
             if (data.length < 10) {
               isAllDataReceived = true; // 모든 데이터를 받아왔다고 표시
             }
 
-            currentDataIndex += 10;                 
+
             let containerHtml;
 
             containerHtml = "";
             containerHtml += `
-          <div id="wrapper-list${[currentDataIndex /10]}" class="category-title">${data[0].movieGenre}</div>
-          <div class="swiper-container list${[currentDataIndex /10]}Container">
+          <div id="wrapper-list${[currentDataIndex / 10]}" class="category-title">${data[0].movieGenre}</div>
+          <div class="swiper-container list${[currentDataIndex / 10]}Container">
             <div class="swiper-wrapper">
             `;
             //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
             //  ${data[i*10+slideIndex].movieName}
             for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
+              let dataIndex = currentDataIndex + slideIndex;
               containerHtml += `
               <div class="swiper-slide">   
-                <img src="${data[slideIndex].moviepostUrl}" alt="">
+                <img id="modal-img-${dataIndex}" src="${data[slideIndex].moviepostUrl}" alt="">
                 <div class="imgbody">
                   <section class="imgbody-detail">
                     <div style="display:flex">
                       <i class="fa-regular fa-circle-play card-icon"></i>
                       <i class="fa-solid fa-circle-plus card-icon"></i>
                     </div>
-                    <div>                      
-                      <a class="fa-solid fa-circle-chevron-down card-icon" href="#modalcontainer" rel="modal:open"></a>                                           
-                    </div>
+                    <a id="modal-button-${dataIndex}" class="fa-solid fa-circle-chevron-down card-icon"></a>                                           
                   </section>
                   <section class="imgbody-detail" >
                     <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
@@ -176,22 +189,47 @@ $(document).ready(function () {
             containerHtml += `              
             </div>
           </div>
-          <div class="swiper-button-next list${[currentDataIndex /10]}Next"></div>
-          <div class="swiper-button-prev list${[currentDataIndex /10]}Prev"></div>
+          <div class="swiper-button-next list${[currentDataIndex / 10]}Next"></div>
+          <div class="swiper-button-prev list${[currentDataIndex / 10]}Prev"></div>
         `;
+
             const container = document.createElement("div");
             container.setAttribute("class", "container");
+            container.setAttribute("style", "z-index:" + containerZindex);
+            containerZindex--;
             container.innerHTML = containerHtml;
             const list = document.querySelector("#category");
             list.appendChild(container);
-            const swiper = new Swiper(`.list${[currentDataIndex /10]}Container`, {
+
+            for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
+              let dataIndex = currentDataIndex + slideIndex;
+              const modalOpen = document.querySelector(`#modal-img-${dataIndex}`);
+              modalOpen.addEventListener("click", function (e) {
+                console.log(e.target);
+                console.log(dataIndex);
+                getOneMovie(dataIndex + 1);
+              })
+            }
+
+            for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
+              let dataIndex = currentDataIndex + slideIndex;
+              const modalOpen = document.querySelector(`#modal-button-${dataIndex}`);
+              modalOpen.addEventListener("click", function (e) {
+                console.log(e.target);
+                console.log(dataIndex);
+                getOneMovie(dataIndex + 1);
+              })
+            }
+
+
+            const swiper = new Swiper(`.list${[currentDataIndex / 10]}Container`, {
               slidesPerView: 2,
               slidesPerGroup: 1,
               centeredSlides: false,
               loop: true,
               navigation: {
-                nextEl: `.list${[currentDataIndex /10]}Next`,
-                prevEl: `.list${[currentDataIndex /10]}Prev`,
+                nextEl: `.list${[currentDataIndex / 10]}Next`,
+                prevEl: `.list${[currentDataIndex / 10]}Prev`,
               },
               breakpoints: {
                 // 화면의 넓이가 50px 이상일 때
@@ -222,45 +260,44 @@ $(document).ready(function () {
 
             console.log(container);
             console.log(list);
+
+
+            currentDataIndex += 10;
+
           }
           isLoading = false; // 로딩 상태 초기화
-        }, 2000); //2초 딜레이 지정
+        }, 1000); //1초 딜레이 지정
+      }
+    })
+  }    
+</script>
+<script>
 
+  async function getOneMovie(id) {
 
-        //화면에 추가로 보여줄 요소 생성 (AJAX) END
+    /*통신전에 progress START*/
+    const { data } = await axios.get(`/api/movies/${id}`);
+    /*통신전에 progress END*/
 
-        //ajax 대충예시 START
-        /*ajax.success(result){
-          var titleList = result.titleList;
-          var srcList = ruesult.srcList;
-          //+[{title:1, src:"xxxx"},{title:1, src:"xxxx"},{title:2, src:"xxxx"},{title:2, src:"xxxx"}];
-  
-          if(titleList.length > 0){
-             for(var i=0; i<titleList.length; i++){
-            htmlText+= '<div class="title" class="fstScl">'+titleList[i]+'</div>';
-            htmlText+= '<div class="list" class="fstScl">';
-            for(var j=0; j<srcList.length; j++){
-              if(titleList[i].title == srcList[j].title){
-                htmlText+= '<div class="movie">';
-                htmlText+= '<img src="'+srcList[j].src+'" alt="">';
-                htmlText+= '</div>';
-              }
-            }
-            htmlText+= '</div>';
-          }
-          $("#category").append(htmlText); 
-          }
-          
-        }
-        , error(error){
-          alert('리스트를 불러오는데 실패했습니다.');
-        }*/
-        //ajax 대충예시 END
-        }  
-      })  
-    }    
-  </script>
+    $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&controls=0");
+    $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&controls=0");
+    $("#detailGrade").text("성인");
+    $("#detailContent").text(data.movieContent);
+    $("#detailCast").text('출연:' + data.movieCast);
+    $("#detailGenre").text(data.movieGenre);
+    $("#detailFeature").text('존나야함');
+    $("#detailCast2").text(data.movieCast);
+    $("#detailGenre2").text(data.movieGenre);
+    $("#detailReleaseDate").text(data.movieReleaseDate);
 
+    $("#ex1").modal();
+    /*통신전에 progress END*/
+    //모달창 구성하기
+    //modal.style.display = `block`;
+    //$("#detail").modal('show');
+    console.log(data);
+  }
+</script>
 
 
 
@@ -273,9 +310,10 @@ $(document).ready(function () {
   </style>
   <div class="home" id="home">
 
-    <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
+    <iframe id="mainFrame" width="1280" height="800" src="" frameborder="0" allowfullscreen></iframe>
+    <!--<video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
       autoplay muted>
-    </video>
+    </video>-->
 
     <div class="overlay">
       <div class="header">
@@ -299,7 +337,7 @@ $(document).ready(function () {
         <div class="series">N 시리즈</div>
         <div class="title">SpyFamily</div>
         <div class="badge">오늘 한국에서 콘텐츠 순위 1위</div>
-        <div class="discription">
+        <div id="mainContent" class="discription">
           스파이, 암살자 그리고 초능력자. 각자 다른 사정이 있는 세 사람이 서로에게 정체를 숨기고 가상 가족을 결성한다.
         </div>
         <div class="buttons">
@@ -334,9 +372,12 @@ $(document).ready(function () {
   </div>
 
   <div id="ex1" class="modal">
-    <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
+    <!--<video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
       autoplay muted>
-    </video>
+    </video>-->
+    <div class="video-container">
+      <iframe id="detailFrame" width="850" height="480" src="" allowfullscreen></iframe>
+    </div>
     <div class="buttons">
       <div class="white-button">
         <i class="fa-solid fa-play">재생</i>
@@ -346,27 +387,28 @@ $(document).ready(function () {
 
     <div class="detail-container">
       <div class="detail-left">
-        <div class="probability">일치</div>
-        <div class="detail-rating">관람등급</div>
-        <div class="content">회차줄거리</div>
+        <!--<div class="probability">일치</div>-->
+        <div id="detailGrade" class="detail-rating">관람등급</div>
+        <div id="detailContent" class="content">회차줄거리</div>
       </div>
 
       <div class="detail-right">
-        <div class="actor">출연</div>
-        <div class="genre">장르</div>
-        <div class="feature">특징</div>
+        <div id="detailCast" class="actor">출연</div>
+        <div id="detailGenre" class="genre">장르</div>
+        <div id="detailFeature" class="feature">특징</div>
       </div>
     </div>
 
-    <div class="content-list">
-      <div class="content-num">1</div>
-      <div class="content-num">2</div>
-      <div class="content-num">3</div>
-      <div class="content-num">4</div>
-    </div>
-
     <div class="content-detail">
-      여러가지 쭉 넣으세요
+      <div class="actor">
+        <p id="detailCast2">출연 : 베이크</p>
+      </div>
+      <div class="genre">
+        <p id="detailGenre2">장르 : 지효</p>
+      </div>
+      <div class="releasedate">
+        <p id="detailReleaseDate">출시일 : 늙음</p>
+      </div>
       출연, 장르, 특징, 관람등급, 출시일 등등
     </div>
 
@@ -375,7 +417,8 @@ $(document).ready(function () {
   <div id="ex2" class="modal">
     <div class="datail-warp">
       <div class="datail-body">
-        <video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
+        <video src="/mp4/abouttime.mp4"
+          poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
           autoplay muted>
         </video>
         <div class="buttons">
@@ -411,7 +454,7 @@ $(document).ready(function () {
           출연, 장르, 특징, 관람등급, 출시일 등등
         </div>
       </div>
-    </div>  
+    </div>
 
   </div>
 
@@ -423,14 +466,14 @@ $(document).ready(function () {
 
 
 <script>
-  $("#btnMovePlay").click(function(){
-        var srcCd = $("#mainVideo").val();
-        srcCd = "test"
-        //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-        location.href= "//localhost:8888/watch?"+srcCd
-        //location.href= "https://www.naver.com"
-      });
-      
+  $("#btnMovePlay").click(function () {
+    var srcCd = $("#mainVideo").val();
+    srcCd = "test"
+    //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+    location.href = "//localhost:8888/watch?" + srcCd
+    //location.href= "https://www.naver.com"
+  });
+
   // const openBtn = document.querySelector("#ex2");
   // const modal = document.getElementById('datail-warp');
   // const closeBtn = document.getElementById('closeBtn');
@@ -454,17 +497,19 @@ $(document).ready(function () {
 
 
 </script>
-<script>
+<!-- <script>
+
+
   getMovies();
 
 async function getMovies() {
 const { data } = await axios.get(`/api/movies`)
-           
+console.log(data);
 let modalHtml;
 
 modalHtml = "";
 modalHtml += `
-<div id="datail" class="datail-warp">
+<div id="datail" data-modal-index="${data[0].movieId}" class="datail-warp">
 <div class="datail-body">
 <div class="swiper-wrapper">
 `;
@@ -489,8 +534,9 @@ if(data=0, data.length>0 , data++)
 const modal = document.createElement("div");
 modal.setAttribute("class", "modal");
 modal.innerHTML = modalHtml;
-const list = document.querySelector("#modal");
-list.appendChild(modal);
+const list = document.querySelector("#category");
+list.appendChild(modalHtml);
 }
-</script>
+</script> -->
+
 </html>
