@@ -31,7 +31,7 @@ public class MainController {
   }
 
   // 결제창-카드
-  @GetMapping("/paymentCard")
+  @GetMapping("/payment-card")
   public String paymentCard(){
 
     return "login/paymentCard";
@@ -46,8 +46,8 @@ public class MainController {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
       String profile = netflixUserDetails.getSelectedProfile();
-      if (0 == userVO.getMembershipNo()) {
-        return "redirect:/sign-up";
+      if ("결제정보 없음" == userVO.getCardNumber() ||0==userVO.getMembershipNo()) {
+        return "redirect:/regi3";
       }
 
       log.info("userDateils: " + netflixUserDetails);

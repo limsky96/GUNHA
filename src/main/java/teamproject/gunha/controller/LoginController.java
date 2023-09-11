@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -55,10 +56,22 @@ public class LoginController {
   }
 
   @PostMapping("/account-update")
-  public String updateAccount(UserVO userVO) {
+  @ResponseBody
+  public ResponseEntity<Map<String, Object>> updateAccount(
+    @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
+    @RequestBody Map<String,Object> json,UserVO userVO) {
+      if(userVO.getUserId() == null){
+        userVO = netflixUserDetails.getUserVO();
+      }
     log.info("updateAccount() :" + userVO);
-    userLoginService.modifyAccount(userVO);
-    return "redirect:/";
+    Map<String,Object> responseBody = new HashMap<>();
+    if(userLoginService.modifyAccount(json, userVO)){
+      responseBody.put("redirect_page","/payment-card");
+      return new ResponseEntity<Map<String,Object>>(responseBody, HttpStatus.OK);
+    }else{
+      responseBody.put("msg","올바르지 않습니다.");
+      return new ResponseEntity<Map<String,Object>>(responseBody, HttpStatus.OK);
+    }
   }
 
   @GetMapping("/regi")
@@ -79,22 +92,13 @@ public class LoginController {
   @PostMapping("/member-check")
   @ResponseBody
   public ResponseEntity<Map<String, Object>> checkMember(RequestEntity<Map<String,Object>> requestEntity){
+    log.info(""+requestEntity);
     Map<String, Object> responseBody = new HashMap<>();
     Map<String, Object> requestBody = requestEntity.getBody();
-    String requestUserId = (String)requestBody.get("user_id");
-    if(requestUserId.equals(userLoginService.getUser(requestUserId).getUserId())){
-      responseBody.put("msg", "이미 가입된 유저입니다. 로그인하세요");
-
-    } else{
-      //로그인 시키는 로직
-      //user정보 만들어서 service단으로 넘긴다
-      UserVO newUser = UserVO.builder()
-          .userId((String)requestBody.get("user_id"))
-          .password((String)requestBody.get("password")).build();
-      userLoginService.createAccount(newUser);
-      // 이후 유저 로그인단
-      userLoginService.loginAccount(newUser);
+    if(userLoginService.memberCheckAndLogin(requestBody)){ 
       responseBody.put("redirect_page", "/regi3");
+    } else{
+      responseBody.put("msg", "이미 가입된 유저입니다. 로그인하세요");
     }
     return new ResponseEntity<Map<String,Object>>(responseBody, HttpStatus.OK);
   }
@@ -106,8 +110,11 @@ public class LoginController {
   }
 
   @GetMapping("/planform")
-  public String planform() {
+  public String planform(
+    @AuthenticationPrincipal NetflixUserDetails netflixUserDetails
+    ) {
     log.info("planform()...");
+    log.info(netflixUserDetails.toString());
     return "login/planform";
   }
 

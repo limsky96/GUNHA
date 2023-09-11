@@ -58,12 +58,20 @@
             </div>
 
             <div class="col-auto1 pt-4 align-self-center d-grid">
-                <button class="btn btn-danger btn-lg" type="submit">
+                <button id="submit-btn" class="btn btn-danger btn-lg" type="submit">
                    <strong>동의하고 계속</strong>
                 </button>
             </div>
         </form>
 
+
+
+
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
             (function () {
                 'use strict'
@@ -72,13 +80,25 @@
                 
                 Array.prototype.slice.call(forms)
                 .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    } else {
+                    form.addEventListener('submit', async function (event) {
+                      event.preventDefault()
+                      event.stopPropagation()
+                      if (form.checkValidity()) {
                         // 유효성 검사를 통과한 경우 다음 페이지로 이동
-                        document.querySelector("form").setAttribute("action","/regi3") // 다음 화면의 URL을 여기에 입력하세요
+                        const userId = document.querySelector("#uemail");
+                        const password = document.querySelector("#upassword");
+                        const requestBody = {
+                          "user_id": userId.value,
+                          "password": password.value
+                        }
+                        
+                        const {data} = await axios.post("/member-check", requestBody);
+                        const {msg, redirect_page} = data;
+                        console.log(data);
+                        console.log(redirect_page);
+                        if(redirect_page !== undefined){
+                          location.href=redirect_page;
+                        }
                     }
 
                     form.classList.add('was-validated')

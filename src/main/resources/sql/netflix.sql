@@ -885,7 +885,7 @@ select * from netflix_social;
 
 
 
-
+delete from netflix_member where member_id = 'seralove4@gmail.com';
 
 
 commit;

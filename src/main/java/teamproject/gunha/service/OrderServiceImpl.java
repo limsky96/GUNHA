@@ -26,7 +26,6 @@ import teamproject.gunha.vo.PortOneVO;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
 public class OrderServiceImpl implements OrderService {
 
   private final OrderMapper orderMapper;
@@ -68,6 +67,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional
   public Map<String, Object> issueBilling(PortOneVO portOneVO) {
     log.info("serviceimpl : issuBilling() ... ");
     Map<String, Object> getToken = getAccessToken();
@@ -140,6 +140,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional
   public Map<String, Object> issueScheduleBilling(PortOneVO portOneVO) {
     Map<String, Object> getToken = getAccessToken();
     log.info(getToken.toString());
