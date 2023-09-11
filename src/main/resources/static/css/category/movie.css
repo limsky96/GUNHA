@@ -73,8 +73,8 @@ iframe {
   position: absolute;
   top: 0;
   left: 0;
-  width: calc(100% - 100px);
-  padding: 10px 50px;
+  width:100%;
+  padding: 50px 0;
 }
 
 .header {
@@ -114,7 +114,7 @@ iframe {
 
 .banner {
   color: white;
-  padding: 50px 0;
+  padding: 100px 50px;
 }
 
 .title {
@@ -127,7 +127,21 @@ iframe {
   padding: 15px 0;
 }
 
-.discription {}
+.discription {
+  left: 0;
+  width: 32em;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
+  height: 4.8em;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /*보여주고싶은 줄의 갯수*/
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+}
 
 .buttons {
   display: flex;
@@ -160,11 +174,12 @@ iframe {
 }
 
 .replay-button {
-  display: inline-block;
+  display: none;
   border: solid white;
   border-radius: 100%;
   padding: 10px;
   cursor: pointer;
+  
 }
 
 .rating {
@@ -173,6 +188,7 @@ iframe {
   padding-left: 10px;
   width: 100%;
   margin-left: 10px;
+  display: none;
 }
 
 .rating img {

@@ -112,10 +112,13 @@
     /*0~9사이 랜덤 뽑기*/
     const randomNumber = Math.floor(Math.random() * 50);
     const { data } = await axios.get(`/api/movies?startIndex=0&count=50`);
-    $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&controls=0")//index는 랜덤으로 만든 값
-
+    $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist="+data[randomNumber].movietrailerUrl.split("/").pop().split("?")[0]+"&controls=0")//index는 랜덤으로 만든 값
+    $("#mainContent").text(data[randomNumber].movieContent)
+    $("#mainTitle").text(data[randomNumber].movieName)
+   
 
     $(".video-stream").attr('style', 'top:0px');
+    
 
   }
 
@@ -205,8 +208,6 @@
               let dataIndex = currentDataIndex + slideIndex;
               const modalOpen = document.querySelector(`#modal-img-${dataIndex}`);
               modalOpen.addEventListener("click", function (e) {
-                console.log(e.target);
-                console.log(dataIndex);
                 getOneMovie(dataIndex + 1);
               })
             }
@@ -215,8 +216,6 @@
               let dataIndex = currentDataIndex + slideIndex;
               const modalOpen = document.querySelector(`#modal-button-${dataIndex}`);
               modalOpen.addEventListener("click", function (e) {
-                console.log(e.target);
-                console.log(dataIndex);
                 getOneMovie(dataIndex + 1);
               })
             }
@@ -240,19 +239,19 @@
                 // 화면의 넓이가 500px 이상일 때
                 500: {
                   slidesPerView: 3,
-                  slidesPerGroup: 1,
+                  slidesPerGroup: 3,
                 },
                 800: {
                   slidesPerView: 4,
-                  slidesPerGroup: 1,
+                  slidesPerGroup: 3,
                 },
                 1100: {
                   slidesPerView: 5,
-                  slidesPerGroup: 1,
+                  slidesPerGroup: 3,
                 },
                 1400: {
                   slidesPerView: 6,
-                  slidesPerGroup: 1,
+                  slidesPerGroup: 3,
                 }
               }
 
@@ -279,18 +278,16 @@
     const { data } = await axios.get(`/api/movies/${id}`);
     /*통신전에 progress END*/
 
-    $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&controls=0");
-    $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&controls=0");
-    $("#detailGrade").text("성인");
+    $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist="+data.movietrailerUrl.split("/").pop().split("?")[0]+"&controls=0");
+    $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist="+data.movietrailerUrl.split("/").pop().split("?")[0]+"&controls=0");
     $("#detailContent").text(data.movieContent);
-    $("#detailCast").text('출연:' + data.movieCast);
-    $("#detailGenre").text(data.movieGenre);
-    $("#detailFeature").text('존나야함');
-    $("#detailCast2").text(data.movieCast);
-    $("#detailGenre2").text(data.movieGenre);
-    $("#detailReleaseDate").text(data.movieReleaseDate);
+    $("#detailCast").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
+    $("#detailGenre").text('장르 : ' + data.movieGenre);
+    $("#detailCast2").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
+    $("#detailGenre2").text('장르 : ' + data.movieGenre);
+    $("#detailReleaseDate").text('개봉일자 : ' + data.movieReleaseDate.split("T")[0]);
 
-    $("#ex1").modal();
+    $("#detailModal").modal();
     /*통신전에 progress END*/
     //모달창 구성하기
     //modal.style.display = `block`;
@@ -335,10 +332,9 @@
       </div>
       <div class="banner">
         <div class="series">N 시리즈</div>
-        <div class="title">SpyFamily</div>
+        <div id="mainTitle" class="title"></div>
         <div class="badge">오늘 한국에서 콘텐츠 순위 1위</div>
         <div id="mainContent" class="discription">
-          스파이, 암살자 그리고 초능력자. 각자 다른 사정이 있는 세 사람이 서로에게 정체를 숨기고 가상 가족을 결성한다.
         </div>
         <div class="buttons">
           <div class="white-button">
@@ -347,7 +343,7 @@
           </div>
           <div class="grey-button">
             <i class="fa-solid fa-circle-info"></i>
-            <a class="info" href="#ex1" rel="modal:open">상세정보</a>
+            <a class="info" href="#detailModal" rel="modal:open">상세정보</a>
           </div>
 
         </div>
@@ -371,12 +367,12 @@
     </div>
   </div>
 
-  <div id="ex1" class="modal">
+  <div id="detailModal" class="modal">
     <!--<video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
       autoplay muted>
     </video>-->
     <div class="video-container">
-      <iframe id="detailFrame" width="850" height="480" src="" allowfullscreen></iframe>
+      <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="buttons">
       <div class="white-button">
@@ -387,80 +383,31 @@
 
     <div class="detail-container">
       <div class="detail-left">
-        <!--<div class="probability">일치</div>-->
-        <div id="detailGrade" class="detail-rating">관람등급</div>
         <div id="detailContent" class="content">회차줄거리</div>
       </div>
 
       <div class="detail-right">
         <div id="detailCast" class="actor">출연</div>
-        <div id="detailGenre" class="genre">장르</div>
-        <div id="detailFeature" class="feature">특징</div>
+        <div id="detailGenre" class="genre">장르</div>        
       </div>
     </div>
 
     <div class="content-detail">
       <div class="actor">
-        <p id="detailCast2">출연 : 베이크</p>
+        <p id="detailCast2">출연</p>
       </div>
       <div class="genre">
-        <p id="detailGenre2">장르 : 지효</p>
+        <p id="detailGenre2">장르</p>
       </div>
       <div class="releasedate">
-        <p id="detailReleaseDate">출시일 : 늙음</p>
+        <p id="detailReleaseDate">출시일</p>
       </div>
-      출연, 장르, 특징, 관람등급, 출시일 등등
+      
     </div>
 
   </div>
 
-  <div id="ex2" class="modal">
-    <div class="datail-warp">
-      <div class="datail-body">
-        <video src="/mp4/abouttime.mp4"
-          poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
-          autoplay muted>
-        </video>
-        <div class="buttons">
-          <div class="white-button">
-            <i class="fa-solid fa-play">재생</i>
-            <input type="hidden" id="mainVideo" value="">
-          </div>
-        </div>
-
-        <div class="detail-container">
-          <div class="detail-left">
-            <div class="probability">일치</div>
-            <div class="detail-rating">관람등급</div>
-            <div class="content">회차줄거리</div>
-          </div>
-
-          <div class="detail-right">
-            <div class="actor">출연</div>
-            <div class="genre">장르</div>
-            <div class="feature">특징</div>
-          </div>
-        </div>
-
-        <div class="content-list">
-          <div class="content-num">1</div>
-          <div class="content-num">2</div>
-          <div class="content-num">3</div>
-          <div class="content-num">4</div>
-        </div>
-
-        <div class="content-detail">
-          여러가지 쭉 넣으세요
-          출연, 장르, 특징, 관람등급, 출시일 등등
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-
-
-
+  
 </body>
 
 
@@ -474,69 +421,7 @@
     //location.href= "https://www.naver.com"
   });
 
-  // const openBtn = document.querySelector("#ex2");
-  // const modal = document.getElementById('datail-warp');
-  // const closeBtn = document.getElementById('closeBtn');
-  // const modalBody = document.querySelector(".datail-body");
-  // openBtn.addEventListener("click", (e) => {
-  //   e.stopPropagation();
-  //   modal.style.display = `block`;
-  // });
-
-  // closeBtn.addEventListener('click', (e) => {
-  //   e.stopPropagation();
-  //   modal.style.display = 'none';
-  // });
-  // window.addEventListener("click", (e) => {
-  //   e.stopPropagation();
-  //   modal.style.display = 'none';
-  // });
-  // modalBody.addEventListener('click', (e) => {
-  //   e.stopPropagation();
-  // });
-
 
 </script>
-<!-- <script>
-
-
-  getMovies();
-
-async function getMovies() {
-const { data } = await axios.get(`/api/movies`)
-console.log(data);
-let modalHtml;
-
-modalHtml = "";
-modalHtml += `
-<div id="datail" data-modal-index="${data[0].movieId}" class="datail-warp">
-<div class="datail-body">
-<div class="swiper-wrapper">
-`;
-//  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
-//  ${data[i*10+slideIndex].movieName}
-if(data=0, data.length>0 , data++)
-  modalHtml += ` 
-  <iframe src="${data[0].movietrailerUrl.split("?")[0]}?mute=1&autoplay=1&controls=0"frameborder="0" allowfullscreen></iframe>
-   <div class="imgbody">
-     <section class="imgbody-detail">
-      <div class="buttons">
-          <div class="white-button">
-            <i class="fa-solid fa-play">재생</i>
-            <input type="hidden" id="mainVideo" value="">
-          </div>
-        </div>
-              
-</div>
-</div>
-</div>
-`;
-const modal = document.createElement("div");
-modal.setAttribute("class", "modal");
-modal.innerHTML = modalHtml;
-const list = document.querySelector("#category");
-list.appendChild(modalHtml);
-}
-</script> -->
 
 </html>
