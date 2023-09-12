@@ -109,7 +109,7 @@
   });
 
   async function fnPageStart() {
-    /*0~9사이 랜덤 뽑기*/
+    /*랜덤 뽑기*/
     const randomNumber = Math.floor(Math.random() * 50);
     const { data } = await axios.get(`/api/movies?startIndex=0&count=50`);
     $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist="+data[randomNumber].movietrailerUrl.split("/").pop().split("?")[0]+"&controls=0")//index는 랜덤으로 만든 값
@@ -208,6 +208,8 @@
               let dataIndex = currentDataIndex + slideIndex;
               const modalOpen = document.querySelector(`#modal-img-${dataIndex}`);
               modalOpen.addEventListener("click", function (e) {
+                console.log(e.target);
+                console.log(dataIndex);
                 getOneMovie(dataIndex + 1);
               })
             }
@@ -216,6 +218,8 @@
               let dataIndex = currentDataIndex + slideIndex;
               const modalOpen = document.querySelector(`#modal-button-${dataIndex}`);
               modalOpen.addEventListener("click", function (e) {
+                console.log(e.target);
+                console.log(dataIndex);
                 getOneMovie(dataIndex + 1);
               })
             }
@@ -239,19 +243,19 @@
                 // 화면의 넓이가 500px 이상일 때
                 500: {
                   slidesPerView: 3,
-                  slidesPerGroup: 3,
+                  slidesPerGroup: 1,
                 },
                 800: {
                   slidesPerView: 4,
-                  slidesPerGroup: 3,
+                  slidesPerGroup: 1,
                 },
                 1100: {
                   slidesPerView: 5,
-                  slidesPerGroup: 3,
+                  slidesPerGroup: 1,
                 },
                 1400: {
                   slidesPerView: 6,
-                  slidesPerGroup: 3,
+                  slidesPerGroup: 1,
                 }
               }
 
