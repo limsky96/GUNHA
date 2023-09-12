@@ -72,29 +72,31 @@
   <!-- </div> -->
 
 
-
   <div sec:authorize="isAuthenticated()">
 
     <div class="profile-title" style="text-align: center; font-size: 24px;">프로필 관리</div>
     <div class="modalBody">
       <div class="profile-container" style="display: flex; justify-content: center;">
         <div id="user-id" style="display: none;" th:text="${user.userId}"></div>
-          <div th:each="profile, iterStat: ${user.profileList}">
-            <div class="open-modal" style="display: flex; flex-direction: column; align-items: center;">
-              <img th:src="@{/images/profile/profile-{index}.png(index=${iterStat.index+1})}" style="width: 100px; height: 100px; margin-right: 10px; margin-left: 10px;"/>
-              <div type="button" th:text="${profile.profileName}" style="width: 100px; height: 100px; text-align: center; line-height: 100px;"></div>
+        <div th:each="profile, iterStat: ${user.profileList}">
+          <div class="open-modal" style="display: flex; flex-direction: column; align-items: center;">
+            <img th:src="@{/images/profile/profile-{index}.png(index=${iterStat.index+1})}"
+              style="width: 100px; height: 100px; margin-right: 10px; margin-left: 10px;" />
+            <div type="button" th:text="${profile.profileName}"
+            style="width: 100px; height: 100px; text-align: center; line-height: 100px;">
+            </div>
           </div>
         </div>
-          <div id="add-profile" style="width:100px; height:100px; text-align:center; font-size:30px; line-height: 100px;">
-          +</div>
+        <div id="add-profile" style="width:100px; height:100px; text-align:center; font-size:30px; line-height: 100px;">
+        +</div>
       </div>
-    
-  </div>
-    </div>
-    <div id="modal-wrap">
 
     </div>
   </div>
+  <div id="modal-wrap">
+
+  </div>
+
 
 
 
@@ -275,7 +277,8 @@
     async function createProfile(newProfileName) {
       const formData = new FormData();
       const userId = document.querySelector('#user-id').textContent;
-     
+      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
      
       formData.append('userId', userId);
       formData.append('profileName', newProfileName);
@@ -283,6 +286,7 @@
       try {
         const response = await axios.post('/profile/create', formDataString, {
           headers: {
+            [csrfHeader]: csrfToken,
             "Content-Type": "application/x-www-form-urlencoded"
           }
         });
@@ -303,6 +307,9 @@
     async function deleteProfile(selectedProfile) {
       const formData = new FormData();
       const userId = document.querySelector('#user-id').textContent;
+      
+      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
       // formData.append('action', '/profile/delete');
       formData.append('userId', userId);
@@ -313,6 +320,7 @@
         const response = await axios.delete('/profile/delete', {
           data: formDataString,
           headers: {
+            [csrfHeader]: csrfToken,
             "Content-Type": "application/x-www-form-urlencoded"
           }
         });
