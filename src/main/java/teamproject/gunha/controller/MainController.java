@@ -37,6 +37,13 @@ public class MainController {
     return "login/paymentCard";
   }
 
+  // 프로필 관리
+  
+  @GetMapping("/profileManagement")
+  public String profileManagement(){
+
+    return "profile/profileManagement";
+  }
 
 
   @GetMapping("/")

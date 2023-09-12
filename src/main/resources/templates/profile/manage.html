@@ -11,6 +11,8 @@
   <style>
     * {
       box-sizing: border-box;
+      border: 1px solid greenyellow; 
+
     }
 
     #modal-wrap {
@@ -38,7 +40,7 @@
       height: 300px;
       padding: 30px 30px;
       margin: 0 auto;
-      border: 1px solid #777;
+      /* border: 1px solid #777; */
       background-color: #fff;
     }
 
@@ -47,7 +49,7 @@
       height: 300px;
       padding: 30px 30px;
       margin: 0 auto;
-      border: 1px solid #777;
+      /* border: 1px solid #777; */  /*프로필 관리 페이지 틀*/
       background-color: #fff;
     }
 
@@ -73,29 +75,31 @@
 
   <div sec:authorize="isAuthenticated()">
 
+    <div class="profile-title" style="text-align: center; font-size: 24px;">프로필 관리</div>
     <div class="modalBody">
       <div class="profile-container" style="display: flex; justify-content: center;">
         <div id="user-id" style="display: none;" th:text="${user.userId}"></div>
-        <div th:each="profile: ${user.profileList}">
-          <div class="open-modal" style="display: flex; justify-content: center;">
-            <div type="button" th:text="${profile.profileName}"
-              style="width: 100px; height:100px; text-align: center; line-height: 100px;"></div>
+          <div th:each="profile, iterStat: ${user.profileList}">
+            <div class="open-modal" style="display: flex; flex-direction: column; align-items: center;">
+              <img th:src="@{/images/profile/profile-{index}.png(index=${iterStat.index+1})}" style="width: 100px; height: 100px; margin-right: 10px; margin-left: 10px;"/>
+              <div type="button" th:text="${profile.profileName}" style="width: 100px; height: 100px; text-align: center; line-height: 100px;"></div>
           </div>
         </div>
-        <div id="add-profile" style="width:100px; height:100px; text-align:center; font-size:30px; line-height: 100px;">
+          <div id="add-profile" style="width:100px; height:100px; text-align:center; font-size:30px; line-height: 100px;">
           +</div>
       </div>
-      <div id="modal-wrap">
-        <!-- <div id="modal-body">
-          <label for="profileName" >프로필명: </label>
-          <input id="profile-name" name="profileName" type="text" value="profileName"/>
-        </div> -->
-      </div>
+    
+  </div>
     </div>
-    <div style="width: 500px; height: 500px;">
+    <div id="modal-wrap">
 
     </div>
   </div>
+
+
+
+  
+
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     const openBtn = document.querySelectorAll(".open-modal");
@@ -125,6 +129,7 @@
         profileName.setAttribute('id', "profile-name");
         profileName.setAttribute('name', "profileName");
         profileName.setAttribute("value", elmnt.innerText);
+
 
         cancelBtn.setAttribute('type', 'button');
         cancelBtn.setAttribute('id', '#caancel-btn');
@@ -270,17 +275,14 @@
     async function createProfile(newProfileName) {
       const formData = new FormData();
       const userId = document.querySelector('#user-id').textContent;
-      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-      const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
-
-      formData.append('_csrf', csrfToken);
+     
+     
       formData.append('userId', userId);
       formData.append('profileName', newProfileName);
       const formDataString = new URLSearchParams(formData).toString();
       try {
         const response = await axios.post('/profile/create', formDataString, {
           headers: {
-            [csrfHeader]: csrfToken,
             "Content-Type": "application/x-www-form-urlencoded"
           }
         });
@@ -302,10 +304,7 @@
       const formData = new FormData();
       const userId = document.querySelector('#user-id').textContent;
 
-      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-      const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
       // formData.append('action', '/profile/delete');
-      formData.append('_csrf', csrfToken);
       formData.append('userId', userId);
       formData.append('profileName', selectedProfile);
 
@@ -314,7 +313,6 @@
         const response = await axios.delete('/profile/delete', {
           data: formDataString,
           headers: {
-            [csrfHeader]: csrfToken,
             "Content-Type": "application/x-www-form-urlencoded"
           }
         });
@@ -338,8 +336,6 @@
       const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
       const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
       // formData.append('action', '/profile/delete');
-      formData.append('_csrf', csrfToken);
-      formData.append('userId', userId);
       formData.append('originName', originProfile);
       formData.append('profileName', selectedProfile);
       console.log(formData);
