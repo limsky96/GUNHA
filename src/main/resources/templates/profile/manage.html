@@ -3,9 +3,9 @@
 
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <meta name="_csrf" th:content="${_csrf.token}" />
+  <!-- <meta name="_csrf" th:content="${_csrf.token}" /> -->
   <!-- default header name is X-CSRF-TOKEN -->
-  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}" /> -->
   <!-- ... -->
   <title>templates</title>
   <style>
@@ -107,7 +107,6 @@
     const openBtn = document.querySelectorAll(".open-modal");
     const addBtn = document.querySelector('#add-profile');
     const modal = document.querySelector('#modal-wrap');
-    // const cancelBtn = document.querySelector('#caancel-btn');
     function closeProfileModal(e) {
 
     }
@@ -155,7 +154,7 @@
         deleteBtn.setAttribute('value', '프로필삭제');
         deleteBtn.addEventListener('click', async e => {
           e.stopPropagation();
-          const { returnedValue, redirectPage } = await deleteProfile(profileName.value);
+          const { returnedValue, redirectPage } = await crudProfile('delete', '/profile/delete', profileName.value);
           console.log(returnedValue)
           if (returnedValue) {
             modal.style.display = 'none';
@@ -171,7 +170,8 @@
         confirmBtn.setAttribute('value', '확인');
         confirmBtn.addEventListener('click', async e => {
           e.stopPropagation();
-          const { returnedValue, redirectPage } = await updateProfile(elmnt.innerText, profileName.value);
+          const { returnedValue, redirectPage } = await crudProfile('patch', '/profile/update', profileName.value, elmnt.innerText);
+          // await updateProfile(elmnt.innerText, profileName.value);
           console.log(returnedValue);
           if (returnedValue) {
             modal.style.display = 'none';
@@ -235,7 +235,8 @@
       confirmBtn.setAttribute('value', '생성');
       confirmBtn.addEventListener('click', async e => {
         e.stopPropagation();
-        const { returnedValue, redirectPage } = await createProfile(profileName.value);
+        // const { returnedValue, redirectPage } = await createProfile(profileName.value);
+        const { returnedValue, redirectPage } = await crudProfile('post', '/profile/create', profileName.value);
         console.log(returnedValue);
         if (returnedValue) {
           modal.style.display = 'none';
@@ -272,89 +273,55 @@
     // });
 
 
+    const ajaxMethod = axios.create({
+      baseURL: 'http://localhost:8888/' // 예제 API 서버
+    });
 
-
-    async function createProfile(newProfileName) {
-      const formData = new FormData();
-      const userId = document.querySelector('#user-id').textContent;
-      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-      const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-     
-      formData.append('userId', userId);
-      formData.append('profileName', newProfileName);
-      const formDataString = new URLSearchParams(formData).toString();
+    async function ajax(methodName, url, header, data) {
       try {
-        const response = await axios.post('/profile/create', formDataString, {
-          headers: {
-            [csrfHeader]: csrfToken,
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        });
-        const { msg, returnedValue, redirectPage } = response.data;
-        if (response.status === 200) {
-          alert(msg);
-          return { returnedValue, redirectPage };
+        let response;
+        if (methodName === 'delete') {
+          response = await ajaxMethod[methodName](url, header);
         } else {
-          alert("연결이 정상적이지 않습니다.");
+          response = await ajaxMethod[methodName](url, data, header);
         }
+        return response;
       } catch (error) {
-        console.error("An error occurred:", error);
+        throw error;
       }
-      return false;
     }
 
-
-    async function deleteProfile(selectedProfile) {
+    async function crudProfile() {
+      //method, action, selectedProfile, originProfile
       const formData = new FormData();
       const userId = document.querySelector('#user-id').textContent;
-      
-      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-      const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-
+      // const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      // const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
       // formData.append('action', '/profile/delete');
+      // formData.append('_csrf', csrfToken);
       formData.append('userId', userId);
-      formData.append('profileName', selectedProfile);
-
-      const formDataString = new URLSearchParams(formData).toString();
-      try {
-        const response = await axios.delete('/profile/delete', {
-          data: formDataString,
-          headers: {
-            [csrfHeader]: csrfToken,
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        });
-        const { msg, returnedValue, redirectPage } = response.data;
-        console.log(response.data);
-        if (response.status === 200) {
-          alert(msg);
-          return { returnedValue, redirectPage };
-        } else {
-          alert("연결이 정상적이지 않습니다.");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
+      formData.append('profileName', arguments[2]);
+      if (arguments.length === 4) {
+        formData.append('originName', arguments[3]);
       }
-      return false;
-    }
-
-    async function updateProfile(originProfile, selectedProfile) {
-      const formData = new FormData();
-      const userId = document.querySelector('#user-id').textContent;
-      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-      const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
-      // formData.append('action', '/profile/delete');
-      formData.append('originName', originProfile);
-      formData.append('profileName', selectedProfile);
-      console.log(formData);
       const formDataString = new URLSearchParams(formData).toString();
       try {
-        const response = await axios.patch('/profile/update', formDataString, {
-          headers: {
-            [csrfHeader]: csrfToken,
+        let response;
+        if(arguments[0] === 'delete'){
+          console.log(arguments[0]);
+          response = await ajax(arguments[0], arguments[1], header = {
+            data: formDataString,
+            headers: {
+              // [csrfHeader]: csrfToken,
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          });
+        } else{
+          response = await ajax(arguments[0], arguments[1], formDataString, header = {
+            // [csrfHeader]: csrfToken,
             "Content-Type": "application/x-www-form-urlencoded"
-          }
-        });
+          });
+        }
         const { msg, returnedValue, redirectPage } = response.data;
         if (response.status === 200) {
           alert(msg);
