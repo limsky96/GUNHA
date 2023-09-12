@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
+import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.UserVO;
 
@@ -23,6 +24,9 @@ public class MainController {
   @Autowired
   private UserLoginService userLoginService;
 
+  @Autowired
+  private MembershipService membershipService;
+
   // 헤더
   @GetMapping("/header")
   public String header() {
@@ -32,9 +36,15 @@ public class MainController {
 
   // 결제창-카드
   @GetMapping("/payment-card")
-  public String paymentCard(){
+  public String paymentCard(
+    @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,  
+    Model model){
+      if(netflixUserDetails != null){
+        UserVO user = netflixUserDetails.getUserVO();
+        model.addAttribute("membership", membershipService.getMembership(user.getMembershipNo()));
+      }
 
-    return "login/paymentCard";
+    return "login/payment-card";
   }
 
 

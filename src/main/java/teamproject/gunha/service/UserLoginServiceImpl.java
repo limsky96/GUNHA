@@ -110,7 +110,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     } else {
       userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
     }
-    if(userVO.getMembershipNo() == 0 && json.get("membership_no") != null){
+    if(userVO.getMembershipNo() == 0 || json.get("membership_no") != null){
       log.info(json.get("membership_no").toString());
       int membershipNo = Integer.valueOf((String)json.get("membership_no"));
       userVO.setMembershipNo(membershipNo);

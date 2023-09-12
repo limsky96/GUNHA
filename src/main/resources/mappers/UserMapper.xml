@@ -30,7 +30,26 @@
   <collection property="authList" resultMap="authMap"></collection>
 </resultMap> -->
 
-
+<update id="updateUser">
+  <![CDATA[ 
+    update NETFLIX_MEMBER set
+  ]]>
+    <if test="userEmail != null">
+     member_email=#{userEmail},
+    </if>
+    <if test="password != null">
+      member_password=#{password}, 
+    </if>
+    <if test="cardNumber != null">
+      member_card_number=#{cardNumber},
+    </if>
+    <if test="membershipNo != null">
+      member_membership_no=#{membershipNo}
+    </if>
+  <![CDATA[
+    where member_id=#{userId}
+  ]]>
+</update>
 
 <resultMap id="authMap" type="teamproject.gunha.vo.AuthVO">
  <result property="userId" column="auth_member_id"/>

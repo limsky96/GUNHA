@@ -22,6 +22,7 @@ import teamproject.gunha.mapper.OrderMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.vo.OrderVO;
 import teamproject.gunha.vo.PortOneVO;
+import teamproject.gunha.vo.UserVO;
 
 @Service
 @Slf4j
@@ -149,6 +150,10 @@ public class OrderServiceImpl implements OrderService {
     log.info("portOneVO: " + portOneVO.toString());
     RestTemplate rt = new RestTemplate();
     OrderVO orderVO = orderMapper.selectUserLastOrder(portOneVO.getUserId());
+    UserVO userVO = UserVO.builder()
+        .userId(portOneVO.getUserId())
+        .cardNumber(portOneVO.getCardNumber())
+        .build();
     log.info(orderVO.toString());
     // 빌링키를 가져와서
     if (portOneVO.getCustomerUid() == null) {
@@ -188,10 +193,12 @@ public class OrderServiceImpl implements OrderService {
     if (code == 0) {
       resp.put("status", "success");
       resp.put("message", "Billing has successfully issued");
+      orderVO.setOrderValid("V");
       if (orderMapper.updateOrder(orderVO) < 1) {
         resp.put("status", "failed");
         resp.put("message", "DB update 문제");
       }
+      userMapper.updateUser(userVO);
     } else {
       resp.put("status", "failed");
       resp.put("message", (String) scheduleResponse.getBody().get("message"));

@@ -6,25 +6,15 @@
 
 /* 멤버십 정보 영역 */
 
-#membership-info{
-    margin-right: 30px;
-    width: 15em;
 
+
+.left{
+  width: 25%;
 }
-
-#membership-info-left{
-    width: 75%;
-}
-
-.row{
-    text-align: end;
-}
-
 
 /* 멤버십 상세정보 영역 */
-#membership-detail{
-    width: 90%;
-    justify-content: space-between
+.right{
+  width: 75%;
 }
 
 

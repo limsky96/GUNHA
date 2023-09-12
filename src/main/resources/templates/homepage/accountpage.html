@@ -30,13 +30,13 @@
     <hr>
 
     <!--멤버십 정보 영역-->
-    <div class="d-flex">
-      <div id="membership-info">
+    <div class="d-flex justify-content-between">
+      <div class="left">
         <h5 style="color: dimgray">멤버십 & 결제 정보 </h5>
         <button type="button" id="membershipB">멤버십 해지</button>
       </div>
-      <div id="membership-info2">
-        <div class="" id="membership-info3">
+      <div class="right">
+        <div class="" id="">
           <div id="" class="d-flex justify-content-between">
             <p><strong>이메일주소</strong>: <span th:text="${user.userEmail}"></span></p>
             <a href="#"> 계정이메일 변경</a>
@@ -45,7 +45,6 @@
             <p th:if="${user.social != 'none'}"><strong>소셜 회원: </strong> <span th:text="${user.social}"></span></p>
             <p  th:if="${user.social == 'none'}">비밀번호:</p>
             <!-- <p>전화번호:</p>          -->
-
             <a th:if="${user.social == 'none'}" href="#"> 비밀번호 변경</a>
             <!-- <a href="#"> 전화번호 변경</a>  -->
           </div>
@@ -67,12 +66,12 @@
     </div>
     <hr>
     <!--멤버십 상세정보 영역-->
-    <div class="d-flex" id="d-flex">
-      <div id="membership-info">
-        <h5 style="color: dimgray">멤버십 상세정보 </h5>
+    <div class="d-flex">
+      <div class="left">
+        <h5 style="color: dimgray">멤버십 상세정보</h5>
       </div>
-      <div class="d-flex" id="membership-detail">
-        <div id="membership-info-left">
+      <div class="right">
+        <div id="">
           <p>멤버십 종류</p>
         </div>
         <div>
@@ -98,11 +97,11 @@
     </div>
     <hr>
     <!--멤버십 프로필 정보 영역-->
-    <div class="d-flex" id="d-flex">
-      <div id="membership-info">
+    <div class="d-flex">
+      <div class="left">
         <h5 style="color: dimgray">프로필 설정</h5>
       </div>
-      <div id="membership-detail">
+      <div class="right">
         <div th:each="profile, iterStat :${user.ProfileList}">
           <div class="d-flex">
             <div style="margin-right: 20px;"><img style="width: 100px; height: 100px;"

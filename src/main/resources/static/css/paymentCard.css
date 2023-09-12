@@ -8,6 +8,9 @@ body {
   overflow-y: scroll; /* 세로 스크롤만 허용 */
   height: 1650px;
 }
+.form-control {
+  color: #8c8c8c;
+}
 
 .box-boundary{
   min-width: 200px; 
@@ -17,7 +20,7 @@ body {
   padding: 30px 0px 0px 0px; 
 
   white-space: nowrap; /* 내용물이 줄지 않도록 설정 */
-} */
+}
 
 /* 애 없애면 카드사 마크 사라짐 */
 .step3 {

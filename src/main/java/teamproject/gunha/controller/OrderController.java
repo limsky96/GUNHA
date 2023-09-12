@@ -3,7 +3,6 @@ package teamproject.gunha.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.service.OrderService;
+import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.PortOneVO;
 import teamproject.gunha.vo.UserVO;
 
@@ -26,9 +26,12 @@ public class OrderController {
   @Autowired
   private OrderService orderService;
 
+  @Autowired
+  private UserLoginService userService;
+
   @GetMapping("/order")
   public String orderPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
-    if(netflixUserDetails != null){
+    if (netflixUserDetails != null) {
       UserVO user = netflixUserDetails.getUserVO();
       model.addAttribute("userId", user.getUserId());
     }
@@ -52,33 +55,32 @@ public class OrderController {
   // @PostMapping("/subscription/schedule")
   // @ResponseBody
   // public Map<String, Object> subscribePass(PortOneVO portOneVO) {
-    
-    //   return ;
-    // }
-    
+
+  // return ;
+  // }
+
   @PostMapping("/subscription/issue-billing")
   @ResponseBody
-    public Map<String, Object> scheduleSubscription(PortOneVO portOneVO) {
+  public Map<String, Object> scheduleSubscription(PortOneVO portOneVO) {
 
     // log.info(paymentService.useAccessToken(accessToken).toString());
     // paymentService.issueBilling(portOneVO, accessToken);
-    Map<String, Object> resultMap = orderService.issueScheduleBilling(portOneVO);
-    log.info(resultMap.toString());
-    return resultMap;
-  }
+    Map<String, Object> responseMap = orderService.issueScheduleBilling(portOneVO);
 
+    userService.loginAccount(UserVO.builder().userId(portOneVO.getUserId()).build());
+
+
+    return responseMap;
+  }
 
   @PostMapping("/subscription/schedule-alert")
   @ResponseBody
-    public Map<String, Object> scheduleAlert(@RequestBody Map<String,Object> jsonObject) {
+  public Map<String, Object> scheduleAlert(@RequestBody Map<String, Object> jsonObject) {
     log.info(jsonObject.toString());
 
     orderService.issueSchedulePayment(jsonObject);
 
-    
     return jsonObject;
   }
-
-  
 
 }
