@@ -7,4 +7,5 @@ import teamproject.gunha.vo.MovieVO;
 
 public interface MovieService {
     List<MovieVO> findMovieList(MoviePageVO moviePageVO);
+    MovieVO getOneMovie(int id);
 }

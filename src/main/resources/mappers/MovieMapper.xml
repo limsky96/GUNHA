@@ -38,6 +38,12 @@
   <collection property="authList" resultMap="authMap"></collection>
 </resultMap> -->
 
+<select id="findById" resultMap="movieMap">
+<![CDATA[ 
+  select * from NETFLIX_MOVIE where movie_id = #{id}
+]]>
+
+</select>
 
 
 <resultMap id="authMap" type="teamproject.gunha.vo.AuthVO">
