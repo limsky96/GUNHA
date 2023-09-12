@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.processing.SupportedSourceVersion;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -221,7 +219,7 @@ public class OrderServiceImpl implements OrderService {
         paymentDataRequest, Map.class);
     Map<String, Object> paymentData = paymentDataResponse.getBody();
     log.info(paymentData.toString());
-    return (Map<String, Object>) paymentData;
+    return paymentData;
   }
 
   @Override

@@ -1,95 +1,164 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>원건보다하늘</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="/css/regi2-style.css" rel="stylesheet">
 </head>
+
 <body>
     <!--헤더 영역-->
-    <header class="content-header header bg-header-theme text-center"><h1>헤더영역</h1></header>
+    <header class="content-header header bg-header-theme text-center">
+        <h1>헤더영역</h1>
+    </header>
 
     <!--본문 영역-->
     <div class="main">
         <div>
-            <div id="step"><p>1/3단계</p></div>
+            <div id="step">
+                <p>1/3단계</p>
+            </div>
             <h2>비밀번호를 설정해 멤버십을 시작하세요.</h2>
-        </div> 
+        </div>
         <div id="regi-content">
-            <p class="fs-5"> 
-                몇 단계만 더 거치면 넷플릭스 가입 완료!<br> 
+            <p class="fs-5">
+                몇 단계만 더 거치면 넷플릭스 가입 완료!<br>
                 복잡한 단계는 모두 없앴습니다.
             </p>
-        </div> 
+        </div>
         <form class="cloumn g-3 needs-validation" novalidate>
             <div class="col">
-            <input type="email" class="form-control form-control-lg" id="uemail" placeholder="이메일주소 또는 전화번호" required>
-            <div class="invalid-feedback">
-                이메일 주소를 써주세요
-            </div>
+                <input type="email" class="form-control form-control-lg" id="uemail" placeholder="이메일주소 또는 전화번호"
+                    required>
+                <div class="invalid-feedback">
+                    이메일 주소를 써주세요
+                </div>
             </div>
             <div class="col">
-            <input type="password" class="form-control form-control-lg" id="upassword" placeholder="비밀번호" required>
-            <div class="invalid-feedback">
-                비밀번호를 추가하세요
-            </div>
+                <input type="password" class="form-control form-control-lg" id="upassword" placeholder="비밀번호" required>
+                <div class="invalid-feedback">
+                    비밀번호를 추가하세요
+                </div>
             </div>
 
+            <!--체크박스-->
             <div class="col-12">
                 <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                        <label class="form-check-label" for="invalidCheck">
-                            예, 저는 개인정보 처리방침에 따른 개인정보 수집 및 활용에 동의합니다.(상세 정보)
-                        </label>
-                        <div class="invalid-feedback">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+
+                    <label class="form-check-label" for="invalidCheck">
+                        예, 저는 개인정보 처리방침에 따른 개인정보 수집 및 활용에 동의합니다.
+                    </label>
+
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                     상세 정보
+                    </button>
+
+                    <div class="invalid-feedback">
                         먼저 이용약관에 동의하셔야 합니다.
-                        </div>
+                    </div>
                 </div>
+                <!--체크박스 2-->
                 <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
                         예, 넷플릭스 특별 할인 알림 이메일을 보내주세요(선택 사항)
-                        </label>
-                </div>  
+                    </label>
+                </div>
             </div>
 
             <div class="col-auto1 pt-4 align-self-center d-grid">
                 <button class="btn btn-danger btn-lg" type="submit">
-                    <!-- onclick="window.location.href = '/regi3'" -->
-                   <strong>동의하고 계속</strong>
+                    <!-- onclick="window.location.href = '/regi3'" 안먹음 -->
+                    <strong>동의하고 계속</strong>
                 </button>
             </div>
         </form>
 
+        <!--체크박스 1 상세정보누르면 모달 뜸-->
         <script>
-            (function () {
-                'use strict'
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
 
-                var forms = document.querySelectorAll('.needs-validation')
+            // 모달 열기 버튼에 이벤트 추가
+            var modalButton = document.querySelector('[data-bs-target="#exampleModal"]');
+            modalButton.addEventListener('click', function () {
+                myModal.show(); // 모달 열기
+            });
+        </script>
+
+    </div>
+
+    <!--모달 영역-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">개인정보 수집 이용 동의(대한민국)</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>개인정보 처리방침</h5><br>
+                        <p> 본 개인정보 처리방침에서는 Netflix 서비스와 관련해 회원의 개인정보를 포함한 특정 정보 수집, 이용 및 공개와 관련된 Netflix의 관행과 귀하의 선택권에 관해 설명합니다. </p><br>
+                        <h6>Netflix 연락 방법</h6><br>
+                        <p>계정 또는 고객 센터 문의 방법과 관련해 질문이 있는 경우 help.netflix.com에 접속해 Netflix 온라인 고객 센터를 방문하시기 바랍니다. 본 개인정보 처리방침에 대한 질문이나 Netflix의 회원 개인정보, 쿠키 또는 유사 기술 이용에 관해 질문이 있는 경우 개인정보 취급 관련 부서(Privacy Office/Data Protection Office)에 이메일(privacy@netflix.com)로 문의하시기 바랍니다.
+                            회원의 개인정보 데이터를 관리하는 업체는 넷플릭스서비시스코리아 유한회사입니다. 회원이 Netflix에 도움을 요청하는 경우, 요청 사항을 해결하기에 앞서 회원 및 Netflix의 안전을 위해 신원 확인을 요구할 수도 있음을 참고해 주시기 바랍니다.</p><br><br>
+                        <p> Netflix는 개인정보 처리방침(www.netflix.com/privacy)을 통해 Netflix가 수집하는 정보 및 이를 사용 및 공개하는 방법에 대한 알기 쉬운
+                            설명을 제공합니다. 본 도움말 문서는 개인정보 수집 이용 동의사항에 대한 고지 내용을 요약하여 알리기 위한 것입니다.
+                            <br>
+                            아래는 수집되는 개인정보의 항목 및 수집 목적을 정리한 표입니다. 아래의 표 중 귀하에 대하여 적용이 되는 부분은 귀하가 Netflix 계정을 만들었지만 구독을
+                            시작하지 않았는지 여부, 귀하의 계정에 전화번호를 연결했는지 여부 또는 귀하가 사용하는 결제 방법 등의 요인에 따라 달라질 수 있습니다. 따라서, Netflix가
+                            모든 경우에 귀하로부터 열거된 모든 개인정보의 항목을 수집하는 것은 아닙니다.
+                        </p>
+                        <br><br>
+                        <h5>정보의 보관</h5><br>
+                        <p>Netflix는 회원의 선택을 존중하고 결제 또는 기록의 목적과 본 개인정보 처리방침에 명시된 목적을 달성하기 위해 정보를 관련 법률 및 규정에서 요구 또는 허용하는
+                            대로 보관할 수 있습니다. 특히, Netflix는 서비스의 운영, 유지 및 개선, 법적 의무 준수, 이용 약관 시행을 포함한 법적 권리 및 구제책의 행사와 같은
+                            합법적인 이익과 필수적인 사업 목적을 위한 정보를 보관합니다. Netflix의 정보 보관은 회원과 Netflix와의 관계(예: 회원이 현재 Netflix의 회원인지
+                            여부), 정보의 성격, Netflix의 법적 의무 준수, 실제 또는 예상되는 법적 청구 방어 또는 해결과 같은 여러 요소를 기반으로 합니다. Netflix는 관련
+                            정보가 더 이상 필요하지 않은 경우 개인정보를 안전한 방법으로 폐기하거나 비식별 처리하기 위해 합리적인 조치를 취합니다. 정보의 삭제, 제거 및 보관에 대한 정보를
+                            알아보려면 관련 고객 센터 문서(help.netflix.com/node/100625)를 참조하시기 바랍니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--유효성 검사 영역-->
+    <script>
+        (function () {
+            'use strict'
+
+                const forms = document.querySelectorAll('.needs-validation')
                 
                 Array.prototype.slice.call(forms)
                 .forEach(function (form) {
                     form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    } else {
-                        // 유효성 검사를 통과한 경우 다음 페이지로 이동
-                        document.querySelector("form").setAttribute("action","/regi3") // 다음 화면의 URL을 여기에 입력하세요
-                    }
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        } else {
+                            // 유효성 검사를 통과한 경우 다음 페이지로 이동
+                            document.querySelector("form").setAttribute("action", "/regi3") // 다음 화면의 URL을 여기에 입력하세요
+                        }
 
-                    form.classList.add('was-validated')
+                        form.classList.add('was-validated')
                     }, false)
                 })
-                })()    
-           </script>
+        })()
+
+    </script>
 
     </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
