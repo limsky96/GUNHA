@@ -126,4 +126,12 @@ public class LoginController {
     return "update-member";
   }
 
+  @GetMapping("/my/account")
+  public String accountpage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
+    UserVO userVO = netflixUserDetails.getUserVO();
+    log.info(userVO + "");
+    model.addAttribute("user", userVO);
+    return "homepage/accountpage";
+  }
+
 }

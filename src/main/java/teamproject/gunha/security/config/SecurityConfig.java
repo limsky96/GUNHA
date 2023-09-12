@@ -29,9 +29,12 @@ public class SecurityConfig {
         .and()
         .authorizeHttpRequests()
         .antMatchers("/css/**", "/icons/**", "/images/**", "/views/**", "/bootstrap/**").permitAll()
-        .antMatchers("/emp/**").hasAnyRole("USER")
+        .antMatchers("/emp/**","/profile/**","/my/**").hasAnyRole("USER")
         .antMatchers("/admin/**").hasAnyRole("ADMIN")
-        .antMatchers("/**").permitAll();
+        .antMatchers("/", "/login").permitAll()
+        .and()
+        .exceptionHandling()
+            .accessDeniedPage("/"); 
 
     http.formLogin()
         .loginPage("/login") // 미인증자일경우 해당 uri를 호출
