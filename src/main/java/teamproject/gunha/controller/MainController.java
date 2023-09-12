@@ -93,12 +93,6 @@ public class MainController {
     return "/watch/watch";
   }
 
-  @GetMapping("/admins")
-  public String admin() {
-    log.info("hello()...");
-    return "admins/admin";
-  }
-
   @GetMapping("/qna")
   public String qna() {
       log.info("qna()...");
@@ -118,5 +112,35 @@ public class MainController {
     return "/category/movie";
   }
   
+  @GetMapping("/admins")
+  public String admin() {
+    log.info("hello()...");
+    return "admins/admin";
+  }
+
+  @GetMapping("/admins-member")
+  public String adminMember() {
+    log.info("hello()...");
+    return "/admins/admin-member-table";
+  }
+
+  @GetMapping("/admins-sales")
+  public String adminSales() {
+    log.info("hello()...");
+    return "/admins/admin-sale-table";
+  }
+
+  @GetMapping("/admins-movies")
+  public String adminMovies() {
+    log.info("hello()...");
+    return "/admins/admin-movie-table";
+  }
+
+  @GetMapping("/admins-addmovies")
+  public String adminaddMovies() {
+    log.info("hello()...");
+    return "/admins/admin-movie-add";
+  }
+
 
 }
