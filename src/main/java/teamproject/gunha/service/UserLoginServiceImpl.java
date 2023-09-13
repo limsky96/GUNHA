@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.mapper.OrderMapper;
 import teamproject.gunha.mapper.ProfileMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
@@ -26,6 +27,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 
   @Autowired
   private ProfileMapper profileMapper;
+
+  @Autowired
+  private OrderMapper orderMapper;
 
   @Autowired
   private BCryptPasswordEncoder passwordEncoder;
@@ -66,6 +70,7 @@ public class UserLoginServiceImpl implements UserLoginService {
   @Override
   public boolean loginAccount(UserVO userVO) {
     userVO = userMapper.selectUserId(userVO.getUserId());
+    userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
     NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
     log.info(netflixUserDetails+"");
     Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,

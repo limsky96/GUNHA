@@ -153,6 +153,7 @@ public class OrderServiceImpl implements OrderService {
     UserVO userVO = UserVO.builder()
         .userId(portOneVO.getUserId())
         .cardNumber(portOneVO.getCardNumber())
+        .membershipNo(portOneVO.getMembershipNo())
         .build();
     log.info(orderVO.toString());
     // 빌링키를 가져와서
@@ -169,7 +170,7 @@ public class OrderServiceImpl implements OrderService {
 
     Map<String, Object> schedules = new HashMap<>();
     schedules.put("merchant_uid", portOneVO.getMerchantUid());
-    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now().plusMinutes(1)).getTime() / 1000);
+    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now()).getTime() / 1000);
     schedules.put("amount", portOneVO.getAmount());
     schedules.put("name", portOneVO.getName() + " 구독");
     schedules.put("buyer_email", userMapper.selectUserId(portOneVO.getUserId()).getUserEmail());
@@ -231,6 +232,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional(rollbackFor = Exception.class)
   public Map<String, Object> issueSchedulePayment(Map<String, Object> jsonObject) {
 
     RestTemplate rt = new RestTemplate();
@@ -279,8 +281,10 @@ public class OrderServiceImpl implements OrderService {
       ResponseEntity<Map> schedulePayResponse = rt.exchange(url, HttpMethod.POST, schedulePayRequest, Map.class);
       orderMapper.insertOrder(orderVO);
       log.info(schedulePayResponse.toString());
+    } else{
+
     }
-    return getToken;
+    return response;
   }
 
 }

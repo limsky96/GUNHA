@@ -33,7 +33,7 @@
     <div class="d-flex justify-content-between">
       <div class="left">
         <h5 style="color: dimgray">멤버십 & 결제 정보 </h5>
-        <button type="button" id="membershipB">멤버십 해지</button>
+        <button type="button" class="w-100 border-0 btn-cancel">멤버십 해지</button>
       </div>
       <div class="right">
         <div class="" id="">
@@ -43,9 +43,9 @@
           </div>
           <div class="d-flex justify-content-between">
             <p th:if="${user.social != 'none'}"><strong>소셜 회원: </strong> <span th:text="${user.social}"></span></p>
-            <p  th:if="${user.social == 'none'}">비밀번호:</p>
+            <p  th:if="${user.social == 'none'}"><strong>비밀번호: </strong> ********</p>
             <!-- <p>전화번호:</p>          -->
-            <a th:if="${user.social == 'none'}" href="#"> 비밀번호 변경</a>
+            <a th:if="${user.social == 'none'}" href="/my/password"> 비밀번호 변경</a>
             <!-- <a href="#"> 전화번호 변경</a>  -->
           </div>
         </div>
@@ -55,11 +55,15 @@
             <p><strong>결제방법</strong>: 카드(카드번호?)</p>
             <!-- <p>다음결제일은 입니다</p>        -->
           </div>
-          <div class="row">
+          <div class="">
+            <div>
             <a href="#"> 결제 정보 관리</a>
+          </div>
             <!-- <a href="#"> 예비 결제 수단 등록</a> -->
+            <div>
             <a href="#"> 결제 상세 정보</a>
             <!-- <a href="#"> 결제일 변경</a>   -->
+          </div>
           </div>
         </div>
       </div>
@@ -72,7 +76,7 @@
       </div>
       <div class="right">
         <div id="">
-          <p>멤버십 종류</p>
+          <p><strong>멤버십 종류:</strong> <span th:text="${membership.grade}"></span> </p>
         </div>
         <div>
           <!-- <a href="#"> 멤버십 변경</a> -->

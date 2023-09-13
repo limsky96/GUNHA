@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
+import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.UserVO;
 
@@ -28,32 +29,35 @@ public class LoginController {
   @Autowired
   private UserLoginService userLoginService;
 
+  @Autowired
+  private MembershipService membershipService;
+
   @GetMapping("/login")
   public String login() {
     log.info("hello()...");
     return "login/login-page";
   }
 
-  @GetMapping("/sign-up")
-  public String signUpPage(
-      @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
-      Model model) {
-    if (netflixUserDetails != null) {
-      UserVO userVO = netflixUserDetails.getUserVO();
-      if ("결제정보 없음".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())) {
-        model.addAttribute("user", userVO);
-        return "login/sign-up-social";
-      }
-    }
-    return "login/sign-up";
-  }
+  // @GetMapping("/sign-up")
+  // public String signUpPage(
+  //     @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
+  //     Model model) {
+  //   if (netflixUserDetails != null) {
+  //     UserVO userVO = netflixUserDetails.getUserVO();
+  //     if ("결제정보 없음".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())) {
+  //       model.addAttribute("user", userVO);
+  //       return "login/sign-up-social";
+  //     }
+  //   }
+  //   return "login/sign-up";
+  // }
 
-  @PostMapping("/sign-up")
-  public String signUp(UserVO userVO) {
-    log.info("signUp() :" + userVO);
-    userLoginService.createAccount(userVO);
-    return "redirect:/";
-  }
+  // @PostMapping("/sign-up")
+  // public String signUp(UserVO userVO) {
+  //   log.info("signUp() :" + userVO);
+  //   userLoginService.createAccount(userVO);
+  //   return "redirect:/";
+  // }
 
   @PostMapping("/account-update")
   @ResponseBody
@@ -130,8 +134,14 @@ public class LoginController {
   public String accountpage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
     UserVO userVO = netflixUserDetails.getUserVO();
     log.info(userVO + "");
+    model.addAttribute("membership", membershipService.getMembership(userVO.getMembershipNo()));
     model.addAttribute("user", userVO);
     return "homepage/accountpage";
+  }
+
+  @GetMapping("/my/password")
+  public String changePasswordPage(){
+    return "login/my/password";
   }
 
 }

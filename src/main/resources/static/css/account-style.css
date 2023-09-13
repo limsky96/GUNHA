@@ -17,10 +17,8 @@
   width: 75%;
 }
 
-
-/* button */
-#membershipB{
-    width: 12em;
-    height: 2.5em;
-    border: 0px;
+.btn-cancel{
+  height: 2.5em;
+  border: 0px;
 }
+

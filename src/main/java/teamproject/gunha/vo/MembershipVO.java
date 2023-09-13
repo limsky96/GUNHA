@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class MembershipVO {
-  private int membershipNp;
+  private int membershipNo;
   private String grade;
   private int amount; 
 }

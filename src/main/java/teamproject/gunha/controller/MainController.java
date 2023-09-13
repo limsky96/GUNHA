@@ -24,9 +24,6 @@ public class MainController {
   @Autowired
   private UserLoginService userLoginService;
 
-  @Autowired
-  private MembershipService membershipService;
-
   // 헤더
   @GetMapping("/header")
   public String header() {
@@ -35,17 +32,7 @@ public class MainController {
   }
 
   // 결제창-카드
-  @GetMapping("/payment-card")
-  public String paymentCard(
-    @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,  
-    Model model){
-      if(netflixUserDetails != null){
-        UserVO user = netflixUserDetails.getUserVO();
-        model.addAttribute("membership", membershipService.getMembership(user.getMembershipNo()));
-      }
 
-    return "login/payment-card";
-  }
 
 
 
@@ -56,7 +43,7 @@ public class MainController {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
       String profile = netflixUserDetails.getSelectedProfile();
-      if ("결제정보 없음" == userVO.getCardNumber() ||0==userVO.getMembershipNo()) {
+      if ("결제정보 없음" == userVO.getCardNumber() || 0==userVO.getMembershipNo()) {
         return "redirect:/regi3";
       }
 
@@ -88,8 +75,11 @@ public class MainController {
       Model model) {
     if (netflixUserDetails == null) {
       return "redirect:/login";
-    }
+    } 
     UserVO userVO = netflixUserDetails.getUserVO();
+    // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
+    //   return "redirect:/regi3";
+    // }
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
     return "/homepage/home";

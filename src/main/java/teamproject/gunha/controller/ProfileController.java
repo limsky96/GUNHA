@@ -40,7 +40,7 @@ public class ProfileController {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
       if (0 == userVO.getMembershipNo()) {
-        return "redirect:/sign-up";
+        return "redirect:/regi2";
       }
       log.info("user: " + userVO);
       model.addAttribute("user", userVO);

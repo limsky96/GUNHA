@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
+import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.OrderService;
 import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.PortOneVO;
@@ -28,6 +29,21 @@ public class OrderController {
 
   @Autowired
   private UserLoginService userService;
+
+  @Autowired
+  private MembershipService membershipService;
+
+  @GetMapping("/payment-card")
+  public String paymentCard(
+      @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
+      Model model) {
+    if (netflixUserDetails != null) {
+      UserVO user = netflixUserDetails.getUserVO();
+      model.addAttribute("membership", membershipService.getMembership(user.getMembershipNo()));
+    }
+
+    return "login/payment-card";
+  }
 
   @GetMapping("/order")
   public String orderPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
@@ -68,7 +84,6 @@ public class OrderController {
     Map<String, Object> responseMap = orderService.issueScheduleBilling(portOneVO);
 
     userService.loginAccount(UserVO.builder().userId(portOneVO.getUserId()).build());
-
 
     return responseMap;
   }

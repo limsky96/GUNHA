@@ -107,11 +107,6 @@ input[type="text"], input[type="password"] {
 .pay-choice { /*결제 종류 선택 칸*/
   padding: 0px; /* 안쪽 여백 설정 */
   margin-bottom: 14px;
-
-
-
- 
-  
 }
 
 .pay-choice-box{

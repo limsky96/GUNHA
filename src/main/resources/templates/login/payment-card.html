@@ -256,6 +256,7 @@
         </div>
         <div id="hidden-place" class="">
           <input id="user-id" type="hidden" th:value="${#authentication.principal.username}" />
+          <input id="membership-no" type="hidden" th:value="${membership.membershipNo}"/>
           <input id="amount" type="hidden" th:value="${membership.amount}" />
           <input id="membership-grade" type="hidden" th:value="${membership.grade}" />
         </div>
@@ -370,6 +371,7 @@
       const birth = `${splitedYear}${paddedMonth}${paddedDay}`;
       const expiry = document.querySelector("#expiry").value;
       const pwd2digit = document.querySelector("#pwd-2digit").value;
+      const membershipNo = document.querySelector("#membership-no").value;
       const amount = document.querySelector("#amount").value;
       const membershipGrade = document.querySelector("#membership-grade").value;
 
@@ -380,6 +382,7 @@
         birth: birth,
         expiry: expiry,
         pwd2digit: pwd2digit,
+        membershipNo: membershipNo,
         amount: amount,
         name: membershipGrade
       }
