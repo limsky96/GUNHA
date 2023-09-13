@@ -46,7 +46,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
-                <a href="/admins" class="navbar-brand mx-4 mb-3">
+                <a th:href="@{/admins}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>NETFLIX</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -60,16 +60,16 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/admins" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a th:href="@{/admins}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="/admins-movies" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>MOVIE</a>
+                        <a th:href="@{/admins-movies}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>MOVIE</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="/admins-movies" class="dropdown-item">LIST</a>
-                            <a href="/admins-addmovies" class="dropdown-item">ADD</a>
+                            <a th:href="@{/admins-movies}" class="dropdown-item">LIST</a>
+                            <a th:href="@{/admins-addmovies}" class="dropdown-item">ADD</a>
                         </div>
                     </div>
-                    <a href="/admins-member" class="nav-item nav-link"><i class="fa-solid fa-user"></i></i>MEMBER</a>
-                    <a href="/admins-sales" class="nav-item nav-link"><i class="fa-solid fa-wallet"></i>SALES</a>
+                    <a th:href="@{/admins-member}" class="nav-item nav-link"><i class="fa-solid fa-user"></i></i>MEMBER</a>
+                    <a th:href="@{/admins-sales}" class="nav-item nav-link"><i class="fa-solid fa-wallet"></i>SALES</a>
                 </div>
             </nav>
         </div>
@@ -80,7 +80,7 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="/admins" class="navbar-brand d-flex d-lg-none me-4">
+                <a th:href="@{/admins}" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -187,32 +187,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>John</td>
-                                            <td>Doe</td>
-                                            <td>jhon@email.com</td>
-                                            <td>USA</td>
-                                            <td>123</td>
-                                            <td>Member</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>mark@email.com</td>
-                                            <td>UK</td>
-                                            <td>456</td>
-                                            <td>Member</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>jacob@email.com</td>
-                                            <td>AU</td>
-                                            <td>789</td>
-                                            <td>Member</td>
+                                        <tr th:each="member, rowStat : ${members}">
+                                            <th scope="row" th:text="${rowStat.index + 1}"></th>
+                                            <td th:text="${member.member_id}"></td>
+                                            <td th:text="${member.member_email}"></td>
+                                            <td th:text="${member.member_password}"></td>
+                                            <td th:text="${member.member_card_number}"></td>
+                                            <td th:text="${member.member_membership_no}"></td>
+                                            <td th:text="${member.member_social}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -229,11 +211,11 @@
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="/home">netflix</a>, All Right Reserved. 
+                            &copy; <a th:href="@{/home}">netflix</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a th:href="@{/admins-member}"href="https://htmlcodex.com">HTML Codex</a>
                             <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
