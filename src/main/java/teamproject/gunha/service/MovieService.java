@@ -23,4 +23,5 @@ public interface MovieService {
     void insertMovie(MovieVO movie);
 
     List<MovieVO> getAllMovies();
+
 }
