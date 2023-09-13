@@ -6,14 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class MoviePageVO {
     private int startIndex;
     private int count;
-    private int endIndex;
-    
-    public int getEndIndex(){
-        return startIndex+count;
+
+    public int getEndIndex() {
+        return startIndex + count;
     }
+
 }

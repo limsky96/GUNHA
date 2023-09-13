@@ -33,12 +33,10 @@ public class MainController {
 
   // 결제창-카드
   @GetMapping("/paymentCard")
-  public String paymentCard(){
+  public String paymentCard() {
 
     return "login/paymentCard";
   }
-
-
 
   @GetMapping("/")
   public String hello(
@@ -83,7 +81,13 @@ public class MainController {
     UserVO userVO = netflixUserDetails.getUserVO();
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
-    return "homepage/home";
+    return "/homepage/home";
+  }
+
+  @GetMapping("/admin-home")
+  public String adminHome() {
+
+    return "homepage/admin-home";
   }
 
   @GetMapping("/watch")
@@ -95,23 +99,22 @@ public class MainController {
 
   @GetMapping("/qna")
   public String qna() {
-      log.info("qna()...");
-      return "homepage/qna";
+    log.info("qna()...");
+    return "homepage/qna";
   }
 
   @GetMapping("/nodata")
   public String nofunction() {
-      log.info("qna()...");
-      return "homepage/nofunction";
+    log.info("qna()...");
+    return "homepage/nofunction";
   }
-  
-  
+
   @GetMapping("/movie")
   public String card() {
     log.info("hello()...");
     return "/category/movie";
   }
-  
+
   @GetMapping("/admins")
   public String admin() {
     log.info("hello()...");
@@ -141,6 +144,5 @@ public class MainController {
     log.info("hello()...");
     return "/admins/admin-movie-add";
   }
-
 
 }
