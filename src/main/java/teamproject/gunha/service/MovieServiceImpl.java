@@ -28,6 +28,17 @@ public class MovieServiceImpl implements MovieService {
         return movieMapper.selectPagedMovieList(moviePageVO);
     }
 
+    @Override
+    public MovieVO getOneMovie(int id) {
+        log.info("serviceimpl::getOneMovie");
+        return movieMapper.findById((long) id);
+    }
+
+    // @Override
+    // public List<MovieVO> getAllMovies() {
+    // return (List<MovieVO>) movieMapper.getAllMovies();
+    // }
+
     // @Override
     // public List<MovieVO> getMovieList() {
     // return movieMapper.selectMovieList();

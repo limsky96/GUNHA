@@ -35,6 +35,7 @@
                 <h5 style="color: dimgray">멤버십 & 결제 정보 </h5>
                 <button type="button" id="membershipB">멤버십 해지</button>
             </div>
+<<<<<<< HEAD
             <div id="membership-info2">
                 <div class="d-flex" id="membership-info3">
                     <div id="membership-info-left">
@@ -46,11 +47,23 @@
                         <a href="#"> 계정이메일 변경</a>
                         <a href="#"> 비밀번호 변경</a>
                         <a href="#"> 전화번호 변경</a>
+=======
+            <div id="membership-info2">  
+                <div class="d-flex" id="membership-info3">   
+                    <div  id="membership-info-left">
+                        <p><strong><span th:utext="${user.userId}"></span></strong></p>
+                        <p>비밀번호: <span th:if="${user.password != null}" th:utext="${#strings.repeat('*', user.password.length())}"></span></p>      
+                    </div>   
+                    <div class="row">
+                        <a href="/member"></a>
+                        <a href="/member"> 비밀번호 변경</a>
+>>>>>>> 32d0870e95968536b182f959360cc5d2d42d4a89
                     </div>
                 </div>
                 <hr>
                 <div class="d-flex" id="d-flex">
                     <div>
+<<<<<<< HEAD
                         <p><strong>이메일주소</strong></p>
                         <p>다음결제일은 입니다</p>
                     </div>
@@ -59,6 +72,14 @@
                         <a href="#"> 예비 결제 수단 등록</a>
                         <a href="#"> 결제 상세 정보</a>
                         <a href="#"> 결제일 변경</a>
+=======
+                        <p><strong><span th:utext="${user.userId}"></span></strong></p>
+                        <p>다음결제일은 입니다</p>       
+                    </div>
+                    <div class="row">
+                        <a href="/member"> 결제 정보 관리</a>
+                        <a href="/nodata"> 결제 상세 정보</a>
+>>>>>>> 32d0870e95968536b182f959360cc5d2d42d4a89
                     </div>
                 </div>
             </div>
@@ -84,6 +105,7 @@
             <div id="membership-info">
                 <h5 style="color: dimgray">보안 & 개인 정보 </h5>
             </div>
+<<<<<<< HEAD
             <div class="d-flex" id="membership-detail">
                 <div id="membership-info-left">
                     <p>이 계정에 대한 접근 권한을 관리하고 가장 최근에 사용된 디바이스 등을 확인하세요.</p>
@@ -93,6 +115,17 @@
                     <a href="#"> 모든 디바이스에서 로그아웃</a>
                 </div>
             </div>
+=======
+            <div class="d-flex" id="membership-detail">  
+                <div  id="membership-info-left">
+                    <p>이 계정에 대한 접근 권한을 관리하고 가장 최근에 사용된 디바이스 등을 확인하세요.</p>          
+                </div>   
+                <div  class="row">
+                    <a href="/nodata"> 엑세스 및 디바이스 관리</a>
+                    <a href="/nodata"> 모든 디바이스에서 로그아웃</a>
+                </div>      
+            </div>     
+>>>>>>> 32d0870e95968536b182f959360cc5d2d42d4a89
         </div>
         <hr>
         <!--멤버십 프로필 정보 영역-->

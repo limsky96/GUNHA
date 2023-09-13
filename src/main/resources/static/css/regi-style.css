@@ -29,6 +29,10 @@
     height: 70px;
 }
 
+.h2, h2 {
+    font-size: calc(1.325rem + .9vw);
+    text-align: center;
+}
 
 #regi-content{
     margin-top: 20px;

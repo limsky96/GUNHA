@@ -24,4 +24,6 @@ public interface MovieService {
 
     List<MovieVO> getAllMovies();
 
+    MovieVO getOneMovie(int id);
+
 }

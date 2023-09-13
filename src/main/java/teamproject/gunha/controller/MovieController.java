@@ -44,6 +44,14 @@ public class MovieController {
         return movieService.findMovieList(moviePageVO);
     }
 
+    @GetMapping("/api/movies/{id}") // api/movies (GET) 메소드 호출
+    @ResponseBody
+    public MovieVO getMovies(@PathVariable int id) { // 영화 목록 가져오는 메소드
+        log.info(id + "");
+        // return movieMapper.findMovieList(); // DB에 저장된 모든 영화 정보를 가져온 후, 리스트로 변환
+        return movieService.getOneMovie(id);
+    }
+
     // 모든 영화 목록 가져오기
     @GetMapping("/all")
     public ResponseEntity<List<MovieVO>> getAllMovies() {
@@ -100,7 +108,6 @@ public class MovieController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     // CRUD
     // @PostMapping
     // public ResponseEntity<MovieVO> createMovie(@RequestBody MovieVO newMovie) {

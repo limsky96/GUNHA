@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
@@ -96,28 +97,52 @@ public class MainController {
     return "/watch/watch";
   }
 
-  @GetMapping("/admins")
-  public String admin() {
-    log.info("hello()...");
-    return "admins/admin";
-  }
-
   @GetMapping("/qna")
   public String qna() {
     log.info("qna()...");
     return "homepage/qna";
   }
 
-  @GetMapping("/accountpage")
-  public String accountpage() {
-    log.info("accountpage()...");
-    return "homepage/accountpage";
+  @GetMapping("/nodata")
+  public String nofunction() {
+    log.info("qna()...");
+    return "homepage/nofunction";
   }
 
   @GetMapping("/movie")
   public String card() {
     log.info("hello()...");
     return "/category/movie";
+  }
+
+  @GetMapping("/admins")
+  public String admin() {
+    log.info("hello()...");
+    return "admins/admin";
+  }
+
+  @GetMapping("/admins-member")
+  public String adminMember() {
+    log.info("hello()...");
+    return "/admins/admin-member-table";
+  }
+
+  @GetMapping("/admins-sales")
+  public String adminSales() {
+    log.info("hello()...");
+    return "/admins/admin-sale-table";
+  }
+
+  @GetMapping("/admins-movies")
+  public String adminMovies() {
+    log.info("hello()...");
+    return "/admins/admin-movie-table";
+  }
+
+  @GetMapping("/admins-addmovies")
+  public String adminaddMovies() {
+    log.info("hello()...");
+    return "/admins/admin-movie-add";
   }
 
 }
