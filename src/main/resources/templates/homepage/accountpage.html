@@ -38,7 +38,7 @@
       <div class="right">
         <div class="" id="">
           <div id="" class="d-flex justify-content-between">
-            <p><strong>이메일주소</strong>: <span th:text="${user.userEmail}"></span></p>
+            <p><strong>이메일주소</strong>: <span th:text="${user}"></span></p>
             <a href="#"> 계정이메일 변경</a>
           </div>
           <div class="d-flex justify-content-between">
@@ -52,7 +52,7 @@
         <hr>
         <div class="d-flex justify-content-between">
           <div>
-            <p><strong>결제방법</strong>: 카드(카드번호?)</p>
+            <p><strong>결제방법</strong>: 카드 <span id="card-number" th:text="${user.cardNumber}"></span></p>
             <!-- <p>다음결제일은 입니다</p>        -->
           </div>
           <div class="">
@@ -76,7 +76,10 @@
       </div>
       <div class="right">
         <div id="">
-          <p><strong>멤버십 종류:</strong> <span th:text="${membership.grade}"></span> </p>
+          <p><strong>멤버십 종류:</strong>
+            <span th:if="${user.lastOrder == null || user.lastOrder.orderValid != 'V'}" th:text="'마지막 결제 멤버십 등급: ' + ${membership.grade} + ' 유효하지 않음'"></span>
+            <span th:if="${user.lastOrder != null && user.lastOrder.orderValid == 'V'}" th:text="${membership.grade}"></span>
+           </p>
         </div>
         <div>
           <!-- <a href="#"> 멤버십 변경</a> -->
@@ -126,6 +129,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+  <script>
+    const cardNumber = document.querySelector("#card-number");
+    const maskedValue = (inputValue) =>{
+      return inputValue.replace(/(\d{4})-(\d{4})-(\d{4})-(\d{4})/, '$1-****-****-$4');
+    }
+    cardNumber.textContent = maskedValue(cardNumber.textContent);
+  </script>
 </body>
 
 </html>
