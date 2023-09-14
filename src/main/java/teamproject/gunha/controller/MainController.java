@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
@@ -85,11 +86,35 @@ public class MainController {
     return "/homepage/home";
   }
 
+  @GetMapping("/admin-home")
+  public String adminHome() {
+
+    return "homepage/admin-home";
+  }
+
   @GetMapping("/watch")
   public String watch(UserVO userVO, Model model) {
     log.info("watch()...");
     model.addAttribute("영상Key", userVO);
     return "/watch/watch";
+  }
+
+  @GetMapping("/qna")
+  public String qna() {
+    log.info("qna()...");
+    return "homepage/qna";
+  }
+
+  @GetMapping("/nodata")
+  public String nofunction() {
+    log.info("qna()...");
+    return "homepage/nofunction";
+  }
+
+  @GetMapping("/movie")
+  public String card() {
+    log.info("hello()...");
+    return "/category/movie";
   }
 
   @GetMapping("/admins")
@@ -98,18 +123,28 @@ public class MainController {
     return "admins/admin";
   }
 
-  @GetMapping("/qna")
-  public String qna() {
-      log.info("qna()...");
-      return "homepage/qna";
+  @GetMapping("/admins-member")
+  public String adminMember() {
+    log.info("hello()...");
+    return "/admins/admin-member-table";
   }
 
-
-  
-  @GetMapping("/movie")
-  public String card() {
+  @GetMapping("/admins-sales")
+  public String adminSales() {
     log.info("hello()...");
-    return "/category/movie";
+    return "/admins/admin-sale-table";
+  }
+
+  @GetMapping("/admins-movies")
+  public String adminMovies() {
+    log.info("hello()...");
+    return "/admins/admin-movie-table";
+  }
+
+  @GetMapping("/admins-addmovies")
+  public String adminaddMovies() {
+    log.info("hello()...");
+    return "/admins/admin-movie-add";
   }
 
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>영화 추가</title>
+</head>
+
+<body>
+    <h1>영화 추가</h1>
+    <form method="post" th:action="@{/admin/movie/add}">
+        <label for="movieName">제목 : </label>
+        <input type="text" id="movieName" name="movieName" required>
+        <button type="submit">Add</button>
+    </form>
+    <a th:href="@{/admin/movie/list}">뒤로가기</a>
+</body>
+
+</html>
