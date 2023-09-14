@@ -18,20 +18,20 @@ public class AdminMovieController {
     public String listMovies(Model model) {
         List<AdminMovieVO> movies = adminMovieService.getAllMovies();
         model.addAttribute("movies", movies);
-        return "admin/list"; // 뷰 이름
+        return "admin/movie/list";
     }
 
     @GetMapping("/view/{movieId}")
     public String viewMovie(@PathVariable int movieId, Model model) {
         AdminMovieVO movie = adminMovieService.getMovieById(movieId);
         model.addAttribute("movie", movie);
-        return "admin/view";
+        return "admin/movie/view";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("movie", new AdminMovieVO());
-        return "admin/add";
+        return "admin/movie/add";
     }
 
     @PostMapping("/add")
@@ -44,7 +44,7 @@ public class AdminMovieController {
     public String showEditForm(@PathVariable int movieId, Model model) {
         AdminMovieVO movie = adminMovieService.getMovieById(movieId);
         model.addAttribute("movie", movie);
-        return "admin/edit";
+        return "admin/movie/edit";
     }
 
     @PostMapping("/edit/{movieId}")
@@ -57,5 +57,11 @@ public class AdminMovieController {
     public String deleteMovie(@PathVariable int movieId) {
         adminMovieService.deleteMovie(movieId);
         return "redirect:/admin/movies/list";
+    }
+
+    @GetMapping("/admin")
+    public String Admin(Model model) {
+
+        return "admins/admin";
     }
 }
