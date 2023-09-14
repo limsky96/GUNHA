@@ -13,6 +13,10 @@
         <label for="movieName">제목 : </label>
         <input type="text" id="movieName" name="movieName" th:value="${movie.movieName}" required>
 
+        <!-- 여기부터 영화 추가 부분 -->
+        <label for="newMovieName">새로운 영화 제목 : </label>
+        <input type="text" id="newMovieName" name="newMovieName" required>
+
         <button type="submit">Update</button>
     </form>
     <a th:href="@{/admin/movie/list}">뒤로가기</a>
