@@ -110,9 +110,10 @@ public class OrderController {
   }
 
   @DeleteMapping("/my/cancel")
+  @ResponseBody
   public Map<String, Object> cancelBill(@RequestBody Map<String, Object> jsonObject){
-    String response = (String)jsonObject.get("customer_uid") + ", "  + (String) jsonObject.get("merchant_uid");
-    // Map<String, Object> response = orderService.cancelSchedule(jsonObject);
+    // String response = (String)jsonObject.get("customer_uid") + ", "  + (String) jsonObject.get("merchant_uid");
+    Map<String, Object> response = orderService.cancelSchedule(jsonObject);
     log.info(response.toString());
 
     return jsonObject;
