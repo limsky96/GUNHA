@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
+import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.MoviePageVO;
 import teamproject.gunha.vo.MovieVO;
@@ -35,11 +36,7 @@ public class MainController {
   }
 
   // 결제창-카드
-  @GetMapping("/paymentCard")
-  public String paymentCard(){
 
-    return "login/paymentCard";
-  }
 
 
 
@@ -50,8 +47,8 @@ public class MainController {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
       String profile = netflixUserDetails.getSelectedProfile();
-      if (0 == userVO.getMembershipNo()) {
-        return "redirect:/sign-up";
+      if ("결제정보 없음" == userVO.getCardNumber() || 0==userVO.getMembershipNo()) {
+        return "redirect:/regi3";
       }
 
       log.info("userDateils: " + netflixUserDetails);
@@ -82,11 +79,20 @@ public class MainController {
       Model model) {
     if (netflixUserDetails == null) {
       return "redirect:/login";
-    }
+    } 
     UserVO userVO = netflixUserDetails.getUserVO();
+    // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
+    //   return "redirect:/regi3";
+    // }
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
-    return "homepage/home";
+    return "/homepage/home";
+  }
+
+  @GetMapping("/admin-home")
+  public String adminHome() {
+
+    return "homepage/admin-home";
   }
 
   @GetMapping("/watch")
@@ -98,23 +104,22 @@ public class MainController {
 
   @GetMapping("/qna")
   public String qna() {
-      log.info("qna()...");
-      return "homepage/qna";
+    log.info("qna()...");
+    return "homepage/qna";
   }
 
   @GetMapping("/nodata")
   public String nofunction() {
-      log.info("qna()...");
-      return "homepage/nofunction";
+    log.info("qna()...");
+    return "homepage/nofunction";
   }
-  
-  
+
   @GetMapping("/movie")
   public String card() {
     log.info("hello()...");
     return "/category/movie";
   }
-  
+
   @GetMapping("/admins")
   public String admin() {
     log.info("hello()...");

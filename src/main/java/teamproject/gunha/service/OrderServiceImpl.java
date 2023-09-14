@@ -22,11 +22,11 @@ import teamproject.gunha.mapper.OrderMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.vo.OrderVO;
 import teamproject.gunha.vo.PortOneVO;
+import teamproject.gunha.vo.UserVO;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
 public class OrderServiceImpl implements OrderService {
 
   private final OrderMapper orderMapper;
@@ -68,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional
   public Map<String, Object> issueBilling(PortOneVO portOneVO) {
     log.info("serviceimpl : issuBilling() ... ");
     Map<String, Object> getToken = getAccessToken();
@@ -140,6 +141,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional
   public Map<String, Object> issueScheduleBilling(PortOneVO portOneVO) {
     Map<String, Object> getToken = getAccessToken();
     log.info(getToken.toString());
@@ -148,6 +150,11 @@ public class OrderServiceImpl implements OrderService {
     log.info("portOneVO: " + portOneVO.toString());
     RestTemplate rt = new RestTemplate();
     OrderVO orderVO = orderMapper.selectUserLastOrder(portOneVO.getUserId());
+    UserVO userVO = UserVO.builder()
+        .userId(portOneVO.getUserId())
+        .cardNumber(portOneVO.getCardNumber())
+        .membershipNo(portOneVO.getMembershipNo())
+        .build();
     log.info(orderVO.toString());
     // 빌링키를 가져와서
     if (portOneVO.getCustomerUid() == null) {
@@ -163,7 +170,7 @@ public class OrderServiceImpl implements OrderService {
 
     Map<String, Object> schedules = new HashMap<>();
     schedules.put("merchant_uid", portOneVO.getMerchantUid());
-    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now().plusMinutes(1)).getTime() / 1000);
+    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now()).getTime() / 1000);
     schedules.put("amount", portOneVO.getAmount());
     schedules.put("name", portOneVO.getName() + " 구독");
     schedules.put("buyer_email", userMapper.selectUserId(portOneVO.getUserId()).getUserEmail());
@@ -187,10 +194,12 @@ public class OrderServiceImpl implements OrderService {
     if (code == 0) {
       resp.put("status", "success");
       resp.put("message", "Billing has successfully issued");
+      orderVO.setOrderValid("V");
       if (orderMapper.updateOrder(orderVO) < 1) {
         resp.put("status", "failed");
         resp.put("message", "DB update 문제");
       }
+      userMapper.updateUser(userVO);
     } else {
       resp.put("status", "failed");
       resp.put("message", (String) scheduleResponse.getBody().get("message"));
@@ -223,6 +232,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional(rollbackFor = Exception.class)
   public Map<String, Object> issueSchedulePayment(Map<String, Object> jsonObject) {
 
     RestTemplate rt = new RestTemplate();
@@ -271,8 +281,10 @@ public class OrderServiceImpl implements OrderService {
       ResponseEntity<Map> schedulePayResponse = rt.exchange(url, HttpMethod.POST, schedulePayRequest, Map.class);
       orderMapper.insertOrder(orderVO);
       log.info(schedulePayResponse.toString());
+    } else{
+
     }
-    return getToken;
+    return response;
   }
 
 }

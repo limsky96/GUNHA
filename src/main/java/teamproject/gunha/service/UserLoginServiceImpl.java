@@ -1,5 +1,7 @@
 package teamproject.gunha.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -9,12 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.mapper.OrderMapper;
 import teamproject.gunha.mapper.ProfileMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.vo.ProfileVO;
 import teamproject.gunha.vo.UserVO;
-
 
 @Service
 @Slf4j
@@ -27,6 +29,9 @@ public class UserLoginServiceImpl implements UserLoginService {
   private ProfileMapper profileMapper;
 
   @Autowired
+  private OrderMapper orderMapper;
+
+  @Autowired
   private BCryptPasswordEncoder passwordEncoder;
 
   @Override
@@ -35,16 +40,52 @@ public class UserLoginServiceImpl implements UserLoginService {
   }
 
   @Override
-  public UserVO loginUser(UserVO userVO) {
-    return userVO;
-    // return userMapper.loginUser(userVO.getUserId(), userVO.getPassword());
+  @Transactional
+  public boolean memberCheckAndLogin(Map<String, Object> requestBody) {
+    log.info("memberCheckAndLogin():   ");
+    String userId = (String)requestBody.get("user_id");
+    String password =(String) requestBody.get("password");
+    UserVO user = userMapper.selectUserId(userId);
+    log.info("user: " + user);
+    if (user != null) {
+      if(passwordEncoder.matches(password, user.getPassword())){
+        loginAccount(user);
+        return true;
+      } else{
+        return false;
+      }
+    } else {
+      UserVO newUser = UserVO.builder()
+            .userId(userId)
+            .password(password).build();
+      // 계정 만들기
+      createAccount(newUser);
+      // 이후 유저 로그인됨
+      log.info(newUser.toString());
+      loginAccount(newUser);
+    }
+    return true;
+  }
+
+  @Override
+  public boolean loginAccount(UserVO userVO) {
+    userVO = userMapper.selectUserId(userVO.getUserId());
+    userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
+    NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
+    log.info(netflixUserDetails+"");
+    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
+        netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    return true;
   }
 
   @Override
   @Transactional // insert 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
-  public boolean createAccount(UserVO userVO){
+  public boolean createAccount(UserVO userVO) {
     userVO.setUserEmail(userVO.getUserId());
     userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
+    userVO.setCardNumber("결제정보 없음");
+    userVO.setMembershipNo(0);
     userVO.setSocial("none");
     ProfileVO defaultProfile = ProfileVO.builder()
         .userId(userVO.getUserId())
@@ -57,40 +98,48 @@ public class UserLoginServiceImpl implements UserLoginService {
   }
 
   @Override
-  @Transactional // insert 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
-  public boolean updateAccount(UserVO userVO){
+  @Transactional // update 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
+  public boolean modifyAccount(Map<String, Object> json, UserVO userVO) {
+    log.info(json.toString());  
     log.info(userVO.toString());
     // Principal 정보 업데이트 (예: 사용자 이름 변경)
-    NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
     UserVO curUser = netflixUserDetails.getUserVO();
-    if(userVO.getUserEmail()==null){
+    userVO.setUserId(curUser.getUserId());
+    if (userVO.getUserEmail() == null) {
       userVO.setUserEmail(curUser.getUserEmail());
     }
-    if(userVO.getPassword()==null || "".equals(userVO.getPassword())){
+    if (userVO.getPassword() == null || userVO.getPassword().equals(curUser.getPassword()) || "".equals(userVO.getPassword())) {
       userVO.setPassword(curUser.getPassword());
-    } else{
+    } else {
       userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
     }
-    if(userVO.getSocial()==null){
+    if(userVO.getMembershipNo() == 0 || json.get("membership_no") != null){
+      log.info(json.get("membership_no").toString());
+      int membershipNo = Integer.valueOf((String)json.get("membership_no"));
+      userVO.setMembershipNo(membershipNo);
+    }
+    if (userVO.getSocial() == null) {
       userVO.setSocial(curUser.getSocial());
     }
-    if(userVO.getAuthList()==null){
+    if (userVO.getAuthList() == null) {
       userVO.setAuthList(curUser.getAuthList());
     }
-    if(userVO.getProfileList()==null){
+    if (userVO.getProfileList() == null) {
       userVO.setProfileList(curUser.getProfileList());
     }
 
-
     netflixUserDetails.setUserVO(userVO);
+    log.info(userVO.toString());
     userMapper.updateUser(userVO);
     // SecurityContext 업데이트
-    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails, netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(authentication);
+    loginAccount(userVO);
+    // Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
+    //     netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    // SecurityContextHolder.getContext().setAuthentication(authentication);
 
     return true;
   }
-
-
 
 }

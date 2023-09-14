@@ -34,11 +34,11 @@
         </div>
         <form class="cloumn g-3 needs-validation" novalidate>
             <div class="col">
-                <input type="email" class="form-control form-control-lg" id="uemail" placeholder="이메일주소 또는 전화번호"
-                    required>
-                <div class="invalid-feedback">
-                    이메일 주소를 써주세요
-                </div>
+            <input type="email" class="form-control form-control-lg" id="uemail"
+            pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" placeholder="이메일주소 또는 전화번호" required>
+            <div class="invalid-feedback">
+                이메일 주소를 써주세요
+            </div>
             </div>
             <div class="col">
                 <input type="password" class="form-control form-control-lg" id="upassword" placeholder="비밀번호" required>
@@ -74,9 +74,8 @@
             </div>
 
             <div class="col-auto1 pt-4 align-self-center d-grid">
-                <button class="btn btn-danger btn-lg" type="submit">
-                    <!-- onclick="window.location.href = '/regi3'" 안먹음 -->
-                    <strong>동의하고 계속</strong>
+                <button id="submit-btn" class="btn btn-danger btn-lg" type="submit">
+                   <strong>동의하고 계속</strong>
                 </button>
             </div>
         </form>
@@ -131,22 +130,46 @@
     </div>
 
     <!--유효성 검사 영역-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         (function () {
             'use strict'
+
+
+
+
+
+
+            
+
+        <script>
+            (function () {
+                'use strict'
 
                 const forms = document.querySelectorAll('.needs-validation')
                 
                 Array.prototype.slice.call(forms)
                 .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        } else {
-                            // 유효성 검사를 통과한 경우 다음 페이지로 이동
-                            document.querySelector("form").setAttribute("action", "/regi3") // 다음 화면의 URL을 여기에 입력하세요
+                    form.addEventListener('submit', async function (event) {
+                      event.preventDefault()
+                      event.stopPropagation()
+                      if (form.checkValidity()) {
+                        // 유효성 검사를 통과한 경우 다음 페이지로 이동
+                        const userId = document.querySelector("#uemail");
+                        const password = document.querySelector("#upassword");
+                        const requestBody = {
+                          "user_id": userId.value,
+                          "password": password.value
                         }
+                        
+                        const {data} = await axios.post("/member-check", requestBody);
+                        const {msg, redirect_page} = data;
+                        console.log(data);
+                        console.log(redirect_page);
+                        if(redirect_page !== undefined){
+                          location.href=redirect_page;
+                        }
+                    }
 
                         form.classList.add('was-validated')
                     }, false)

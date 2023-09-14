@@ -5,7 +5,7 @@
   <!-- <div th:with="loginPage=${/login}"> -->
   <div sec:authorize="isAnonymous()">
     <div><a th:href="@{/login}"> 로그인</a></div>
-    <div><a href="/sign-up">회원가입</a></div>
+    <div><a href="/regi">회원가입</a></div>
   </div>
   <!-- </div> -->
   <!-- <span th:text="${#authentication}"></span><br /> -->
@@ -16,7 +16,7 @@
       <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
       <button type="submit">logout</button>
     </form>
-    <a href="/accountpage"><input type="button" value="마이페이지"></a>
+    <a href="/my/account"><input type="button" value="마이페이지"></a>
     <div id="open-modal"><input type="button" value="프로필창 열기"></div>
     <div th:text="${selectedProfile}"></div>
     <div id="modalWrap">
@@ -110,7 +110,7 @@
         })
         .catch(error => console.error('Error deleting movie:', error));
     }
-  
+
 
   </script>
 
@@ -294,26 +294,26 @@
 
 <script>
 
-      getMovies(); 
-      async function getMovies(){
-      const {data} = await axios.get('/api/movies')
-      // <div class="swiper-slide">
-      //             <img src="https://source.unsplash.com/224x126/?random" alt="">
-      //           </div>
-      // console.log(data);
-      console.log(data);
-            
-      let containerHtml;
-      const containerList = [];
-      for(let i =0;i<5;i++){
-        containerList.push(`list${i}`);
-      }
+  getMovies();
+  async function getMovies() {
+    const { data } = await axios.get('/movies/api/movies')
+    // <div class="swiper-slide">
+    //             <img src="https://source.unsplash.com/224x126/?random" alt="">
+    //           </div>
+    // console.log(data);
+    console.log(data);
 
-      for(let i = 0;i<data.length/10;i++){
+    let containerHtml;
+    const containerList = [];
+    for (let i = 0; i < 5; i++) {
+      containerList.push(`list${i}`);
+    }
 
-        containerHtml = "";
-        containerHtml += `
-          <div id="wrapper-${containerList[i]}" class="category-title">${data[i*10].movieGenre}</div>
+    for (let i = 0; i < data.length / 10; i++) {
+
+      containerHtml = "";
+      containerHtml += `
+          <div id="wrapper-${containerList[i]}" class="category-title">${data[i * 10].movieGenre}</div>
           <div class="swiper-container ${containerList[i]}Container">
             <div class="swiper-wrapper">
             `
@@ -322,7 +322,7 @@
       for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
         containerHtml += `
               <div class="swiper-slide">   
-                <img src="${data[i*10+slideIndex].moviepostUrl}" alt="">
+                <img src="${data[i * 10 + slideIndex].moviepostUrl}" alt="">
                 <div class="imgbody">
                   <section class="imgbody-detail">
                     <div style="display:flex">
@@ -363,29 +363,29 @@
           prevEl: `.${containerList[i]}Prev`,
         },
         breakpoints: {
-      // 화면의 넓이가 50px 이상일 때
-      50: {
-        slidesPerView: 2,
-        slidesPerGroup: 1,
-      },
-      // 화면의 넓이가 500px 이상일 때
-      500: {
-        slidesPerView: 3,
-        slidesPerGroup: 1,
-      },    
-      800: {
-        slidesPerView: 4,
-        slidesPerGroup: 1,
-      },
-      1100: {
-        slidesPerView: 5,
-        slidesPerGroup: 1,
-      },
-      1400: {
-        slidesPerView: 6,
-        slidesPerGroup: 1,
-      }
-      }
+          // 화면의 넓이가 50px 이상일 때
+          50: {
+            slidesPerView: 2,
+            slidesPerGroup: 1,
+          },
+          // 화면의 넓이가 500px 이상일 때
+          500: {
+            slidesPerView: 3,
+            slidesPerGroup: 1,
+          },
+          800: {
+            slidesPerView: 4,
+            slidesPerGroup: 1,
+          },
+          1100: {
+            slidesPerView: 5,
+            slidesPerGroup: 1,
+          },
+          1400: {
+            slidesPerView: 6,
+            slidesPerGroup: 1,
+          }
+        }
 
       });
 
