@@ -140,8 +140,12 @@ public class LoginController {
   }
 
   @GetMapping("/my/password")
-  public String changePasswordPage(){
-    return "login/my/password";
+  public String changePasswordPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails){
+    UserVO userVO = netflixUserDetails.getUserVO();
+    if(!"none".equals(userVO.getSocial())){
+      return "login/my/password";
+    }
+    return "redirect:/my/account";
   }
 
 }

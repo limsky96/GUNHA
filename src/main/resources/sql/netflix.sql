@@ -3,7 +3,7 @@ connect netflix/netflix;
 drop table NETFLIX_MEMBER cascade constraints;
 
 desc netflix_member;
-
+select * from netflix_member;
 create table NETFLIX_MEMBER(
     member_id varchar2(60) primary key,
     member_email varchar2(50),
@@ -11,6 +11,15 @@ create table NETFLIX_MEMBER(
     member_card_number char(19),
     member_membership_no number not null,
     member_social varchar2(10) default 'NONE'
+);
+
+insert into netflix_member values(
+    'admin',
+    'admin@example.com',
+    '$2a$12$AzAyvtyWTAzbQU0Cy33SvutzLTLfx1bK7FkijZ9blOJ1nQ6S690qa',
+    '1234-1234-1234-1234',
+    3,
+    'none'
 );
 
 insert into netflix_member values(
@@ -61,6 +70,8 @@ create table NETFLIX_AUTH(
       on delete cascade
 );
 
+
+
 insert into netflix_auth values(
     'tatelulove4@naver.com',
     'ROLE_USER'
@@ -70,6 +81,13 @@ insert into netflix_auth values(
     'tatelulove4@naver.com',
     'ROLE_ADMIN'
 );
+
+insert into netflix_auth values(
+    'admin',
+    'ROLE_ADMIN'
+);
+
+commit;
 
 insert into netflix_auth values(
     'tatelulove4@naver.com_kakao',
@@ -114,6 +132,11 @@ insert into NETFLIX_MEMBER_PROFILE values(
 insert into NETFLIX_MEMBER_PROFILE values(
     'tatelulove4@naver.com_kakao',
     '테스트2'
+);
+
+insert into NETFLIX_MEMBER_PROFILE values(
+    'admin',
+    'ADMIN'
 );
 
 
