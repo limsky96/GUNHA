@@ -1,4 +1,4 @@
-package teamproject.gunha.service;
+package teamproject.gunha.service.order;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -247,7 +247,7 @@ public class OrderServiceImpl implements OrderService {
     if ("paid".equals(status) && failReason == null) {
       String[] mList = merchantUid.split("_");
       int orderId = Integer.parseInt(mList[mList.length - 1]);
-      long nextStartAt = Timestamp.valueOf(LocalDateTime.now().plusMinutes(1)).getTime();
+      long nextStartAt = Timestamp.valueOf(LocalDateTime.now().plusMinutes(5)).getTime();
       Date nextStartDate = new java.sql.Date(nextStartAt);
       nextStartAt /= 1000;
       OrderVO orderVO = OrderVO.builder()
@@ -257,7 +257,7 @@ public class OrderServiceImpl implements OrderService {
           .build();
       orderMapper.updateOrder(orderVO);
 
-      orderVO = orderMapper.selectMemberOrderDetail(orderId);
+      orderVO = orderMapper.selectOrderByOrderId(orderId);
 
       log.info("orderId: " + orderId + ", getOrderId(): " + orderVO.getOrderId());
       HttpHeaders requestHeader = new HttpHeaders();
@@ -276,6 +276,10 @@ public class OrderServiceImpl implements OrderService {
       requestBody.put("customer_uid", orderVO.getCustomerUid());
       requestBody.put("schedules", scheduleList);
 
+      OrderVO prevOrder = orderMapper.selectUserSecondLastOrder(orderVO.getMemberId());
+      prevOrder.setOrderValid("E");
+      orderMapper.updateOrder(prevOrder);
+      orderVO.setOrderValid("T");
       HttpEntity<Map<String, Object>> schedulePayRequest = new HttpEntity<>(requestBody, requestHeader);
       String url = "https://api.iamport.kr/subscribe/payments/schedule";
       ResponseEntity<Map> schedulePayResponse = rt.exchange(url, HttpMethod.POST, schedulePayRequest, Map.class);
@@ -285,6 +289,32 @@ public class OrderServiceImpl implements OrderService {
 
     }
     return response;
+  }
+
+  @Override
+  public Map<String, Object> cancelSchedule(Map<String, Object> jsonObject){
+    Map<String, Object> getToken = getAccessToken();
+    String accessToken = (String) getToken.get("access_token");
+    String merchantUid = (String) jsonObject.get("merchant_uid");
+    String customerUid = (String) jsonObject.get("customer_uid");
+
+    RestTemplate rt = new RestTemplate();
+
+    HttpHeaders requestHeader = new HttpHeaders();
+    requestHeader.add("Authorization", accessToken);
+
+    Map<String, Object> requestBody = new HashMap<>();
+    requestBody.put("merchant_uid", merchantUid);
+    requestBody.put("customer_uid", customerUid);
+
+
+    String url ="https://api.iamport.kr/subscribe/payments/unschedule";
+   HttpEntity<Map<String, Object>> cancelScheduleRequest = new HttpEntity<>(requestBody, requestHeader);
+    ResponseEntity<Map> cancelScheduleResponse = rt.exchange(url, HttpMethod.POST,
+        cancelScheduleRequest, Map.class);
+    Map<String, Object> cancelScheduleData = (Map<String, Object>) cancelScheduleResponse.getBody();
+
+    return cancelScheduleData;
   }
 
 }

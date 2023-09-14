@@ -37,10 +37,10 @@
           <button onclick="location.href='/planform'" class="w-100 border-0 btn-cancel" th:text="'멤버십 가입'"></button>
         </div>
         <div th:if="${user.lastOrder != null}">
-          <div th:switch="${user.lastOrder}">
-            <button th:case="${user.lastOrder.orderValid == 'V'}" type="button" class="w-100 border-0 btn-cancel"
+          <div th:switch="${user.lastOrder.orderValid}">
+            <button th:case="'T'" id="order-cancel" th:attr="data-merchant-uid=${user.lastOrder.merchantUid}, data-customer-uid=${user.lastOrder.customerUid}"  type="button" class="w-100 border-0 btn-cancel"
               th:text="'멤버십 해지'"></button>
-            <button th:case="*" type="button" class="w-100 border-0 btn-cancel" th:text="'멤버십 갱신'"></button>
+            <button id="order-renew"  th:case="*" type="button" class="w-100 border-0 btn-cancel" th:text="'멤버십 갱신'"></button>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
             </div>
             <!-- <a href="#"> 예비 결제 수단 등록</a> -->
             <div>
-              <a href="#"> 결제 상세 정보</a>
+              <a href="/my/order"> 결제 상세 정보</a>
               <!-- <a href="#"> 결제일 변경</a>   -->
             </div>
           </div>
@@ -88,11 +88,9 @@
             <span th:if="${user.lastOrder == null}">등급 없음</span>
           </div>
           <div th:if="${user.lastOrder != null}">
-            <div th:switch="${user.lastOrder}">
-              <span th:if="${user.lastOrder.orderValid != 'V'}"
-                th:text="'마지막 결제 멤버십 등급: ' + ${membership.grade} + ' 유효하지 않음'"></span>
-              <span th:if="${user.lastOrder != null && user.lastOrder.orderValid == 'V'}"
-                th:text="${membership.grade}"></span>
+            <div th:switch="${user.lastOrder.orderValid}">
+              <span th:case="'V'" th:text="${membership.grade}"></span>
+              <span th:case="*" th:text="'마지막 결제 멤버십 등급: ' + ${membership.grade} + ' 유효하지 않음'"></span>
             </div>
           </div>
           </p>
@@ -142,7 +140,6 @@
             </div>
             <hr>
           </div>
-
         </div>
       </div>
       <hr>
@@ -158,6 +155,18 @@
         return inputValue.replace(/(\d{4})-(\d{4})-(\d{4})-(\d{4})/, '$1-****-****-$4');
       }
       cardNumber.textContent = maskedValue(cardNumber.textContent);
+      document.querySelector("#order-cancel").addEventListener("click", async e=>{
+        const merchantUid = e.target.dataset.merchantUid;
+        const customerUid = e.target.dataset.customerUid;
+        
+        console.log(merchantUid, customerUid);
+        await axios.delete("/my/cancel", header={
+            
+        })
+
+      });
+
+
     </script>
 </body>
 

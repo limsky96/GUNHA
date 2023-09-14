@@ -1,5 +1,7 @@
 package teamproject.gunha.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
@@ -21,13 +23,15 @@ public interface OrderMapper {
 
   public int selectUserLastOrderId(String userId);
 
+  public OrderVO selectUserSecondLastOrder(String userId);
+
   public OrderVO selectUserLastOrder(String userId);
+
+  public List<OrderVO> selectUserOrderList(String userId);
 
   @Update("update netflix_order set order_start_date = #{startDate}, order_valid=#{orderValid}"
         + " where order_id = #{orderId}") 
   public int updateOrder(OrderVO orderVO);
-
-  public OrderVO selectMemberOrderDetail(int orderId);
 
 
 }

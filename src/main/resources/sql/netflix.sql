@@ -883,12 +883,10 @@ commit;
 select * from all_indexes;
 drop index ix_netflix_auth;
 
+select * from netflix_order;
 
-
-
-
-
-
+select * from (select rownum rnum, o.* from netflix_order o where order_member_id = 'tatelulove4@naver.com_kakao' and rownum<=2 
+order by order_id desc) where rnum = 2;
 
 
 
