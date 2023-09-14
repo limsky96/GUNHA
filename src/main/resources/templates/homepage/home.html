@@ -5,7 +5,7 @@
   <!-- <div th:with="loginPage=${/login}"> -->
   <div sec:authorize="isAnonymous()">
     <div><a th:href="@{/login}"> 로그인</a></div>
-    <div><a href="/sign-up">회원가입</a></div>
+    <div><a href="/regi">회원가입</a></div>
   </div>
   <!-- </div> -->
   <!-- <span th:text="${#authentication}"></span><br /> -->
@@ -16,7 +16,7 @@
       <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
       <button type="submit">logout</button>
     </form>
-    <a href="/accountpage"><input type="button" value="마이페이지"></a>
+    <a href="/my/account"><input type="button" value="마이페이지"></a>
     <div id="open-modal"><input type="button" value="프로필창 열기"></div>
     <div th:text="${selectedProfile}"></div>
     <div id="modalWrap">

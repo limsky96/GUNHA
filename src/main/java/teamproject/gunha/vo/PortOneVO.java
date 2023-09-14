@@ -1,7 +1,6 @@
 package teamproject.gunha.vo;
 
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class PortOneVO {
+  private int membershipNo;
   private String userId;
   private String merchantUid;
   private double amount;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
+import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.UserVO;
 
@@ -32,11 +33,9 @@ public class MainController {
   }
 
   // 결제창-카드
-  @GetMapping("/paymentCard")
-  public String paymentCard() {
 
-    return "login/paymentCard";
-  }
+
+
 
   @GetMapping("/")
   public String hello(
@@ -45,8 +44,8 @@ public class MainController {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
       String profile = netflixUserDetails.getSelectedProfile();
-      if (0 == userVO.getMembershipNo()) {
-        return "redirect:/sign-up";
+      if ("결제정보 없음" == userVO.getCardNumber() || 0==userVO.getMembershipNo()) {
+        return "redirect:/regi3";
       }
 
       log.info("userDateils: " + netflixUserDetails);
@@ -77,8 +76,11 @@ public class MainController {
       Model model) {
     if (netflixUserDetails == null) {
       return "redirect:/login";
-    }
+    } 
     UserVO userVO = netflixUserDetails.getUserVO();
+    // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
+    //   return "redirect:/regi3";
+    // }
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
     return "/homepage/home";

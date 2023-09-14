@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.mapper.OrderMapper;
 import teamproject.gunha.mapper.ProfileMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.GoogleUserInfo;
@@ -33,6 +34,9 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
   @Autowired
   private UserMapper userMapper;
+
+    @Autowired
+  private OrderMapper orderMapper;
 
   @Autowired
   private ProfileMapper profileMapper;
@@ -97,10 +101,13 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
           .build();
 
       log.info("builded profileVO : " + profileVO);
+
       userMapper.insertUser(userVO);
       userMapper.insertAuthorities(userVO);
       profileMapper.insertProfile(profileVO);
     }
+    userVO.setLastOrder(orderMapper.selectUserLastOrder(userId));
+    log.warn("orderMapper:  " );
     log.info(new NetflixUserDetails(userVO).toString());
     return new NetflixUserDetails(userVO);
   }

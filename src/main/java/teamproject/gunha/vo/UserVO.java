@@ -18,5 +18,5 @@ public class UserVO {
   private String social;
   private List<AuthVO> authList;
   private List<ProfileVO> profileList;
-
+  private OrderVO lastOrder;
 }

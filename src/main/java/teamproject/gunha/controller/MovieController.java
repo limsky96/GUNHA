@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
-import teamproject.gunha.mapper.MovieMapper;
 import teamproject.gunha.service.MovieService;
 import teamproject.gunha.vo.MoviePageVO;
 import teamproject.gunha.vo.MovieVO;
