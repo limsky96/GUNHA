@@ -115,7 +115,19 @@
     $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist="+data[randomNumber].movietrailerUrl.split("/").pop().split("?")[0]+"&controls=0")//index는 랜덤으로 만든 값
     $("#mainContent").text(data[randomNumber].movieContent)
     $("#mainTitle").text(data[randomNumber].movieName)
-   
+    $("#mainDetailModal").on("click", ()=> {
+  
+      getOneMovie(randomNumber+1);
+    });
+    $("#mainMovePlay").click(function (e) {
+    var srcCd = $("#mainVideo")
+    console.log(randomNumber)
+    //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+    location.href = `//localhost:8888/watch?src=${(randomNumber +1)}`;
+    //location.href= "https://www.naver.com"
+    });
+
+
 
     $(".video-stream").attr('style', 'top:0px');
     
@@ -171,11 +183,11 @@
               let dataIndex = currentDataIndex + slideIndex;
               containerHtml += `
               <div class="swiper-slide">   
-                <img id="modal-img-${dataIndex}" src="${data[slideIndex].moviepostUrl}" alt="">
+                <img id="modal-img-${dataIndex}" src="${data[slideIndex].moviepostUrl}" alt="" >
                 <div class="imgbody">
                   <section class="imgbody-detail">
                     <div style="display:flex">
-                      <i class="fa-regular fa-circle-play card-icon"></i>
+                      <i id="playBtn2" class="fa-regular fa-circle-play card-icon" onclick="location.href='/watch?src=${dataIndex+1}'"></i>
                       <i class="fa-solid fa-circle-plus card-icon"></i>
                     </div>
                     <a id="modal-button-${dataIndex}" class="fa-solid fa-circle-chevron-down card-icon"></a>                                           
@@ -223,7 +235,6 @@
                 getOneMovie(dataIndex + 1);
               })
             }
-
 
             const swiper = new Swiper(`.list${[currentDataIndex / 10]}Container`, {
               slidesPerView: 2,
@@ -281,7 +292,7 @@
     /*통신전에 progress START*/
     const { data } = await axios.get(`/api/movies/${id}`);
     /*통신전에 progress END*/
-
+    console.log(id);
     $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist="+data.movietrailerUrl.split("/").pop().split("?")[0]+"&controls=0");
     $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist="+data.movietrailerUrl.split("/").pop().split("?")[0]+"&controls=0");
     $("#detailContent").text(data.movieContent);
@@ -289,7 +300,17 @@
     $("#detailGenre").text('장르 : ' + data.movieGenre);
     $("#detailCast2").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
     $("#detailGenre2").text('장르 : ' + data.movieGenre);
-    $("#detailReleaseDate").text('개봉일자 : ' + data.movieReleaseDate.split("T")[0]);
+    $("#detailReleaseDate").text('개봉일자 : ' + new Date(data.movieReleaseDate).toLocaleDateString());
+    $("#playBtn").click(function (e) {
+    var srcCd = $("#mainVideo")
+    //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+    location.href = `//localhost:8888/watch?src=${(id)}`;
+    //location.href= "https://www.naver.com"
+    });
+   
+    
+
+
 
     $("#detailModal").modal();
     /*통신전에 progress END*/
@@ -341,19 +362,19 @@
         <div id="mainContent" class="discription">
         </div>
         <div class="buttons">
-          <div class="white-button">
-            <i id="btnMovePlay" class="fa-solid fa-play" style="cursor: pointer">재생</i>
-            <input type="hidden" id="mainVideo" value="">
+          <div id="mainMovePlay" class="white-button" style="cursor: pointer">
+            <i class="fa-solid fa-play">재생</i>
+            <!-- <input type="hidden" id="mainVideo" value=""> -->
           </div>
-          <div class="grey-button">
+          <div id="mainDetailModal" class="grey-button" style="cursor: pointer">
             <i class="fa-solid fa-circle-info"></i>
-            <a class="info" href="#detailModal" rel="modal:open">상세정보</a>
+            <a class="info" >상세정보</a>
           </div>
 
         </div>
         <div class="extra">
           <div class="replay-button">
-            <i class="fa-solid fa-arrow-rotate-left"></i>
+            <i class="fa-solid fa-arrow-rotate                                                                                                                                                                                                                                                                                                                                                                                                                                                       -left"></i>
           </div>
           <div class="rating">
             <img
@@ -379,7 +400,7 @@
       <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="buttons">
-      <div class="white-button">
+      <div id="playBtn" class="white-button" style="cursor: pointer">
         <i class="fa-solid fa-play">재생</i>
         <input type="hidden" id="mainVideo" value="">
       </div>
@@ -413,19 +434,5 @@
 
   
 </body>
-
-
-
-<script>
-  $("#btnMovePlay").click(function () {
-    var srcCd = $("#mainVideo").val();
-    srcCd = "test"
-    //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-    location.href = "//localhost:8888/watch?" + srcCd
-    //location.href= "https://www.naver.com"
-  });
-
-
-</script>
 
 </html>

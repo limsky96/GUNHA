@@ -46,7 +46,7 @@ public class MovieController {
     }
 
     // CRUD
-    // @PostMapping
+    // @PostMapping  
     // public ResponseEntity<MovieVO> createMovie(@RequestBody MovieVO newMovie) {
     //     movieMapper.save(newMovie);
     //     return ResponseEntity.status(HttpStatus.CREATED).body(newMovie);
