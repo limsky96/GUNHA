@@ -3,7 +3,7 @@ connect netflix/netflix;
 drop table NETFLIX_MEMBER cascade constraints;
 
 desc netflix_member;
-
+select * from netflix_member;
 create table NETFLIX_MEMBER(
     member_id varchar2(60) primary key,
     member_email varchar2(50),
@@ -11,6 +11,15 @@ create table NETFLIX_MEMBER(
     member_card_number char(19),
     member_membership_no number not null,
     member_social varchar2(10) default 'NONE'
+);
+
+insert into netflix_member values(
+    'admin',
+    'admin@example.com',
+    '$2a$12$AzAyvtyWTAzbQU0Cy33SvutzLTLfx1bK7FkijZ9blOJ1nQ6S690qa',
+    '1234-1234-1234-1234',
+    3,
+    'none'
 );
 
 insert into netflix_member values(
@@ -61,6 +70,8 @@ create table NETFLIX_AUTH(
       on delete cascade
 );
 
+
+
 insert into netflix_auth values(
     'tatelulove4@naver.com',
     'ROLE_USER'
@@ -70,6 +81,13 @@ insert into netflix_auth values(
     'tatelulove4@naver.com',
     'ROLE_ADMIN'
 );
+
+insert into netflix_auth values(
+    'admin',
+    'ROLE_ADMIN'
+);
+
+commit;
 
 insert into netflix_auth values(
     'tatelulove4@naver.com_kakao',
@@ -102,7 +120,7 @@ create table NETFLIX_MEMBER_PROFILE(
     constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name)
 );
 
-alter table NETFLIX_MEMBER
+alter table NETFLIX_MEMBER_PROFILE
 add constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name);
 
 
@@ -114,6 +132,11 @@ insert into NETFLIX_MEMBER_PROFILE values(
 insert into NETFLIX_MEMBER_PROFILE values(
     'tatelulove4@naver.com_kakao',
     '테스트2'
+);
+
+insert into NETFLIX_MEMBER_PROFILE values(
+    'admin',
+    'ADMIN'
 );
 
 
@@ -208,7 +231,7 @@ create table NETFLIX_MOVIE_DISTRIBUTION(
 -----------------------------------------------
 
 drop table NETFLIX_MOVIE cascade constraints;
-
+select movie_release_date from netflix_movie;
 create table NETFLIX_MOVIE(
     movie_id Number primary key, -- 영상 번호
     movie_name varchar2(200), -- 영화 이름 
@@ -221,7 +244,7 @@ create table NETFLIX_MOVIE(
     movie_favorite char(1), -- 찜한 컨텐츠 ?
     movie_autoplay char(1)
 );
-
+commit;
 insert into NETFLIX_MOVIE values(
     1,
     '어바웃타임',
@@ -869,7 +892,9 @@ drop index ix_netflix_auth;
 
 
 
+select * from NETFLIX_MEMBER m, NETFLIX_MEMBER_PROFILE mp where m.member_id = mp.member_profile_member_id and m.member_id = 'seralove4@gmail.com';
 
+select * from netflix_order where order_member_id = 'seralove4@gmail.com';
 
 
 select * from NETFLIX_MEMBER;
@@ -885,15 +910,16 @@ select * from netflix_social;
 
 
 
-
+delete from netflix_member where member_id = 'seralove4@gmail.com';
 
 
 commit;
 
 delete from netflix_member_profile where member_profile_member_id = 'tatelulove4@naver.com_kakao';
 
-insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트1');
-insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트2');
+
+--insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트1');
+--insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트2');
 
 
 select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
@@ -905,8 +931,10 @@ select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
 select * from netflix_member mb, netflix_auth au
     where mb.member_id = au.auth_member_id and mb.member_id = 'tatelulove4@naver.com_naver';
 
-update netflix_member set member_password = '$2a$10$tbmvHLrNpUmlMkj5i8FLl.QASVkazZfRsapVH7lo8xTAPFYVgG72C'
-    where member_id= 'tatelulove4@naver.com_kakao';
+--update netflix_member set member_password = '$2a$10$tbmvHLrNpUmlMkj5i8FLl.QASVkazZfRsapVH7lo8xTAPFYVgG72C'
+--    where member_id= 'tatelulove4@naver.com_kakao';
+--
+--update netflix_order set order_valid = 'E';
 
 select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
     where mb.member_id = au.auth_member_id and mb.member_id = 'seralove4@gmail.com_google' and mb.member_id = mp.member_profile_member_id;

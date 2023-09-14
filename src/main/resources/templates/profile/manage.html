@@ -267,12 +267,17 @@
       baseURL: 'http://localhost:8888/' // 예제 API 서버
     });
 
-    async function ajax(methodName, url, header, data) {
+    async function ajax() {
+      const methodName = arguments[0];
+      const url = arguments[1];
       try {
         let response;
         if (methodName === 'delete') {
+          const header = arguments[2];
           response = await ajaxMethod[methodName](url, header);
         } else {
+          const data = arguments[2];
+          const header = arguments[3];
           response = await ajaxMethod[methodName](url, data, header);
         }
         return response;
@@ -320,6 +325,12 @@
           alert("연결이 정상적이지 않습니다.");
         }
       } catch (error) {
+        const {response} = error;
+        if(response.status !== 200){
+          alert("연결이 정상적이지 않습니다. 이미 존재하는 닉네임일 수 있습니다.");
+
+        } 
+
         console.error("An error occurred:", error);
       }
       return false;
