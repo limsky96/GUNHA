@@ -62,11 +62,64 @@
                 </div>
 
                 <div class="form-check d-flex justify-content-between mt-7">
-                    <div><input class="form-check-inpu" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault" style="color:dimgray; font-size: small;">
-                            <strong> 로그인 정보 저장 </strong>
-                        </label>
+                    <div>
+                        <input class="form-check-inpu" type="checkbox" value=""  id="idSaveCheck">
+                        <label class="form-check-label" for="remember" style="color:dimgray; font-size: small;"> <strong> 로그인 정보 저장 </strong></label>
                     </div>
+                    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"/></script>
+<!--로그인 정보저장-->
+<script>
+$(document).ready(function(){
+	var key = getCookie("idChk"); //user1
+	if(key!=""){
+		$("#id").val(key); 
+	}
+	 
+	if($("#id").val() != ""){ 
+		$("#idSaveCheck").attr("checked", true); 
+	}
+	 
+	$("#idSaveCheck").change(function(){ 
+		if($("#idSaveCheck").is(":checked")){ 
+			setCookie("idChk", $("#id").val(), 7); 
+		}else{ 
+			deleteCookie("idChk");
+		}
+	});
+	 
+	$("#id").keyup(function(){ 
+		if($("#idSaveCheck").is(":checked")){
+			setCookie("idChk", $("#id").val(), 7); 
+		}
+	});
+});
+function setCookie(cookieName, value, exdays){
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
+}
+ 
+function deleteCookie(cookieName){
+	var expireDate = new Date();
+	expireDate.setDate(expireDate.getDate() - 1);
+	document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+	 
+function getCookie(cookieName) {
+	cookieName = cookieName + '=';
+	var cookieData = document.cookie;
+	var start = cookieData.indexOf(cookieName);
+	var cookieValue = '';
+	if(start != -1){
+		start += cookieName.length;
+		var end = cookieData.indexOf(';', start);
+		if(end == -1)end = cookieData.length;
+		cookieValue = cookieData.substring(start, end);
+	}
+	return unescape(cookieValue);
+}
+</script>
                     <div><a href="#" class="text-decoration-none" style="color:dimgray; font-size: small;"> <strong>도움이
                                 필요하신가요?</strong></a></div>
                 </div>
