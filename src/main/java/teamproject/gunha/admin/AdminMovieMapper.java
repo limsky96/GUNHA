@@ -7,16 +7,16 @@ import java.util.List;
 @Mapper
 public interface AdminMovieMapper {
 
-    @Select("SELECT * FROM NETFIX_MOVIE")
+
     List<AdminMovieVO> getAllMovies();
 
-    @Select("SELECT * FROM NETFIX_MOVIE WHERE movieId = #{movieId}")
+    @Select("SELECT * FROM NETFLIX_MOVIE WHERE movieId = #{movieId}")
     AdminMovieVO getMovieById(@Param("movieId") int movieId);
 
-    @Insert("INSERT INTO NETFIX_MOVIE (movieName, moviepostUrl) VALUES (#{movieName}, #{moviepostUrl})")
+    @Insert("INSERT INTO NETFLIX_MOVIE (movieName, moviePostUrl) VALUES (#{movieName}, #{moviePostUrl})")
     @Options(useGeneratedKeys = true, keyProperty = "movieId")
     void saveMovie(AdminMovieVO movie);
 
-    @Delete("DELETE FROM NETFIX_MOVIE WHERE movieId = #{movieId}")
+    @Delete("DELETE FROM NETFLIX_MOVIE WHERE movieId = #{movieId}")
     void deleteMovie(@Param("movieId") int movieId);
 }

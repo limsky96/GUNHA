@@ -11,8 +11,8 @@ select * from NETFLIX_MOVIE
 <resultMap id="adminMovieMap" type="teamproject.gunha.admin.AdminMovieVO">
   <result property="movieId" column="movie_id" />
   <result property="movieName" column="movie_name" />
-  <result property="moviepostUrl" column="movie_postUrl" />
-  <result property="movietrailerUrl" column="movie_trailerUrl" />
+  <result property="moviePostUrl" column="movie_postUrl" />
+  <result property="movieTrailerUrl" column="movie_trailerUrl" />
   <result property="movieContent" column="movie_content" />
   <result property="movieGenre" column="movie_genre" />
   <result property="movieCast" column="movie_cast" />

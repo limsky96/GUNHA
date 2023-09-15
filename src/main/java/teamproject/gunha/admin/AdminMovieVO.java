@@ -19,8 +19,8 @@ public class AdminMovieVO {
 
     private int movieId;
     private String movieName;
-    private String moviepostUrl;
-    private String movietrailerUrl;
+    private String moviePostUrl;
+    private String movieTrailerUrl;
     private String movieContent;
     private String movieGenre;
     private String movieCast;

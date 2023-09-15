@@ -11,6 +11,7 @@ public class AdminMovieServiceImpl implements AdminMovieService {
     @Autowired
     private AdminMovieMapper adminMovieMapper;
 
+
     @Override
     public List<AdminMovieVO> getAllMovies() {
         return adminMovieMapper.getAllMovies();

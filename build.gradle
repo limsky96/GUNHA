@@ -87,3 +87,15 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// build.gradle 또는 settings.gradle 등의 Gradle 스크립트에 추가
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaExec) {
+            if (name == 'run') {
+                // 데몬 경로를 설정
+                systemProperty 'org.gradle.daemon.distributionDirectory', '/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home'
+            }
+        }
+    }
+}
