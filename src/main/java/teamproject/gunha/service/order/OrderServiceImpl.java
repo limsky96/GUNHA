@@ -285,36 +285,56 @@ public class OrderServiceImpl implements OrderService {
       ResponseEntity<Map> schedulePayResponse = rt.exchange(url, HttpMethod.POST, schedulePayRequest, Map.class);
       orderMapper.insertOrder(orderVO);
       log.info(schedulePayResponse.toString());
-    } else{
+    } else {
 
     }
     return response;
   }
 
   @Override
-  public Map<String, Object> cancelSchedule(Map<String, Object> jsonObject){
+  public Map<String, Object> cancelSchedule(Map<String, Object> jsonObject) {
     Map<String, Object> getToken = getAccessToken();
     String accessToken = (String) getToken.get("access_token");
-    String merchantUid = (String) jsonObject.get("merchant_uid");
-    String customerUid = (String) jsonObject.get("customer_uid");
+    String userId = (String) jsonObject.get("user_id");
 
+
+    // OrderVO orderVO = orderMapper.selectUserLastOrder(userId);
+    
     RestTemplate rt = new RestTemplate();
 
+    // orderVO.setOrderValid("C");
     HttpHeaders requestHeader = new HttpHeaders();
     requestHeader.add("Authorization", accessToken);
 
     Map<String, Object> requestBody = new HashMap<>();
-    requestBody.put("merchant_uid", merchantUid);
-    requestBody.put("customer_uid", customerUid);
+    requestBody.put("user_id", userId);
 
 
-    String url ="https://api.iamport.kr/subscribe/payments/unschedule";
-   HttpEntity<Map<String, Object>> cancelScheduleRequest = new HttpEntity<>(requestBody, requestHeader);
-    ResponseEntity<Map> cancelScheduleResponse = rt.exchange(url, HttpMethod.POST,
-        cancelScheduleRequest, Map.class);
-    Map<String, Object> cancelScheduleData = (Map<String, Object>) cancelScheduleResponse.getBody();
+    // String url = "https://api.iamport.kr/subscribe/payments/unschedule";
+    // HttpEntity<Map<String, Object>> cancelScheduleRequest = new HttpEntity<>(requestBody, requestHeader);
+    // ResponseEntity<Map> cancelScheduleResponse = rt.exchange(url, HttpMethod.POST,
+    //     cancelScheduleRequest, Map.class);
+    // Map<String, Object> cancelScheduleData = (Map<String, Object>) cancelScheduleResponse.getBody();
+    // int code = (int) cancelScheduleData.get("code");
+    // log.info("cancelresponseData" + cancelScheduleData);
+    // Map<String, Object> cancelScheduleDataResponse = ((List<Map<String, Object>>) cancelScheduleData.get("response")).get(0);
 
-    return cancelScheduleData;
+    // Map<String, Object> response = new HashMap<>();
+    // if (code == 0) {
+    //   String scheduleStatus = (String) cancelScheduleDataResponse.get("schedule_status");
+    //   if ("revoked".equals(scheduleStatus)) {
+    //     int status = 200;
+    //     String message = "멤버십 해지가 정상적으로 완료되었습니다. 다음달부터 멤버십이 해지됩니다.";
+    //     response.put("status", status);
+    //     response.put("message", message);
+    //     orderMapper.updateOrder(orderVO);
+    //   }
+    // } else {
+    //   int status = 200;
+    //   response.put("status", status);
+    //   response.put("message", (String) cancelScheduleData.get("message"));
+    // }
+    return requestBody;
   }
 
 }

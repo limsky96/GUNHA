@@ -71,6 +71,7 @@ public class UserLoginServiceImpl implements UserLoginService {
   public boolean loginAccount(UserVO userVO) {
     userVO = userMapper.selectUserId(userVO.getUserId());
     userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
+    userVO.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userVO.getUserId()));
     NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
     log.info(netflixUserDetails+"");
     Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,

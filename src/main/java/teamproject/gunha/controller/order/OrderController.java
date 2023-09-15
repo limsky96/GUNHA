@@ -35,7 +35,7 @@ public class OrderController {
   private OrderRestService orderRestService;
 
   @Autowired
-  private UserLoginService userService;
+  private UserLoginService userLoginService;
 
   @Autowired
   private MembershipService membershipService;
@@ -57,7 +57,7 @@ public class OrderController {
   public String orderPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
     if (netflixUserDetails != null) {
       UserVO user = netflixUserDetails.getUserVO();
-      
+      userLoginService.loginAccount(user);
       model.addAttribute("user", netflixUserDetails);
       model.addAttribute("orderList", orderRestService.getUserOrderList(user.getUserId()));
       model.addAttribute("userId", user.getUserId());
@@ -79,22 +79,14 @@ public class OrderController {
     return new HashMap<String, Object>();
   }
 
-  // @PostMapping("/subscription/schedule")
-  // @ResponseBody
-  // public Map<String, Object> subscribePass(PortOneVO portOneVO) {
-
-  // return ;
-  // }
 
   @PostMapping("/subscription/issue-billing")
   @ResponseBody
   public Map<String, Object> scheduleSubscription(PortOneVO portOneVO) {
 
-    // log.info(paymentService.useAccessToken(accessToken).toString());
-    // paymentService.issueBilling(portOneVO, accessToken);
     Map<String, Object> responseMap = orderService.issueScheduleBilling(portOneVO);
 
-    userService.loginAccount(UserVO.builder().userId(portOneVO.getUserId()).build());
+    userLoginService.loginAccount(UserVO.builder().userId(portOneVO.getUserId()).build());
 
     return responseMap;
   }
@@ -116,7 +108,7 @@ public class OrderController {
     Map<String, Object> response = orderService.cancelSchedule(jsonObject);
     log.info(response.toString());
 
-    return jsonObject;
+    return response;
   }
 
 }

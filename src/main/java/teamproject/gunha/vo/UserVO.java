@@ -18,4 +18,5 @@ public class UserVO {
   private List<AuthVO> authList;
   private List<ProfileVO> profileList;
   private OrderVO lastOrder;
+  private OrderVO secondLastOrder;
 }

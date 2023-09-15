@@ -125,6 +125,7 @@ public class LoginController {
   @GetMapping("/member")
   public String updateMember(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
     UserVO userVO = netflixUserDetails.getUserVO();
+
     log.info(userVO + "");
     model.addAttribute("user", userVO);
     return "update-member";
@@ -134,6 +135,7 @@ public class LoginController {
   public String accountpage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
     UserVO userVO = netflixUserDetails.getUserVO();
     log.info(userVO + "");
+    userLoginService.loginAccount(userVO);
     model.addAttribute("membership", membershipService.getMembership(userVO.getMembershipNo()));
     model.addAttribute("user", userVO);
     return "homepage/accountpage";
