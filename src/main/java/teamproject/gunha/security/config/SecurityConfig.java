@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -79,8 +81,8 @@ class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
   @Override
   protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) {
-        Collection<? extends GrantedAuthority> authList = authentication.getAuthorities();
-        System.out.println("successHandler()..  " + authList);
+    Collection<? extends GrantedAuthority> authList = authentication.getAuthorities();
+    System.out.println("successHandler()..  " + authList);
     List<String> authStrList = new ArrayList<>();
     authList.stream().forEach(auth -> authStrList.add(auth.getAuthority().toString()));
     if (authStrList.contains("ROLE_ADMIN")) {
@@ -89,4 +91,7 @@ class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
       return "/home";
     }
   }
+
 }
+    
+    

@@ -1,12 +1,13 @@
 package teamproject.gunha.vo;
 
 import java.util.List;
+import java.util.Set;
 
 import lombok.*;
 
-
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class UserVO {
   private String userId;

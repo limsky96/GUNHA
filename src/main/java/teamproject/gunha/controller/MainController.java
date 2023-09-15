@@ -37,9 +37,6 @@ public class MainController {
 
   // 결제창-카드
 
-
-
-
   @GetMapping("/")
   public String hello(
       @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
@@ -47,7 +44,7 @@ public class MainController {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
       String profile = netflixUserDetails.getSelectedProfile();
-      if ("결제정보 없음" == userVO.getCardNumber() || 0==userVO.getMembershipNo()) {
+      if ("결제정보 없음" == userVO.getCardNumber() || 0 == userVO.getMembershipNo()) {
         return "redirect:/regi3";
       }
 
@@ -79,20 +76,14 @@ public class MainController {
       Model model) {
     if (netflixUserDetails == null) {
       return "redirect:/login";
-    } 
+    }
     UserVO userVO = netflixUserDetails.getUserVO();
     // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
-    //   return "redirect:/regi3";
+    // return "redirect:/regi3";
     // }
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
     return "/homepage/home";
-  }
-
-  @GetMapping("/admin-home")
-  public String adminHome() {
-
-    return "homepage/admin-home";
   }
 
   @GetMapping("/watch")
@@ -120,7 +111,7 @@ public class MainController {
     return "/category/movie";
   }
 
-  @GetMapping("/admins")
+  @GetMapping("/admin")
   public String admin() {
     log.info("hello()...");
     return "admins/admin";

@@ -1,6 +1,12 @@
 package teamproject.gunha.security.service;
 
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,13 +22,12 @@ import teamproject.gunha.vo.UserVO;
 @Service
 @Log4j2
 public class NetflixUserDetailsService implements UserDetailsService {
-  
+
   @Autowired
   private UserMapper userMapper;
 
   @Autowired
   private OrderMapper orderMapper;
-
 
   @Override
   public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
@@ -31,11 +36,10 @@ public class NetflixUserDetailsService implements UserDetailsService {
     log.warn("queried by UserVO mapper: " + user);
     log.warn("orderMapper:  " + orderMapper.selectUserLastOrder(userId));
     user.setLastOrder(orderMapper.selectUserLastOrder(userId));
-    if("none".equals(user.getSocial())){
+    if ("none".equals(user.getSocial())) {
       NetflixUserDetails netflixUserDetails = new NetflixUserDetails(user);
       return netflixUserDetails; // 시큐리티 세션에 유저 정보 저장
     }
     return null;
   }
-  
 }
