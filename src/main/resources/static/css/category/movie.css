@@ -182,21 +182,6 @@ iframe {
   
 }
 
-.rating {
-  background-color: rgba(170 170 170 .2);
-  border-left: 3px solid white;
-  padding-left: 10px;
-  width: 100%;
-  margin-left: 10px;
-  display: none;
-}
-
-.rating img {
-
-  width: 34px;
-  height: 34px;
-}
-
 .category-title {
   padding: 0 0 0 20px;
   font-size: 1.4vw;
