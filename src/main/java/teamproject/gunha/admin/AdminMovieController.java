@@ -61,7 +61,6 @@ public class AdminMovieController {
 
     @GetMapping("/admin")
     public String Admin(Model model) {
-
         return "admins/admin";
     }
 }

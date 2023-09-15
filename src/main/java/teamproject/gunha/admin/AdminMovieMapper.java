@@ -1,16 +1,22 @@
 package teamproject.gunha.admin;
 
-import java.util.List;
+import org.apache.ibatis.annotations.*;
 
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
 @Mapper
 public interface AdminMovieMapper {
+
+    @Select("SELECT * FROM NETFIX_MOVIE")
     List<AdminMovieVO> getAllMovies();
 
-    AdminMovieVO getMovieById(int movieId);
+    @Select("SELECT * FROM NETFIX_MOVIE WHERE movieId = #{movieId}")
+    AdminMovieVO getMovieById(@Param("movieId") int movieId);
 
+    @Insert("INSERT INTO NETFIX_MOVIE (movieName, moviepostUrl) VALUES (#{movieName}, #{moviepostUrl})")
+    @Options(useGeneratedKeys = true, keyProperty = "movieId")
     void saveMovie(AdminMovieVO movie);
 
-    void deleteMovie(int movieId);
+    @Delete("DELETE FROM NETFIX_MOVIE WHERE movieId = #{movieId}")
+    void deleteMovie(@Param("movieId") int movieId);
 }
