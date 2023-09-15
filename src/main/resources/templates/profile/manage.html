@@ -7,12 +7,44 @@
   <!-- default header name is X-CSRF-TOKEN -->
   <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}" /> -->
   <!-- ... -->
+  <!-- <%-- 아이콘--%> -->
+  <script src="https://kit.fontawesome.com/cc89ddadc0.js" crossorigin="anonymous"></script>
+
   <title>templates</title>
   <style>
+
     * {
       box-sizing: border-box;
-      border: 1px solid greenyellow; 
+      /* border: 1px solid greenyellow;  */
+      background-color: #141414;
+    }
 
+    .profile-title{
+      color: white; /* 폰트 컬러를 흰색으로 설정 */
+      font-size: 32px; 
+      margin-top: 90px;
+        
+    }
+
+    /* 프로필  추가 버튼 */
+    .circle-plus-icon-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 120px;
+    }
+
+    .circle-plus-icon {
+        color: white; /* 원하는 아이콘 색상 */
+        font-size: 40px; /* 원하는 아이콘 크기 */
+    }
+
+    .plus-icon-text {
+        font-size: 10px; /* 원하는 텍스트 크기 */
+        margin-top: 10px; /* 아이콘 아래쪽 여백 조절 */
+        color: white;
+        margin-top: 20px;
     }
 
     #modal-wrap {
@@ -30,36 +62,133 @@
       /* Full height */
       overflow: auto;
       /* Enable scroll if needed */
-      background-color: rgba(0, 0, 0, 0.4);
+      /* background-color: rgba(0, 0, 0, 0.4); */
       /* Black w/ opacity */
       display: none;
-    }
 
+      
+    }
+    
+    /* 모달 창 */
     #modal-body {
-      width: 500px;
-      height: 300px;
+      max-width: 500px;
+      height: 400px;
       padding: 30px 30px;
       margin: 0 auto;
-      /* border: 1px solid #777; */
-      background-color: #fff;
+      background-color: #141414;
+      color:white;
+
+      background-image: url('');
+      background-size: cover;
+
+
     }
+
+  
+.d-flex{
+  display: flex;
+}
+
+.justify-content-center{ /*프로필 수정*/
+  justify-content: center;
+  font-size: 20px;
+}
+
+.pop-up-profile { /*프로필 명*/
+  text-align: center; /* 텍스트를 수평으로 가운데 정렬합니다. */
+}
+
+
+#profile-name{
+  background-color: #7b7b7b;
+  width: 200px;
+  height: 30px;
+  margin-left: 10px;
+
+}
+
+#pop-up-search{
+
+}
+
+.pop-up-profile{
+  text-align: center; /* 내부 요소를 수평으로 가운데 정렬합니다. */
+}
+
+.pup-up-button {
+
+  display: flex; /* Flexbox를 사용합니다. */
+  justify-content: center; /* 수평 가운데 정렬합니다. */
+  align-items: center; /* 수직 가운데 정렬합니다. */
+  height: 100%; /* 부모 컨테이너의 높이를 100%로 설정합니다. */
+}
+
+#cancel-btn{
+  background-color: #fff;
+  border-radius: 2px;
+  margin: 5px;
+
+}
+
+#delete-btn{
+  background-color: #fff;
+  border-radius: 2px;
+  margin: 5px;
+}
+
+#confirm-btn{
+  background-color: #fff;
+  border-radius: 2px;
+  margin: 5px;
+
+}
 
     .modalBody {
-      width: 500px;
+      max-width: 800px;
       height: 300px;
-      padding: 30px 30px;
+      padding: 20px 30px;
       margin: 0 auto;
       /* border: 1px solid #777; */  /*프로필 관리 페이지 틀*/
-      background-color: #fff;
+      background-color: #141414;
     }
 
-    #closeBtn {
-      float: right;
+    .profile-container{
+      margin: 30px;
+    }
+
+    #close-btn {
+  
       font-weight: bold;
-      color: #777;
-      font-size: 25px;
+      color: white;
+      font-size: 1.5rem;
       cursor: pointer;
     }
+
+    /* 버튼 스타일 부모 컨테이너 */
+    .center-container {
+        text-align: center;
+    }
+
+    /* 버튼 스타일 */
+    .btn-primary {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #fff; /* 원하는 배경색으로 변경 */
+        color: #150808; /* 텍스트 색상 */
+        border-radius: 2px; /* 테두리 둥글게 만들기 */
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 30px;
+        
+    }
+
+    /* 버튼에 호버(마우스 오버) 스타일 */
+    .btn-primary:hover {
+        background-color: #7b7b7b; /* 호버 시 배경색 변경 */
+    }
+
   </style>
 </head>
 
@@ -74,30 +203,51 @@
 
   <div sec:authorize="isAuthenticated()">
 
-    <div class="profile-title" style="text-align: center; font-size: 24px;">프로필 관리</div>
+    <div class="profile-title" style="text-align: center; ">프로필 관리</div>
     <div class="modalBody">
       <div class="profile-container" style="display: flex; justify-content: center;">
         <div id="user-id" style="display: none;" th:text="${user.userId}"></div>
         <div th:each="profile, iterStat: ${user.profileList}">
-          <div class="open-modal" style="display: flex; flex-direction: column; align-items: center;">
+          <div class="open-modal" style="display: flex; flex-direction: column; align-items: center; margin-left: 5px; margin-right: 5px;">
             <img th:src="@{/images/profile/profile-{index}.png(index=${iterStat.index+1})}"
-              style="width: 100px; height: 100px; margin-right: 10px; margin-left: 10px;" />
+              style="width: 88px; height: 88px; margin-right: 10px; margin-left: 10px; border-radius: 2px;" />
             <div type="button" th:text="${profile.profileName}"
-            style="width: 100px; height: 100px; text-align: center; line-height: 100px;">
+            style="width: 100px; height: 30px; text-align: center; line-height: 30px; color: #7b7b7b; font-size: 12px;">
             </div>
           </div>
         </div>
-        <div id="add-profile" style="width:100px; height:100px; text-align:center; font-size:30px; line-height: 100px;">
-        +</div>
+        <div id="add-profile" style="width: 100px; height: 100px; text-align: center;">
+          <div class="circle-plus-icon-container">
+              <i class="fa-solid fa-circle-plus circle-plus-icon"></i>
+              <div class="plus-icon-text">프로필 추가</div>
+          </div>
       </div>
+      
 
     </div>
+      <div style="text-align: center;">
+        <a class="btn btn-primary" href="/home" role="button">완료</a>
+      </div>
   </div>
-  <div id="modal-wrap">
-
+  <div id="modal-wrap"> 
+    
   </div>
 
+  <script>
 
+    // 이미지 로드 후 실행할 함수
+window.addEventListener("load", function () {
+    // 이미지가 로드되면 실행할 코드
+    const profileImage = document.querySelector('img[src="/images/profile/profile-5.png"]');
+    const addProfileDiv = document.querySelector('#add-profile');
+
+    if (profileImage) {
+        // 이미지가 존재할 때 add-profile 숨기기
+        addProfileDiv.style.display = 'none';
+    }
+});
+
+  </script>
 
 
   
@@ -112,46 +262,45 @@
     }
 
     openBtn.forEach(elmnt => {
+
       elmnt.addEventListener("click", e => {
+        console.log(e.target);
         e.stopPropagation();
         modal.style.display = 'block';
         const modalForm = document.createElement('div');
-        const profileLabel = document.createElement('label');
-        const profileName = document.createElement("input");
-        const cancelBtn = document.createElement('input');
-        const deleteBtn = document.createElement('input');
-        const confirmBtn = document.createElement('input');
-
         modalForm.setAttribute('id', 'modal-body');
-
-        profileLabel.setAttribute('for', 'profileName');
-        profileLabel.textContent = "프로필명: ";
-
-        profileName.setAttribute('id', "profile-name");
-        profileName.setAttribute('name', "profileName");
-        profileName.setAttribute("value", elmnt.innerText);
-
-
-        cancelBtn.setAttribute('type', 'button');
-        cancelBtn.setAttribute('id', '#caancel-btn');
-        cancelBtn.setAttribute('value', '취소');
-
+        modalForm.innerHTML =
+        `
+          <div id="profile-label">
+            <div class="d-flex justify-content-center" style="align-items: center;">
+              프로필 수정 <i class="fa-solid fa-pencil" style="margin: 10px"></i>
+            </div>
+            <p class="pop-up-profile">
+              프로필명
+              <input id="profile-name" name="profileName" value="&nbsp; ${elmnt.innerText}"/ style="margin:10px; border-radius : 2px">
+            </p>
+            <div class="pup-up-button">
+              <input type="button" id="cancel-btn" value="취소" />
+              <input type="button" id="delete-btn" value="제거" />
+              <input type="button" id="confirm-btn" value="확인" />
+              </div>
+          </div>
+        `;
+        modal.append(modalForm);
+        
+        modalForm.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+        const profileName = document.querySelector("#profile-name");
+        const cancelBtn = document.querySelector('#cancel-btn');
         cancelBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           modal.style.display = 'none';
           const modalBody = document.querySelector('#modal-body');
           modalBody.remove();
         })
-
-        modal.append(modalForm);
-        modalForm.append(profileLabel, profileName, cancelBtn);
-        modalForm.addEventListener('click', (e) => {
-          e.stopPropagation();
-        });
-
-        deleteBtn.setAttribute('id', 'delete-btn');
-        deleteBtn.setAttribute('type', 'button');
-        deleteBtn.setAttribute('value', '프로필삭제');
+  
+        const deleteBtn = document.querySelector('#delete-btn');
         deleteBtn.addEventListener('click', async e => {
           e.stopPropagation();
           const { returnedValue, redirectPage } = await crudProfile('delete', '/profile/delete', profileName.value);
@@ -163,14 +312,13 @@
             location.href = redirectPage;
           }
         })
-        modalForm.append(deleteBtn);
 
-        confirmBtn.setAttribute('id', 'confirm-btn');
-        confirmBtn.setAttribute('type', 'button');
-        confirmBtn.setAttribute('value', '확인');
+        const confirmBtn = document.querySelector('#confirm-btn');
         confirmBtn.addEventListener('click', async e => {
+          console.log(e.target);
           e.stopPropagation();
           const { returnedValue, redirectPage } = await crudProfile('patch', '/profile/update', profileName.value, elmnt.innerText);
+          console.log(elmnt);
           // await updateProfile(elmnt.innerText, profileName.value);
           console.log(returnedValue);
           if (returnedValue) {
@@ -180,7 +328,6 @@
             location.href = redirectPage;
           }
         })
-        modalForm.append(confirmBtn);
 
       });
 
@@ -194,45 +341,40 @@
       const modalForm = document.createElement('div');
 
       modalForm.setAttribute('id', 'modal-body');
+      modalForm.innerHTML=
+      `
+          <div id="profile-label">
+            <div class="d-flex justify-content-center" style="align-items: center;">
+    프로필 추가 <i class="fa-solid fa-pencil" style="margin: 10px"></i>
+  </div>
+</div>
+            <p class="pop-up-profile">
+              프로필명
+              <input id="profile-name" name="profileName" / style="border-radius: 2px">
+            </p>
+            <div class="pup-up-button" style="height: 30px">
+              <input type="button" id="cancel-btn" value="취소" />
+              <input type="button" id="confirm-btn" value="생성" />
+            </div>
+          </div>
+        `;
       modal.append(modalForm);
       modalForm.addEventListener('click', (e) => {
         e.stopPropagation();
       });
 
-      const profileLabel = document.createElement('label');
-      const profileName = document.createElement("input");
-      const cancelBtn = document.createElement('input');
-      const deleteBtn = document.createElement('input');
-      const confirmBtn = document.createElement('input');
-
-      modalForm.setAttribute('id', 'modal-body');
-
-      profileLabel.setAttribute('for', 'profileName');
-      profileLabel.textContent = "프로필명: ";
-
-      profileName.setAttribute('id', "profile-name");
-      profileName.setAttribute('name', "profileName");
-
-      cancelBtn.setAttribute('type', 'button');
-      cancelBtn.setAttribute('id', '#caancel-btn');
-      cancelBtn.setAttribute('value', '취소');
-
+      
+      const cancelBtn = document.querySelector('#cancel-btn');
+      
       cancelBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         modal.style.display = 'none';
         const modalBody = document.querySelector('#modal-body');
         modalBody.remove();
       })
-
-      modal.append(modalForm);
-      modalForm.append(profileLabel, profileName, cancelBtn);
-      modalForm.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
-
-      confirmBtn.setAttribute('id', 'confirm-btn');
-      confirmBtn.setAttribute('type', 'button');
-      confirmBtn.setAttribute('value', '생성');
+      
+      const profileName = document.querySelector("#profile-name");
+      const confirmBtn = document.querySelector('#confirm-btn');
       confirmBtn.addEventListener('click', async e => {
         e.stopPropagation();
         // const { returnedValue, redirectPage } = await createProfile(profileName.value);
@@ -245,7 +387,6 @@
           location.href = redirectPage;
         }
       })
-      modalForm.append(confirmBtn);
 
     });
 
@@ -277,12 +418,17 @@
       baseURL: 'http://localhost:8888/' // 예제 API 서버
     });
 
-    async function ajax(methodName, url, header, data) {
+    async function ajax() {
+      const methodName = arguments[0];
+      const url = arguments[1];
       try {
         let response;
         if (methodName === 'delete') {
+          const header = arguments[2]
           response = await ajaxMethod[methodName](url, header);
         } else {
+          const data = arguments[2]
+          const header = arguments[3]
           response = await ajaxMethod[methodName](url, data, header);
         }
         return response;
@@ -295,16 +441,20 @@
       //method, action, selectedProfile, originProfile
       const formData = new FormData();
       const userId = document.querySelector('#user-id').textContent;
+      console.log(userId);
       // const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
       // const csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
       // formData.append('action', '/profile/delete');
       // formData.append('_csrf', csrfToken);
+
       formData.append('userId', userId);
+      console.log(arguments[2]);
       formData.append('profileName', arguments[2]);
       if (arguments.length === 4) {
         formData.append('originName', arguments[3]);
       }
       const formDataString = new URLSearchParams(formData).toString();
+      console.log(formDataString);
       try {
         let response;
         if(arguments[0] === 'delete'){

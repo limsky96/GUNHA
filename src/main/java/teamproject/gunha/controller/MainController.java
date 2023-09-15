@@ -30,6 +30,13 @@ public class MainController {
     return "header/header";
   }
 
+  // 푸터
+  @GetMapping("/footer")
+  public String footer() {
+
+    return "header/footer";
+  }
+
   // 결제창-카드
   @GetMapping("/paymentCard")
   public String paymentCard(){

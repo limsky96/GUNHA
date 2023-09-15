@@ -9,14 +9,24 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="/css/planform.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/179a863a03.js" crossorigin="anonymous"></script>
-    
+    <!-- 로그인 페이지에 넣을거 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-    
     <!--헤더 영역-->
     <header class="content-header header bg-header-theme text-center">
-        <h1>헤더영역</h1>
+        <div th:include="/header/header.html"></div>
+    <script>
+
+        
+        //$('header').addClass('hd-black-logout'); // 블랙 헤더 로그아웃 버전
+
+        //$('header').addClass('hd-white'); // 화이트 헤더 버전
+
+        $('header').addClass('hd-white-logout'); // 화이트 헤더 로그아웃 버전
+    
+    </script>
     </header>
 
     <!--본문 영역-->
@@ -155,5 +165,4 @@
         crossorigin="anonymous">
     </script>
     </body>
-
 </html>
