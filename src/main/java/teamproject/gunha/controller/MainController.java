@@ -9,10 +9,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
+import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.UserVO;
 
@@ -38,20 +40,6 @@ public class MainController {
   }
 
   // 결제창-카드
-  @GetMapping("/paymentCard")
-  public String paymentCard(){
-
-    return "login/paymentCard";
-  }
-
-  // 프로필 관리
-  
-  @GetMapping("/profileManagement")
-  public String profileManagement(){
-
-    return "profile/profileManagement";
-  }
-
 
   @GetMapping("/")
   public String hello(
@@ -60,8 +48,8 @@ public class MainController {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
       String profile = netflixUserDetails.getSelectedProfile();
-      if (0 == userVO.getMembershipNo()) {
-        return "redirect:/sign-up";
+      if ("결제정보 없음" == userVO.getCardNumber() || 0 == userVO.getMembershipNo()) {
+        return "redirect:/regi3";
       }
 
       log.info("userDateils: " + netflixUserDetails);
@@ -94,6 +82,9 @@ public class MainController {
       return "redirect:/login";
     }
     UserVO userVO = netflixUserDetails.getUserVO();
+    // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
+    // return "redirect:/regi3";
+    // }
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
     return "/homepage/home";
@@ -106,28 +97,52 @@ public class MainController {
     return "/watch/watch";
   }
 
-  @GetMapping("/admins")
+  @GetMapping("/qna")
+  public String qna() {
+    log.info("qna()...");
+    return "homepage/qna";
+  }
+
+  @GetMapping("/nodata")
+  public String nofunction() {
+    log.info("qna()...");
+    return "homepage/nofunction";
+  }
+
+  @GetMapping("/movie")
+  public String card() {
+    log.info("hello()...");
+    return "/category/movie";
+  }
+
+  @GetMapping("/admin")
   public String admin() {
     log.info("hello()...");
     return "admins/admin";
   }
 
-  @GetMapping("/qna")
-  public String qna() {
-      log.info("qna()...");
-      return "homepage/qna";
+  @GetMapping("/admins-member")
+  public String adminMember() {
+    log.info("hello()...");
+    return "/admins/admin-member-table";
   }
 
-  @GetMapping("/accountpage")
-  public String accountpage() {
-    log.info("accountpage()...");
-    return "homepage/accountpage";
-  }
-  
-  @GetMapping("/movie")
-  public String card() {
+  @GetMapping("/admins-sales")
+  public String adminSales() {
     log.info("hello()...");
-    return "/category/movie";
+    return "/admins/admin-sale-table";
+  }
+
+  @GetMapping("/admins-movies")
+  public String adminMovies() {
+    log.info("hello()...");
+    return "/admins/admin-movie-table";
+  }
+
+  @GetMapping("/admins-addmovies")
+  public String adminaddMovies() {
+    log.info("hello()...");
+    return "/admins/admin-movie-add";
   }
 
 }

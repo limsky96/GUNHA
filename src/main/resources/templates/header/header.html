@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/login/payment-card.html}">
 
 <head>
     <meta charset="UTF-8">
@@ -67,12 +68,12 @@
                                 </div>
                             </div>
 
-                            <div class="menu-item" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
-                                aria-expanded="false" aria-controls="multiCollapseExample1">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </div>
-                            <div class="menu-item"><i class="fas fa-bell"></i></div>
-                        </div>
+              <div class="menu-item" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
+                aria-expanded="false" aria-controls="multiCollapseExample1">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+              <div class="menu-item"><i class="fas fa-bell"></i></div>
+            </div>
 
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle custom-btn" type="button"
@@ -118,7 +119,7 @@
         </nav>
 
 </body>
-    <!-- 로그인 페이지에 넣을거 -->
+<!-- 로그인 페이지에 넣을거 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     //$('header').addClass('hd-black-logout'); // 블랙 헤더 로그아웃 버전
@@ -127,4 +128,5 @@
 
     //$('header').addClass('hd-white-logout'); // 화이트 헤더 로그아웃 버전
 </script>
+
 </html>
