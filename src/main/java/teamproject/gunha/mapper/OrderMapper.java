@@ -29,6 +29,8 @@ public interface OrderMapper {
 
   public List<OrderVO> selectUserOrderList(String userId);
 
+  public List<OrderVO> selectOrderList();
+
   @Update("update netflix_order set order_start_date = #{startDate}, order_valid=#{orderValid}"
         + " where order_id = #{orderId}") 
   public int updateOrder(OrderVO orderVO);

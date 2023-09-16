@@ -170,7 +170,7 @@ public class OrderServiceImpl implements OrderService {
 
     Map<String, Object> schedules = new HashMap<>();
     schedules.put("merchant_uid", portOneVO.getMerchantUid());
-    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now()).getTime() / 1000);
+    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now().plusSeconds(3)).getTime() / 1000);
     schedules.put("amount", portOneVO.getAmount());
     schedules.put("name", portOneVO.getName() + " 구독");
     schedules.put("buyer_email", userMapper.selectUserId(portOneVO.getUserId()).getUserEmail());
@@ -338,7 +338,7 @@ public class OrderServiceImpl implements OrderService {
       response.put("status", status);
       response.put("message", (String) cancelScheduleData.get("message"));
     }
-    return requestBody;
+    return response;
   }
 
 }

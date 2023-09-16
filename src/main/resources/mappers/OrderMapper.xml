@@ -46,6 +46,16 @@
     ]]>
   </select>
 
+
+  <select id="selectOrderList" resultMap="orderMap">
+  <![CDATA[
+    select * from NETFLIX_ORDER
+
+  ]]>
+
+  </select>
+
+
   <select id="selectOrderByOrderId" resultMap="orderMap">
     <![CDATA[
       select * from netflix_membership ms, netflix_member m, netflix_order o
