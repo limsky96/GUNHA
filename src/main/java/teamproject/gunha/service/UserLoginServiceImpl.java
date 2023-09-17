@@ -162,13 +162,14 @@ public class UserLoginServiceImpl implements UserLoginService {
         userMapper.updateUser(userVO);
         responseData.put("code", 0);
         responseData.put("message", "비밀번호가 성공적으로 변경되었습니다.");
+        loginAccount();
       } else{
         responseData.put("code", 1);
         responseData.put("message","기존 비밀번호가 일치하지 않습니다.");
       }
     }
     // SecurityContext 업데이트
-    loginAccount();
+
 
     return responseData;
   }
