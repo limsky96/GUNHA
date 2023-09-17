@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,27 +38,6 @@ public class LoginController {
     log.info("hello()...");
     return "login/login-page";
   }
-
-  // @GetMapping("/sign-up")
-  // public String signUpPage(
-  //     @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
-  //     Model model) {
-  //   if (netflixUserDetails != null) {
-  //     UserVO userVO = netflixUserDetails.getUserVO();
-  //     if ("결제정보 없음".equals(userVO.getCardNumber()) && !"none".equals(userVO.getSocial())) {
-  //       model.addAttribute("user", userVO);
-  //       return "login/sign-up-social";
-  //     }
-  //   }
-  //   return "login/sign-up";
-  // }
-
-  // @PostMapping("/sign-up")
-  // public String signUp(UserVO userVO) {
-  //   log.info("signUp() :" + userVO);
-  //   userLoginService.createAccount(userVO);
-  //   return "redirect:/";
-  // }
 
   @PostMapping("/account-update")
   @ResponseBody
@@ -132,10 +112,11 @@ public class LoginController {
   }
 
   @GetMapping("/my/account")
-  public String accountpage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
+  public String accountpage(Model model) {
+    NetflixUserDetails netflixUserDetails = userLoginService.loginAccount();
     UserVO userVO = netflixUserDetails.getUserVO();
     log.info(userVO + "");
-    userLoginService.loginAccount(userVO);
+    
     model.addAttribute("membership", membershipService.getMembership(userVO.getMembershipNo()));
     model.addAttribute("user", userVO);
     return "homepage/accountpage";
@@ -144,10 +125,19 @@ public class LoginController {
   @GetMapping("/my/password")
   public String changePasswordPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails){
     UserVO userVO = netflixUserDetails.getUserVO();
-    if(!"none".equals(userVO.getSocial())){
+    if("none".equals(userVO.getSocial())){
       return "login/my/password";
     }
     return "redirect:/my/account";
+  }
+
+  @PatchMapping("/my/password")
+  @ResponseBody
+  public Map<String,Object> changePassword(@RequestBody Map<String, Object> jsonObject){
+    log.info(jsonObject.toString());
+
+    Map<String,Object> response = userLoginService.changeUserPassword(jsonObject);
+    return response;
   }
 
 }

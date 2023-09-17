@@ -57,7 +57,7 @@ public class OrderController {
   public String orderPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
     if (netflixUserDetails != null) {
       UserVO user = netflixUserDetails.getUserVO();
-      userLoginService.loginAccount(user);
+      userLoginService.loginAccount();
       model.addAttribute("user", netflixUserDetails);
       model.addAttribute("orderList", orderRestService.getUserOrderList(user.getUserId()));
       model.addAttribute("userId", user.getUserId());
@@ -86,7 +86,7 @@ public class OrderController {
 
     Map<String, Object> responseMap = orderService.issueScheduleBilling(portOneVO);
 
-    userLoginService.loginAccount(UserVO.builder().userId(portOneVO.getUserId()).build());
+    userLoginService.loginAccount();
 
     return responseMap;
   }

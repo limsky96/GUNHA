@@ -1,5 +1,6 @@
 package teamproject.gunha.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     log.info("user: " + user);
     if (user != null) {
       if(passwordEncoder.matches(password, user.getPassword())){
-        loginAccount(user);
+        loginAccount();
         return true;
       } else{
         return false;
@@ -62,14 +63,16 @@ public class UserLoginServiceImpl implements UserLoginService {
       createAccount(newUser);
       // 이후 유저 로그인됨
       log.info(newUser.toString());
-      loginAccount(newUser);
+      loginAccount();
     }
     return true;
   }
 
   @Override
-  public boolean loginAccount(UserVO userVO) {
-    userVO = userMapper.selectUserId(userVO.getUserId());
+  public NetflixUserDetails loginAccount() {
+    NetflixUserDetails prevUserDetails= (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+    UserVO userVO = userMapper.selectUserId(prevUserDetails.getUsername());
     userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
     userVO.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userVO.getUserId()));
     NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
@@ -77,7 +80,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
         netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    return true;
+    return netflixUserDetails;
   }
 
   @Override
@@ -135,12 +138,39 @@ public class UserLoginServiceImpl implements UserLoginService {
     log.info(userVO.toString());
     userMapper.updateUser(userVO);
     // SecurityContext 업데이트
-    loginAccount(userVO);
+    loginAccount();
     // Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
     //     netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
     // SecurityContextHolder.getContext().setAuthentication(authentication);
 
     return true;
+  }
+
+  @Override
+  @Transactional // update 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
+  public Map<String,Object> changeUserPassword(Map<String, Object> jsonObject) {
+    log.info(jsonObject.toString());  
+
+    String userId = (String)jsonObject.get("userId");
+    String oldPassword = (String)jsonObject.get("oldPassword");
+    String newPassword = (String) jsonObject.get("newPassword");
+    UserVO userVO = userMapper.selectUserId(userId);
+    Map<String, Object> responseData = new HashMap<>();
+    if(userId.equals(userVO.getUserId())){
+      if(passwordEncoder.matches(oldPassword, userVO.getPassword())){
+        userVO.setPassword(passwordEncoder.encode(newPassword));
+        userMapper.updateUser(userVO);
+        responseData.put("code", 0);
+        responseData.put("message", "비밀번호가 성공적으로 변경되었습니다.");
+      } else{
+        responseData.put("code", 1);
+        responseData.put("message","기존 비밀번호가 일치하지 않습니다.");
+      }
+    }
+    // SecurityContext 업데이트
+    loginAccount();
+
+    return responseData;
   }
 
 }

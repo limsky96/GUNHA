@@ -33,8 +33,8 @@
     <div class="d-flex justify-content-between">
       <div class="left">
         <h5 style="color: dimgray">멤버십 & 결제 정보 </h5>
-        <div th:text="${user.lastOrder}"></div>
-        <div th:text="${user.secondLastOrder}"></div>
+        <!-- <div th:text="${user.lastOrder}"></div>
+        <div th:text="${user.secondLastOrder}"></div> -->
         <div th:if="${user.lastOrder == null}">
           <button id="order-new" onclick="location.href='/planform'" class="w-100 border-0 btn-cancel"
             th:text="'멤버십 가입'"></button>
@@ -60,12 +60,15 @@
       </div>
       <div class="right">
         <div id="" class="d-flex justify-content-between">
-          <p><strong>이메일주소</strong>: <span th:text="${user.userEmail}"></span></p>
+          <p><b>이메일주소</b>: <span th:text="${user.userEmail}"></span></p>
           <a href="#"> 계정이메일 변경</a>
         </div>
-        <div th:switch="${user.social}" class="d-flex justify-content-between">
-          <p th:case="'none'"><strong>비밀번호: </strong> ******** <a href="/my/password"> 비밀번호 변경</a></p>
-          <p th:case="*"><strong>소셜 회원: </strong> <span th:text="${user.social}"></span></p>
+        <div th:if="${user.social == 'none'}" class="d-flex justify-content-between">
+          <p ><b>비밀번호: </b> ******** </p>
+          <a href="/my/password"> 비밀번호 변경</a>
+        </div>
+        <div th:unless="${user.social == 'none'}"  class="d-flex justify-content-between">
+          <p><b>소셜 회원: </b> <span th:text="${user.social}"></span></p>
           <!-- <p>전화번호:</p>          -->
 
           <!-- <a href="#"> 전화번호 변경</a>  -->
@@ -73,7 +76,7 @@
         <hr>
         <div class="d-flex justify-content-between">
           <div>
-            <p><strong>결제방법</strong>: 카드 <span id="card-number" th:text="${user.cardNumber}"></span></p>
+            <p><b>결제방법</b>: 카드 <span id="card-number" th:text="${user.cardNumber}"></span></p>
             <!-- <p>다음결제일은 입니다</p>        -->
           </div>
           <div class="">
@@ -97,7 +100,7 @@
       </div>
       <div class="right">
         <div id="">
-          <p><strong>멤버십 종류:</strong>
+          <p><b>멤버십 종류:</b>
           <div th:if="${user.secondLastOrder == null}">
             <span th:if="${user.secondLastOrder == null}">등급 없음</span>
           </div>
