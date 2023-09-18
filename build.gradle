@@ -36,7 +36,7 @@ dependencies {
 	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   // 혹시 모르니 thymeleaf도
   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-  // implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+  implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
   implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
   //mustache
   // Database Connection Pool (HikariCP)

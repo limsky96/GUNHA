@@ -76,6 +76,27 @@ public class UserLoginServiceImpl implements UserLoginService {
     userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
     userVO.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userVO.getUserId()));
     NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
+    netflixUserDetails.setSelectedProfile(prevUserDetails.getSelectedProfile());
+    log.info(netflixUserDetails+"");
+    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
+        netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    return netflixUserDetails;
+  }
+
+  @Override
+  public NetflixUserDetails loginAccount(Map<String, Object> jsonObject) {
+    NetflixUserDetails prevUserDetails= (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+    UserVO userVO = userMapper.selectUserId(prevUserDetails.getUsername());
+    userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
+    userVO.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userVO.getUserId()));
+    NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
+    String selectedProfile = (String) jsonObject.get("selected_name");
+    netflixUserDetails.setSelectedProfile(prevUserDetails.getSelectedProfile());
+    if(selectedProfile != null){
+      netflixUserDetails.setSelectedProfile(selectedProfile);
+    }
     log.info(netflixUserDetails+"");
     Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
         netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());

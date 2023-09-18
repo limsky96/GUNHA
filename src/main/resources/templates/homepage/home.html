@@ -10,7 +10,7 @@
   <!-- </div> -->
   <!-- <span th:text="${#authentication}"></span><br /> -->
   <div sec:authorize="isAuthenticated()">
-    <span th:text="${user}"></span>님 환영합니다<br />
+    <span th:text="${#authentication.principal}"></span>님 환영합니다<br />
     <span sec:authentication="principal.username"></span>님 환영합니다<br />
     <form id="logoutForm" action="/logout" method="POST">
       <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
@@ -19,17 +19,32 @@
     <a href="/my/account"><input type="button" value="마이페이지"></a>
     <div id="open-modal"><input type="button" value="프로필창 열기"></div>
     <div th:text="${selectedProfile}"></div>
-    <div id="modalWrap">
-      <div id="modalBody">
-        <span id="closeBtn">&times;</span>
-        <p>modal-popup 입니다.</p>
-        <div class="profile-container" style="display: flex; justify-content: center;">
-          <div th:each="profile: ${user.profileList}">
-            <div th:text="${profile.profileName}"
-              style="text-align: center; line-height: 100px; width:100px; height:100px;"></div>
+    <div th:switch="${#authentication.principal.selectedProfile}">
+      <div th:case="null" id="modalWrap">
+        <div id="modalBody">
+          <span id="closeBtn">&times;</span>
+          <p>modal-popup 입니다.</p>
+          <div id="profile-container" style="display: flex; justify-content: center;">
+            <div th:each="profile: ${user.profileList}" th:text="${profile.profileName}"
+              th:attr="data-profile-name=${profile.profileName}"
+              style="text-align: center; line-height: 100px; width:100px; height:100px;">
+            </div>
           </div>
+          <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
         </div>
-        <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
+      </div>
+      <div th:case="*" id="modalWrap" style="display: none;">
+        <div id="modalBody">
+          <span id="closeBtn">&times;</span>
+          <p>modal-popup 입니다.</p>
+          <div id="profile-container" style="display: flex; justify-content: center;">
+            <div th:each="profile: ${user.profileList}" th:text="${profile.profileName}"
+              th:attr="data-profile-name=${profile.profileName}"
+              style="text-align: center; line-height: 100px; width:100px; height:100px;">
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
+        </div>
       </div>
     </div>
   </div>
@@ -446,7 +461,26 @@
   modalBody.addEventListener('click', (e) => {
     e.stopPropagation();
   });
+  const profileNames = document.querySelector("#profile-container").children;
+  console.log(profileNames);
+  Array.from(profileNames).forEach(elmnt => {
+    'use strict'
 
+    elmnt.addEventListener("click", async e => {
+      const profileName = e.target.dataset.profileName;
+      console.log(profileName);
+      const requestBody = {
+        "selected_name": profileName
+      }
+      const response = await axios.post("/profile/select", requestBody, {
+        "Content-type": "application/json"
+      });
+      const { data, status } = response;
+      if (status === 200) {
+        location.href="/home"
+      }
+    });
+  });
 
 </script>
 

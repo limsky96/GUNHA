@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>templates</title>
+  
+</head>
+<body>
+
+  <th:block th:replace="fragments/header::header"/>
+
+  <th:block layout:fragment="content"/>
+
+  <th:block th:replace="fragments/footer::footer"/>
+</body>
+</html>

@@ -13,6 +13,7 @@ create table NETFLIX_MEMBER(
     member_social varchar2(10) default 'NONE'
 );
 
+
 insert into netflix_member values(
     'admin',
     'admin@example.com',

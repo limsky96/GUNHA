@@ -31,4 +31,9 @@ public class RootController {
     return "layout/layout";
   }
 
+  @GetMapping("/ex")
+  public String example(){
+    return "layouts/ex";
+  }
+
 }
