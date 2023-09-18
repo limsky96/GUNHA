@@ -8,7 +8,7 @@
 
 <body>
     <h1>영화 수정</h1>
-    <form method="post" th:action="@{/admin/movie/edit}">
+    <form method="post" th:action="@{/admin/movies/edit}">
         <input type="hidden" th:name="movieId" th:value="${movie.movieId}">
         <label for="movieName">제목 : </label>
         <input type="text" id="movieName" name="movieName" th:value="${movie.movieName}" required>
@@ -19,7 +19,7 @@
 
         <button type="submit">Update</button>
     </form>
-    <a th:href="@{/admin/movie/list}">뒤로가기</a>
+    <a th:href="@{/admin/movies/list}">뒤로가기</a>
 </body>
 
 </html>

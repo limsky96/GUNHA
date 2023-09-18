@@ -111,7 +111,7 @@ public class MainController {
   @GetMapping("/admin")
   public String admin() {
     log.info("hello()...");
-    return "admins/admin";
+    return "/admins/admin";
   }
 
   @GetMapping("/admins-member")
@@ -126,16 +126,16 @@ public class MainController {
     return "/admins/admin-sale-table";
   }
 
-  @GetMapping("/admins-movies")
-  public String adminMovies() {
-    log.info("hello()...");
-    return "/admins/admin-movie-table";
-  }
+  // @GetMapping("/admins-movies")
+  // public String adminMovies() {
+  // log.info("hello()...");
+  // return "/admins/admin-movie-table";
+  // }
 
-  @GetMapping("/admins-addmovies")
-  public String adminaddMovies() {
-    log.info("hello()...");
-    return "/admins/admin-movie-add";
-  }
+  // @GetMapping("/admins-addmovies")
+  // public String adminaddMovies() {
+  // log.info("hello()...");
+  // return "/admins/admin-movie-add";
+  // }
 
 }
