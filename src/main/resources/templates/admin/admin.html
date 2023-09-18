@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"></h6>
+                        <h6 class="mb-0"><span th:text="${user.userId}"></span></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <a href="/admins-member" class="nav-item nav-link"><i class="fa-solid fa-user"></i></i>MEMBER</a>
-                    <a href="/admins-sales" class="nav-item nav-link"><i class="fa-solid fa-wallet"></i>SALES</a>
+                    <a href="/admin-sales" class="nav-item nav-link"><i class="fa-solid fa-wallet"></i>SALES</a>
                 </div>
             </nav>
         </div>
@@ -165,7 +165,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="images/admins/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Haneul Lim</span>
+                            <span class="d-none d-lg-inline-flex"><span th:text="${user.userId}"></span></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <!--로그아웃폼-->
@@ -255,42 +255,6 @@
                                     <td>Paid</td>
                                     <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
                                 </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"name="cb2" id="cb"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox" name="cb3" id="cb"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox" name="cb4" id="cb"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox" name="cb5" id="cb"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -316,6 +280,58 @@
                 checkbox.addEventListener('click', function () {
                     if (!checkbox.checked) {
                     selectAllCheckbox.checked = false;
+                    }
+                });
+                });
+            </script>
+
+             <!-- Recent Sales Start -->
+             <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">MOVIE LIST</h6>
+                        <a href="/admin/movies/list">Show All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-white">
+                                    <th scope="col">movie_id</th>
+                                    <th scope="col">movie_name</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="movie, iterStat : ${movies}" th:if="${iterStat.index < 5}">
+                                    <td  th:text="${movie.movieId}"></td>
+                                    <td th:text="${movie.movieName}"></td>
+                                    <td><a class="btn btn-sm btn-primary" th:href="@{/admin/movie/edit(movieId=${movie.movieId})}">Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Sales End -->
+
+            <script>
+                //체크박스
+                const selectAllCheckbox2 = document.querySelector('#all');
+                const individualCheckboxes2 = document.querySelectorAll('input[type="checkbox2"][name^="cb"]');
+
+                // #all 체크박스 이벤트설정
+                selectAllCheckbox2.addEventListener('click', function () {
+                // #all 체크박스의 상태에 따라 #cb 상태 변경
+                individualCheckboxes2.forEach(function (checkbox) {
+                    checkbox.checked = selectAllCheckbox2.checked;
+                });
+                });
+
+                // #cb 중 하나라도 체크 해제되면 #all 해제
+                individualCheckboxes2.forEach(function (checkbox) {
+                checkbox.addEventListener('click', function () {
+                    if (!checkbox.checked) {
+                    selectAllCheckbox2.checked = false;
                     }
                 });
                 });

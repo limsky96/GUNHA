@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.admin.AdminMovieService;
+import teamproject.gunha.admin.AdminMovieVO;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
@@ -27,6 +29,9 @@ public class MainController {
 
   @Autowired
   private UserLoginService userLoginService;
+
+  @Autowired
+    private AdminMovieService adminMovieService;
 
   // 헤더
   @GetMapping("/header")
@@ -111,11 +116,23 @@ public class MainController {
     return "/category/movie";
   }
 
-  @GetMapping("/admin")
-  public String admin() {
-    log.info("hello()...");
-    return "admins/admin";
-  }
+  // @GetMapping("/admin")
+  // public String admin() {
+  //   log.info("hello()...");
+  //   return "admin/admin";
+  // }
+
+  // @GetMapping("/admin")
+  // public String admin(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
+  //   UserVO userVO = netflixUserDetails.getUserVO();
+  //   List<AdminMovieVO> movies = adminMovieService.getAllMovies();
+  //   log.info(userVO + "");
+    
+  //   model.addAttribute("user", userVO);
+  //   model.addAttribute("movies", movies);
+    
+  //   return "admin/admin";
+  // }
 
   @GetMapping("/admins-member")
   public String adminMember() {
