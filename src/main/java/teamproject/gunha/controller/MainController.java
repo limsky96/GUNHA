@@ -30,9 +30,6 @@ public class MainController {
   @Autowired
   private UserLoginService userLoginService;
 
-  @Autowired
-    private AdminMovieService adminMovieService;
-
   // 헤더
   @GetMapping("/header")
   public String header() {
