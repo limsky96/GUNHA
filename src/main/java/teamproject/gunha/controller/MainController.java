@@ -72,9 +72,6 @@ public class MainController {
   public String home(
       @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
       Model model) {
-    if (netflixUserDetails == null) {
-      return "redirect:/login";
-    } 
     UserVO userVO = netflixUserDetails.getUserVO();
     // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
     //   return "redirect:/regi3";

@@ -96,25 +96,30 @@
                     <span class="profile-name">Profile 4</span>
                   </a></li>
                 <hr>
-                <li><a class="dropdown-item" href="#">프로필 관리</a></li>
+                <li><a class="dropdown-item" href="/profile/manage">프로필 관리</a></li>
                 <hr>
-                <li><a class="dropdown-item" href="#">계정</a></li>
+                <li><a class="dropdown-item" href="/my/account">계정</a></li>
                 <li><a class="dropdown-item" href="#">고객 센터</a></li>
-                <li><a class="dropdown-item" href="#">Netflix에서 로그아웃</a></li>
+                <li sec:authorize="isAnonymous()">
+                  <a class="dropdown-item" th:href="@{/login}"> 로그인</a>
+                </li>
+                <li>
+                  <form id="logoutForm" action="/logout" method="POST">
+                    <a class="dropdown-item" href="#">Netflix에서 로그아웃</a>    
+                  </form>
+                </li>
               </ul>
             </div>
           </div>
-        </div>
-        <div sec:authorize="isAnonymous()">
-          <div><a class="login-btn" th:href="@{/login}"> 로그인</a></div>
-        </div>
-        <div sec:authorize="isAuthenticated()">
-          <form id="logoutForm" action="/logout" method="POST">
-            <button type="submit">logout</button>
-          </form>
-          <a href="/my/account"><input type="button" value="마이페이지"></a>
-          <div id="open-modal"><input type="button" value="프로필창 열기"></div>
-          <div th:text="${selectedProfile}"></div>
+
+          <div sec:authorize="isAuthenticated()">
+            
+              <button type="submit">logout</button>
+            </form>
+            <a href="/my/account"><input type="button" value="마이페이지"></a>
+            <div id="open-modal"><input type="button" value="프로필창 열기"></div>
+            <div th:text="${selectedProfile}"></div>
+          </div>
         </div>
 
         <!-- <div sec:authorize="isAnonymous()">

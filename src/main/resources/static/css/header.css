@@ -184,8 +184,6 @@
   border-color: #ffffff; /* 원하는 색상으로 변경 */
 }
 
-.login-btn { display: none; }
-
 
 @media screen and (max-width: 880px) {
   .navbar-nav {
