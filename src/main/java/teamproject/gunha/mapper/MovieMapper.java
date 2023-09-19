@@ -15,6 +15,7 @@ public interface MovieMapper {
 
     // 모든 영화를 가져오는 메소드
     List<MovieVO> selectMovieList();
+
     List<MovieVO> selectPagedMovieList(MoviePageVO moviePageVO);
 
     // boolean existsById(Long id);
@@ -30,7 +31,20 @@ public interface MovieMapper {
 
     void update(MovieVO movie);
 
-    // List<MovieVO> findPageMovieList(int startIndex, int count);
-    // List<MovieVO> findMovieList();
+    // 관리자 영화 관리
+    // 영화 정보 추가 (Create)
+    void insertMovie(MovieVO movie);
+
+    // 모든 영화 정보 조회 (Read)
+    List<MovieVO> getAllMovies();
+
+    // 특정 영화 정보 조회 (Read)
+    MovieVO getMovieById(Long id);
+
+    // 영화 정보 수정 (Update)
+    void updateMovie(MovieVO movie);
+
+    // 영화 정보 삭제 (Delete)
+    void deleteMovie(Long id);
 
 }

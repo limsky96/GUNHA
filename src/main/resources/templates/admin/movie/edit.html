@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>영화 수정</title>
+</head>
+
+<body>
+    <h1>영화 수정</h1>
+    <form method="post" th:action="@{/admin/movie/edit}">
+        <input type="hidden" th:name="movieId" th:value="${movie.movieId}">
+        <label for="movieName">제목 : </label>
+        <input type="text" id="movieName" name="movieName" th:value="${movie.movieName}" required>
+
+        <!-- 여기부터 영화 추가 부분 -->
+        <label for="newMovieName">새로운 영화 제목 : </label>
+        <input type="text" id="newMovieName" name="newMovieName" required>
+
+        <button type="submit">Update</button>
+    </form>
+    <a th:href="@{/admin/movie/list}">뒤로가기</a>
+</body>
+
+</html>

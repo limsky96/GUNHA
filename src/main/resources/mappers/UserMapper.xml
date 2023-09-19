@@ -30,7 +30,24 @@
   <collection property="authList" resultMap="authMap"></collection>
 </resultMap> -->
 
-
+<update id="updateUser">
+  <![CDATA[ 
+    update NETFLIX_MEMBER set
+  ]]>
+    <if test="userEmail != null">
+     member_email=#{userEmail},
+    </if>
+    <if test="password != null">
+      member_password=#{password}, 
+    </if>
+    <if test="cardNumber != null">
+      member_card_number=#{cardNumber},
+    </if>
+    <![CDATA[
+      member_membership_no=#{membershipNo}
+    where member_id=#{userId}
+  ]]>
+</update>
 
 <resultMap id="authMap" type="teamproject.gunha.vo.AuthVO">
  <result property="userId" column="auth_member_id"/>
@@ -41,5 +58,22 @@
   <result property="userId" column="member_profile_member_id"/>
   <result property="profileName" column="member_profile_name"/>
 </resultMap>
+
+<select id="selectUserOrderList" resultMap="orderMap">
+  <![CDATA[ 
+    select * from netflix_order where order_member_id = #{memberId}
+  ]]>
+</select>
+
+<resultMap id="orderMap" type="teamproject.gunha.vo.OrderVO">
+  <result property="orderId" column="order_id"></result>
+  <result property="memberId" column="order_member_id"></result>
+  <result property="cardNumber" column="order_member_card_number"/>
+  <result property="startDate" column="order_start_date"/>
+  <result property="orderValid" column="order_valid"></result>
+  <result property="customerUid" column="order_customer_uid"></result>
+  <!-- <result property="merchantUid" column="order_merchant_uid"></result> -->
+</resultMap>
+
 
 </mapper>
