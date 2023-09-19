@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/login/payment-card.html}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 
 <head>
   <meta charset="UTF-8">
@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <th:block th:fragment="headerFragment">
     <header>
         <nav class="navbar navbar-expand">
             <div class="container-fluid">
@@ -122,11 +123,12 @@
           <div id="open-modal"><input type="button" value="프로필창 열기"></div>
           <div th:text="${selectedProfile}"></div>
 
-        </div>
-      </div>
-
-    </nav>
-  </header>
+        
+            </div>
+        
+        </nav>
+    </header>
+    </th:block>
 </body>
 <!-- 로그인 페이지에 넣을거 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

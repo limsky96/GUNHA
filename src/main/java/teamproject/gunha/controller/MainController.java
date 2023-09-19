@@ -87,9 +87,8 @@ public class MainController {
   }
 
   @GetMapping("/watch")
-  public String watch(UserVO userVO, Model model) {
+  public String watch() {
     log.info("watch()...");
-    model.addAttribute("영상Key", userVO);
     return "/watch/watch";
   }
 
@@ -106,7 +105,7 @@ public class MainController {
   }
 
   @GetMapping("/movie")
-  public String card() {
+  public String movie() {
     log.info("hello()...");
     return "/category/movie";
   }
