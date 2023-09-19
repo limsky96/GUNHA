@@ -43,7 +43,6 @@
         </div> -->
         <!-- Spinner End -->
 
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
@@ -59,7 +58,7 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Haneul Lim</h6>
+                        <h6 class="mb-0"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -71,7 +70,7 @@
                                 class="fa fa-laptop me-2"></i>MOVIE</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="/admin/movies/list" class="dropdown-item">LIST</a>
-                            <a href="/admin/movies/add" class="dropdown-item">ADD</a>
+                            <a href="/admin/movie/add" class="dropdown-item">ADD</a>
                         </div>
                     </div>
                     <a href="/admins-member" class="nav-item nav-link"><i class="fa-solid fa-user"></i></i>MEMBER</a>
@@ -169,7 +168,11 @@
                             <span class="d-none d-lg-inline-flex">Haneul Lim</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <!--로그아웃폼-->
+                                <form id="logoutForm" action="/logout" method="POST">
+                                <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+                                <button type="submit"  style="background: transparent; border: none; padding: 0; cursor: pointer; color: red;"> Logout</button>
+                                </form>
                         </div>
                     </div>
                 </div>
