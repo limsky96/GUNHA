@@ -15,10 +15,12 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-      <!-- 헤더 영역 -->
-     <div th:include="/header/header.html"></div>
-     <!-- 로그인 페이지에 넣을거 -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+        <div th:include="/header/header.html"></div>
+        <!-- 로그인 페이지에 넣을거 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $('header').addClass('hd-black-logout'); // 로그인 페이지에 넣을거
+        </script>
 
      <!--본문 영역-->
      <div class="main">
