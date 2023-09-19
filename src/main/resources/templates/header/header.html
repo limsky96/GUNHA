@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
 </head>
 
 <body>
+    <th:block th:fragment="headerFragment">
     <header>
         <nav class="navbar navbar-expand">
             <div class="container-fluid">
@@ -109,11 +111,12 @@
                 </div>
                 <a href="/login" class="login-btn">로그인</a>
 
-         
+        
             </div>
-           
+        
         </nav>
     </header>
+    </th:block>
 </body>
     <!-- 로그인 페이지에 넣을거 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
