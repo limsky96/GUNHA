@@ -30,7 +30,7 @@ public class MainController {
   @GetMapping("/header")
   public String header() {
 
-    return "header/header";
+    return "fragments/header";
   }
 
   // 결제창-카드
