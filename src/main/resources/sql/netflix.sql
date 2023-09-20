@@ -170,7 +170,7 @@ create table NETFLIX_ORDER(
 
 
 
-select * from netflix_order;
+select * from netflix_order order by order_id desc;
 -- select count(*)+1 from netflix_order;
 -- select count(*)+1 from netflix_order where order_member_id = 'tatelulove4@naver.com_kakao';
 -- select count(*)+1 from netflix_order where order_member_id = 'tatelulove4@naver.com';
