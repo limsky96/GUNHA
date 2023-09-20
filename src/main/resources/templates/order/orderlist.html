@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layouts/layout}">
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/layout}">
 
 <head>
 
   <title>넷플릭스</title>
- 
+
 </head>
 
 <body>
@@ -14,18 +13,58 @@
 
   <section layout:fragment="content">
     <div>
-      <div>결제 상세 정보</div>
-      <div>
-        <span><strong>아이디: </strong> <span th:text="${userId}"></span>
+      <h1 class="container">결제 상세 정보</h1>
+      <div class="container">
+        <span><b>아이디: </b> <span th:text="${userId}"></span>
       </div>
-      <ul th:each="order: ${orderList}">
-        <li th:text="${order}"></li>
-      </ul>
+      <table class="container table">
+
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">order number</th>
+            <th scope="col">카드</th>
+            <th scope="col">카드번호</th>
+            <th scope="col">상품</th>
+            <th scope="col">결제금액</th>
+            <th scope="col">결제 시각</th>
+            <th scope="col">결제 내역</th>
+          </tr>
+        </thead>
+        <th:block th:if="${order != null}"  th:each="order: ${orderList}">
+          <tbody>
+            <tr>
+              <th scope="col" th:text="${order.orderId}">1</th>
+              <td scope="col" th:text="${order.orderData.card_name}"></td>
+              <td scope="col" th:text="${order.orderData.card_number}"></td>
+              <td scope="col" th:text="${order.orderData.name}"></td>
+              <td scope="col" th:text="${order.orderData.amount+'원'}"></td>
+              
+              <td scope="col"><a th:attr="data-url=${order.orderData.receipt_url}" th:onclick="'window.open(this.getAttribute(\'data-url\'),\'_blank\',\'width=700px,height=800px,scrollbars=yes\')'">결제내역 링크</a></td>
+              <td scope="col" class="payment-date" th:attr="data-payment-date=${order.orderData.started_at}"></td>
+            </tr>
+          </tbody>
+          <!--/*<p th:text="${order.orderData}"></p>*/-->
+
+
+        </th:block>
+      </table>
       <a class="btn btn-secondary text-decoration-none" href="/my/account">뒤로가기</a>
     </div>
   </section>
 
+  <th:block layout:fragment="js">
+    <script>
+      document.querySelectorAll(".payment-date").forEach(elmnt => {
+        const date = new Date(elmnt.dataset.paymentDate * 1000);
+        const formattedTime = `${date.getFullYear()}년 ` + `0${date.getMonth() + 1}`.substr(-2) + '월 ' + `0${date.getDate()}`.substr(-2) + '일 ' + date.getHours() + ':' + `0${date.getMinutes()}`.substr(-2) + ':' + `0${date.getSeconds()}`.substr(-2);
+        elmnt.textContent = `결제 시각: ${formattedTime}`;
+      })
 
+      // Will display time in 10:30:23 format
+
+
+    </script>
+  </th:block>
 
 
 </body>
