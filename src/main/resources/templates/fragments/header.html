@@ -113,7 +113,7 @@
           </div>
 
           <div sec:authorize="isAuthenticated()">
-            
+            <form id="logoutForm" th:action="@{/logout}" method="POST">
               <button type="submit">logout</button>
             </form>
             <a href="/my/account"><input type="button" value="마이페이지"></a>
