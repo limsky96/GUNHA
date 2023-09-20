@@ -1,6 +1,7 @@
 package teamproject.gunha.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
+import teamproject.gunha.vo.MoviePageVO;
+import teamproject.gunha.vo.MovieVO;
 import teamproject.gunha.vo.UserVO;
 
 @Controller
@@ -84,9 +87,8 @@ public class MainController {
   }
 
   @GetMapping("/watch")
-  public String watch(UserVO userVO, Model model) {
+  public String watch() {
     log.info("watch()...");
-    model.addAttribute("영상Key", userVO);
     return "/watch/watch";
   }
 
@@ -103,7 +105,7 @@ public class MainController {
   }
 
   @GetMapping("/movie")
-  public String card() {
+  public String movie() {
     log.info("hello()...");
     return "/category/movie";
   }
@@ -137,5 +139,12 @@ public class MainController {
   // log.info("hello()...");
   // return "/admins/admin-movie-add";
   // }
+
+  @GetMapping("/mylist")
+  public String mylist() {
+    log.info("hello()...");
+    return "/homepage/mylist";
+  }
+
 
 }

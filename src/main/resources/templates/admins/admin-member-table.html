@@ -75,8 +75,9 @@
                             <a href="/admin/movies/add" class="dropdown-item">ADD</a>
                         </div>
                     </div>
-                    <a href="/admins-member" class="nav-item nav-link"><i class="fa-solid fa-user"></i></i>MEMBER</a>
-                    <a href="/admins-sales" class="nav-item nav-link"><i class="fa-solid fa-wallet"></i>SALES</a>
+                    <a th:href="@{/admins-member}" class="nav-item nav-link"><i
+                            class="fa-solid fa-user"></i></i>MEMBER</a>
+                    <a th:href="@{/admins-sales}" class="nav-item nav-link"><i class="fa-solid fa-wallet"></i>SALES</a>
                 </div>
             </nav>
         </div>
@@ -87,7 +88,7 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="/admin" class="navbar-brand d-flex d-lg-none me-4">
+                <a th:href="@{/admins}" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -198,32 +199,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>John</td>
-                                            <td>Doe</td>
-                                            <td>jhon@email.com</td>
-                                            <td>USA</td>
-                                            <td>123</td>
-                                            <td>Member</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>mark@email.com</td>
-                                            <td>UK</td>
-                                            <td>456</td>
-                                            <td>Member</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>jacob@email.com</td>
-                                            <td>AU</td>
-                                            <td>789</td>
-                                            <td>Member</td>
+                                        <tr th:each="member, rowStat : ${members}">
+                                            <th scope="row" th:text="${rowStat.index + 1}"></th>
+                                            <td th:text="${member.member_id}"></td>
+                                            <td th:text="${member.member_email}"></td>
+                                            <td th:text="${member.member_password}"></td>
+                                            <td th:text="${member.member_card_number}"></td>
+                                            <td th:text="${member.member_membership_no}"></td>
+                                            <td th:text="${member.member_social}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -244,7 +227,7 @@
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a th:href="@{/admins-member}" href="https://htmlcodex.com">HTML Codex</a>
                             <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>

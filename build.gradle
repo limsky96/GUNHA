@@ -82,6 +82,11 @@ dependencies {
   implementation 'com.googlecode.json-simple:json-simple:1.1.1'
   // https://mvnrepository.com/artifact/com.google.code.gson/gson
   implementation 'com.google.code.gson:gson'
+
+
+  //지효 추가
+  // https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
 tasks.named('test') {

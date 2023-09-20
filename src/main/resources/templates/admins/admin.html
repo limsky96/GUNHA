@@ -168,7 +168,11 @@
                             <span class="d-none d-lg-inline-flex">Haneul Lim</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <!--로그아웃폼-->
+                                <form id="logoutForm" action="/logout" method="POST">
+                                <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+                                <button type="submit"  style="background: transparent; border: none; padding: 0; cursor: pointer; color: red;"> Logout</button>
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -226,13 +230,13 @@
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Recent Salse</h6>
-                        <a href="">Show All</a>
+                        <a href="/admins-sales">Show All</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-white">
-                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
+                                    <th scope="col"><input class="form-check-input" name="all" type="checkbox" value='selectall' id="all"/></th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Invoice</th>
                                     <th scope="col">Customer</th>
@@ -243,7 +247,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
+                                    <td><input class="form-check-input" type="checkbox" name="cb1" id="cb"></td>
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
@@ -252,7 +256,7 @@
                                     <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
                                 </tr>
                                 <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
+                                    <td><input class="form-check-input" type="checkbox"name="cb2" id="cb"></td>
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
@@ -261,7 +265,7 @@
                                     <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
                                 </tr>
                                 <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
+                                    <td><input class="form-check-input" type="checkbox" name="cb3" id="cb"></td>
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
@@ -270,7 +274,7 @@
                                     <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
                                 </tr>
                                 <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
+                                    <td><input class="form-check-input" type="checkbox" name="cb4" id="cb"></td>
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
@@ -279,7 +283,7 @@
                                     <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
                                 </tr>
                                 <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
+                                    <td><input class="form-check-input" type="checkbox" name="cb5" id="cb"></td>
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
@@ -293,6 +297,29 @@
                 </div>
             </div>
             <!-- Recent Sales End -->
+
+            <script>
+                //체크박스
+                const selectAllCheckbox = document.querySelector('#all');
+                const individualCheckboxes = document.querySelectorAll('input[type="checkbox"][name^="cb"]');
+
+                // #all 체크박스 이벤트설정
+                selectAllCheckbox.addEventListener('click', function () {
+                // #all 체크박스의 상태에 따라 #cb 상태 변경
+                individualCheckboxes.forEach(function (checkbox) {
+                    checkbox.checked = selectAllCheckbox.checked;
+                });
+                });
+
+                // #cb 중 하나라도 체크 해제되면 #all 해제
+                individualCheckboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('click', function () {
+                    if (!checkbox.checked) {
+                    selectAllCheckbox.checked = false;
+                    }
+                });
+                });
+            </script>
 
 
             <!-- Widgets Start -->
