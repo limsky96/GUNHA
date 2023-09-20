@@ -14,11 +14,11 @@
       * {
         box-sizing: border-box;
       }
-  
+
       div {
         color: white;
       }
-  
+
       #modalWrap {
         position: fixed;
         /* Stay in place */
@@ -38,7 +38,7 @@
         /* Black w/ opacity */
         display: block;
       }
-  
+
       #modalBody {
         width: 500px;
         height: 300px;
@@ -47,7 +47,7 @@
         border: 1px solid #777;
         background-color: #fff;
       }
-  
+
       #closeBtn {
         float: right;
         font-weight: bold;
@@ -89,179 +89,179 @@
     </div>
     <div class="home" id="home">
 
-    <iframe id="mainFrame" width="1280" height="800" src="" frameborder="0" allowfullscreen></iframe>
+      <iframe id="mainFrame" width="1280" height="800" src="" frameborder="0" allowfullscreen></iframe>
 
-    <div class="overlay">
-      <div class="banner">
-        <div class="series">N 시리즈</div>
-        <div id="mainTitle" class="title"></div>
-        <div class="badge">오늘 한국에서 콘텐츠 순위 1위</div>
-        <div id="mainContent" class="discription">
+      <div class="overlay">
+        <div class="banner">
+          <div class="series">N 시리즈</div>
+          <div id="mainTitle" class="title"></div>
+          <div class="badge">오늘 한국에서 콘텐츠 순위 1위</div>
+          <div id="mainContent" class="discription">
+          </div>
+          <div class="buttons">
+            <div id="mainMovePlay" class="white-button" style="cursor: pointer">
+              <i class="fa-solid fa-play">재생</i>
+            </div>
+            <div id="mainDetailModal" class="grey-button" style="cursor: pointer">
+              <i class="fa-solid fa-circle-info"></i>
+              <a class="info">상세정보</a>
+            </div>
+
+          </div>
         </div>
-        <div class="buttons">
-          <div id="mainMovePlay" class="white-button" style="cursor: pointer">
-            <i class="fa-solid fa-play">재생</i>
-          </div>
-          <div id="mainDetailModal" class="grey-button" style="cursor: pointer">
-            <i class="fa-solid fa-circle-info"></i>
-            <a class="info">상세정보</a>
-          </div>
+      </div>
+
+      <div class="category-list" id="category-list">
+        <div class="category" id="category">
 
         </div>
       </div>
     </div>
 
-    <div class="category-list" id="category-list">
-      <div class="category" id="category">
-
-      </div>
-    </div>
-  </div>
-
-  <div id="detailModal" class="modal">
-    <!--<video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
+    <div id="detailModal" class="modal">
+      <!--<video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
       autoplay muted>
     </video>-->
-    <div class="video-container">
-      <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="buttons">
-      <div id="playBtn" class="white-button" style="cursor: pointer">
-        <i class="fa-solid fa-play">재생</i>
-        <input type="hidden" id="mainVideo" value="">
+      <div class="video-container">
+        <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
       </div>
-    </div>
-
-    <div class="detail-container">
-      <div class="detail-left">
-        <div id="detailContent" class="content">회차줄거리</div>
+      <div class="buttons">
+        <div id="playBtn" class="white-button" style="cursor: pointer">
+          <i class="fa-solid fa-play">재생</i>
+          <input type="hidden" id="mainVideo" value="">
+        </div>
       </div>
 
-      <div class="detail-right">
-        <div id="detailCast" class="actor">출연</div>
-        <div id="detailGenre" class="genre">장르</div>
-      </div>
-    </div>
+      <div class="detail-container">
+        <div class="detail-left">
+          <div id="detailContent" class="content">회차줄거리</div>
+        </div>
 
-    <div class="content-detail">
-      <div class="actor">
-        <p id="detailCast2">출연</p>
-      </div>
-      <div class="genre">
-        <p id="detailGenre2">장르</p>
-      </div>
-      <div class="releasedate">
-        <p id="detailReleaseDate">출시일</p>
+        <div class="detail-right">
+          <div id="detailCast" class="actor">출연</div>
+          <div id="detailGenre" class="genre">장르</div>
+        </div>
       </div>
 
+      <div class="content-detail">
+        <div class="actor">
+          <p id="detailCast2">출연</p>
+        </div>
+        <div class="genre">
+          <p id="detailGenre2">장르</p>
+        </div>
+        <div class="releasedate">
+          <p id="detailReleaseDate">출시일</p>
+        </div>
+
+      </div>
     </div>
-  </div>
   </th:block>
 
 
-  <th:block layout:fragment="js" >
-  <script>
-  $(document).ready(function () {
-    fnInit();
-    fnPageStart();
-  });
-  
-  async function fnPageStart() {
-    /*랜덤 뽑기*/
-    const randomNumber = Math.floor(Math.random() * 50);
-    const { data } = await axios.get(`/api/movies?startIndex=0&count=50`);
-    $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data[randomNumber].movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0")//index는 랜덤으로 만든 값
-    $("#mainContent").text(data[randomNumber].movieContent)
-    $("#mainTitle").text(data[randomNumber].movieName)
-    $("#mainDetailModal").on("click", () => {
-  
-      getOneMovie(randomNumber + 1);
-    });
-    $("#mainMovePlay").click(function (e) {
-      var srcCd = $("#mainVideo")
-      console.log(randomNumber)
-      //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-      location.href = `//localhost:8888/watch?src=${(randomNumber + 1)}`;
-      //location.href= "https://www.naver.com"
-    });
-  
-    $(".video-stream").attr('style', 'top:0px');
-  
-  }
-  
-  function fnInit() {
-  
-    //임시 TITLE 증가값
-    var count = 1;
-  
-    //무한스크롤 START
-    //DOCUMENT 스크롤 이벤트 감지
-    $(document).ready(function () {
-  
-      if (currentDataIndex <= 40)
-        getMovies();
-  
-      async function getMovies() {
-        const { data } = await axios.get(`/api/movies?startIndex=${currentDataIndex}&count=10`);
-  
+  <th:block layout:fragment="js">
+    <script>
+      $(document).ready(function () {
+        fnInit();
+        fnPageStart();
+      });
+
+      async function fnPageStart() {
+        /*랜덤 뽑기*/
+        const randomNumber = Math.floor(Math.random() * 50);
+        const { data } = await axios.get(`/movies/api/movies?startIndex=0&count=50`);
+        $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data[randomNumber].movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0")//index는 랜덤으로 만든 값
+        $("#mainContent").text(data[randomNumber].movieContent)
+        $("#mainTitle").text(data[randomNumber].movieName)
+        $("#mainDetailModal").on("click", () => {
+
+          getOneMovie(randomNumber + 1);
+        });
+        $("#mainMovePlay").click(function (e) {
+          var srcCd = $("#mainVideo")
+          console.log(randomNumber)
+          //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+          location.href = `//localhost:8888/watch?src=${(randomNumber + 1)}`;
+          //location.href= "https://www.naver.com"
+        });
+
+        $(".video-stream").attr('style', 'top:0px');
+
       }
-    });
-  
-  
-    const openBtn = document.querySelector("#open-modal");
-    const modal = document.getElementById('modalWrap');
-    const closeBtn = document.getElementById('closeBtn');
-    const modalBody = document.querySelector("#modalBody");
-  
-    openBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      modal.style.display = `block`;
-    });
-  
-    closeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      modal.style.display = 'none';
-    });
-    window.addEventListener("click", (e) => {
-      e.stopPropagation();
-      modal.style.display = 'none';
-    });
-    modalBody.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-  
-  
-  }
-  
-  async function getOneMovie(id) {
-  
-    /*통신전에 progress START*/
-    const { data } = await axios.get(`/api/movies/${id}`);
-    /*통신전에 progress END*/
-    console.log(id);
-    $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
-    $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
-    $("#detailContent").text(data.movieContent);
-    $("#detailCast").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
-    $("#detailGenre").text('장르 : ' + data.movieGenre);
-    $("#detailCast2").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
-    $("#detailGenre2").text('장르 : ' + data.movieGenre);
-    $("#detailReleaseDate").text('개봉일자 : ' + new Date(data.movieReleaseDate).toLocaleDateString());
-    $("#playBtn").click(function (e) {
-      var srcCd = $("#mainVideo")
-      //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-      location.href = `//localhost:8888/watch?src=${(id)}`;
-      //location.href= "https://www.naver.com"
-    });
-  
-    $("#detailModal").modal();
-    /*통신전에 progress END*/
-    //모달창 구성하기
-    //modal.style.display = `block`;
-    //$("#detail").modal('show');
-    console.log(data);
-  }
-  </script>
+      let currentDataIndex = 0;
+      function fnInit() {
+
+        //임시 TITLE 증가값
+        var count = 1;
+
+        //무한스크롤 START
+        //DOCUMENT 스크롤 이벤트 감지
+        $(document).ready(function () {
+
+          if (currentDataIndex <= 40)
+            getMovies(currentDataIndex);
+
+        });
+        async function getMovies(currentDataIndex) {
+          const { data } = await axios.get(`/movies/api/movies?startIndex=${currentDataIndex}&count=10`);
+          console.log(data);
+        }
+
+        const openBtn = document.querySelector("#open-modal");
+        const modal = document.getElementById('modalWrap');
+        const closeBtn = document.getElementById('closeBtn');
+        const modalBody = document.querySelector("#modalBody");
+
+        openBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          modal.style.display = `block`;
+        });
+
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          modal.style.display = 'none';
+        });
+        window.addEventListener("click", (e) => {
+          e.stopPropagation();
+          modal.style.display = 'none';
+        });
+        modalBody.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+
+
+
+
+      }
+      async function getOneMovie(id) {
+        /*통신전에 progress START*/
+        const { data } = await axios.get(`/movies/api/movies/${id}`);
+        /*통신전에 progress END*/
+        console.log(id);
+        $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
+        $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
+        $("#detailContent").text(data.movieContent);
+        $("#detailCast").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
+        $("#detailGenre").text('장르 : ' + data.movieGenre);
+        $("#detailCast2").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
+        $("#detailGenre2").text('장르 : ' + data.movieGenre);
+        $("#detailReleaseDate").text('개봉일자 : ' + new Date(data.movieReleaseDate).toLocaleDateString());
+        $("#playBtn").click(function (e) {
+          var srcCd = $("#mainVideo")
+          //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+          location.href = `//localhost:8888/watch?src=${(id)}`;
+          //location.href= "https://www.naver.com"
+        });
+
+        $("#detailModal").modal();
+        /*통신전에 progress END*/
+        //모달창 구성하기
+        //modal.style.display = `block`;
+        //$("#detail").modal('show');
+        console.log(data);
+      }
+
+    </script>
   </th:block>
 </body>
 
