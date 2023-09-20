@@ -59,7 +59,7 @@
   </th:block>
 
   <th:block layout:fragment="content">
-    <div th:switch="${#authentication.principal.selectedProfile}">
+    <div th:switch="${#authentication.principal.userVO.selectedProfile}">
       <div th:case="null" id="modalWrap">
         <div id="modalBody">
           <span id="closeBtn">&times;</span>
@@ -229,8 +229,27 @@
           e.stopPropagation();
         });
 
+        const profileNames = document.querySelector("#profile-container").children;
+        console.log(profileNames);
+        Array.from(profileNames).forEach(elmnt => {
+          'use strict'
 
-
+          elmnt.addEventListener("click", async e => {
+            const profileName = e.target.dataset.profileName;
+            console.log(profileName);
+            const requestBody = {
+              "selected_name": profileName
+            }
+            const response = await axios.post("/profile/select", requestBody, {
+              "Content-type": "application/json"
+            });
+            const { data, status } = response;
+            if (status === 200) {
+              location.href = "/home"
+            }
+          });
+        })
+       
 
       }
       async function getOneMovie(id) {

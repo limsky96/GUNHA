@@ -902,7 +902,9 @@ select * from NETFLIX_MEMBER m, NETFLIX_MEMBER_PROFILE mp where m.member_id = mp
 
 select * from netflix_order where order_member_id = 'seralove4@gmail.com';
 
-
+select * from netflix_order where order_member_id = 'tatelulove4@naver.com_kakao'
+      and order_id <= (select max(order_id) from netflix_order
+      where order_member_id = 'tatelulove4@naver.com_kakao' and order_imp_uid not like '%임시%') and rownum <= 10 order by order_id desc ;
 select * from NETFLIX_MEMBER;
 select * from NETFLIX_AUTH;
 select * from NETFLIX_MEMBER_PROFILE;
