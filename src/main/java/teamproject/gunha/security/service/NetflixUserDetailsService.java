@@ -36,7 +36,7 @@ public class NetflixUserDetailsService implements UserDetailsService {
     log.warn("orderMapper:  " + orderMapper.selectUserLastOrder(userId));
     user.setLastOrder(orderMapper.selectUserLastOrder(userId));
     user.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userId));
-    if ("none".equals(user.getSocial())) {
+    if("none".equals(user.getSocial())){
       NetflixUserDetails netflixUserDetails = new NetflixUserDetails(user);
       return netflixUserDetails; // 시큐리티 세션에 유저 정보 저장
     }
