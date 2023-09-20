@@ -14,6 +14,15 @@ border-radius: 0px;
 
 .navbar-collapse{
 -webkit-box-shadow :none;
+  /* background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.1)); */
+  background: black;
+  height: 80px;
+  position: relative;
+  margin-bottom: 0px;
+}
+
+.navbar-collapse{
+  -webkit-box-shadow :none;
 }
 
 .navbar-brand {
@@ -23,14 +32,14 @@ height: 60px ;
 .navbar-brand { height: 100%;}
 
 .logo-img {  /*넷플릭스 로고*/
-width: 100px ;
-height: 30px ;
-margin: 0px 5px 0px 15px;
+  width: 100px ;
+  height: 30px ;
+  margin: 0px 5px 0px 15px;
 }
 
 .navbar-nav .nav-link {
-color: white; /* 텍스트 색상을 백색으로 변경 */
-font-size: 15px;
+  color: white; /* 텍스트 색상을 백색으로 변경 */
+  font-size: 15px;
 }
 
 /* 활성화된 링크의 스타일 변경 */
@@ -40,7 +49,7 @@ font-weight: bold;
 }
 
 .nav-link {
-font-size: 13px; /* 원하는 텍스트 크기 설정 */
+  font-size: 13px; /* 원하는 텍스트 크기 설정 */
 }
 
 
@@ -61,9 +70,9 @@ text-align: center;
 }
 
 .dropdown-toggle{
-width: 50px;
-font-size: 15px; /*드롭 "메뉴" 글자 크기*/
-color: #ffffff;
+  width: 50px;
+  font-size: 15px; /*드롭 "메뉴" 글자 크기*/
+  color: #ffffff;
 }
 
 .dropdown-toggle::after {
@@ -87,20 +96,20 @@ margin-right: 20px;
 }
 
 .dropdown  {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-collapse{
-box-sizing: border-box;
-border-top: none; /* 테두리 추가 */
+  box-sizing: border-box;
+  border-top: none; /* 테두리 추가 */
 }
 
 .form-control.me-2{
-max-width: 100px;
-background-color: #333;
-color: #fff;
-height: 30px;
+  max-width: 100px;
+  background-color: #333;
+  color: #fff;
+  height: 30px;
 }
 
 
@@ -122,8 +131,8 @@ color: white; /* 흰색으로 변경 */
 }
 
 #headersearch{
-background-color: #090909; /* 원하는 배경색으로 변경 */
-color: white; /* 텍스트 색상을 백색으로 변경 */
+  background-color: #090909; /* 원하는 배경색으로 변경 */
+  color: white; /* 텍스트 색상을 백색으로 변경 */
 }
 
 
@@ -188,27 +197,27 @@ font-size: 20px; /* 원하는 크기로 변경하세요 */
 
 /*반응형이랑 둘다 만들어야 */
 .dropdown-main-menu {
-width: 240px; /* 드롭 다운 메뉴 너비 변경 */
-padding: 20px 10px 0;
-border-top: 3px solid rgba(255, 255, 255, 0.8); /* 검은색 색상, 50% 투명도 */
-font-size: 15px;
+  width: 240px; /* 드롭 다운 메뉴 너비 변경 */
+  padding: 20px 10px 0;
+  border-top: 3px solid rgba(255, 255, 255, 0.8); /* 검은색 색상, 50% 투명도 */
+  font-size: 15px;
 }
 
 .dropdown-main-item:hover{
-color: #090909;
+  color: #090909;
 }
 
 .dropdown-menu>li>a{
-color: white;
+  color: white;
 }
 
 .dropdown-menu>li>a:hover{
-color: black;
+  color: black;
 }
 
 /*반응형이랑 오른쪽 둘다 만들어드롭다운 메뉴 배경색과 텍스트 색상 변경 */
 .dropdown-menu{
-background-color: rgba(0, 0, 0, 0.8); /* 검은색 배경과 투명도 조절 */
+  background-color: rgba(0, 0, 0, 0.8); /* 검은색 배경과 투명도 조절 */
 }
 
 /*반응형*/
@@ -241,10 +250,10 @@ border-color: #ffffff; /* 원하는 색상으로 변경 */
   border-radius: 0px;
 }
 
-.dropdown-main {
-  width: 100%;
-  text-align: left;
-}
+  .dropdown-main {
+    width: 100%;
+    text-align: left;
+  }
 
 
 }
@@ -306,4 +315,6 @@ header.hd-white-logout {
 
 /* 화이트 헤더의 로그인 버튼 */
 .login-btn2 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
+  /* 화이트 헤더의 로그인 버튼 */
+  .login-btn2 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
 }
