@@ -1,4 +1,4 @@
-package teamproject.gunha.service;
+package teamproject.gunha.service.order;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -115,12 +115,13 @@ public class OrderServiceImpl implements OrderService {
         .startDate(new Date(new java.util.Date().getTime()))
         .orderValid("T")
         .customerUid(portOneVO.getCustomerUid())
+        .impUid("imps_12343874")
         .build();
 
     ResponseEntity<Map> billResponse = rt.exchange(url, HttpMethod.POST,
         billRequest, Map.class);
+    log.info("billResponse: " + billResponse);
 
-    log.info("billResponse: " + billResponse.toString());
     Map<String, Object> resp = new HashMap<>();
     resp.put("status", "failed");
     int code = (int) billResponse.getBody().get("code");
@@ -170,7 +171,7 @@ public class OrderServiceImpl implements OrderService {
 
     Map<String, Object> schedules = new HashMap<>();
     schedules.put("merchant_uid", portOneVO.getMerchantUid());
-    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now()).getTime() / 1000);
+    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now().plusSeconds(3)).getTime() / 1000);
     schedules.put("amount", portOneVO.getAmount());
     schedules.put("name", portOneVO.getName() + " 구독");
     schedules.put("buyer_email", userMapper.selectUserId(portOneVO.getUserId()).getUserEmail());
@@ -179,15 +180,14 @@ public class OrderServiceImpl implements OrderService {
     Map<String, Object> requestBody = new HashMap<>();
     requestBody.put("customer_uid", portOneVO.getCustomerUid());
     requestBody.put("schedules", scheduleList);
-    log.info(requestBody.toString());
     // HttpHeader와 HttpBody를 하나의 오브젝트에 담기
     HttpEntity<Map<String, Object>> scheduleRequest = new HttpEntity<>(requestBody, requestHeader);
 
     // 요청 후 response 받기
     ResponseEntity<Map> scheduleResponse = rt.exchange(url, HttpMethod.POST,
         scheduleRequest, Map.class);
-
-    // log.info(""+scheduleResponse);
+    
+    log.info("issueScheduleBilling()...scheduleResponse : "+scheduleResponse);
     Map<String, Object> resp = new HashMap<>();
     resp.put("status", "failed");
     int code = (int) scheduleResponse.getBody().get("code");
@@ -227,7 +227,6 @@ public class OrderServiceImpl implements OrderService {
     ResponseEntity<Map> paymentDataResponse = rt.exchange(url, HttpMethod.GET,
         paymentDataRequest, Map.class);
     Map<String, Object> paymentData = paymentDataResponse.getBody();
-    log.info(paymentData.toString());
     return paymentData;
   }
 
@@ -244,20 +243,17 @@ public class OrderServiceImpl implements OrderService {
     Map<String, Object> response = (Map<String, Object>) paymentData.get("response");
     String status = (String) response.get("status");
     String failReason = (String) response.get("fail_reason");
+    String impUid = (String) response.get("imp_uid");
+    log.info("imp_uid: " + impUid);
     if ("paid".equals(status) && failReason == null) {
       String[] mList = merchantUid.split("_");
       int orderId = Integer.parseInt(mList[mList.length - 1]);
-      long nextStartAt = Timestamp.valueOf(LocalDateTime.now().plusMinutes(1)).getTime();
+      long nextStartAt = Timestamp.valueOf(LocalDateTime.now().plusMinutes(3)).getTime();
       Date nextStartDate = new java.sql.Date(nextStartAt);
       nextStartAt /= 1000;
-      OrderVO orderVO = OrderVO.builder()
-          .orderId(orderId)
-          .startDate(nextStartDate)
-          .orderValid("V")
-          .build();
-      orderMapper.updateOrder(orderVO);
 
-      orderVO = orderMapper.selectMemberOrderDetail(orderId);
+
+      OrderVO orderVO = orderMapper.selectOrderByOrderId(orderId);
 
       log.info("orderId: " + orderId + ", getOrderId(): " + orderVO.getOrderId());
       HttpHeaders requestHeader = new HttpHeaders();
@@ -276,13 +272,77 @@ public class OrderServiceImpl implements OrderService {
       requestBody.put("customer_uid", orderVO.getCustomerUid());
       requestBody.put("schedules", scheduleList);
 
+      OrderVO prevOrder = orderMapper.selectUserSecondLastOrder(orderVO.getMemberId());
+      prevOrder.setOrderValid("E");
+      orderMapper.updateOrder(prevOrder);
+      orderVO.setImpUid(impUid);
+      orderVO.setOrderValid("V");
+      orderMapper.updateOrder(orderVO);
+      orderVO = OrderVO.builder()
+            .memberId(orderVO.getMemberId())
+            .cardNumber(orderVO.getCardNumber())
+            .startDate(nextStartDate)
+            .orderValid("T")
+            .customerUid(orderVO.getCustomerUid())
+            .impUid("임시impUid")
+            .build();
       HttpEntity<Map<String, Object>> schedulePayRequest = new HttpEntity<>(requestBody, requestHeader);
       String url = "https://api.iamport.kr/subscribe/payments/schedule";
       ResponseEntity<Map> schedulePayResponse = rt.exchange(url, HttpMethod.POST, schedulePayRequest, Map.class);
       orderMapper.insertOrder(orderVO);
       log.info(schedulePayResponse.toString());
-    } else{
+    } else {
 
+    }
+    return response;
+  }
+
+  @Override
+  public Map<String, Object> cancelSchedule(Map<String, Object> jsonObject) {
+    Map<String, Object> getToken = getAccessToken();
+    String accessToken = (String) getToken.get("access_token");
+    String userId = (String) jsonObject.get("user_id");
+
+
+    OrderVO orderVO = orderMapper.selectUserLastOrder(userId);
+    
+    RestTemplate rt = new RestTemplate();
+
+    orderVO.setOrderValid("C");
+    HttpHeaders requestHeader = new HttpHeaders();
+    requestHeader.add("Authorization", accessToken);
+
+    Map<String, Object> requestBody = new HashMap<>();
+    requestBody.put("merchant_uid", orderVO.getMerchantUid());
+    requestBody.put("customer_uid", orderVO.getCustomerUid());
+
+
+    String url = "https://api.iamport.kr/subscribe/payments/unschedule";
+    HttpEntity<Map<String, Object>> cancelScheduleRequest = new HttpEntity<>(requestBody, requestHeader);
+    ResponseEntity<Map> cancelScheduleResponse = rt.exchange(url, HttpMethod.POST,
+        cancelScheduleRequest, Map.class);
+    Map<String, Object> cancelScheduleData = (Map<String, Object>) cancelScheduleResponse.getBody();
+    int code = (int) cancelScheduleData.get("code");
+    log.info("cancelresponseData" + cancelScheduleData);
+    Map<String, Object> cancelScheduleDataResponse =null;
+    if(cancelScheduleData != null){
+      cancelScheduleDataResponse = ((List<Map<String, Object>>) cancelScheduleData.get("response")).get(0);
+    }
+
+    Map<String, Object> response = new HashMap<>();
+    if (code == 0) {
+      String scheduleStatus = (String) cancelScheduleDataResponse.get("schedule_status");
+      if ("revoked".equals(scheduleStatus)) {
+        int status = 200;
+        String message = "멤버십 해지가 정상적으로 완료되었습니다. 다음달부터 멤버십이 해지됩니다.";
+        response.put("status", status);
+        response.put("message", message);
+        orderMapper.updateOrder(orderVO);
+      }
+    } else {
+      int status = 200;
+      response.put("status", status);
+      response.put("message", (String) cancelScheduleData.get("message"));
     }
     return response;
   }

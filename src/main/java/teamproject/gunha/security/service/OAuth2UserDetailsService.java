@@ -107,6 +107,7 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
       profileMapper.insertProfile(profileVO);
     }
     userVO.setLastOrder(orderMapper.selectUserLastOrder(userId));
+    userVO.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userId));
     log.warn("orderMapper:  " );
     log.info(new NetflixUserDetails(userVO).toString());
     return new NetflixUserDetails(userVO);

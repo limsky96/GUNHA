@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/login/payment-card.html}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -15,98 +14,110 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand">
-            <div class="container-fluid">
-                <!-- <%-- Logo --%> -->
-                <a class="navbar-brand logo" href="/">
-                    <img class="logo-img d-inline-block align-top" src="/images/header_netflixhomelogo.png" alt="로고">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">홈</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">시리즈</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">영화</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
-                        </li>
-                    </ul>
-                    <!-- <%--반응형 드롭다운 메뉴--%> -->
-                    <div class="dropdown-main">
-                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-bs-toggle="dropdown" aria-expanded="false">메뉴</a>
-                        <ul class="dropdown-menu dropdown-main-menu" aria-labelledby="dropdownMenuLink" >
-                            <li><a class="dropdown-main-item" href="#" >홈</a></li>
-                            <li><a class="dropdown-main-item" href="#">시리즈</a></li>
-                            <li><a class="dropdown-main-item" href="#">영화</a></li>
-                            <li><a class="dropdown-main-item" href="#">내가 찜한 콘텐츠</a></li>
-                        </ul>
+<th:block th:fragment="header">
+    <nav class="navbar navbar-expand">
+      <div class="container-fluid">
+        <!-- <%-- Logo --%> -->
+        <a class="navbar-brand logo" href="/">
+          <img class="logo-img d-inline-block align-top" src="/images/header_netflixhomelogo.png" alt="로고">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">홈</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!">시리즈</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!">영화</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
+            </li>
+          </ul>
+          <!-- <%--반응형 드롭다운 메뉴--%> -->
+          <div class="dropdown-main">
+            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+              aria-expanded="false">메뉴</a>
+            <ul class="dropdown-menu dropdown-main-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-main-item" href="#">홈</a></li>
+              <li><a class="dropdown-main-item" href="#">시리즈</a></li>
+              <li><a class="dropdown-main-item" href="#">영화</a></li>
+              <li><a class="dropdown-main-item" href="#">내가 찜한 콘텐츠</a></li>
+            </ul>
+          </div>
+          <!-- 오른쪽 메뉴 -->
+          <div class="right-menu">
+            <div class="menu">
+              <div class="search">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                  <div class="row search-box-inner">
+                    <div class="col">
+                      <input class="search-control me-2 card card-body" type="search" placeholder="Search"
+                        aria-label="Search">
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
+                aria-expanded="false" aria-controls="multiCollapseExample1">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+              <div class="menu-item"><i class="fas fa-bell"></i></div>
             </div>
-                        <div class="dropdown">
 
-                            <!-- <form class="d-flex" id="search-button">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                 <button class="btn btn-outline-success" type="submit">Search</button>
-                              </form> -->
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle custom-btn" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item profile-item" href="#">
+                    <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
+                    <span class="profile-name">Profile 1</span>
+                  </a></li>
+                <li><a class="dropdown-item profile-item" href="#">
+                    <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
+                    <span class="profile-name">Profile 2</span>
+                  </a></li>
+                <li><a class="dropdown-item profile-item" href="#">
+                    <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
+                    <span class="profile-name">Profile 3</span>
+                  </a></li>
+                <li><a class="dropdown-item profile-item" href="#">
+                    <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
+                    <span class="profile-name">Profile 4</span>
+                  </a></li>
+                <hr>
+                <li><a class="dropdown-item" href="#">프로필 관리</a></li>
+                <hr>
+                <li><a class="dropdown-item" href="#">계정</a></li>
+                <li><a class="dropdown-item" href="#">고객 센터</a></li>
+                <li><a class="dropdown-item" href="#">Netflix에서 로그아웃</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+          <div><a class="login-btn" th:href="@{/login}"> 로그인</a></div>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+          <form id="logoutForm" action="/logout" method="POST">
+            <button type="submit">logout</button>
+          </form>
+          <a href="/accountpage"><input type="button" value="마이페이지"></a>
+          <div id="open-modal"><input type="button" value="프로필창 열기"></div>
+          <div th:text="${selectedProfile}"></div>
+        </div>
+      </div>
 
-                            <button class="btn btn-secondary dropdown-toggle custom-btn" type="button"
-                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                style="background: none; border: none;">
-                                <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item profile-item" href="#">
-                                        <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                                        <span class="profile-name">Profile 1</span>
-                                    </a></li>
-                                <li><a class="dropdown-item profile-item" href="#">
-                                        <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                                        <span class="profile-name">Profile 2</span>
-                                    </a></li>
-                                <li><a class="dropdown-item profile-item" href="#">
-                                        <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                                        <span class="profile-name">Profile 3</span>
-                                    </a></li>
-                                <li><a class="dropdown-item profile-item" href="#">
-                                        <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                                        <span class="profile-name">Profile 4</span>
-                                    </a></li>
-                                <hr>
-                                <li><a class="dropdown-item" href="#">프로필 관리</a></li>
-                                <hr>
-                                <li><a class="dropdown-item" href="#">계정</a></li>
-                                <li><a class="dropdown-item" href="#">고객 센터</a></li>
-                                <li><a class="dropdown-item" href="#">Netflix에서 로그아웃</a></li>
-                            </ul>
-                        </div>
-                <a href="/login" class="login-btn1" id="login-btn1">로그인</a>
-                <a href="#none" class="login-btn2" id="login-btn2">로그아웃</a>
-                <button type="button" class="btn btn-danger3" id="login-btn3" onclick="window.location.href='/login'">로그인</button>
-           
-        </nav>
-
+    </nav>
+  </th:block>
 </body>
-<!-- 로그인 페이지에 넣을거 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    //$('header').addClass('hd-black-logout'); // 블랙 헤더 로그아웃 버전
-
-    //$('header').addClass('hd-white'); // 화이트 헤더 버전
-
-    //$('header').addClass('hd-white-logout'); // 화이트 헤더 로그아웃 버전
-</script>
-
 </html>
