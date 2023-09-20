@@ -32,6 +32,17 @@
 
     <!-- Template Stylesheet -->
     <link th:href="@{/css/admins/admin-style.css}" rel="stylesheet">
+
+    <!-- JavaScript Libraries -->
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/chart.min.js}"></script>
+    <script th:src="@{/js/easing.min.js}"></script>
+    <script th:src="@{/js/waypoints.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/moment.min.js}"></script>
+    <script th:src="@{/js/moment-timezone.min.js}"></script>
+    <script th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
 </head>
 
 <body>
@@ -182,7 +193,7 @@
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-secondary rounded h-100 p-4">
                     <h6 class="mb-4">Add Movie</h6>
-                    <form method="post" th:action="@{/admin/movie/add}">
+                    <form role="form" th:action="@{/admin/movies/list}" method="post">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="movieName" name="movieName" placeholder="제목">
                             <label for="movieName">Title of movie</label>
@@ -215,7 +226,8 @@
                                 id="floatingTextarea" style="height: 150px;"></textarea>
                             <label for="floatingTextarea">줄거리</label>
                         </div>
-                        <button type="submit" class="btn btn-primary float-right" style="margin-top: 5px;">ADD</button>
+                        <button id='regBtn' type="submit" class="btn btn-primary float-right"
+                            style="margin-top: 5px;">ADD</button>
                     </form>
                 </div>
             </div>
@@ -243,19 +255,30 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
-    <!-- JavaScript Libraries -->
-    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/js/chart.min.js}"></script>
-    <script th:src="@{/js/easing.min.js}"></script>
-    <script th:src="@{/js/waypoints.min.js}"></script>
-    <script th:src="@{/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/js/moment.min.js}"></script>
-    <script th:src="@{/js/moment-timezone.min.js}"></script>
-    <script th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
 
-    <!-- Template Javascript -->
-    <script th:src="@{/js/main.js}"></script>
+
+    <!-- 목록으로 왜 안돌아가고 난리  -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var result = '<c:out value="${result}"/>';
+
+            checkModal(result);
+
+            function checkModal(result) {
+                if (result === '') {
+                    return;
+                }
+                if (parseInt(result) > 0) {
+                    $(".modal-body").html("게시글 " + parseInt(result) + "번이 등록");
+                }
+                $("#myModal").modal("show");
+            }
+
+            $("#regBtn").on("click", function () {
+                self.location = "/admin/movies/list";
+            });
+        });
+    </script>
 </body>
 
 </html>

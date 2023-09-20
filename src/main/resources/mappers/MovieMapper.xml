@@ -19,12 +19,46 @@
   <result property="autoplay" column="autoplay" />
 </resultMap>
 
+
+<!-- 조회 -->
 <select id="selectPagedMovieList" resultMap="movieMap">
   <![CDATA[ 
     select * from NETFLIX_MOVIE where movie_id > #{startIndex}
      and movie_id <= #{endIndex}
   ]]>
 </select>
+
+<!-- 
+<insert id="insert">
+  insert into NETFLIX_MOVIE(movie_id,movie_name,movie_content)
+  values (seq_movie.nextval, #{movie_id}, #{movie_name}, #{movie_content})
+</insert>
+
+<insert id="insertSelectKey">
+  <selectKey KeyProperty="movie_id" order="BEFORE" resultType="long">
+    select seq_movie.nextval from dual
+  <selectKey>
+
+  insert into NETFLIX_MOVIE (movie_id, movie_name, movie_content)
+  values (#{movie_id}, #{movie_name}, #{movie_content})
+</insert>
+
+<select id="read" resultType="teamproject.gunha.vo.MovieVO">
+  select * from NETFLIX_MOVIE where movie_id = #{movie_id}
+</select>
+
+<delete id="delete">
+  delete from NETFLIX_MOVIE where movie_id = #{movie_id}
+</delete>
+
+<update id="update">
+  update NETFLIX_MOVIE
+  set name= #{movie_name}
+  content = #{movie_content}
+  updateDate = sysdate
+  where movie_id = #{movie_id}
+</update> -->
+
 
 <!-- <resultMap id="userMap" type="edu.global.demo.vo.UserVO">
   <constructor>
@@ -55,5 +89,9 @@
   <result property="userId" column="member_profile_member_id"/>
   <result property="profileName" column="member_profile_name"/>
 </resultMap>
+
+
+
+
 
 </mapper>

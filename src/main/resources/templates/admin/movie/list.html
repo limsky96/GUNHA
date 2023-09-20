@@ -191,15 +191,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <!-- 데이터 표시부분  -->
                                         <tr th:each="movie : ${movies}">
                                             <td th:text="${movie.movieId}">1</td>
                                             <td>
-                                                <a th:href="@{/admin/movie/view(movieId=${movie.movieId})}"
+                                                <a th:href="@{/admin/movies/view(movieId=${movie.movieId})}"
                                                     th:text="${movie.movieName}">Movie Name</a>
                                             </td>
                                             <td>
-                                                <a th:href="@{/admin/movie/edit(movieId=${movie.movieId})}">Edit</a>
-                                                <a th:href="@{/admin/movie/delete(movieId=${movie.movieId})}">Delete</a>
+                                                <a th:href="@{/admin/movies/edit(movieId=${movie.movieId})}">Edit</a>
+                                                <a
+                                                    th:href="@{/admin/movies/delete(movieId=${movie.movieId})}">Delete</a>
                                             </td>
                                         </tr>
                                     </tbody>
