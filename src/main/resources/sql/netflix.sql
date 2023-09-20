@@ -839,8 +839,21 @@ CREATE TABLE NETFLIX_FAVORITES(
     constraint ix_favorites_member UNIQUE(favorites_member_id, favorites_member_profile_name),
     CONSTRAINT fk_fav_movie
         FOREIGN KEY (favorites_movie_id) REFERENCES NETFLIX_MOVIE(movie_id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    constraint fk_fav_member_id
+        foreign key (favorites_member_id) REFERENCES NETFLIX_MEMBER(member_id)
+        on delete cascade
 );
+
+--    DELETE FROM NETFLIEX_FAVORITES
+--    WHERE favorites_member_profile_name = :old.col1 and favorites_member_id='tatelulove4@naver.com_kakao';
+
+--    UPDATE NETFLIX_FAVORITES
+--    SET favorites_member_profile_name = :new.col1
+--    WHERE favorites_member_profile_name = :old.col1 and favorites_member_id='tatelulove4@naver.com_kakao';
+
+
+
 
 --------------------------------
 
