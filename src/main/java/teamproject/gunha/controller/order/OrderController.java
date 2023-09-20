@@ -1,12 +1,14 @@
-package teamproject.gunha.controller;
+package teamproject.gunha.controller.order;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.service.MembershipService;
-import teamproject.gunha.service.OrderService;
 import teamproject.gunha.service.UserLoginService;
+import teamproject.gunha.service.order.OrderRestService;
+import teamproject.gunha.service.order.OrderService;
+import teamproject.gunha.vo.OrderVO;
 import teamproject.gunha.vo.PortOneVO;
 import teamproject.gunha.vo.UserVO;
 
@@ -28,10 +32,14 @@ public class OrderController {
   private OrderService orderService;
 
   @Autowired
-  private UserLoginService userService;
+  private OrderRestService orderRestService;
+
+  @Autowired
+  private UserLoginService userLoginService;
 
   @Autowired
   private MembershipService membershipService;
+
 
   @GetMapping("/payment-card")
   public String paymentCard(
@@ -45,13 +53,16 @@ public class OrderController {
     return "login/payment-card";
   }
 
-  @GetMapping("/order")
+  @GetMapping("/my/order")
   public String orderPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
     if (netflixUserDetails != null) {
       UserVO user = netflixUserDetails.getUserVO();
+      userLoginService.loginAccount();
+      model.addAttribute("user", netflixUserDetails);
+      model.addAttribute("orderList", orderRestService.getUserOrderList(user.getUserId()));
       model.addAttribute("userId", user.getUserId());
     }
-    return "order/order-page";
+    return "order/orderlist";
   }
 
   // @PostMapping("/subscription/issue-billing")
@@ -68,22 +79,14 @@ public class OrderController {
     return new HashMap<String, Object>();
   }
 
-  // @PostMapping("/subscription/schedule")
-  // @ResponseBody
-  // public Map<String, Object> subscribePass(PortOneVO portOneVO) {
-
-  // return ;
-  // }
 
   @PostMapping("/subscription/issue-billing")
   @ResponseBody
   public Map<String, Object> scheduleSubscription(PortOneVO portOneVO) {
 
-    // log.info(paymentService.useAccessToken(accessToken).toString());
-    // paymentService.issueBilling(portOneVO, accessToken);
     Map<String, Object> responseMap = orderService.issueScheduleBilling(portOneVO);
 
-    userService.loginAccount(UserVO.builder().userId(portOneVO.getUserId()).build());
+    userLoginService.loginAccount();
 
     return responseMap;
   }
@@ -96,6 +99,16 @@ public class OrderController {
     orderService.issueSchedulePayment(jsonObject);
 
     return jsonObject;
+  }
+
+  @DeleteMapping("/my/cancel")
+  @ResponseBody
+  public Map<String, Object> cancelBill(@RequestBody Map<String, Object> jsonObject){
+    // String response = (String)jsonObject.get("customer_uid") + ", "  + (String) jsonObject.get("merchant_uid");
+    Map<String, Object> response = orderService.cancelSchedule(jsonObject);
+    log.info(response.toString());
+
+    return response;
   }
 
 }

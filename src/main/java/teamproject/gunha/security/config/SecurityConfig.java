@@ -44,9 +44,9 @@ public class SecurityConfig {
         .and()
         .authorizeHttpRequests()
         .antMatchers("/css/**", "/icons/**", "/images/**", "/views/**", "/bootstrap/**").permitAll()
-        .antMatchers("/emp/**", "/profile/**", "/my/**", "/payment-card").hasAnyRole("USER")
+        .antMatchers("/emp/**", "/profile/**", "/my/**", "/payment-card", "/home/**").hasAnyRole("USER")
         .antMatchers("/admin/**").hasAnyRole("ADMIN")
-        .antMatchers("/", "/login").permitAll()
+        .antMatchers("/**", "/login").permitAll()
         .and()
         .exceptionHandling()
         .accessDeniedPage("/");
