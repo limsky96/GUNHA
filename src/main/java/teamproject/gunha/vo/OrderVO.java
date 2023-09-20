@@ -28,4 +28,12 @@ public class OrderVO {
   private String customerUid;
   private String membershipGrade;
   private String amount;
+  private String merchantUid;
+  private String impUid;
+
+  public String getMerchantUid(){
+    return "project_netflix_muid_" + String.format("%06d", orderId);
+  }
+
+  
 }

@@ -1,6 +1,7 @@
-package teamproject.gunha.service;
+package teamproject.gunha.service.order;
 
 
+import java.util.List;
 import java.util.Map;
 
 import teamproject.gunha.vo.PortOneVO;
@@ -15,5 +16,7 @@ public interface OrderService {
   // Map<String, Object> getPaymentData(Map<String, Object> jsonObject, String accessToken);
 
   Map<String, Object> issueSchedulePayment(Map<String, Object> jsonObject);
+
+  Map<String, Object> cancelSchedule(Map<String, Object> jsonObject);
 
 }

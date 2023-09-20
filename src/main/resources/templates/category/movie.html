@@ -1,40 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout2/layout}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
+    layout:decorate="~{/layouts/layout}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <script src="/js/jquery/3.6.4/jquery-3.7.0.min.js"></script>
-  <script src="https://kit.fontawesome.com/cc89ddadc0.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="/js/jquery/3.6.4/jquery.modal.min.css" /> -->
-  <link rel="stylesheet" href="/css/category/movie.css" />
-
-
-  <title>NETFLIX</title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <title>templates</title>
+  <title>MOVIE</title>
 
 </head>
 
-
-<!-- 영화 리스트 + 지울까말까  ==== > 이거 쓰면 스파이패밀리보다 위에 나옴 
-  <div id="movieList"></div> 영화 목록이 표시되는 부분 -->
-
-<!-- 영화 리스트 -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
-
-
-
-
-
 <body>
-  <th:block layout:fragment="css" >
+  <th:block layout:fragment="css">
     <link rel="stylesheet" href="/css/category/movie.css" />
     <style>
       div {
@@ -42,167 +18,87 @@
       }
     </style>
   </th:block>
-  헤더 영역
-  <!-- <div th:include="/header/header.html"></div> -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-
 
   <th:block layout:fragment="content">
-  <div class="home" id="home">
+    <div class="home" id="home">
 
-    <iframe id="mainFrame" width="1280" height="800" src="" frameborder="0" allowfullscreen></iframe>
-    <!--<video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
-      autoplay muted>
-    </video>-->
+      <iframe id="mainFrame" width="1280" height="800" src="" frameborder="0" allowfullscreen></iframe>
 
-    <div class="overlay">
-      <div class="banner">
-        <div class="series">N 시리즈</div>
-        <div id="mainTitle" class="title"></div>
-        <div class="badge">오늘 한국에서 콘텐츠 순위 1위</div>
-        <div id="mainContent" class="discription">
-        </div>
-        <div class="buttons">
-          <div id="mainMovePlay" class="white-button" style="cursor: pointer">
-            <i class="fa-solid fa-play">재생</i>
-            <!-- <input type="hidden" id="mainVideo" value=""> -->
+      <div class="overlay">
+        <div class="banner">
+          <div class="series">N 시리즈</div>
+          <div id="mainTitle" class="title"></div>
+          <div class="badge">오늘 한국에서 콘텐츠 순위 1위</div>
+          <div id="mainContent" class="discription">
           </div>
-          <div id="mainDetailModal" class="grey-button" style="cursor: pointer">
-            <i class="fa-solid fa-circle-info"></i>
-            <a class="info">상세정보</a>
-          </div>
+          <div class="buttons">
+            <div id="mainMovePlay" class="white-button" style="cursor: pointer">
+              <i class="fa-solid fa-play">재생</i>
+              <!-- <input type="hidden" id="mainVideo" value=""> -->
+            </div>
+            <div id="mainDetailModal" class="grey-button" style="cursor: pointer">
+              <i class="fa-solid fa-circle-info"></i>
+              <a class="info">상세정보</a>
+            </div>
 
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="category-list" id="category-list">
-      <div class="category" id="category">
+      <div class="category-list" id="category-list">
+        <div class="category" id="category">
 
-      </div>
-    </div>
-  </div>
-
-  <div id="detailModal" class="modal">
-    <!--<video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
-      autoplay muted>
-    </video>-->
-    <div class="video-container">
-      <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="buttons">
-      <div id="playBtn" class="white-button" style="cursor: pointer">
-        <i class="fa-solid fa-play">재생</i>
-        <input type="hidden" id="mainVideo" value="">
+        </div>
       </div>
     </div>
 
-    <div class="detail-container">
-      <div class="detail-left">
-        <div id="detailContent" class="content">회차줄거리</div>
+    <div id="detailModal" class="modal">
+      <div class="video-container">
+        <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="buttons">
+        <div id="playBtn" class="white-button" style="cursor: pointer">
+          <i class="fa-solid fa-play">재생</i>
+          <input type="hidden" id="mainVideo" value="">
+        </div>
       </div>
 
-      <div class="detail-right">
-        <div id="detailCast" class="actor">출연</div>
-        <div id="detailGenre" class="genre">장르</div>
+      <div class="detail-container">
+        <div class="detail-left">
+          <div id="detailContent" class="content">회차줄거리</div>
+        </div>
+
+        <div class="detail-right">
+          <div id="detailCast" class="actor">출연</div>
+          <div id="detailGenre" class="genre">장르</div>
+        </div>
       </div>
+
+      <div class="content-detail">
+        <div class="actor">
+          <p id="detailCast2">출연</p>
+        </div>
+        <div class="genre">
+          <p id="detailGenre2">장르</p>
+        </div>
+        <div class="releasedate">
+          <p id="detailReleaseDate">출시일</p>
+        </div>
+
+      </div>
+
     </div>
-
-    <div class="content-detail">
-      <div class="actor">
-        <p id="detailCast2">출연</p>
-      </div>
-      <div class="genre">
-        <p id="detailGenre2">장르</p>
-      </div>
-      <div class="releasedate">
-        <p id="detailReleaseDate">출시일</p>
-      </div>
-
-    </div>
-
-  </div>
   </th:block>
 
-  <th:block layout:fragment="js" >
+  <th:block layout:fragment="js">
     <script>
-      //     const movies = [
-      //     { name: "어바웃타임", posterUrl: "images/sample.jpg", genre: "로맨스" },
-    
-      // ];
-    
-      // fetch('/api/movies') // UTL로 HTTP요청 보내고 데이터 처리 (GET)
-      //   .then(response => response.json()) // json 형식으로 변환
-      //   .then(data => { // 이전 단계에서 변환된 json데이터를 사용하여 실제 영화 목록 처리하고 웹 페이지에 표시
-      //     console.log(data);
-      //     const movieList = document.getElementById('movieList'); // HTML문서 내 id가 "movieList"인 요소를 찾아 가져옴
-      //     data.forEach(movie => { // 가져온 영화 데이터 배열 반복 
-      //       const movieDiv = document.createElement('div'); // 각 영화를 표시할 새로운 <div>요소 생성. 영화마다 생성되며 영화 정보가 포함
-      //       movieDiv.innerHTML = ` 
-      //                 <img src="${movie.posterUrl}" alt="${movie.name}" />
-      //                 <h2>${movie.name}</h2>
-      //                 <p>${movie.genre}</p>
-      //             `; // 생성된 div 안에 영화 정보를 HTML 형식으로 추가. 포스터 이미지, 제목 및 장르 포함. ${} : 템플릿 리터럴을 사용하여 변수값을 문자열에 삽입
-      //       movieList.appendChild(movieDiv); // 생성된 영화 정보가 포함된 div를 이전에 가져온 movieList요소에 추가. 각 영화 정보가 웹페이지에 표시
-      //     });
-      //   })
-      //   .catch(error => console.error('Error fetching movies:', error)); // 데이터 가져오기나 처리 중 오류가 발생하면 오류를 콘솔에 출력
-    
-      // 영화 정보 추가 Create
-      function addMovie(newMovie) { // 영화 정보 받아와 서버에 추가 -> newMovie 새로 추가될 영화 정보
-        fetch('/movies/api/movies', {  // 새로운 영화 정보를 추가하기 위해 api 엔드포인트로 요청 보냄
-          method: 'POST', // 서버 측에 새로운 데이터 생성
-          headers: { // 요청의 헤더에 json형식의 데이터 전송함 
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(newMovie) // newMovie 객체를 json형식으로 변환하여 전송~ 
-        })
-          .then(response => response.json()) // 서버로부터 받은 응답을 json으로 파싱
-          .then(movie => { // 파싱된 json 데이터를 이용하여, 추가된 영화 정보를 웹 페이지에 랜더링하는 renderMovie함수 호출 
-            renderMovie(movie);
-          })
-          .catch(error => console.error('Error adding movie:', error)); // 오류 콘솔로
-      }
-    
-    
-    
-      //영화 정보 수정 update 
-      function updateMovie(id, updatedMovie) { // 특정 영화 정보 업데이트 
-        fetch(`/movies/api/movies/${id}`, { // %{id} 고유 식별자를 나타내어 특정 영화 정보 업데이트 엔드포인트로..
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(updatedMovie)
-        })
-          .then(response => response.json())
-          .then(movie => {  // 업데이트된 영화 정보를 화면에 반영하는 코드 
-          })
-          .catch(error => console.error('Error updating movie:', error));
-      }
-    
-      // 영화 정보 삭제 delete
-      function deleteMovie(id) { // 삭제 ~ 
-        fetch(`/movies/api/movies/${id}`, { // 지정된 id를 사용하여 해당 영화의 삭제 요청을 서버에 
-          method: 'DELETE'
-        })
-          .then(response => { // 서버로부터 응답받은 후에 처리하는 콜백 함수 
-            if (response.status === 204) { // 응답 상태 코드가 204인 경우 처리 진행 !
-              const movieElement = document.querySelector(`[data-movie-id="${id}"]`); // 삭제된 영화의 고유 식별자 id를 가진 영화 엘리먼트를 html에서 찾음. (data-moive-id속성이 id와 일치)
-              if (movieElement) { // 삭제할 영화의 엘리먼트를 찾았다면 해당 엘리먼트 삭제 -> UI에서도 제거 
-                movieElement.remove();
-              }
-            }
-          })
-          .catch(error => console.error('Error deleting movie:', error));
-      }
-    
-    
+
+
       $(document).ready(function () {
         fnInit();
         fnPageStart();
       });
-    
+
       async function fnPageStart() {
         /*랜덤 뽑기*/
         const randomNumber = Math.floor(Math.random() * 50);
@@ -211,7 +107,7 @@
         $("#mainContent").text(data[randomNumber].movieContent)
         $("#mainTitle").text(data[randomNumber].movieName)
         $("#mainDetailModal").on("click", () => {
-    
+
           getOneMovie(randomNumber + 1);
         });
         $("#mainMovePlay").click(function (e) {
@@ -221,24 +117,24 @@
           location.href = `//localhost:8888/watch?src=${(randomNumber + 1)}`;
           //location.href= "https://www.naver.com"
         });
-    
-    
-    
+
+
+
         $(".video-stream").attr('style', 'top:0px');
-    
-    
+
+
       }
-    
+
       let currentDataIndex = 0; // 현재까지 받은 데이터의 인덱스
       var isAllDataReceived = false; // 모든 데이터를 받아왔는지 여부
-    
+
       function fnInit() {
-    
+
         //임시 TITLE 증가값
         var isLoading = false; //새 콘텐츠 로딩여부 추적
         var count = 1;
         var containerZindex = 10;
-    
+
         //무한스크롤 START
         //DOCUMENT 스크롤 이벤트 감지
         $(document).scroll(function () {
@@ -246,7 +142,7 @@
           var maxHeight = $(document).height();
           //현재 스크롤 위치
           var currentScroll = $(window).scrollTop() + $(window).height();
-    
+
           if (maxHeight <= currentScroll + 50 && !isLoading) {
             isLoading = true;
             //무한스크롤 END
@@ -255,17 +151,17 @@
             setTimeout(function () {
               if (currentDataIndex <= 40)
                 getMovies();
-    
+
               async function getMovies() {
                 const { data } = await axios.get(`/movies/api/movies?startIndex=${currentDataIndex}&count=10`);
     
                 if (data.length < 10) {
                   isAllDataReceived = true; // 모든 데이터를 받아왔다고 표시
                 }
-    
-    
+
+
                 let containerHtml;
-    
+
                 containerHtml = "";
                 containerHtml += `
               <div id="wrapper-list${[currentDataIndex / 10]}" class="category-title">${data[0].movieGenre}</div>
@@ -302,7 +198,7 @@
               <div class="swiper-button-next list${[currentDataIndex / 10]}Next"></div>
               <div class="swiper-button-prev list${[currentDataIndex / 10]}Prev"></div>
             `;
-    
+
                 const container = document.createElement("div");
                 container.setAttribute("class", "container");
                 container.setAttribute("style", "z-index:" + containerZindex);
@@ -310,7 +206,7 @@
                 container.innerHTML = containerHtml;
                 const list = document.querySelector("#category");
                 list.appendChild(container);
-    
+
                 for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
                   let dataIndex = currentDataIndex + slideIndex;
                   const modalOpen = document.querySelector(`#modal-img-${dataIndex}`);
@@ -320,7 +216,7 @@
                     getOneMovie(dataIndex + 1);
                   })
                 }
-    
+
                 for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
                   let dataIndex = currentDataIndex + slideIndex;
                   const modalOpen = document.querySelector(`#modal-button-${dataIndex}`);
@@ -330,7 +226,7 @@
                     getOneMovie(dataIndex + 1);
                   })
                 }
-    
+
                 const swiper = new Swiper(`.list${[currentDataIndex / 10]}Container`, {
                   slidesPerView: 2,
                   slidesPerGroup: 1,
@@ -364,25 +260,25 @@
                       slidesPerGroup: 1,
                     }
                   }
-    
+
                 });
-    
+
                 console.log(container);
                 console.log(list);
-    
-    
+
+
                 currentDataIndex += 10;
-    
+
               }
               isLoading = false; // 로딩 상태 초기화
             }, 1000); //1초 딜레이 지정
           }
         })
-    
+
       }
-    
+
       async function getOneMovie(id) {
-    
+
         /*통신전에 progress START*/
         const { data } = await axios.get(`/movies/api/movies/${id}`);
         /*통신전에 progress END*/
@@ -401,11 +297,11 @@
           location.href = `//localhost:8888/watch?src=${(id)}`;
           //location.href= "https://www.naver.com"
         });
-    
-    
-    
-    
-    
+
+
+
+
+
         $("#detailModal").modal();
         /*통신전에 progress END*/
         //모달창 구성하기

@@ -10,12 +10,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
-import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.MoviePageVO;
 import teamproject.gunha.vo.MovieVO;
@@ -74,9 +72,6 @@ public class MainController {
   public String home(
       @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
       Model model) {
-    if (netflixUserDetails == null) {
-      return "redirect:/login";
-    }
     UserVO userVO = netflixUserDetails.getUserVO();
     // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
     // return "redirect:/regi3";
@@ -84,6 +79,12 @@ public class MainController {
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
     return "/homepage/home";
+  }
+
+  @GetMapping("/admin-home")
+  public String adminHome() {
+
+    return "homepage/admin-home";
   }
 
   @GetMapping("/watch")
