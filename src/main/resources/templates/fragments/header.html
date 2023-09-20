@@ -39,7 +39,7 @@
               <a class="nav-link" href="#!">영화</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#!" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
+              <a class="nav-link" th:href="@{/my/mylist}" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
             </li>
           </ul>
           <!-- <%--반응형 드롭다운 메뉴--%> -->
@@ -83,38 +83,38 @@
                   <th:block th:switch="${#authentication.principal.userVO.selectedProfile}">
                     <div th:case="null">
                       <script th:inline="javascript">
-                        if("/home" !== location.pathname){
-                          location.href="/home"
+                        if ("/home" !== location.pathname) {
+                          location.href = "/home"
                         }
                       </script>
                     </div>
-                    <div th:case="*" >
+                    <th:block th:case="*">
                       <th:block th:each="profile, profileStat:${#authentication.principal.userVO.profileList}">
-                        <th:block th:if="${profile.profileName == #authentication.principal.userVO.selectedProfile}" th:text="${profileStat.index}">
-                          <img th:src="@'/images/profile/profile-'+ ${profileStat.index} + '.png'" alt="Dropdown Image">
-                        </th:block>
+                        <img th:if="${profile.profileName == #authentication.principal.userVO.selectedProfile}"
+                          th:src="'/images/profile/profile-'+ ${profileStat.index+1} + '.png'" alt="Dropdown Image">
                       </th:block>
-                    </div>
+                    </th:block>
                   </th:block>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                   <li th:each="profile, profileStat:${#authentication.principal.userVO.profileList}">
-                    <a class="dropdown-item profile-item" href="#">
-                      <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                      <span class="profile-name" th:text="${profile.profileName}"></span>
-                    </a>
+                    <th:block th:if="${profile.profileName != #authentication.principal.userVO.selectedProfile}">
+                      <a class="dropdown-item profile-item" href="#">
+                        <img th:src="'/images/profile/profile-'+ ${profileStat.index+1} + '.png'" alt="Dropdown Image">
+                        <span th:attr="data-profile-name=${profile.profileName}" class="profile-name" th:text="${profile.profileName}"></span>
+                      </a>
+                    </th:block>
                   </li>
                   <hr>
                   <li>
-                    <a id="open-modal" class="dropdown-item" href="/profile/manage">프로필 관리</a>
+                    <a class="dropdown-item" href="/profile/manage">프로필 관리</a>
                   </li>
                   <hr>
                   <li><a class="dropdown-item" href="/my/account">계정</a></li>
-                  <li><a class="dropdown-item" href="#">고객 센터</a></li>
-
+                  <li><a class="dropdown-item" href="/qna">고객 센터</a></li>
                   <li>
                     <form id="logoutForm" action="/logout" method="POST">
-                      <button class="dropdown-item" href="#"><a class="dropdown-item">Netflix에서 로그아웃</a></button>
+                      <input type="submit" class="dropdown-item" href="#" value="Netflix에서 로그아웃"></input>
                     </form>
                   </li>
                 </ul>

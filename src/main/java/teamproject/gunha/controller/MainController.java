@@ -141,11 +141,6 @@ public class MainController {
     return "/admins/admin-movie-add";
   }
 
-  @GetMapping("/mylist")
-  public String mylist() {
-    log.info("hello()...");
-    return "/homepage/mylist";
-  }
 
 
 }

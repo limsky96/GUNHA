@@ -207,15 +207,11 @@
           console.log(data);
         }
 
-        const openBtn = document.querySelector("#open-modal");
         const modal = document.getElementById('modalWrap');
         const closeBtn = document.getElementById('closeBtn');
         const modalBody = document.querySelector("#modalBody");
 
-        openBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          modal.style.display = `block`;
-        });
+
 
         closeBtn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -234,24 +230,26 @@
         Array.from(profileNames).forEach(elmnt => {
           'use strict'
 
-          elmnt.addEventListener("click", async e => {
-            const profileName = e.target.dataset.profileName;
-            console.log(profileName);
-            const requestBody = {
-              "selected_name": profileName
-            }
-            const response = await axios.post("/profile/select", requestBody, {
-              "Content-type": "application/json"
-            });
-            const { data, status } = response;
-            if (status === 200) {
-              location.href = "/home"
-            }
-          });
-        })
-       
+          elmnt.addEventListener("click", selectProfile);
 
+        });
       }
+
+      async function selectProfile(event) {
+        const profileName = event.target.dataset.profileName;
+        console.log(profileName);
+        const requestBody = {
+          "selected_name": profileName
+        }
+        const response = await axios.post("/profile/select", requestBody, {
+          "Content-type": "application/json"
+        });
+        const { data, status } = response;
+        if (status === 200) {
+          location.href = "/home"
+        }
+      }
+
       async function getOneMovie(id) {
         /*통신전에 progress START*/
         const { data } = await axios.get(`/movies/api/movies/${id}`);
