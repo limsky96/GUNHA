@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.log4j.Log4j2;
@@ -36,6 +35,7 @@ public class NetflixUserDetailsService implements UserDetailsService {
     log.warn("queried by UserVO mapper: " + user);
     log.warn("orderMapper:  " + orderMapper.selectUserLastOrder(userId));
     user.setLastOrder(orderMapper.selectUserLastOrder(userId));
+    user.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userId));
     if ("none".equals(user.getSocial())) {
       NetflixUserDetails netflixUserDetails = new NetflixUserDetails(user);
       return netflixUserDetails; // 시큐리티 세션에 유저 정보 저장

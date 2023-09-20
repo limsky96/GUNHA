@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html xmlns:th="http://www.thymeleaf.org" 
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -14,14 +15,34 @@
 
 <body>
   <th:block layout:fragment="css" >
+=======
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layouts/layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <title>HOME</title>
+
+</head>
+
+<body>
+  <th:block layout:fragment="css">
+>>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
     <link rel="stylesheet" href="/css/homepage/home.css" />
     <style>
       * {
         box-sizing: border-box;
       }
+<<<<<<< HEAD
     div {
       color: white;
     }
+=======
+  
+      div {
+        color: white;
+      }
+  
+>>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
       #modalWrap {
         position: fixed;
         /* Stay in place */
@@ -59,6 +80,7 @@
         cursor: pointer;
       }
     </style>
+<<<<<<< HEAD
 
   </th:block>
   <th:block layout:fragment="content">
@@ -121,10 +143,95 @@
             <a class="info">상세정보</a>
           </div>
 
+=======
+  </th:block>
+
+  <th:block layout:fragment="content">
+    <div th:switch="${#authentication.principal.selectedProfile}">
+      <div th:case="null" id="modalWrap">
+        <div id="modalBody">
+          <span id="closeBtn">&times;</span>
+          <p>modal-popup 입니다.</p>
+          <div id="profile-container" style="display: flex; justify-content: center;">
+            <div th:each="profile: ${user.profileList}" th:text="${profile.profileName}"
+              th:attr="data-profile-name=${profile.profileName}"
+              style="text-align: center; line-height: 100px; width:100px; height:100px;">
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
+        </div>
+      </div>
+      <div th:case="*" id="modalWrap" style="display: none;">
+        <div id="modalBody">
+          <span id="closeBtn">&times;</span>
+          <p>modal-popup 입니다.</p>
+          <div id="profile-container" style="display: flex; justify-content: center;">
+            <div th:each="profile: ${user.profileList}" th:text="${profile.profileName}"
+              th:attr="data-profile-name=${profile.profileName}"
+              style="text-align: center; line-height: 100px; width:100px; height:100px;">
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
         </div>
       </div>
     </div>
+    <div class="home" id="home">
 
+      <video src="/mp4/spyfamily.mp4" poster="http://ottnews.kr/Files/173/News/202205/3333_20220506143031148_c.JPG"
+        autoplay muted>
+      </video>
+
+      <div class="overlay">
+        <div class="header">
+          <div class="logo">NETFLIX</div>
+          <div class="nav">
+            <div class="nav-item">홈</div>
+            <div class="nav-item">TV 프로그램</div>
+            <div class="nav-item">영화</div>
+            <div class="nav-item">NEW! 요즘 대세 영화</div>
+            <div class="nav-item">내가 찜한 콘텐츠</div>
+          </div>
+          <div class="menu">
+            <div class="menu-item"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="menu-item">키즈</div>
+            <div class="menu-item"><i class="fa-solid fa-gift"></i></div>
+            <div class="menu-item"><i class="fa-regular fa-bell"></i></div>
+            <div class="menu-item">A</div>
+          </div>
+        </div>
+        <div class="banner">
+          <div class="series">N 시리즈</div>
+          <div class="title">SpyFamily</div>
+          <div class="badge">오늘 한국에서 콘텐츠 순위 1위</div>
+          <div class="discription">
+            스파이, 암살자 그리고 초능력자. 각자 다른 사정이 있는 세 사람이 서로에게 정체를 숨기고 가상 가족을 결성한다.
+          </div>
+          <div class="buttons">
+            <div class="white-button">
+              <i id="btnMovePlay" class="fa-solid fa-play" style="cursor: pointer">재생</i>
+              <input type="hidden" id="mainVideo" value="">
+            </div>
+            <div class="grey-button">
+              <i class="fa-solid fa-circle-info"></i>
+              <a class="info" href="#ex1" rel="modal:open">상세정보</a>
+            </div>
+
+          </div>
+          <div class="extra">
+            <div class="replay-button">
+              <i class="fa-solid fa-arrow-rotate-left"></i>
+            </div>
+            <div class="rating">
+              <img
+                src="https://i.namu.wiki/i/4rqHeSQ7TkE85vF3Vlnz59QUtkq5cE095mHuoGagn8GC1uAic4hrujblFA6fJU1zbqNKuu_5AVw01CRnVQsXMQ.svg"
+                alt="">
+            </div>
+          </div>
+>>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
+        </div>
+      </div>
+
+<<<<<<< HEAD
     <div class="category-list" id="category-list">
       <div class="category" id="category">
 
@@ -154,9 +261,54 @@
       <div class="detail-right">
         <div id="detailCast" class="actor">출연</div>
         <div id="detailGenre" class="genre">장르</div>
+=======
+      <div class="category-list" id="category-list">
+        <div class="category" id="category">
+        </div>
       </div>
     </div>
 
+    <div id="ex1" class="modal">
+      <video src="/mp4/spyfamily.mp4" poster="http://ottnews.kr/Files/173/News/202205/3333_20220506143031148_c.JPG"
+        autoplay muted>
+      </video>
+      <div class="buttons">
+        <div class="white-button">
+          <i class="fa-solid fa-play">재생</i>
+          <input type="hidden" id="mainVideo" value="">
+        </div>
+      </div>
+
+      <div class="detail-container">
+        <div class="detail-left">
+          <div class="probability">일치</div>
+          <div class="detail-rating">관람등급</div>
+          <div class="content">회차줄거리</div>
+        </div>
+
+        <div class="detail-right">
+          <div class="actor">출연</div>
+          <div class="genre">장르</div>
+          <div class="feature">특징</div>
+        </div>
+>>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
+      </div>
+
+      <div class="content-list">
+        <div class="content-num">1</div>
+        <div class="content-num">2</div>
+        <div class="content-num">3</div>
+        <div class="content-num">4</div>
+      </div>
+
+      <div class="content-detail">
+        여러가지 쭉 넣으세요
+        출연, 장르, 특징, 관람등급, 출시일 등등
+      </div>
+
+    </div>
+
+<<<<<<< HEAD
     <div class="content-detail">
       <div class="actor">
         <p id="detailCast2">출연</p>
@@ -171,8 +323,29 @@
     </div>
   </div>
   </th:block>
+=======
+  </th:block>
 
+  <th:block layout:fragment="js">
+    <script>
 
+      getMovies();
+      async function getMovies() {
+        const { data } = await axios.get('/movies/api/movies')
+        // <div class="swiper-slide">
+        //             <img src="https://source.unsplash.com/224x126/?random" alt="">
+        //           </div>
+        // console.log(data);
+        console.log(data);
+>>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
+
+        let containerHtml;
+        const containerList = [];
+        for (let i = 0; i < 5; i++) {
+          containerList.push(`list${i}`);
+        }
+
+<<<<<<< HEAD
   <th:block layout:fragment="js" >
   <script>
   $(document).ready(function () {
@@ -277,6 +450,170 @@
   }
   </script>
   </th:block>
+=======
+        for (let i = 0; i < data.length / 10; i++) {
+
+          containerHtml = "";
+          containerHtml += `
+              <div id="wrapper-${containerList[i]}" class="category-title">${data[i * 10].movieGenre}</div>
+              <div class="swiper-container ${containerList[i]}Container">
+                <div class="swiper-wrapper">
+                `
+          //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
+          //  ${data[i*10+slideIndex].movieName}
+          for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
+            containerHtml += `
+                  <div class="swiper-slide">   
+                    <img src="${data[i * 10 + slideIndex].moviepostUrl}" alt="">
+                    <div class="imgbody">
+                      <section class="imgbody-detail">
+                        <div style="display:flex">
+                          <i class="fa-regular fa-circle-play card-icon"></i>
+                          <i class="fa-solid fa-circle-plus card-icon"></i>
+                        </div>                  
+                        <div>                      
+                          <a class="fa-solid fa-circle-chevron-down card-icon" href="#ex1" rel="modal:open"></a>                                           
+                        </div>
+                      </section>
+                      <section class="imgbody-detail" >
+                        <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
+                        <div class="m-2 netflix-card-text text-white">Limited Series</div>
+                        <div class="border netflix-card-text p-1 text-white">HD</div>                
+                      </section>
+                      <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
+                    </div>              
+                  </div>`
+          }
+          containerHtml += `              
+                </div>
+              </div>
+              <div class="swiper-button-next ${containerList[i]}Next"></div>
+              <div class="swiper-button-prev ${containerList[i]}Prev"></div>
+            `
+          const container = document.createElement("div");
+          container.setAttribute("class", "container");
+          container.innerHTML = containerHtml;
+          const list = document.querySelector("#category");
+          list.appendChild(container);
+          const swiper = new Swiper(`.${containerList[i]}Container`, {
+            slidesPerView: 2,
+            slidesPerGroup: 1,
+            centeredSlides: false,
+            loop: true,
+            navigation: {
+              nextEl: `.${containerList[i]}Next`,
+              prevEl: `.${containerList[i]}Prev`,
+            },
+            breakpoints: {
+              // 화면의 넓이가 50px 이상일 때
+              50: {
+                slidesPerView: 2,
+                slidesPerGroup: 1,
+              },
+              // 화면의 넓이가 500px 이상일 때
+              500: {
+                slidesPerView: 3,
+                slidesPerGroup: 1,
+              },
+              800: {
+                slidesPerView: 4,
+                slidesPerGroup: 1,
+              },
+              1100: {
+                slidesPerView: 5,
+                slidesPerGroup: 1,
+              },
+              1400: {
+                slidesPerView: 6,
+                slidesPerGroup: 1,
+              }
+            }
+
+          });
+
+          console.log(container);
+          console.log(list);
+        }
+
+        console.log(containerHtml);
+      }
+
+      $("#btnMovePlay").click(function () {
+        var srcCd = $("#mainVideo").val();
+        srcCd = "test"
+        //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+        location.href = "//localhost:8888/watch?" + srcCd
+        //location.href= "https://www.naver.com"
+      });
+      // const swiper = new Swiper(".hotContainer", {
+      //   slidesPerView: 6,
+      //   slidesPerGroup: 6,
+      //   centeredSlides: false,
+      //   loop: false,
+      //   navigation: {
+      //     nextEl: '.hotNext',
+      //     prevEl: '.hotPrev',
+      //   },
+      //   breakpoints: {
+      //     // 화면의 넓이가 320px 이상일 때
+      //     800: {
+      //       slidesPerView: 4,
+      //       slidesPerGroup: 4,
+      //     },
+      //     // 화면의 넓이가 640px 이상일 때
+      //     1100: {
+      //       slidesPerView: 5,
+      //       slidesPerGroup: 5,
+      //     }
+      //   }
+      // });
+
+      const openBtn = document.querySelector("#open-modal");
+      const modal = document.getElementById('modalWrap');
+      const closeBtn = document.getElementById('closeBtn');
+      const modalBody = document.querySelector("#modalBody");
+      openBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        modal.style.display = `block`;
+      });
+
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.style.display = 'none';
+      });
+      window.addEventListener("click", (e) => {
+        e.stopPropagation();
+        modal.style.display = 'none';
+      });
+      modalBody.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+      const profileNames = document.querySelector("#profile-container").children;
+      console.log(profileNames);
+      Array.from(profileNames).forEach(elmnt => {
+        'use strict'
+
+        elmnt.addEventListener("click", async e => {
+          const profileName = e.target.dataset.profileName;
+          console.log(profileName);
+          const requestBody = {
+            "selected_name": profileName
+          }
+          const response = await axios.post("/profile/select", requestBody, {
+            "Content-type": "application/json"
+          });
+          const { data, status } = response;
+          if (status === 200) {
+            location.href = "/home"
+          }
+        });
+      });
+
+    </script>
+
+  </th:block>
+
+>>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
 </body>
 
 </html>

@@ -104,3 +104,6 @@
       }
     }); -->
 
+9. thymeleaf layout dialect 적용..
+   - 적용이 아예 안 되던 문제가 있었는데 clean java language server workspace를 해주니 (캐시를 날리니) 해결.
+   - head부분에 layout:fragment로 css를 적용해두고 다시 작성을 하면 왜인지 모르겠지만 코드가 중복된다. <- 이유는 찾는 중. layout 파일에는 head에 놓고 자식 파일에는 body에서 구현한 후에 집어 넣으니 중복되지 않음.. 이유는 모르겠음.
