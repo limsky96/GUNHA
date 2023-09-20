@@ -4,10 +4,15 @@
 
 /* 내비게이션 바 배경색과 텍스트 색상 변경 */
 .navbar {
-  background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.1));
-  height: 50px;
+  /* background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.1)); */
+  background: black;
+  height: 80px;
   position: relative;
-  margin-bottom: 0;
+  margin-bottom: 0px;
+}
+
+.navbar-collapse{
+  -webkit-box-shadow :none;
 }
 
 .navbar-brand {
@@ -17,13 +22,14 @@
 .navbar-brand { height: 100%;}
 
 .logo-img {  /*넷플릭스 로고*/
-  width: 75px ;
-  height: 25px ;
-  margin: 0px 5px 0px 25px;
+  width: 100px ;
+  height: 30px ;
+  margin: 0px 5px 0px 15px;
 }
 
 .navbar-nav .nav-link {
   color: white; /* 텍스트 색상을 백색으로 변경 */
+  font-size: 15px;
 }
 
 /* 활성화된 링크의 스타일 변경 */
@@ -33,7 +39,7 @@
 }
 
 .nav-link {
-  font-size: 10px; /* 원하는 텍스트 크기 설정 */
+  font-size: 13px; /* 원하는 텍스트 크기 설정 */
 }
 
 
@@ -55,7 +61,7 @@
 
 .dropdown-toggle{
   width: 50px;
-  font-size: 8px; /*드롭 "메뉴" 글자 크기*/
+  font-size: 15px; /*드롭 "메뉴" 글자 크기*/
   color: #ffffff;
 }
 
@@ -79,6 +85,24 @@
   margin-right: 20px;
 }
 
+.dropdown  {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-collapse{
+  box-sizing: border-box;
+  border-top: none; /* 테두리 추가 */
+}
+
+.form-control.me-2{
+  max-width: 100px;
+  background-color: #333;
+  color: #fff;
+  height: 30px;
+}
+
+
 .row.search-box-inner>* { min-width: 300px!important; height: 50px; }
 .row.search-box-inner>* .card-body { width: 100%; height: 100%; }
 
@@ -96,7 +120,7 @@
   color: white; /* 흰색으로 변경 */
 }
 
-#headersearch {
+#headersearch{
   background-color: #090909; /* 원하는 배경색으로 변경 */
   color: white; /* 텍스트 색상을 백색으로 변경 */
 }
@@ -166,11 +190,24 @@
   width: 240px; /* 드롭 다운 메뉴 너비 변경 */
   padding: 20px 10px 0;
   border-top: 3px solid rgba(255, 255, 255, 0.8); /* 검은색 색상, 50% 투명도 */
+  font-size: 15px;
+}
+
+.dropdown-main-item:hover{
+  color: #090909;
+}
+
+.dropdown-menu>li>a{
+  color: white;
+}
+
+.dropdown-menu>li>a:hover{
+  color: black;
 }
 
 /*반응형이랑 오른쪽 둘다 만들어드롭다운 메뉴 배경색과 텍스트 색상 변경 */
 .dropdown-menu{
-  background-color: rgba(0, 0, 0, 0.5); /* 검은색 배경과 투명도 조절 */
+  background-color: rgba(0, 0, 0, 0.8); /* 검은색 배경과 투명도 조절 */
 }
 
 /*반응형*/
@@ -184,6 +221,16 @@
   border-color: #ffffff; /* 원하는 색상으로 변경 */
 }
 
+#search-button{
+
+}
+
+.login-btn1 { display: none; }
+
+.login-btn2 { display: none; }
+
+.btn.btn-danger3 {display: none;}
+
 
 @media screen and (max-width: 880px) {
   .navbar-nav {
@@ -196,6 +243,8 @@
     width: 100%;
     text-align: left;
   }
+
+
 }
 
 @media screen and (min-width: 880px) {
@@ -204,6 +253,12 @@
     text-align: left;
   }
 
+  .form-control.me-2{
+    max-width: 200px;
+  }
+
+
+
   .dropdown-main {
     display: none;
     flex-direction: column !important;
@@ -211,14 +266,41 @@
   }
 }
 
+/* 스크립트 - 블랙 헤더 로그 아웃 버전 css 부분 */
+header.hd-black-logout {
+  /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
+  .navbar {background: black; height: 80px; position: relative;}
+  .logo-img {width: 100px ;height: 30px ;margin: 0px 5px 0px 15px;}
+  /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
+  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .nav-link, .custom-btn { display: none; };
+
+  /* 화이트 헤더의 로그인 버튼 */
+  #login-btn3{ display: inline-block; text-decoration: solid; color: #333; margin-right: 20px; font-size: 15px; 
+    border: 2px solid #e50914; border-radius: 4px; background-color: #e50914; width: 80px; height: 30px; display: flex; 
+    text-align: center; align-items: center; color: white; padding: 0 15px;}
+}
+
+
 /* 스크립트 - 화이트 헤더 css 부분 */
 header.hd-white {
   /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
   .navbar { background: #fff !important; color: #333 !important; border-bottom: 1px solid #e6e6e6; height: 93px; };
   .logo img { width: 180px; height: 50px; margin-left: 8px; /* 수평으로 이동 (원하는 만큼 조절) */};
   /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
-  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu { display: none; };
+  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .custom-btn { display: none; };
+  /* 화이트 헤더의 로그인 버튼 */
+  #login-btn1 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
+  #login-btn2 { display: none; }
+}
+
+/* 스크립트 - 화이트 헤더  로그아웃 버전 css 부분 */
+header.hd-white-logout {
+  /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
+  .navbar { background: #fff !important; color: #333 !important; border-bottom: 1px solid #e6e6e6; height: 93px; };
+  .logo img { width: 180px; height: 50px; margin-left: 8px; /* 수평으로 이동 (원하는 만큼 조절) */};
+  /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
+  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .custom-btn { display: none; };
 
   /* 화이트 헤더의 로그인 버튼 */
-  .login-btn { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
+  .login-btn2 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
 }
