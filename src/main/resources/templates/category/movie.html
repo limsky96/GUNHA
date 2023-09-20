@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
-    layout:decorate="~{/layouts/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{/layouts/layout}">
 
 <head>
   <title>MOVIE</title>
@@ -92,8 +90,6 @@
 
   <th:block layout:fragment="js">
     <script>
-
-
       $(document).ready(function () {
         fnInit();
         fnPageStart();
@@ -200,7 +196,7 @@
             `;
 
                 const container = document.createElement("div");
-                container.setAttribute("class", "container");
+                container.setAttribute("class", "category-container");
                 container.setAttribute("style", "z-index:" + containerZindex);
                 containerZindex--;
                 container.innerHTML = containerHtml;
@@ -292,7 +288,7 @@
         $("#detailGenre2").text('장르 : ' + data.movieGenre);
         $("#detailReleaseDate").text('개봉일자 : ' + new Date(data.movieReleaseDate).toLocaleDateString());
         $("#playBtn").click(function (e) {
-          var srcCd = $("#mainVideo")
+          // var srcCd = $("#mainVideo")
           //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
           location.href = `//localhost:8888/watch?src=${(id)}`;
           //location.href= "https://www.naver.com"
