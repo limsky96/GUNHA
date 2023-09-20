@@ -183,7 +183,7 @@
   async function fnPageStart() {
     /*랜덤 뽑기*/
     const randomNumber = Math.floor(Math.random() * 50);
-    const { data } = await axios.get(`/api/movies?startIndex=0&count=50`);
+    const { data } = await axios.get(`/movies/api/movies?startIndex=0&count=50`);
     $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data[randomNumber].movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0")//index는 랜덤으로 만든 값
     $("#mainContent").text(data[randomNumber].movieContent)
     $("#mainTitle").text(data[randomNumber].movieName)
@@ -216,7 +216,7 @@
         getMovies();
   
       async function getMovies() {
-        const { data } = await axios.get(`/api/movies?startIndex=${currentDataIndex}&count=10`);
+        const { data } = await axios.get(`/movies/api/movies?startIndex=${currentDataIndex}&count=10`);
   
       }
     });
@@ -250,7 +250,7 @@
   async function getOneMovie(id) {
   
     /*통신전에 progress START*/
-    const { data } = await axios.get(`/api/movies/${id}`);
+    const { data } = await axios.get(`/movies/api/movies/${id}`);
     /*통신전에 progress END*/
     console.log(id);
     $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
