@@ -918,12 +918,12 @@ select * from netflix_social;
 
 
 
-delete from netflix_member where member_id = 'seralove4@gmail.com';
+-- delete from netflix_member where member_id = 'seralove4@gmail.com';
 
 
 commit;
 
-delete from netflix_member_profile where member_profile_member_id = 'tatelulove4@naver.com_kakao';
+-- delete from netflix_member_profile where member_profile_member_id = 'tatelulove4@naver.com_kakao';
 
 
 --insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트1');
@@ -948,7 +948,7 @@ select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
     where mb.member_id = au.auth_member_id and mb.member_id = 'seralove4@gmail.com_google' and mb.member_id = mp.member_profile_member_id;
 
 --------------------
-delete from netflix_member where member_id = 'seralove4@gmail.com_google';
-delete from netflix_member where member_email = 'user@example.com';
-delete from netflix_member where member_id = 'tatelulove4@naver.com_naver';
-delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';
+--delete from netflix_member where member_id = 'seralove4@gmail.com_google';
+--delete from netflix_member where member_email = 'user@example.com';
+--delete from netflix_member where member_id = 'tatelulove4@naver.com_naver';
+--delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';

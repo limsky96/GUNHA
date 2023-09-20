@@ -1,5 +1,7 @@
 package teamproject.gunha.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,13 +25,20 @@ public class ProfileServiceImpl implements ProfileService {
   @Autowired
   private UserMapper userMapper;
 
+  @Autowired
+  private UserLoginService userLoginService;
+
   @Override
   public boolean createProfile(ProfileVO profileVO) {
     log.info(profileVO + "");
-    int resultRowLine = profileMapper.insertProfile(profileVO);
-    if (resultRowLine >= 1) {
-      refreshUser();
-      return true;
+    int count = profileMapper.getNumberOfUserProfile(profileVO);
+    if(count < 5){
+      int resultRowLine = profileMapper.insertProfile(profileVO);
+      if (resultRowLine >= 1) {
+        refreshUser();
+        return true;
+      }
+
     }
     return false;
   }
@@ -49,11 +58,32 @@ public class ProfileServiceImpl implements ProfileService {
   @Override
   @Transactional
   public boolean removeProfile(ProfileVO profileVO) {
-    int resultRowLine = profileMapper.deleteProfile(profileVO);
-    if (resultRowLine >= 1) {
-      refreshUser();
-      return true;
+    int count = profileMapper.getNumberOfUserProfile(profileVO);
+    if(count > 1){
+      int resultRowLine = profileMapper.deleteProfile(profileVO);
+      if (resultRowLine >= 1) {
+        refreshUser();
+        return true;
+      }
     }
+    return false;
+  }
+
+  @Override
+  public boolean addFavorite(ProfileVO profileVO) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  @Override
+  public boolean removeFavorite(ProfileVO profileVO) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  @Override
+  public boolean updateFavorite(ProfileVO profileVO) {
+    // TODO Auto-generated method stub
     return false;
   }
 

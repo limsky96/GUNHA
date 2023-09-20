@@ -10,6 +10,8 @@ import teamproject.gunha.vo.ProfileVO;
 @Mapper
 public interface ProfileMapper {
   
+  public int getNumberOfUserProfile(ProfileVO profileVO);
+
   @Insert("insert into NETFLIX_MEMBER_PROFILE(member_profile_member_id, member_profile_name)"
         + " values(#{userId}, #{profileName})")
   public int insertProfile(ProfileVO profileVO);

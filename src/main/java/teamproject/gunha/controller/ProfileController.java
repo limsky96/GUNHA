@@ -40,9 +40,6 @@ public class ProfileController {
       Model model) {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
-      if (0 == userVO.getMembershipNo()) {
-        return "redirect:/regi2";
-      }
       log.info("user: " + userVO);
       model.addAttribute("user", userVO);
     }
@@ -110,6 +107,21 @@ public class ProfileController {
       json.put("returnedValue", false);
     }
     return json; 
+  }
+
+  @PostMapping("/mylist")
+  @ResponseBody
+  public Map<String, Object> addFavorite(@RequestBody Map<String, Object> jsonObject){
+
+    Map<String, Object> json = new HashMap<>();
+
+    // if(profileService.addFavorite(jsonObject)){
+
+    // }
+
+
+    return jsonObject;
+
   }
 
 
