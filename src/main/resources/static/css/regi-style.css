@@ -1,18 +1,18 @@
 .wrap {max-width: calc(83.33333333333334% - 6rem); margin: 0 auto; }
 
 /* regi-main */
-.main {
+.container {
     width: 360px;
     height: 700px;
     background-position: center;
     padding: 10px;
     position: absolute;
-    top: 50%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.main img{
+.container img{
     width: 100%;
     margin-bottom: 35px;
 }

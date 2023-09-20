@@ -5,20 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>원건보다하늘</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="/css/regi-style.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/179a863a03.js" crossorigin="anonymous"></script>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link th:href="@{/css/regi-style.css}" rel="stylesheet">
 </head>
 
 <body>
+    <script src="https://kit.fontawesome.com/179a863a03.js" crossorigin="anonymous"></script>
+
     <!--헤더 영역-->
-    <header class="content-header header bg-header-theme text-center">
-        <h1>헤더영역</h1>
-    </header>
+    <div th:include="/header/header.html"></div>
+    <!-- 로그인 페이지에 넣을거 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $('header').addClass('hd-white'); // 로그인 페이지에 넣을거
+    </script>
 
     <!--본문 영역-->
-    <div class="main">
+    <div class="container">
         <div id="checkbox">
             <img id="checked" src="/images/Checkmark.png">
         </div>
@@ -46,8 +49,7 @@
         </div>
 
         <div class="col-auto1 pt-4 align-self-center d-grid">
-            <button id="login-button" type="button" class="btn btn-danger btn-lg"
-                onclick="window.location.href='/planform'">
+            <button id="login-button" type="button" class="btn btn-danger btn-lg" th:onclick="|window.location.href='/planform'|">
                 <strong>다음</strong>
             </button>
         </div>

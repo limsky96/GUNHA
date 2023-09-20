@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- 관련 Namespace 선언 및 layout:decorate 추가 -->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+    <head>
+        <!-- layout.html 에 들어간 head 부분을 제외하고 개별 파일에만 적용되는 head 부분 추가 -->
+        <title>Page Title</title>
+        <th:block layout:fragment="css" >
+
+
+        </th:block>
+        <!-- 필요하다면 개별 파일에 사용될 css/js 선언  -->
+    </head>
+
+    <!-- layout.html에 정의한 main page 부분 -->
+    <body layout:fragment="content">
+        <!-- code -->
+    </body>
+
+    <th:block layout:fragment="js" >
+        
+    </th:block>
+</html>

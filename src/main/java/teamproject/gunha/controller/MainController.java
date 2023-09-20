@@ -1,6 +1,7 @@
 package teamproject.gunha.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.service.UserLoginService;
+import teamproject.gunha.vo.MoviePageVO;
+import teamproject.gunha.vo.MovieVO;
 import teamproject.gunha.vo.UserVO;
 
 @Controller
@@ -32,9 +35,6 @@ public class MainController {
 
   // 결제창-카드
 
-
-
-
   @GetMapping("/")
   public String hello(
       @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
@@ -42,7 +42,7 @@ public class MainController {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
       String profile = netflixUserDetails.getSelectedProfile();
-      if ("결제정보 없음" == userVO.getCardNumber() || 0==userVO.getMembershipNo()) {
+      if ("결제정보 없음" == userVO.getCardNumber() || 0 == userVO.getMembershipNo()) {
         return "redirect:/regi3";
       }
 
@@ -74,11 +74,11 @@ public class MainController {
       Model model) {
     UserVO userVO = netflixUserDetails.getUserVO();
     // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
-    //   return "redirect:/regi3";
+    // return "redirect:/regi3";
     // }
     log.info("user: " + userVO);
     model.addAttribute("user", userVO);
-    return "homepage/home";
+    return "/homepage/home";
   }
 
   @GetMapping("/admin-home")
@@ -88,9 +88,8 @@ public class MainController {
   }
 
   @GetMapping("/watch")
-  public String watch(UserVO userVO, Model model) {
+  public String watch() {
     log.info("watch()...");
-    model.addAttribute("영상Key", userVO);
     return "/watch/watch";
   }
 
@@ -107,12 +106,12 @@ public class MainController {
   }
 
   @GetMapping("/movie")
-  public String card() {
+  public String movie() {
     log.info("hello()...");
     return "/category/movie";
   }
 
-  @GetMapping("/admins")
+  @GetMapping("/admin")
   public String admin() {
     log.info("hello()...");
     return "admins/admin";
@@ -141,5 +140,12 @@ public class MainController {
     log.info("hello()...");
     return "/admins/admin-movie-add";
   }
+
+  @GetMapping("/mylist")
+  public String mylist() {
+    log.info("hello()...");
+    return "/homepage/mylist";
+  }
+
 
 }
