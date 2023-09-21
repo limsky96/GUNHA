@@ -11,6 +11,10 @@
   margin-bottom: 0px;
 }
 
+.navbar-collapse{
+  -webkit-box-shadow :none;
+}
+
 .navbar-brand {
   width: auto ;
   height: 60px ;
@@ -80,6 +84,24 @@
   align-items: center; /* 요소를 세로 중앙에 배치합니다 */
   margin-right: 20px;
 }
+
+.dropdown  {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-collapse{
+  box-sizing: border-box;
+  border-top: none; /* 테두리 추가 */
+}
+
+.form-control.me-2{
+  max-width: 100px;
+  background-color: #333;
+  color: #fff;
+  height: 30px;
+}
+
 
 .row.search-box-inner>* { min-width: 300px!important; height: 50px; }
 .row.search-box-inner>* .card-body { width: 100%; height: 100%; }
@@ -199,6 +221,10 @@
   border-color: #ffffff; /* 원하는 색상으로 변경 */
 }
 
+#search-button{
+
+}
+
 .login-btn1 { display: none; }
 
 .login-btn2 { display: none; }
@@ -217,6 +243,8 @@
     width: 100%;
     text-align: left;
   }
+
+
 }
 
 @media screen and (min-width: 880px) {
@@ -224,6 +252,12 @@
     width: 100%;
     text-align: left;
   }
+
+  .form-control.me-2{
+    max-width: 200px;
+  }
+
+
 
   .dropdown-main {
     display: none;
@@ -238,7 +272,7 @@ header.hd-black-logout {
   .navbar {background: black; height: 80px; position: relative;}
   .logo-img {width: 100px ;height: 30px ;margin: 0px 5px 0px 15px;}
   /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
-  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .nav-link { display: none; };
+  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .nav-link, .custom-btn { display: none; };
 
   /* 화이트 헤더의 로그인 버튼 */
   #login-btn3{ display: inline-block; text-decoration: solid; color: #333; margin-right: 20px; font-size: 15px; 
@@ -253,7 +287,7 @@ header.hd-white {
   .navbar { background: #fff !important; color: #333 !important; border-bottom: 1px solid #e6e6e6; height: 93px; };
   .logo img { width: 180px; height: 50px; margin-left: 8px; /* 수평으로 이동 (원하는 만큼 조절) */};
   /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
-  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu { display: none; };
+  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .custom-btn { display: none; };
   /* 화이트 헤더의 로그인 버튼 */
   #login-btn1 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
   #login-btn2 { display: none; }
@@ -265,7 +299,7 @@ header.hd-white-logout {
   .navbar { background: #fff !important; color: #333 !important; border-bottom: 1px solid #e6e6e6; height: 93px; };
   .logo img { width: 180px; height: 50px; margin-left: 8px; /* 수평으로 이동 (원하는 만큼 조절) */};
   /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
-  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu { display: none; };
+  .navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .custom-btn { display: none; };
 
   /* 화이트 헤더의 로그인 버튼 */
   .login-btn2 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}

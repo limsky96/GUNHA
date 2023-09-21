@@ -1,4 +1,178 @@
 *{
-    border: 1px solid greenyellow;
+    /* border: 1px solid greenyellow; */
+    background-color: #000;
 }
 
+        /* 푸터 스타일 */
+        footer {
+            
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        /*질문이 있으신가요 타이틀*/
+        .footer-title{
+            text-align: left;
+            font-size: 13.5px;
+            margin-left: 23px;
+            letter-spacing: 0.55px;
+        }
+
+        /*두 줄 짜리*/
+        .footer-link{
+            display: flex;
+            margin: 6.2px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .footer-question {
+            margin-left: 9px;
+            text-decoration: underline;
+        }
+
+        /* 목록의 내부 여백 제거 */
+        .footer-question ul {
+            padding: 0; 
+            list-style: none; 
+        }
+
+        /* 두 줄 짜리 서롱 여백두기 */
+        .footer-customerCenter{
+            margin-left: 200px;
+            text-decoration: underline;
+        }
+
+        .footer-link2{
+            display: flex;
+            margin: 6.2px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #fff;
+            text-align: left;
+        }
+        .footer-link2 > * { flex: 1 1 25%; padding: 0 1.5rem; }
+        .footer-link2 > *:first-child { padding-left: 11px; }
+        .footer-link2 > *:last-child { padding-right: 11px; }
+
+        .footer-link2 ul {
+            flex-direction: row;
+            list-style: none;
+          }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        .dropdown{
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        .btn{
+            width: 110px;
+            height: 30px;
+            border-radius: 2px;
+            background-color: #000;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover{
+            background-color: #000;
+            border: 2px solid #ccc;
+        }
+
+        .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+            background-color:#000;
+          }
+
+        img { 
+            /* width: auto; height: inherit;  */
+            width: 1.6rem; height: 1.6rem;}
+        
+        
+        /*한국어 토클*/
+        .dropdown-toggle::after { position: relative; top: 50%; transform: translate(-50%, -50%); margin: 0; }
+
+        .dropdown-menu{
+            background-color: #fff;
+            border-radius: 2px;
+        }
+
+        .dropdown-menu{
+            width: 110px;
+            min-width: auto;
+            overflow: hidden;
+        }
+
+        
+        
+        /* .dropdown > ul.dropdown-menu > li > a.dropdown-item:hover { background: #1967d2; } */
+
+
+        .footer-text-line{
+            text-decoration: underline;
+
+        }
+
+        .footer-inform{
+            text-align: left;
+            margin-left: 24px;
+            font-size: 10px;
+        }
+
+        .footer-inform p {
+        margin-bottom: 6px;
+
+        }
+
+        .footer-link2{
+            /* display: none; */
+        }
+
+    /* 네 줄 짜리 */
+    .footer-link2 > .footer-query1 > li {
+            margin: 5px 4px;
+            letter-spacing: 0.55px;
+
+        }
+
+        .footer-link2 > .footer-query2 > li {
+            margin: 5px 4px;
+            letter-spacing: 0.55px;
+        }
+
+        .footer-link2 > .footer-query3 > li {
+            margin: 5px 4px;
+            letter-spacing: 0.55px;
+        }
+
+        .footer-link2 > .footer-query4 > li {
+            margin: 5px 4px;
+            letter-spacing: 0.55px;
+        }
+
+        /* 화면 너비가 880px 이상일 때 */
+@media (min-width: 880px) {
+
+    
+      .footer-link {
+        display: none; /* 숨기기 */
+      }
+  }
+  
+  /* 화면 너비가 880px 미만일 때 */
+  @media (max-width: 879px) {
+
+    .footer-link2 {
+        display: none; /* 숨기기 */
+      }
+    
+      .footer-link {
+        display: flex; /* 표시 */
+        min-width: 130px;
+      }
+  }
+          

@@ -100,7 +100,7 @@
 
 
 #profile-name{
-  background-color: #7b7b7b;
+  background-color: #fff;
   width: 200px;
   height: 30px;
   margin-left: 10px;
@@ -196,7 +196,7 @@
   <!-- <div th:with="loginPage=${/login}"> -->
   <div sec:authorize="!isAuthenticated()">
     <div><a th:href="@{/login}"> 로그인</a></div>
-    <div><a href="/sign-up">회원가입</a></div>
+    <div><a th:href="@{/sign-up}">회원가입</a></div>
   </div>
   <!-- </div> -->
 
@@ -212,7 +212,7 @@
             <img th:src="@{/images/profile/profile-{index}.png(index=${iterStat.index+1})}"
               style="width: 88px; height: 88px; margin-right: 10px; margin-left: 10px; border-radius: 2px;" />
             <div type="button" th:text="${profile.profileName}"
-            style="width: 100px; height: 30px; text-align: center; line-height: 30px; color: #7b7b7b; font-size: 12px;">
+            style="width: 100px; height: 30px; text-align: center; line-height: 30px; color: #fff; font-size: 12px;">
             </div>
           </div>
         </div>
@@ -277,7 +277,7 @@ window.addEventListener("load", function () {
             </div>
             <p class="pop-up-profile">
               프로필명
-              <input id="profile-name" name="profileName" value="&nbsp; ${elmnt.innerText}"/ style="margin:10px; border-radius : 2px">
+              <input id="profile-name" name="profileName" value="${elmnt.innerText}" style="margin:10px; border-radius : 2px">
             </p>
             <div class="pup-up-button">
               <input type="button" id="cancel-btn" value="취소" />
@@ -303,13 +303,15 @@ window.addEventListener("load", function () {
         const deleteBtn = document.querySelector('#delete-btn');
         deleteBtn.addEventListener('click', async e => {
           e.stopPropagation();
-          const { returnedValue, redirectPage } = await crudProfile('delete', '/profile/delete', profileName.value);
-          console.log(returnedValue)
-          if (returnedValue) {
+          
+          const response = await crudProfile('delete', '/profile/delete', profileName.value);
+          console.log(response);
+          if (response.status === 200) {
             modal.style.display = 'none';
             const modalBody = document.querySelector('#modal-body');
             modalBody.remove();
-            location.href = redirectPage;
+            alert("프로필이 삭제되었습니다.");
+            location.href = "/profile/manage";
           }
         })
 
@@ -317,15 +319,15 @@ window.addEventListener("load", function () {
         confirmBtn.addEventListener('click', async e => {
           console.log(e.target);
           e.stopPropagation();
-          const { returnedValue, redirectPage } = await crudProfile('patch', '/profile/update', profileName.value, elmnt.innerText);
-          console.log(elmnt);
+          const response = await crudProfile('patch', '/profile/update', profileName.value, elmnt.innerText);
+          
           // await updateProfile(elmnt.innerText, profileName.value);
-          console.log(returnedValue);
-          if (returnedValue) {
+          if (response.status === 200) {
             modal.style.display = 'none';
             const modalBody = document.querySelector('#modal-body');
             modalBody.remove();
-            location.href = redirectPage;
+            alert("프로필이 수정되었습니다.");
+            location.href = "/profile/manage";
           }
         })
 
@@ -350,7 +352,7 @@ window.addEventListener("load", function () {
 </div>
             <p class="pop-up-profile">
               프로필명
-              <input id="profile-name" name="profileName" / style="border-radius: 2px">
+              <input id="profile-name" name="profileName" style="border-radius: 2px">
             </p>
             <div class="pup-up-button" style="height: 30px">
               <input type="button" id="cancel-btn" value="취소" />
@@ -374,17 +376,19 @@ window.addEventListener("load", function () {
       })
       
       const profileName = document.querySelector("#profile-name");
+      console.log(profileName.value);
       const confirmBtn = document.querySelector('#confirm-btn');
       confirmBtn.addEventListener('click', async e => {
         e.stopPropagation();
         // const { returnedValue, redirectPage } = await createProfile(profileName.value);
-        const { returnedValue, redirectPage } = await crudProfile('post', '/profile/create', profileName.value);
-        console.log(returnedValue);
-        if (returnedValue) {
+        const response = await crudProfile('post', '/profile/create', profileName.value);
+        console.log(response);
+        if (response.status===200) {
           modal.style.display = 'none';
           const modalBody = document.querySelector('#modal-body');
           modalBody.remove();
-          location.href = redirectPage;
+          alert("프로필이 생성되었습니다.");
+          location.href = "/profile/manage";
         }
       })
 
@@ -418,9 +422,7 @@ window.addEventListener("load", function () {
       baseURL: 'http://localhost:8888/' // 예제 API 서버
     });
 
-    async function ajax() {
-      const methodName = arguments[0];
-      const url = arguments[1];
+
     async function ajax() {
       const methodName = arguments[0];
       const url = arguments[1];
@@ -475,10 +477,10 @@ window.addEventListener("load", function () {
             "Content-Type": "application/x-www-form-urlencoded"
           });
         }
+        console.log(response);
         const { msg, returnedValue, redirectPage } = response.data;
         if (response.status === 200) {
-          alert(msg);
-          return { returnedValue, redirectPage };
+          return response;
         } else {
           alert("연결이 정상적이지 않습니다.");
         }
@@ -493,6 +495,7 @@ window.addEventListener("load", function () {
       }
       return false;
     }
+  
   </script>
 </body>
 

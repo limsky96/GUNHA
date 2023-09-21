@@ -39,9 +39,6 @@ public class ProfileController {
       Model model) {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
-      if (0 == userVO.getMembershipNo()) {
-        return "redirect:/regi2";
-      }
       log.info("user: " + userVO);
       model.addAttribute("user", userVO);
     }
@@ -50,9 +47,10 @@ public class ProfileController {
 
   @PostMapping("/create")
   @ResponseBody
-  public Map<String, Object> createProfile(
-    ProfileVO profileVO){
+  public Map<String, Object> createProfile(ProfileVO profileVO){
+    log.info("createProfile() :...");
     log.info(profileVO + "");
+    
     Map<String, Object> json = new HashMap<>();
     if(profileService.createProfile(profileVO)){
       json.put("msg", "create done");
