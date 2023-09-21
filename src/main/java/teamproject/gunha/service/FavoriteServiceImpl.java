@@ -47,7 +47,16 @@ public class FavoriteServiceImpl implements FavoriteService {
 
   @Override
   public boolean removeFavorite(FavoriteVO favoriteVO) {
-    // TODO Auto-generated method stub
+        List<FavoriteVO> favoriteList = favoriteMapper.selectUserFavList(favoriteVO);
+    for(FavoriteVO favorite : favoriteList){
+      if(favorite.getMovieId() == favoriteVO.getMovieId()){
+        return false;
+      }
+    }
+    int resultRows = favoriteMapper.deleteFavorite(favoriteVO);
+    if (resultRows >= 1) {
+      return true;
+    }
     return false;
   }
 

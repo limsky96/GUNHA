@@ -56,11 +56,12 @@
         cursor: pointer;
       }
 
-      header{
+      header {
         position: relative;
         z-index: 100;
-        color:#000000;
+        color: #000000;
       }
+
       .home {
         top: -110px;
       }
@@ -168,109 +169,123 @@
   </th:block>
 
 
-  <th:block layout:fragment="js" >
-  <script>
-  $(document).ready(function () {
-    fnInit();
-    fnPageStart();
-  });
-  
-  async function fnPageStart() {
-    /*랜덤 뽑기*/
-    const randomNumber = Math.floor(Math.random() * 50);
-    const { data } = await axios.get(`/movies/api/movies?startIndex=0&count=50`);
-    $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data[randomNumber].movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0")//index는 랜덤으로 만든 값
-    $("#mainContent").text(data[randomNumber].movieContent)
-    $("#mainTitle").text(data[randomNumber].movieName)
-    $("#mainDetailModal").on("click", () => {
-  
-      getOneMovie(randomNumber + 1);
-    });
-    $("#mainMovePlay").click(function (e) {
-      var srcCd = $("#mainVideo")
-      console.log(randomNumber)
-      //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-      location.href = `//localhost:8888/watch?src=${(randomNumber + 1)}`;
-      //location.href= "https://www.naver.com"
-    });
-  
-    $(".video-stream").attr('style', 'top:0px');
-  
-  }
-  
-  function fnInit() {
-  
-    //임시 TITLE 증가값
-    var count = 1;
-  
-    //무한스크롤 START
-    //DOCUMENT 스크롤 이벤트 감지
-    $(document).ready(function () {
-  
-      if (currentDataIndex <= 40)
-        getMovies();
-  
-      async function getMovies() {
-        const { data } = await axios.get(`/movies/api/movies?startIndex=${currentDataIndex}&count=10`);
-  
+  <th:block layout:fragment="js">
+    <script>
+      $(document).ready(function () {
+        fnInit();
+        fnPageStart();
+      });
+
+      async function fnPageStart() {
+        /*랜덤 뽑기*/
+        const randomNumber = Math.floor(Math.random() * 50);
+        const { data } = await axios.get(`/movies/api/movies?startIndex=0&count=50`);
+        $("#mainFrame").attr('src', data[randomNumber].movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data[randomNumber].movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0")//index는 랜덤으로 만든 값
+        $("#mainContent").text(data[randomNumber].movieContent)
+        $("#mainTitle").text(data[randomNumber].movieName)
+        $("#mainDetailModal").on("click", () => {
+
+          getOneMovie(randomNumber + 1);
+        });
+        $("#mainMovePlay").click(function (e) {
+          var srcCd = $("#mainVideo")
+          console.log(randomNumber)
+          //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+          location.href = `//localhost:8888/watch?src=${(randomNumber + 1)}`;
+          //location.href= "https://www.naver.com"
+        });
+
+        $(".video-stream").attr('style', 'top:0px');
+
       }
-    });
-  
-  
-    const openBtn = document.querySelector("#open-modal");
-    const modal = document.getElementById('modalWrap');
-    const closeBtn = document.getElementById('closeBtn');
-    const modalBody = document.querySelector("#modalBody");
-  
-    openBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      modal.style.display = `block`;
-    });
-  
-    closeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      modal.style.display = 'none';
-    });
-    window.addEventListener("click", (e) => {
-      e.stopPropagation();
-      modal.style.display = 'none';
-    });
-    modalBody.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-  
-  
-  }
-  
-  async function getOneMovie(id) {
-  
-    /*통신전에 progress START*/
-    const { data } = await axios.get(`/movies/api/movies/${id}`);
-    /*통신전에 progress END*/
-    console.log(id);
-    $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
-    $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
-    $("#detailContent").text(data.movieContent);
-    $("#detailCast").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
-    $("#detailGenre").text('장르 : ' + data.movieGenre);
-    $("#detailCast2").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
-    $("#detailGenre2").text('장르 : ' + data.movieGenre);
-    $("#detailReleaseDate").text('개봉일자 : ' + new Date(data.movieReleaseDate).toLocaleDateString());
-    $("#playBtn").click(function (e) {
-      var srcCd = $("#mainVideo")
-      //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-      location.href = `//localhost:8888/watch?src=${(id)}`;
-      //location.href= "https://www.naver.com"
-    });
-  
-    $("#detailModal").modal();
-    /*통신전에 progress END*/
-    //모달창 구성하기
-    //modal.style.display = `block`;
-    //$("#detail").modal('show');
-    console.log(data);
-  }
-  </script>
+
+      function fnInit() {
+
+        //임시 TITLE 증가값
+        var count = 1;
+        currentDataIndex = 0;
+        //무한스크롤 START
+        //DOCUMENT 스크롤 이벤트 감지
+        $(document).ready(function () {
+
+          if (currentDataIndex <= 40)
+            getMovies();
+
+          async function getMovies() {
+            const { data } = await axios.get(`/movies/api/movies?startIndex=${currentDataIndex}&count=10`);
+
+          }
+        });
+
+
+        const modal = document.getElementById('modalWrap');
+        const closeBtn = document.getElementById('closeBtn');
+        const modalBody = document.querySelector("#modalBody");
+
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          modal.style.display = 'none';
+        });
+        window.addEventListener("click", (e) => {
+          e.stopPropagation();
+          modal.style.display = 'none';
+        });
+        modalBody.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+
+        const profileNames = document.querySelector("#profile-container").children;
+        console.log(profileNames);
+        Array.from(profileNames).forEach(elmnt => {
+          'use strict'
+
+          elmnt.addEventListener("click", async e => {
+            const profileName = e.target.dataset.profileName;
+            console.log(profileName);
+            const requestBody = {
+              "selected_name": profileName
+            }
+            const response = await axios.post("/profile/select", requestBody, {
+              "Content-type": "application/json"
+            });
+            const { data, status } = response;
+            if (status === 200) {
+              location.href = "/home"
+            }
+          });
+        })
+
+      }
+
+      async function getOneMovie(id) {
+
+        /*통신전에 progress START*/
+        const { data } = await axios.get(`/movies/api/movies/${id}`);
+        /*통신전에 progress END*/
+        console.log(id);
+        $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
+        $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
+        $("#detailContent").text(data.movieContent);
+        $("#detailCast").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
+        $("#detailGenre").text('장르 : ' + data.movieGenre);
+        $("#detailCast2").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
+        $("#detailGenre2").text('장르 : ' + data.movieGenre);
+        $("#detailReleaseDate").text('개봉일자 : ' + new Date(data.movieReleaseDate).toLocaleDateString());
+        $("#playBtn").click(function (e) {
+          var srcCd = $("#mainVideo")
+          //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+          location.href = `//localhost:8888/watch?src=${(id)}`;
+          //location.href= "https://www.naver.com"
+        });
+
+        $("#detailModal").modal();
+        /*통신전에 progress END*/
+        //모달창 구성하기
+        //modal.style.display = `block`;
+        //$("#detail").modal('show');
+        console.log(data);
+      }
+    </script>
   </th:block>
 </body>
 

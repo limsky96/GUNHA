@@ -147,6 +147,8 @@
                     // 유효성 검사를 통과한 경우 다음 페이지로 이동
                         const userId = document.querySelector("#uemail");
                         const password = document.querySelector("#upassword");
+                        console.log(userId)
+                        console.log(password)
                         const requestBody = {
                           "user_id": userId.value,
                           "password": password.value
