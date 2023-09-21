@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.mapper.OrderMapper;
 import teamproject.gunha.mapper.ProfileMapper;
 import teamproject.gunha.mapper.UserMapper;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.vo.ProfileVO;
+import teamproject.gunha.vo.UserVO;
 
 @Service
 @Slf4j
@@ -26,13 +28,14 @@ public class ProfileServiceImpl implements ProfileService {
   private UserMapper userMapper;
 
   @Autowired
-  private UserLoginService userLoginService;
+  private OrderMapper orderMapper;
+
 
   @Override
   public boolean createProfile(ProfileVO profileVO) {
     log.info(profileVO + "");
     int count = profileMapper.getNumberOfUserProfile(profileVO);
-    if(count < 5){
+    if (count < 5) {
       int resultRowLine = profileMapper.insertProfile(profileVO);
       if (resultRowLine >= 1) {
         refreshUser();
@@ -59,7 +62,7 @@ public class ProfileServiceImpl implements ProfileService {
   @Transactional
   public boolean removeProfile(ProfileVO profileVO) {
     int count = profileMapper.getNumberOfUserProfile(profileVO);
-    if(count > 1){
+    if (count > 1) {
       int resultRowLine = profileMapper.deleteProfile(profileVO);
       if (resultRowLine >= 1) {
         refreshUser();
@@ -69,30 +72,21 @@ public class ProfileServiceImpl implements ProfileService {
     return false;
   }
 
-  @Override
-  public boolean addFavorite(ProfileVO profileVO) {
-    // TODO Auto-generated method stub
-    return false;
-  }
 
-  @Override
-  public boolean removeFavorite(ProfileVO profileVO) {
-    // TODO Auto-generated method stub
-    return false;
-  }
 
-  @Override
-  public boolean updateFavorite(ProfileVO profileVO) {
-    // TODO Auto-generated method stub
-    return false;
-  }
 
   private void refreshUser() {
-    NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
+    NetflixUserDetails prevUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
-    netflixUserDetails.setUserVO(userMapper.selectUserId(netflixUserDetails.getUsername()));
+
+    UserVO userVO = userMapper.selectUserId(prevUserDetails.getUsername());
+    userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
+    userVO.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userVO.getUserId()));
+    NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
+    log.info(netflixUserDetails + "");
     Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
         netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
   }
+
 }

@@ -30,13 +30,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">홈</a>
+              <a class="nav-link active" aria-current="page" th:href="@{/}">홈</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#!">시리즈</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#!">영화</a>
+              <a class="nav-link" th:href="@{/movie}">영화</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/my/mylist}" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
@@ -47,10 +47,10 @@
             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
               aria-expanded="false">메뉴</a>
             <ul class="dropdown-menu dropdown-main-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-main-item" href="#">홈</a></li>
+              <li><a class="dropdown-main-item" th:href="@{/}">홈</a></li>
               <li><a class="dropdown-main-item" href="#">시리즈</a></li>
-              <li><a class="dropdown-main-item" href="#">영화</a></li>
-              <li><a class="dropdown-main-item" href="#">내가 찜한 콘텐츠</a></li>
+              <li><a class="dropdown-main-item" th:href="@{/movie}">영화</a></li>
+              <li><a class="dropdown-main-item" th:href="@{/my/mylist}">내가 찜한 콘텐츠</a></li>
             </ul>
           </div>
           <!-- 오른쪽 메뉴 -->
@@ -101,7 +101,8 @@
                     <th:block th:if="${profile.profileName != #authentication.principal.userVO.selectedProfile}">
                       <a class="dropdown-item profile-item" href="#">
                         <img th:src="'/images/profile/profile-'+ ${profileStat.index+1} + '.png'" alt="Dropdown Image">
-                        <span th:attr="data-profile-name=${profile.profileName}" class="profile-name" th:text="${profile.profileName}"></span>
+                        <span th:attr="data-profile-name=${profile.profileName}" class="profile-name"
+                          th:text="${profile.profileName}"></span>
                       </a>
                     </th:block>
                   </li>
@@ -148,7 +149,7 @@
 <!-- 로그인 페이지에 넣을거 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    //$('header').addClass('hd-white'); // 로그인 페이지에 넣을거
+
 </script>
 
 </html>
