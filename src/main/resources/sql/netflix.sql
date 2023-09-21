@@ -121,9 +121,11 @@ create table NETFLIX_MEMBER_PROFILE(
     constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name)
 );
 
-alter table NETFLIX_MEMBER_PROFILE
-add constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name);
+--alter table NETFLIX_MEMBER_PROFILE
+--add constraint ix_netflix_member_profile UNIQUE(member_profile_member_id, member_profile_name);
 
+    select count(*) from NETFLIX_MEMBER_PROFILE
+      where member_profile_member_id ='tatelulove4@naver.com_kakao';
 
 insert into NETFLIX_MEMBER_PROFILE values(
     'tatelulove4@naver.com',
@@ -931,7 +933,7 @@ select * from NETFLIX_FAVORITES;
 -- select * from NETFLIX_SOCIAL_ACCOUNT;
 select * from netflix_social;
 
-
+--insert into netflix_favorites values('ggouma34@gmail.com_google', '테스트', 25);
 
 -- delete from netflix_member where member_id = 'seralove4@gmail.com';
 
