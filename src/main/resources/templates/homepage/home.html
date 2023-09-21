@@ -55,11 +55,21 @@
         font-size: 25px;
         cursor: pointer;
       }
+
+      header {
+        position: relative;
+        z-index: 100;
+        color: #000000;
+      }
+
+      .home {
+        top: -110px;
+      }
     </style>
   </th:block>
 
   <th:block layout:fragment="content">
-    <div th:switch="${#authentication.principal.selectedProfile}">
+    <div th:switch="${#authentication.principal.userVO.selectedProfile}">
       <div th:case="null" id="modalWrap">
         <div id="modalBody">
           <span id="closeBtn">&times;</span>
@@ -188,34 +198,29 @@
         $(".video-stream").attr('style', 'top:0px');
 
       }
-      let currentDataIndex = 0;
+
       function fnInit() {
 
         //임시 TITLE 증가값
         var count = 1;
-
+        currentDataIndex = 0;
         //무한스크롤 START
         //DOCUMENT 스크롤 이벤트 감지
         $(document).ready(function () {
 
           if (currentDataIndex <= 40)
-            getMovies(currentDataIndex);
+            getMovies();
 
+          async function getMovies() {
+            const { data } = await axios.get(`/movies/api/movies?startIndex=${currentDataIndex}&count=10`);
+
+          }
         });
-        async function getMovies(currentDataIndex) {
-          const { data } = await axios.get(`/movies/api/movies?startIndex=${currentDataIndex}&count=10`);
-          console.log(data);
-        }
 
-        const openBtn = document.querySelector("#open-modal");
+
         const modal = document.getElementById('modalWrap');
         const closeBtn = document.getElementById('closeBtn');
         const modalBody = document.querySelector("#modalBody");
-
-        openBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          modal.style.display = `block`;
-        });
 
         closeBtn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -229,11 +234,31 @@
           e.stopPropagation();
         });
 
+        const profileNames = document.querySelector("#profile-container").children;
+        console.log(profileNames);
+        Array.from(profileNames).forEach(elmnt => {
+          'use strict'
 
-
+          elmnt.addEventListener("click", async e => {
+            const profileName = e.target.dataset.profileName;
+            console.log(profileName);
+            const requestBody = {
+              "selected_name": profileName
+            }
+            const response = await axios.post("/profile/select", requestBody, {
+              "Content-type": "application/json"
+            });
+            const { data, status } = response;
+            if (status === 200) {
+              location.href = "/home"
+            }
+          });
+        })
 
       }
+
       async function getOneMovie(id) {
+
         /*통신전에 progress START*/
         const { data } = await axios.get(`/movies/api/movies/${id}`);
         /*통신전에 progress END*/
@@ -260,7 +285,6 @@
         //$("#detail").modal('show');
         console.log(data);
       }
-
     </script>
   </th:block>
 </body>

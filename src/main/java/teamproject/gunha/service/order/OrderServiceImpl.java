@@ -115,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
         .startDate(new Date(new java.util.Date().getTime()))
         .orderValid("T")
         .customerUid(portOneVO.getCustomerUid())
-        .impUid("imps_12343874")
+        .impUid("임시imps_uid")
         .build();
 
     ResponseEntity<Map> billResponse = rt.exchange(url, HttpMethod.POST,

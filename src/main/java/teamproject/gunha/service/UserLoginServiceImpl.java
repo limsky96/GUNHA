@@ -44,40 +44,40 @@ public class UserLoginServiceImpl implements UserLoginService {
   @Transactional
   public boolean memberCheckAndLogin(Map<String, Object> requestBody) {
     log.info("memberCheckAndLogin():   ");
-    String userId = (String)requestBody.get("user_id");
-    String password =(String) requestBody.get("password");
+    String userId = (String) requestBody.get("user_id");
+    String password = (String) requestBody.get("password");
     UserVO user = userMapper.selectUserId(userId);
     log.info("user: " + user);
     if (user != null) {
-      if(passwordEncoder.matches(password, user.getPassword())){
+      if (passwordEncoder.matches(password, user.getPassword())) {
         loginAccount();
         return true;
-      } else{
+      } else {
         return false;
       }
     } else {
       UserVO newUser = UserVO.builder()
-            .userId(userId)
-            .password(password).build();
+          .userId(userId)
+          .password(password).build();
       // 계정 만들기
       createAccount(newUser);
       // 이후 유저 로그인됨
       log.info(newUser.toString());
-      loginAccount();
+      loginAccount(newUser);
     }
     return true;
   }
 
   @Override
   public NetflixUserDetails loginAccount() {
-    NetflixUserDetails prevUserDetails= (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
+    NetflixUserDetails prevUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
     UserVO userVO = userMapper.selectUserId(prevUserDetails.getUsername());
     userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
     userVO.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userVO.getUserId()));
+    userVO.setSelectedProfile(prevUserDetails.getUserVO().getSelectedProfile());
     NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
-    netflixUserDetails.setSelectedProfile(prevUserDetails.getSelectedProfile());
-    log.info(netflixUserDetails+"");
+    log.info(netflixUserDetails + "");
     Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
         netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -86,22 +86,31 @@ public class UserLoginServiceImpl implements UserLoginService {
 
   @Override
   public NetflixUserDetails loginAccount(Map<String, Object> jsonObject) {
-    NetflixUserDetails prevUserDetails= (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
+    NetflixUserDetails prevUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
     UserVO userVO = userMapper.selectUserId(prevUserDetails.getUsername());
     userVO.setLastOrder(orderMapper.selectUserLastOrder(userVO.getUserId()));
     userVO.setSecondLastOrder(orderMapper.selectUserSecondLastOrder(userVO.getUserId()));
-    NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
+    userVO.setSelectedProfile(prevUserDetails.getUserVO().getSelectedProfile());
     String selectedProfile = (String) jsonObject.get("selected_name");
-    netflixUserDetails.setSelectedProfile(prevUserDetails.getSelectedProfile());
-    if(selectedProfile != null){
-      netflixUserDetails.setSelectedProfile(selectedProfile);
+    if (selectedProfile != null) {
+      userVO.setSelectedProfile(selectedProfile);
     }
-    log.info(netflixUserDetails+"");
+    NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
+    log.info(netflixUserDetails + "");
     Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
         netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);
     return netflixUserDetails;
+  }
+
+  public void loginAccount(UserVO newUserVO) {
+    UserVO userVO = userMapper.selectUserId(newUserVO.getUserId());
+    NetflixUserDetails netflixUserDetails = new NetflixUserDetails(userVO);
+    log.info(netflixUserDetails + "");
+    Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
+        netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
   }
 
   @Override
@@ -125,7 +134,7 @@ public class UserLoginServiceImpl implements UserLoginService {
   @Override
   @Transactional // update 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
   public boolean modifyAccount(Map<String, Object> json, UserVO userVO) {
-    log.info(json.toString());  
+    log.info(json.toString());
     log.info(userVO.toString());
     // Principal 정보 업데이트 (예: 사용자 이름 변경)
     NetflixUserDetails netflixUserDetails = (NetflixUserDetails) SecurityContextHolder.getContext().getAuthentication()
@@ -135,14 +144,15 @@ public class UserLoginServiceImpl implements UserLoginService {
     if (userVO.getUserEmail() == null) {
       userVO.setUserEmail(curUser.getUserEmail());
     }
-    if (userVO.getPassword() == null || userVO.getPassword().equals(curUser.getPassword()) || "".equals(userVO.getPassword())) {
+    if (userVO.getPassword() == null || userVO.getPassword().equals(curUser.getPassword())
+        || "".equals(userVO.getPassword())) {
       userVO.setPassword(curUser.getPassword());
     } else {
       userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
     }
-    if(userVO.getMembershipNo() == 0 || json.get("membership_no") != null){
+    if (userVO.getMembershipNo() == 0 || json.get("membership_no") != null) {
       log.info(json.get("membership_no").toString());
-      int membershipNo = Integer.valueOf((String)json.get("membership_no"));
+      int membershipNo = Integer.valueOf((String) json.get("membership_no"));
       userVO.setMembershipNo(membershipNo);
     }
     if (userVO.getSocial() == null) {
@@ -160,8 +170,9 @@ public class UserLoginServiceImpl implements UserLoginService {
     userMapper.updateUser(userVO);
     // SecurityContext 업데이트
     loginAccount();
-    // Authentication authentication = new UsernamePasswordAuthenticationToken(netflixUserDetails,
-    //     netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
+    // Authentication authentication = new
+    // UsernamePasswordAuthenticationToken(netflixUserDetails,
+    // netflixUserDetails.getPassword(), netflixUserDetails.getAuthorities());
     // SecurityContextHolder.getContext().setAuthentication(authentication);
 
     return true;
@@ -169,28 +180,27 @@ public class UserLoginServiceImpl implements UserLoginService {
 
   @Override
   @Transactional // update 할 때 트랜잭션 시작, 서비스 종료 시에 트랜잭션 종료(정합성)
-  public Map<String,Object> changeUserPassword(Map<String, Object> jsonObject) {
-    log.info(jsonObject.toString());  
+  public Map<String, Object> changeUserPassword(Map<String, Object> jsonObject) {
+    log.info(jsonObject.toString());
 
-    String userId = (String)jsonObject.get("userId");
-    String oldPassword = (String)jsonObject.get("oldPassword");
+    String userId = (String) jsonObject.get("userId");
+    String oldPassword = (String) jsonObject.get("oldPassword");
     String newPassword = (String) jsonObject.get("newPassword");
     UserVO userVO = userMapper.selectUserId(userId);
     Map<String, Object> responseData = new HashMap<>();
-    if(userId.equals(userVO.getUserId())){
-      if(passwordEncoder.matches(oldPassword, userVO.getPassword())){
+    if (userId.equals(userVO.getUserId())) {
+      if (passwordEncoder.matches(oldPassword, userVO.getPassword())) {
         userVO.setPassword(passwordEncoder.encode(newPassword));
         userMapper.updateUser(userVO);
         responseData.put("code", 0);
         responseData.put("message", "비밀번호가 성공적으로 변경되었습니다.");
         loginAccount();
-      } else{
+      } else {
         responseData.put("code", 1);
-        responseData.put("message","기존 비밀번호가 일치하지 않습니다.");
+        responseData.put("message", "기존 비밀번호가 일치하지 않습니다.");
       }
     }
     // SecurityContext 업데이트
-
 
     return responseData;
   }
