@@ -313,8 +313,7 @@ header.hd-white-logout {
 /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
 .navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .custom-btn { display: none; };
 
-/* 화이트 헤더의 로그인 버튼 */
-.login-btn2 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
   /* 화이트 헤더의 로그인 버튼 */
   .login-btn2 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
 }
+
