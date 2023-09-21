@@ -21,6 +21,7 @@
 
 #login-button{
     height: 70px;
+    margin-bottom: 5em;
 }
 
 .h2, h2 {
@@ -72,8 +73,4 @@
 
 .col-auto1{
     margin-top: 20px;
-}
-
-footer{
-    position:absolute;
 }

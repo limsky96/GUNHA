@@ -3,13 +3,23 @@
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{/layouts/layout}">
 
 <head>
-  <title>singup</title>
-
+<title>singup</title>
 </head>
 
 <body>
   <th:block layout:fragment="css">
     <link th:href="@{/css/login/regi-style.css}" rel="stylesheet">
+    <style>
+    footer {
+      color: #000;
+      background-color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .footer-link{
+      color: #000;
+    }
+    </style>
   </th:block>
 
   <th:block layout:fragment="content">

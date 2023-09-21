@@ -83,7 +83,8 @@
                   <th:block th:switch="${#authentication.principal.userVO.selectedProfile}">
                     <div th:case="null">
                       <script th:inline="javascript">
-                        if ("/home" !== location.pathname) {
+                        if ("/home" !== location.pathname && "/regi" !== location.pathname && "/regi2" !== location.pathname
+                           && "/regi3" !== location.pathname && "/planform" !== location.pathname) {
                           location.href = "/home"
                         }
                       </script>
