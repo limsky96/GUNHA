@@ -5,28 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>원건보다하늘</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link href="/css/qna.css" rel="stylesheet">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}" />
+    <link th:href="@{/css/homepage/qna.css}" rel="stylesheet">
 </head>
 
 <body>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <!--헤더 영역-->
-    <header class="content-header header bg-header-theme text-center">
-        <h1>헤더영역</h1>
-    </header>
+    
+    <div th:include="/header/header.html"></div>
+    <!-- 로그인 페이지에 넣을거 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $('header').addClass('hd-black-logout'); // 로그인 페이지에 넣을거
+    </script>
 
     <!--본문 영역-->
     <div class = "wrap">
         <div class="netflix-qna" >
-            <div class="text-center md-6" >
+            <div class="text-center md-6" id="title">
             <h1><strong>자주묻는 질문</strong></h1>
             </div>
             
 
-            <!--패널 콜렙스-->
+            <!--패널 콜렙스 --타임리프주면 적용안됨..ㅜㅜ-->
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
@@ -111,13 +116,9 @@
                 <div class="text-center">
                     <h4>시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.</h4>
                     <div id="index-bottom-signup">
-                        <form class="row g-3 align-items-center justify-content-center">
+                        <form class="row g-3 align-items-center justify-content-center" id="register-button">
                             <div class="col-auto">
-                                <label for="inputEmail" class="visually-hidden">Email</label>
-                                <input type="email" class="form-control form-control-lg text-white" id="inputEmail" placeholder=" 이메일 주소" style="height: 3em; background-color: rgba(0, 0, 0, 0.5);">
-                            </div>
-                            <div class="col-auto">
-                                <a href="/regi" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기 &gt; </a>
+                                <a th:href="@{/regi}" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기 &gt; </a>
                             </div>
                         </form>
                     </div>

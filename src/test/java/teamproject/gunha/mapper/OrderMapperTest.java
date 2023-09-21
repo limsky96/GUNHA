@@ -33,7 +33,7 @@ class OrderMapperTest {
   @Test
   void testUserOrderDateil(){
 
-    OrderVO orderDetail = orderMapper.selectMemberOrderDetail(1);
+    OrderVO orderDetail = orderMapper.selectOrderByOrderId(1);
 
     log.info(orderDetail.toString());
 

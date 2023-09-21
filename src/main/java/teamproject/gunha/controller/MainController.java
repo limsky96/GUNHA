@@ -1,6 +1,7 @@
 package teamproject.gunha.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.admin.AdminMovieService;
+import teamproject.gunha.admin.AdminMovieVO;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
-import teamproject.gunha.service.MembershipService;
 import teamproject.gunha.service.UserLoginService;
+import teamproject.gunha.vo.MoviePageVO;
+import teamproject.gunha.vo.MovieVO;
 import teamproject.gunha.vo.UserVO;
 
 @Controller
@@ -29,7 +32,7 @@ public class MainController {
   @GetMapping("/header")
   public String header() {
 
-    return "header/header";
+    return "fragments/header";
   }
 
   // 푸터
@@ -78,9 +81,6 @@ public class MainController {
   public String home(
       @AuthenticationPrincipal NetflixUserDetails netflixUserDetails,
       Model model) {
-    if (netflixUserDetails == null) {
-      return "redirect:/login";
-    }
     UserVO userVO = netflixUserDetails.getUserVO();
     // if(!"V".equals(userVO.getLastOrder().getOrderValid())){
     // return "redirect:/regi3";
@@ -90,10 +90,15 @@ public class MainController {
     return "/homepage/home";
   }
 
+  @GetMapping("/admin-home")
+  public String adminHome() {
+
+    return "homepage/admin-home";
+  }
+
   @GetMapping("/watch")
-  public String watch(UserVO userVO, Model model) {
+  public String watch() {
     log.info("watch()...");
-    model.addAttribute("영상Key", userVO);
     return "/watch/watch";
   }
 
@@ -110,39 +115,58 @@ public class MainController {
   }
 
   @GetMapping("/movie")
-  public String card() {
+  public String movie() {
     log.info("hello()...");
     return "/category/movie";
   }
 
-  @GetMapping("/admin")
-  public String admin() {
-    log.info("hello()...");
-    return "admins/admin";
-  }
+  // @GetMapping("/admin")
+  // public String admin() {
+  //   log.info("hello()...");
+  //   return "admin/admin";
+  // }
 
-  @GetMapping("/admins-member")
-  public String adminMember() {
-    log.info("hello()...");
-    return "/admins/admin-member-table";
-  }
+  // @GetMapping("/admin")
+  // public String admin(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails, Model model) {
+  //   UserVO userVO = netflixUserDetails.getUserVO();
+  //   List<AdminMovieVO> movies = adminMovieService.getAllMovies();
+  //   log.info(userVO + "");
+    
+  //   model.addAttribute("user", userVO);
+  //   model.addAttribute("movies", movies);
+    
+  //   return "admin/admin";
+  // }
 
-  @GetMapping("/admins-sales")
-  public String adminSales() {
-    log.info("hello()...");
-    return "/admins/admin-sale-table";
-  }
+  // @GetMapping("/admins-member")
+  // public String adminMember() {
+  //   log.info("hello()...");
+  //   return "/admins/admin-member-table";
+  // }
 
-  @GetMapping("/admins-movies")
-  public String adminMovies() {
-    log.info("hello()...");
-    return "/admins/admin-movie-table";
-  }
+  // @GetMapping("/admin-sales")
+  // public String adminSales() {
+  //   log.info("hello()...");
+  //   return "/admins/admin-sale-table";
+  // }
 
-  @GetMapping("/admins-addmovies")
-  public String adminaddMovies() {
-    log.info("hello()...");
-    return "/admins/admin-movie-add";
-  }
+  // @GetMapping("/admins-movies")
+  // public String adminMovies() {
+  //   log.info("hello()...");
+  //   return "/admins/admin-movie-table";
+  // }
+
+  // @GetMapping("/admins-addmovies")
+  // public String adminaddMovies() {
+  //   log.info("hello()...");
+  //   return "/admins/admin-movie-add";
+  // }
+
+  // @GetMapping("/mylist")
+  // public String mylist() {
+  //   log.info("hello()...");
+  //   return "/homepage/mylist";
+  // }
+
 
 }

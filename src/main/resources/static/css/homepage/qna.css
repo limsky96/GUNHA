@@ -1,13 +1,18 @@
 .wrap {max-width: calc(80% - 6rem); margin: 0 auto; }
 
-/* index-main */
+/* qna-main */
 body {
     color: #fff;
     background-color: #222;
 }
 
-/*패널*/
+/*자주묻는 질문*/
+#title{
+    margin-top: 4em;
+}
 
+
+/*패널*/
 .panel-default { 
     border-color: black;
 }
@@ -50,7 +55,13 @@ body {
 }
 
 /*register button*/
-.row{
+#register-button{
     display: flex;
     flex-wrap: nowrap;
+    margin-bottom: 5em;
+}
+
+#index-bottom-signup{
+    margin-top: 2em;
+    margin-bottom: 4em;
 }

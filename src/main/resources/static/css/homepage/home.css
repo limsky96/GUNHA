@@ -1,165 +1,234 @@
 * {
-    /* border: 1px solid greenyellow; */
-          box-sizing: border-box;
+  /* border: 1px solid greenyellow; */
+  box-sizing: border-box;
 
 }
+
 body {
-    background-color: rgb(20, 20, 20);
-    margin: 0;
-    overflow-x: hidden;
+  background-color: rgb(20, 20, 20);
+  margin: 0;
+  overflow-x: hidden;
 }
+
 a {
   text-decoration: none;
 }
+
 .modal {
-    background-color: rgb(20, 20, 20);
-    margin: 0;
-    color: white;
+  background-color: rgb(20, 20, 20);
+  margin: 0;
+  color: white;
+  width: 850px;
 }
+/* 
+.content {
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
+         height: 4.8em;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;보여주고싶은 줄의 갯수
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+} */
+
+.video-container {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
 .home {
-    position: relative;
-    background-color: rgb(20, 20, 20);
-    /* width: 100%; */
-    height: 100%;
-    /* overflow-x: hidden; 입력했더니 2중 스크롤이생김*/
+  position: relative;
+  background-color: rgb(20, 20, 20);
+  /* width: 100%; */
+  height: 100%;
+  /* overflow-x: hidden; 입력했더니 2중 스크롤이생김*/
 }
+
 video {
-    width: 100%;
+  width: 100%;
 }
+
 iframe {
-    width: 100%;
+  width: 100%;
 }
+
 .overlay {
-    position: absolute;
-    top : 0;
-    left : 0;
-    width: calc(100% - 100px);
-    padding : 10px 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:100%;
+  padding: 50px 0;
 }
+
 .header {
-    display: flex;
+  display: flex;
 }
+
 .logo {
-    color: red;
-    margin-right: 40px;
-    font-size: 28px;
-    font-weight: 900;
-    line-height: 36px;
+  color: red;
+  margin-right: 40px;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 36px;
 
 }
+
 .nav {
-    display: flex;
-    color: white;
-    line-height: 36px;
+  display: flex;
+  color: white;
+  line-height: 36px;
 }
+
 .nav-item {
-    padding: 0 10px;
+  padding: 0 10px;
 }
+
 .menu {
-    display: flex;
-    margin-left: auto;
-    color: white;
-    line-height: 36px;
+  display: flex;
+  margin-left: auto;
+  color: white;
+  line-height: 36px;
 
 }
+
 .menu-item {
-    padding: 10px;
+  padding: 10px;
 }
+
 .banner {
-    color: white;
-    padding: 50px 0;
+  color: white;
+  padding: 100px 50px;
 }
+
 .title {
-    font-size: 72px;
+  font-size: 72px;
 }
+
 .badge {
-    font-size: 18px;
-    font-weight: 900;
-    padding: 15px 0;
+  font-size: 18px;
+  font-weight: 900;
+  padding: 15px 0;
 }
+
 .discription {
-    
+  left: 0;
+  width: 32em;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
+  height: 4.8em;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /*보여주고싶은 줄의 갯수*/
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
 }
+
 .buttons {
-    display: flex;
-    padding: 20px 0;    
+  display: flex;
+  padding: 20px 0;
 }
+
 .white-button {
-    color: black;
-    background-color: white;
-    padding: 10px 25px;
-    border-radius: 4px;
-    font-weight: 900;
+  color: black;
+  background-color: white;
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-weight: 900;
 }
+
 .grey-button {
-    color: white;
-    background-color: black;
-    padding: 10px 25px;
-    border-radius: 4px;
-    font-weight: 900;
-    margin-left: 15px;
+  color: white;
+  background-color: black;
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-weight: 900;
+  margin-left: 15px;
 }
+
 .extra {
-    position:absolute;   
-    right: 0;
-    width: 140px;
-    display: flex;
-    
+  position: absolute;
+  right: 0;
+  width: 140px;
+  display: flex;
+
 }
+
 .replay-button {
-    display: inline-block;
-    border: solid white;
-    border-radius: 100%;
-    padding: 10px;
-    cursor: pointer;
-}
-.rating {
-    background-color: rgba(170 170 170 .2);
-    border-left: 3px solid white;
-    padding-left: 10px;
-    width: 100%;
-    margin-left: 10px;
-}
-.rating img {
-    
-    width : 34px;
-    height : 34px;
+  display: none;
+  border: solid white;
+  border-radius: 100%;
+  padding: 10px;
+  cursor: pointer;
+  
 }
 
 .category-title {
-    padding: 0 0 0 20px;
-    font-size: 1.4vw;
-    color: white;
+  padding: 0 0 0 20px;
+  font-size: 1.4vw;
+  color: white;
 }
+
 .category-list {
-    position: absolute;
-    width: clac(100% - 50px);
-    top: 550px;
-    /* left: 50px; */
+  position: absolute;
+  width: clac(100% - 50px);
+  top: 550px;
+  /* left: 50px; */
 }
+
 .category .title {
-    font-size: 18px;
-    font-weight: 900;
-    color: white;
-    padding: 15px 0;
-    /* 여기부터 추가한 부분 */
-    display: flex;
-    justify-content: space-between;
-    margin-right: 0;
+  font-size: 18px;
+  font-weight: 900;
+  color: white;
+  padding: 15px 0;
+  /* 여기부터 추가한 부분 */
+  display: flex;
+  justify-content: space-between;
+  margin-right: 0;
 
 }
+
 .list {
-    display: flex;
-    /* overflow-x: hidden; */
+  display: flex;
+  /* overflow-x: hidden; */
 }
 
 .info {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
+
 .detail-container {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-left {
+  width: 480px;
+  left: 0;
+}
+.detail-right {
+  width: 240px;
+  left: 0;
 }
 
 :root {
@@ -167,32 +236,25 @@ iframe {
   --swiper-navigation-sides-offset: 100%;
 }
 
-
-
 .swiper-button-prev {
   left: 0;
   position: absolute;
-  
+
 }
 
 .swiper-button-next {
   right: 20px;
   position: absolute;
-  
+
 }
 
-.container {
-  margin-top: 2rem;
-  width: 100vw;
-  position: relative;
-}
 
 .swiper-container {
   overflow: visible;
 }
 
 .swiper-wrapper {
-  display: flex;    
+  display: flex;
 }
 
 .swiper-slide {
@@ -209,7 +271,7 @@ iframe {
   padding: 10px 15px;
   position: absolute;
   background-color: #141414;
-  top: 124px;
+  top: 330px;
   width: 100%;
   /* max-width: 378px; */
 }
@@ -221,34 +283,36 @@ iframe {
   align-items: center;
 }
 
-.card-icon{
+.card-icon {
   color: #fff;
   padding: 5px !important;
   font-size: 28px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
-} 
+}
 
 .text-white {
   font-size: 12px;
   align-items: center;
 }
+
 .swiper-slide img {
   width: 100%;
-  height: 126px;
-  border-radius: 5px;
   /* box-sizing: border-box; */
   /* max-width: 18rem; */
   cursor: grab;
+  /* object-fit: contain;
+  object-position: 100% 0%; */
+  height: 350px;
 }
 
 .swiper-slide img:active {
   cursor: grabbing;
 }
 
-.swiper-slide:hover  {
-  transform: scale(1.4);
+.swiper-slide:hover {
+  transform: scale(1.3);
   transition: all 300ms ease-in-out;
   transition-delay: 300ms;
   z-index: 10;
@@ -256,12 +320,11 @@ iframe {
 
 .swiper-slide:hover img {
   transition-delay: 300ms;
-  box-shadow: 0 0 5px 1px rgba(0,0,0,0.5);
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
 }
 
-.swiper-slide:hover > .imgbody {
+.swiper-slide:hover>.imgbody {
   display: block;
-  /* transition-delay: 300ms;
-  z-index: 10; */
+  transition-delay: 300ms;
+  /*z-index: 10;*/
 }
-  
