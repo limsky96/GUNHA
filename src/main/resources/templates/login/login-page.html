@@ -88,6 +88,7 @@
 
     <th:block layout:fragment="js">
         <script>
+                $('header').addClass('none'); // 화이트 헤더 버전
             $(document).ready(function () {
                 var key = getCookie("idChk"); //user1
                 if (key != "") {
@@ -139,8 +140,15 @@
                 return unescape(cookieValue);
             }
         </script>
+        <!-- 로그인 페이지에 넣을거 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            $('header').addClass('hd-black-logout'); // 블랙 헤더 로그아웃 버전        
+            //$('header').addClass('hd-black-logout'); // 블랙 헤더 로그아웃 버전
+
+            //$('header').addClass('hd-white'); // 화이트 헤더 버전
+
+            //$('header').addClass('hd-white-logout'); // 화이트 헤더 로그아웃 버전
+
         </script>
     </th:block>
 </body>

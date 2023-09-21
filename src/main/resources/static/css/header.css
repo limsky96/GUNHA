@@ -1,19 +1,19 @@
-*{
+* {
   /* border: 1px solid greenyellow; */
 }
 
 /* 내비게이션 바 배경색과 텍스트 색상 변경 */
 .navbar {
-/* background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.1)); */
-background: black;
-height: 80px;
-position: relative;
-margin-bottom: 0px;
-border-radius: 0px;
+  /* background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.1)); */
+  background: black;
+  height: 80px;
+  position: relative;
+  margin-bottom: 0px;
+  border-radius: 0px;
 }
 
-.navbar-collapse{
--webkit-box-shadow :none;
+.navbar-collapse {
+  -webkit-box-shadow: none;
   /* background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.1)); */
   background: black;
   height: 80px;
@@ -21,91 +21,98 @@ border-radius: 0px;
   margin-bottom: 0px;
 }
 
-.navbar-collapse{
-  -webkit-box-shadow :none;
-}
-
 .navbar-brand {
-width: auto ;
-height: 60px ;
+  width: auto;
+  height: 100%;
 }
-.navbar-brand { height: 100%;}
 
-.logo-img {  /*넷플릭스 로고*/
-  width: 100px ;
-  height: 30px ;
+.logo-img {
+  /*넷플릭스 로고*/
+  width: 100px;
+  height: 30px;
   margin: 0px 5px 0px 15px;
 }
 
 .navbar-nav .nav-link {
-  color: white; /* 텍스트 색상을 백색으로 변경 */
+  color: white;
+  /* 텍스트 색상을 백색으로 변경 */
   font-size: 15px;
 }
 
 /* 활성화된 링크의 스타일 변경 */
 .navbar-nav .nav-link.active {
-color: white;
-font-weight: bold;
+  color: white;
+  font-weight: bold;
 }
 
 .nav-link {
-  font-size: 13px; /* 원하는 텍스트 크기 설정 */
+  font-size: 13px;
+  /* 원하는 텍스트 크기 설정 */
 }
 
 
 /*반응형 드롭다운 메뉴*/
 .dropdown-main {
-position: relative; /* 부모 요소를 relative로 설정 */
-display: inline-block; /* 필요에 따라 변경 가능 */
+  position: relative;
+  /* 부모 요소를 relative로 설정 */
+  display: inline-block;
+  /* 필요에 따라 변경 가능 */
 
 }
 
 /*반응형 드롭*/
-.dropdown-main-menu{
-position: absolute;
-top: 50%; /* 드롭다운이 부모 요소 아래에 위치하도록 설정 */
-left: 50px; /* 왼쪽에 정렬 */
-transform: translate(-40%, 20%); /* 수평, 수직 위치 */
-text-align: center;
+.dropdown-main-menu {
+  position: absolute;
+  top: 50%;
+  /* 드롭다운이 부모 요소 아래에 위치하도록 설정 */
+  left: 50px;
+  /* 왼쪽에 정렬 */
+  transform: translate(-40%, 20%);
+  /* 수평, 수직 위치 */
+  text-align: center;
 }
 
-.dropdown-toggle{
+.dropdown-toggle {
   width: 50px;
-  font-size: 15px; /*드롭 "메뉴" 글자 크기*/
+  font-size: 15px;
+  /*드롭 "메뉴" 글자 크기*/
   color: #ffffff;
 }
 
 .dropdown-toggle::after {
-margin-left: 5px;
-size: 20px;
+  margin-left: 5px;
+  size: 20px;
 }
 
 .dropdown-toggle,
 .dropdown-toggle:hover,
 .dropdown-toggle:active,
 .dropdown-toggle.show {
-color: white !important;
-background-color: transparent !important;
-border: none !important;
+  color: white !important;
+  background-color: transparent !important;
+  border: none !important;
 }
 
-.right-menu {  /*오른쪽 메뉴 감싼 것*/
-display: flex;
-align-items: center; /* 요소를 세로 중앙에 배치합니다 */
-margin-right: 20px;
+.right-menu {
+  /*오른쪽 메뉴 감싼 것*/
+  display: flex;
+  align-items: center;
+  /* 요소를 세로 중앙에 배치합니다 */
+  margin-right: 20px;
 }
 
-.dropdown  {
+.dropdown {
   display: flex;
   align-items: center;
 }
 
-.navbar-collapse{
+.navbar-collapse {
   box-sizing: border-box;
-  border-top: none; /* 테두리 추가 */
+  border-top: none;
+  /* 테두리 추가 */
 }
 
-.form-control.me-2{
+.form-control.me-2 {
   max-width: 100px;
   background-color: #333;
   color: #fff;
@@ -113,142 +120,159 @@ margin-right: 20px;
 }
 
 
-.row.search-box-inner>* { min-width: 300px!important; height: 50px; }
-.row.search-box-inner>* .card-body { width: 100%; height: 100%; }
+.row.search-box-inner>* {
+  min-width: 300px !important;
+  height: 50px;
+}
+
+.row.search-box-inner>* .card-body {
+  width: 100%;
+  height: 100%;
+}
 
 .dropdown-main-item {
-color: white; /* 텍스트 색상을 백색으로 변경 */
+  color: white;
+  /* 텍스트 색상을 백색으로 변경 */
 
 }
 
 .dropdown-main-menu li {
-margin-bottom: 20px; /* 여기에 원하는 간격 값을 설정하세요 */
+  margin-bottom: 20px;
+  /* 여기에 원하는 간격 값을 설정하세요 */
 }
 
 /*오른드롭*/
 .dropdown-menu a.dropdown-item {
-color: white; /* 흰색으로 변경 */
+  color: white;
+  /* 흰색으로 변경 */
 }
 
-#headersearch{
-  background-color: #090909; /* 원하는 배경색으로 변경 */
-  color: white; /* 텍스트 색상을 백색으로 변경 */
+#headersearch {
+  background-color: #090909;
+  /* 원하는 배경색으로 변경 */
+  color: white;
+  /* 텍스트 색상을 백색으로 변경 */
 }
 
 
 /* 검색 버튼 스타일 변경 */
 .btn-outline-success {
-color: white; /* 텍스트 색상을 백색으로 변경 */
-border-color: white; /* 테두리 색상을 백색으로 변경 */
+  color: white;
+  /* 텍스트 색상을 백색으로 변경 */
+  border-color: white;
+  /* 테두리 색상을 백색으로 변경 */
 }
 
 .search-container {
-position: relative;
+  position: relative;
 }
 
-.menu{
-display: flex;
-color: white;    
+.menu {
+  display: flex;
+  color: white;
 }
 
-.menu-item{
-padding: 8px 10px; /*오른 메누 아이콘 간격*/
+.menu-item {
+  padding: 8px 10px;
+  /*오른 메누 아이콘 간격*/
 
 
 }
 
-.menu-item i { /* 오른 메뉴 아이콘 크기 조절 */
-font-size: 18px; 
+.menu-item i {
+  /* 오른 메뉴 아이콘 크기 조절 */
+  font-size: 18px;
 }
 
 /*프로필 사진*/
 .custom-btn {
-background: none;
-border: none;
-padding: 0px;
+  background: none;
+  border: none;
+  padding: 0px;
 }
 
 .custom-btn img {
-width: 25px; /* 원하는 이미지 너비 */
-height: 25px; /* 원하는 이미지 높이 */
-border-radius: 10%; /* 프로필 이미지 둥글게 만들기 위한 속성 */
+  width: 25px;
+  /* 원하는 이미지 너비 */
+  height: 25px;
+  /* 원하는 이미지 높이 */
+  border-radius: 10%;
+  /* 프로필 이미지 둥글게 만들기 위한 속성 */
 }
 
 .dropdown-item img {
-width: 25px; /* 원하는 이미지 너비 */
-height: 25px; /* 원하는 이미지 높이 */
-margin: 10px 0px;
-border-radius: 10%; /* 프로필 이미지 둥글게 만들기 위한 속성 */
+  width: 25px;
+  /* 원하는 이미지 너비 */
+  height: 25px;
+  /* 원하는 이미지 높이 */
+  margin: 10px 0px;
+  border-radius: 10%;
+  /* 프로필 이미지 둥글게 만들기 위한 속성 */
 }
 
 .profile-item {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .profile-name {
-margin-left: 10px;
-font-size: 20px;
+  margin-left: 10px;
+  font-size: 20px;
 }
 
 .dropdown-item {
-font-size: 20px; /* 원하는 크기로 변경하세요 */
+  font-size: 20px;
+  /* 원하는 크기로 변경하세요 */
 }
 
 /*반응형이랑 둘다 만들어야 */
 .dropdown-main-menu {
-  width: 240px; /* 드롭 다운 메뉴 너비 변경 */
+  width: 240px;
+  /* 드롭 다운 메뉴 너비 변경 */
   padding: 20px 10px 0;
-  border-top: 3px solid rgba(255, 255, 255, 0.8); /* 검은색 색상, 50% 투명도 */
+  border-top: 3px solid rgba(255, 255, 255, 0.8);
+  /* 검은색 색상, 50% 투명도 */
   font-size: 15px;
 }
 
-.dropdown-main-item:hover{
+.dropdown-main-item:hover {
   color: #090909;
 }
 
-.dropdown-menu>li>a{
+.dropdown-menu>li>a {
   color: white;
 }
 
-.dropdown-menu>li>a:hover{
+.dropdown-menu>li>a:hover {
   color: black;
 }
 
 /*반응형이랑 오른쪽 둘다 만들어드롭다운 메뉴 배경색과 텍스트 색상 변경 */
-.dropdown-menu{
-  background-color: rgba(0, 0, 0, 0.8); /* 검은색 배경과 투명도 조절 */
-}
-
-/*반응형*/
 .dropdown-menu {
-border-radius: 0px; /* 원하는 둥글기 값으로 조정하세요 */
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0px;
+  /* 검은색 배경과 투명도 조절 */
 }
 
 /* 둘다 만들어야 */
 .dropdown-menu hr {
-margin: 10px; /* 원하는 마진 값으로 조절 */
-border-color: #ffffff; /* 원하는 색상으로 변경 */
+  margin: 10px;
+  /* 원하는 마진 값으로 조절 */
+  border-color: #ffffff;
+  /* 원하는 색상으로 변경 */
 }
-
-#search-button{
-
+.btn.btn-danger3 {
+  display: none;
 }
-
-.login-btn1 { display: none; }
-
-.login-btn2 { display: none; }
-
-.btn.btn-danger3 {display: none;}
 
 
 @media screen and (max-width: 880px) {
-.navbar-nav {
-  display: none;
-  flex-direction: column !important;
-  align-items: flex-start;
-  border-radius: 0px;
-}
+  .navbar-nav {
+    display: none;
+    flex-direction: column !important;
+    align-items: flex-start;
+    border-radius: 0px;
+  }
 
   .dropdown-main {
     width: 100%;
@@ -259,62 +283,152 @@ border-color: #ffffff; /* 원하는 색상으로 변경 */
 }
 
 @media screen and (min-width: 880px) {
-.navbar-nav {
-  width: 100%;
-  text-align: left;
-  border-radius: 0px;
-}
+  .navbar-nav {
+    width: 100%;
+    text-align: left;
+    border-radius: 0px;
+  }
 
-.form-control.me-2{
-  max-width: 200px;
-}
+  .form-control.me-2 {
+    max-width: 200px;
+  }
 
 
 
-.dropdown-main {
-  display: none;
-  flex-direction: column !important;
-  align-items: flex-start;
-}
+  .dropdown-main {
+    display: none;
+    flex-direction: column !important;
+    align-items: flex-start;
+  }
 }
 
 /* 스크립트 - 블랙 헤더 로그 아웃 버전 css 부분 */
 header.hd-black-logout {
-/* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
-.navbar {background: black; height: 80px; position: relative;}
-.logo-img {width: 100px ;height: 30px ;margin: 0px 5px 0px 15px;}
-/* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
-.navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .nav-link, .custom-btn { display: none; };
 
-/* 화이트 헤더의 로그인 버튼 */
-#login-btn3{ display: inline-block; text-decoration: solid; color: #333; margin-right: 20px; font-size: 15px; 
-  border: 2px solid #e50914; border-radius: 4px; background-color: #e50914; width: 80px; height: 30px; display: flex; 
-  text-align: center; align-items: center; color: white; padding: 0 15px;}
+  /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
+  .navbar {
+    background: black;
+    height: 80px;
+    position: relative;
+  }
+
+  .logo-img {
+    width: 100px;
+    height: 30px;
+    margin: 0px 5px 0px 15px;
+  }
+
+  /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
+  .navbar-toggler .navbar-nav,
+  .dropdown-main,
+  .right-menu,
+  .nav-link,
+  .custom-btn {
+    display: none;
+  }
+
+  /* 화이트 헤더의 로그인 버튼 */
+  #login-btn {
+    display: inline-block;
+    text-decoration: solid;
+    color: #333;
+    margin-right: 20px;
+    font-size: 15px;
+    border: 2px solid #e50914;
+    border-radius: 4px;
+    background-color: #e50914;
+    width: 80px;
+    height: 30px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    color: white;
+    padding: 0 15px;
+  }
 }
-
 
 /* 스크립트 - 화이트 헤더 css 부분 */
 header.hd-white {
-/* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
-.navbar { background: #fff !important; color: #333 !important; border-bottom: 1px solid #e6e6e6; height: 93px; };
-.logo img { width: 180px; height: 50px; margin-left: 8px; /* 수평으로 이동 (원하는 만큼 조절) */};
-/* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
-.navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .custom-btn { display: none; };
-/* 화이트 헤더의 로그인 버튼 */
-#login-btn1 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
-#login-btn2 { display: none; }
+
+  /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
+  .navbar {
+    background: #fff !important;
+    color: #333 !important;
+    border-bottom: 1px solid #e6e6e6;
+    height: 93px;
+  }
+
+  .navbar-collapse {
+    background-color: white;
+  }
+  .logo img {
+    width: 180px;
+    height: 50px;
+    margin-left: 8px;
+    /* 수평으로 이동 (원하는 만큼 조절) */
+  }
+
+
+  /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
+  .navbar-toggler .navbar-nav,
+  .dropdown-main,
+  .right-menu,
+  .custom-btn {
+    display: none;
+  }
+
+
+  /* 화이트 헤더의 로그인 버튼 */
+  #login-btn {
+    display: inline-block;
+    text-decoration: solid;
+    color: #333;
+    margin-right: 30px;
+    font-size: 18px;
+  }
+
 }
 
 /* 스크립트 - 화이트 헤더  로그아웃 버전 css 부분 */
 header.hd-white-logout {
-/* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
-.navbar { background: #fff !important; color: #333 !important; border-bottom: 1px solid #e6e6e6; height: 93px; };
-.logo img { width: 180px; height: 50px; margin-left: 8px; /* 수평으로 이동 (원하는 만큼 조절) */};
-/* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
-.navbar-toggler .navbar-nav, .dropdown-main, .right-menu, .custom-btn { display: none; };
 
-/* 화이트 헤더의 로그인 버튼 */
-.login-btn2 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
+  /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
+  .navbar {
+    background: #fff !important;
+    color: #333 !important;
+    border-bottom: 1px solid #e6e6e6;
+    height: 93px;
+  }
+
+  .logo img {
+    width: 180px;
+    height: 50px;
+    margin-left: 8px;
+    /* 수평으로 이동 (원하는 만큼 조절) */
+  }
+
+  .navbar-collapse {
+    background-color: white;
+  }
+
+  /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
+  .navbar-toggler .navbar-nav,
+  .dropdown-main,
+  .right-menu,
+  .custom-btn {
+    display: none;
+  }
+
   /* 화이트 헤더의 로그인 버튼 */
-  .login-btn2 { display: inline-block; text-decoration: solid; color: #333; margin-right: 30px; font-size: 18px;}
+  .login-btn1 {
+    display: inline-block;
+    text-decoration: solid;
+    color: #333;
+    margin-right: 30px;
+    font-size: 18px;
+  }
+}
+
+header.none{
+  display:none !important;
 }
