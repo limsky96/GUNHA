@@ -84,8 +84,8 @@
   <select id="selectUserOrderList" resultMap="orderMap">
     <![CDATA[ 
       select * from netflix_order where order_member_id = #{userId}
-      and order_id < (select max(order_id) from netflix_order
-      where order_member_id = #{userId}) and rownum <= 10 order by order_id desc 
+      and order_id <= (select max(order_id) from netflix_order
+      where order_member_id = #{userId} and order_imp_uid not like '%임시%') and rownum <= 10 order by order_id desc 
     ]]>
   </select>
 

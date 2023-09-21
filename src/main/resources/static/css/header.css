@@ -141,10 +141,10 @@
   /* 여기에 원하는 간격 값을 설정하세요 */
 }
 
-/*오른드롭*/
-.dropdown-menu a.dropdown-item {
-  color: white;
-  /* 흰색으로 변경 */
+  /*오른드롭*/
+.dropdown-menu a.dropdown-item,
+.dropdown-menu input.dropdown-item {
+  color: white; /* 흰색으로 변경 */
 }
 
 #headersearch {
