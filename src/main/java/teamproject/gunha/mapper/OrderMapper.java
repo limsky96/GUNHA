@@ -29,5 +29,7 @@ public interface OrderMapper {
 
   public int updateOrder(OrderVO orderVO);
 
+  public int deleteOrder(OrderVO orderVO);
+
 
 }

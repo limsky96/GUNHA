@@ -29,7 +29,7 @@
       </if>
     <![CDATA[ 
     )
-    values((select nvl(max(order_id),0)+1 from netflix_order)
+    values(seq_netflix_order_id.nextval
     ]]>
     <if test="cardNumber != null">
       , #{cardNumber}
@@ -67,16 +67,18 @@
     </where>
   </select>
 
-  <select id="selectUserLastOrder" resultMap="orderMap"> select * from netflix_order <where>
-      <if test="userId != null"> AND order_member_id = #{userId} </if>
-        <![CDATA[ and rownum <= 1]]>
-      </where> order by order_id
-    desc </select>
+  <select id="selectUserLastOrder" resultMap="orderMap">
+    <![CDATA[ select rownum, d.* from (select o.* from netflix_order o ]]>
+    <where>
+      <if test="userId != null"> AND o.order_member_id = #{userId} </if>
+    </where>
+      <![CDATA[ order by order_id desc) d where rownum <=1 ]]>
+  </select>
 
   <select id="selectUserSecondLastOrder" resultMap="orderMap">
     <![CDATA[ 
-      select * from (select rownum rnum, o.* from netflix_order o where order_member_id = #{userId} and rownum<=2 
-      order by order_id desc) where rnum = 2
+    select * from (select rownum rnum, d.* from (select o.* from netflix_order o where o.order_member_id = #{userId}  
+      order by o.order_id desc) d where rownum <=2) where rnum =2
     ]]>
   </select>
 
@@ -129,6 +131,9 @@
 
   </update>
 
+  <delete id="deleteOrder">
+    <![CDATA[ delete FROM NETFLIX_ORDER where order_id = #{orderId}]]>
+  </delete>
 
   <resultMap id="orderMap" type="teamproject.gunha.vo.OrderVO">
     <result property="orderId" column="order_id" />

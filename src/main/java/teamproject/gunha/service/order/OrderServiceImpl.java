@@ -337,7 +337,7 @@ public class OrderServiceImpl implements OrderService {
         String message = "멤버십 해지가 정상적으로 완료되었습니다. 다음달부터 멤버십이 해지됩니다.";
         response.put("status", status);
         response.put("message", message);
-        orderMapper.updateOrder(orderVO);
+        orderMapper.deleteOrder(orderVO);
       }
     } else {
       int status = 200;

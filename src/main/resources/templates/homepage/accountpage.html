@@ -43,6 +43,8 @@
           <button id="order-new" onclick="location.href='/planform'" class="w-100 border-0 btn-cancel"
             th:text="'멤버십 가입'"></button>
         </div>
+        <div th:text="${user.lastOrder}"></div>
+        <div th:text="${user.secondLastOrder}"></div>
         <div th:if="${user.lastOrder != null && user.secondLastOrder != null}">
           <div th:switch="${user.secondLastOrder.orderValid}">
             <div th:case="'V'">
