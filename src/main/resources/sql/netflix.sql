@@ -149,7 +149,7 @@ commit;
 
 DROP sequence seq_netflix_order_id;
 
-CREATE SEQUENCE seq_netflix_order_id START WITH 1 NOMAXVALUE NOMINVALUE NOCYCLE;
+CREATE SEQUENCE seq_netflix_order_id START WITH 275 NOMAXVALUE NOMINVALUE NOCACHE NOCYCLE;
 
 drop table NETFLIX_ORDER cascade constraints;
 
@@ -166,11 +166,22 @@ create table NETFLIX_ORDER(
         on delete cascade
 );
 
+SELECT * FROM user_sequences WHERE sequence_name = 'SEQ_NETFLIX_ORDER_ID';
 
+select seq_netflix_order_id.nextval from dual;
+select seq_netflix_order_id.currval from dual;
+select * from netflix_order order by order_id desc;
 
+      select * from netflix_membership ms, netflix_member m, netflix_order o
+        where o.order_id = 265 and o.order_member_id = m.member_id
+        and m.member_membership_no = ms.membership_no;
 
+select * from netflix_member;
 
+delete from netflix_order where order_id <= 306;
 
+insert into netflix_order values(291, 'tatelulove4@naver.com_kakao' ,'9420-6110-9654-6921', '23/09/21', 'T', 'tatelulove4@naver.com_kakao_cuid_order_000223', '임시imps_uid');
+commit;
 -- alter table NETFLIX_ORDER add order_imp_uid varchar2(60);
 
 -- alter table netflix_order add order_customer_uid varchar2(80);
@@ -910,7 +921,6 @@ on delete cascade;
 commit;
 
 ------------------
-
 
 
 

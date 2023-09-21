@@ -15,6 +15,8 @@ public interface OrderMapper {
   
   public int selectLastOrderId();
 
+  public int selectNextOrderId();
+
   public OrderVO selectOrderByOrderId(int orderId);
 
   public int selectUserLastOrderId(String userId);
