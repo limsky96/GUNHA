@@ -1,9 +1,14 @@
 package teamproject.gunha.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import teamproject.gunha.security.config.auth.NetflixUserDetails;
+import teamproject.gunha.service.UserLoginService;
+import teamproject.gunha.vo.UserVO;
 
 import java.util.List;
 
@@ -13,6 +18,9 @@ public class AdminMovieController {
 
     @Autowired
     private AdminMovieService adminMovieService;
+
+    @Autowired
+    private UserLoginService userLoginService;
 
     @GetMapping("/list")
     public String listMovies(Model model) {
@@ -60,7 +68,7 @@ public class AdminMovieController {
     }
 
     @GetMapping("/admin")
-    public String Admin(Model model) {
+    public String admin(Model model) {
         return "/admins/admin";
     }
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
+import teamproject.gunha.admin.AdminMovieService;
+import teamproject.gunha.admin.AdminMovieVO;
 import teamproject.gunha.security.config.auth.NetflixUserDetails;
 import teamproject.gunha.service.UserLoginService;
 import teamproject.gunha.vo.MoviePageVO;
@@ -111,23 +113,17 @@ public class MainController {
     return "/category/movie";
   }
 
-  @GetMapping("/admin")
-  public String admin() {
-    log.info("hello()...");
-    return "/admins/admin";
-  }
+  // @GetMapping("/admins-member")
+  // public String adminMember() {
+  // log.info("hello()...");
+  // return "/admins/admin-member-table";
+  // }
 
-  @GetMapping("/admins-member")
-  public String adminMember() {
-    log.info("hello()...");
-    return "/admins/admin-member-table";
-  }
-
-  @GetMapping("/admins-sales")
-  public String adminSales() {
-    log.info("hello()...");
-    return "/admins/admin-sale-table";
-  }
+  // @GetMapping("/admin-sales")
+  // public String adminSales() {
+  // log.info("hello()...");
+  // return "/admins/admin-sale-table";
+  // }
 
   // @GetMapping("/admins-movies")
   // public String adminMovies() {
@@ -141,10 +137,10 @@ public class MainController {
   // return "/admins/admin-movie-add";
   // }
 
-  @GetMapping("/mylist")
-  public String mylist() {
-    log.info("hello()...");
-    return "/homepage/mylist";
-  }
+  // @GetMapping("/mylist")
+  // public String mylist() {
+  // log.info("hello()...");
+  // return "/homepage/mylist";
+  // }
 
 }

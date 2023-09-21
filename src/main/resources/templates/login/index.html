@@ -1,50 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>원건보다하늘</title>
-        <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet"  th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}">
-        <link th:href="@{/css/index-style.css}" rel="stylesheet">
-    </head>
-    
-    <body>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-      <!-- 헤더 영역 -->
-     <div th:include="/header/header.html"></div>
-     <!-- 로그인 페이지에 넣을거 -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-=======
-=======
->>>>>>> 9a5789519bdd0fca87fbc889629fa62ae0e93e47
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>main</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  <title>원건보다하늘</title>
+  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link href="/css/index-style.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css}">
+  <link th:href="@{/css/login/index-style.css}" rel="stylesheet">
 </head>
 
 <body>
-<<<<<<< HEAD
->>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
-=======
->>>>>>> 9a5789519bdd0fca87fbc889629fa62ae0e93e47
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <!--헤더 영역-->
-  <header class="content-header header bg-header-theme text-center">
-    <h1>헤더영역</h1>
-  </header>
+  <div th:include="/header/header.html"></div>
+  <!-- 로그인 페이지에 넣을거 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $('header').addClass('hd-black-logout'); // 로그인 페이지에 넣을거
+  </script>
 
   <!--본문 영역-->
   <div class="main">
@@ -236,190 +212,205 @@
             <div id="index-bottom-signup">
               <form class="row g-3 align-items-center justify-content-center w-50">
                 <div class="col-auto1">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    <a th:href="@{/regi}" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기 &gt; </a>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <div class="main-bnr">
-        <div class="inner-wrap">
-            <div class="inr-box promotion-bnr fs-6">
-                <div class="img"><img src="/images/popcorn.png" class="bnr-loginImg"></div>
-                <div class="text-content text-white">
-                    <h3>13500원이면 만날 수 있는 넷플릭스.</h3>
-                    <p style="font-size: medium;">스탠다드 멤버십에 가입하세요</p>
-                    <a href="#" style="font-size: medium;">자세히 알아보기 &gt;</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="netflix-intro1">
-        <div class="wrap">
-            <div class="netflix-introduction-box d-flex justify-content-center align-items-center intro-box">
-                <div class="netflix-introduction-content intro-cont col justify-content-center">
-                    <h1><strong>TV로 즐기세요</strong></h1>
-                    <h3>스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어등 다양한 디바이스에서 시청하세요.</h3>
-                </div>
-                <div class="intro-video"> <!-- 부모 컨테이너 -->
-                    <div data-uia="nmhp-card-animation-asset-motion" class="default-ltr-cache-m5f3qu e15c37ii14 video">
-                        <video data-uia="nmhp-card-animation-asset-video" autoplay="" playsinline="" muted="" loop="" style="z-index: 1;"> <!-- 비디오 위에 이미지 배치 -->
-                            <source src="/video/video-tv-0819.m4v" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="frame"> <!-- 이미지는 비디오 위에 배치 -->
-                        <img src="/images/index-tv.png">
-                    </div>
-=======
-                  <a href="/regi" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기 &gt;
-                  </a>
->>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
-=======
-                  <a href="/regi" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기 &gt;
-                  </a>
->>>>>>> 9a5789519bdd0fca87fbc889629fa62ae0e93e47
+                  <<<<<<< HEAD <<<<<<< HEAD <a th:href="@{/regi}" class="btn btn-danger btn-lg"
+                    style="background-color: rgba(255, 0, 0);"> 시작하기 &gt; </a>
                 </div>
               </form>
+            </div>
+          </div>
+
+          <div class="main-bnr">
+            <div class="inner-wrap">
+              <div class="inr-box promotion-bnr fs-6">
+                <div class="img"><img src="/images/popcorn.png" class="bnr-loginImg"></div>
+                <div class="text-content text-white">
+                  <h3>13500원이면 만날 수 있는 넷플릭스.</h3>
+                  <p style="font-size: medium;">스탠다드 멤버십에 가입하세요</p>
+                  <a href="#" style="font-size: medium;">자세히 알아보기 &gt;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="netflix-intro1">
+            <div class="wrap">
+              <div class="netflix-introduction-box d-flex justify-content-center align-items-center intro-box">
+                <div class="netflix-introduction-content intro-cont col justify-content-center">
+                  <h1><strong>TV로 즐기세요</strong></h1>
+                  <h3>스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어등 다양한 디바이스에서 시청하세요.</h3>
+                </div>
+                <div class="intro-video"> <!-- 부모 컨테이너 -->
+                  <div data-uia="nmhp-card-animation-asset-motion" class="default-ltr-cache-m5f3qu e15c37ii14 video">
+                    <video data-uia="nmhp-card-animation-asset-video" autoplay="" playsinline="" muted="" loop=""
+                      style="z-index: 1;"> <!-- 비디오 위에 이미지 배치 -->
+                      <source src="/video/video-tv-0819.m4v" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="frame"> <!-- 이미지는 비디오 위에 배치 -->
+                    <img src="/images/index-tv.png">
+                  </div>
+                  =======
+                  <a href="/regi" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기 &gt;
+                  </a>
+                  >>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
+                  =======
+                  <a href="/regi" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기 &gt;
+                  </a>
+                  >>>>>>> 9a5789519bdd0fca87fbc889629fa62ae0e93e47
+                </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <footer class="content-footer footer bg-footer-theme text-center">
-    <h1>푸터영역</h1>
-  </footer>
+    <footer class="content-footer footer bg-footer-theme text-center">
+      <h1>푸터영역</h1>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
 </body>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <div class="netflix-intro3">
-        <div class="wrap d-flex"> <!-- 부모 컨테이너 (d-flex를 이용하여 가로로 나열) -->
-            <div class="img"><img src="/images/index-mobile.jpg"></div>
-            <div class="netflix-introduction-content">
-                <h1><strong>즐겨 보는 콘텐츠를 저장해 오프라인으로 시청하세요</strong></h1>
-                <h3>광고 없는 멤버십에서만 이용 가능합니다.</h3>
+<<<<<<< HEAD <<<<<<< HEAD <div class="netflix-intro3">
+  <div class="wrap d-flex"> <!-- 부모 컨테이너 (d-flex를 이용하여 가로로 나열) -->
+    <div class="img"><img src="/images/index-mobile.jpg"></div>
+    <div class="netflix-introduction-content">
+      <h1><strong>즐겨 보는 콘텐츠를 저장해 오프라인으로 시청하세요</strong></h1>
+      <h3>광고 없는 멤버십에서만 이용 가능합니다.</h3>
+    </div>
+  </div>
+  </div>
+
+
+  <div id="interval"></div>
+
+  <div class="netflix-qna">
+    <div class="text-center">
+      <h1><strong>자주묻는 질문</strong></h1>
+      <div class="align-self-center wrap ">
+        <div class="panel-group p-3" id="accParent" role="tablist">
+          <!--패널 콜렙스-->
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne" style=" font-size: 1.3em;">
+                    넷플릭스에서 어떤 콘텐츠를 시청할 수 있나요?
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                  넷플릭스는 장편 영화, 애니메이션, 각종 상을 수상한 영화 등 수많은 콘텐츠를 확보하고 있습니다. 마음에 드는 콘틴츠를 원하는 시간에 원하는 만큼 시청하실 수 있습니다.
+                </div>
+              </div>
             </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo" style=" font-size: 1.3em;">
+                    넷플릭스란 무엇인가요?
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                  넷플릭스는 각종 수상 경력에 및나는 영화, 에니메이션등 다양한 콘텐츠를 인터넷 연결이 가능한 수천 종의 디바이스에서 시청할 수 있는 스트리밍 서비스 입니다.
+                  <br><br>
+                  저렴한 월 요금으로 원하는 시간에 원하는 만큼 즐길 수 있습니다. 무궁무진한 콘텐츠가 준비되어 있으며 매주 새로운 시리즈와 영화가 제공됩니다.
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                    style=" font-size: 1.3em;">
+                    넷플릭스 요금은 얼마인가요?
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                  스마트폰, 태블릿, 스마트TV, 노트북, 스트리밍 디바이스 등 다양한 디바이스에서 월정액 요금 하나로 넷플릭스를 시청하세요. 멤버십 요금은 다양합니다. 추가 비용이나 약정이 없습니다.
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingFour">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style=" font-size: 1.3em;">
+                    어디에서 시청할수 있나요?
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <div class="panel-body">
+                  언제 어디서나 시청할 수 있습니다. 넷플릭스 계정으로 로그인하면 PC에서 바로 시청할 수 있으며, 인터넷이 연결되어 있고 넷플릭스 앱을 지원하는 디바이스(스마트 TV, 스마트폰,
+                  태블릿, 스트리밍 미디어 플레이어, 게임 콘솔 등)에서도 언제든지 시청할 수 있습니다.
+                  <br><br>
+                  iOS, Android, Windows 10용 앱에서는 좋아하는 시리즈를 저장할 수도 있습니다. 저장 기능을 이용해 이동 중이나 인터넷에 연결할 수 없는 곳에서도 시청하세요.
+                  넷플릭스는 어디서든 함께니까요.
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingFive">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    href="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style=" font-size: 1.3em;">
+                    멤버십을 해지하려면 어떻게 하나요?
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                <div class="panel-body">
+                  넷플릭스는 부담 없이 간편합니다. 성가신 계약도, 약정도 없으니까요. 멤버십 해지도 온라인에서 클릭 두 번이면 완료할 수 있습니다. 해지 수수료도 없으니 원할 때 언제든 계정을
+                  시작하거나 종료하세요.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <h4>시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.</h4>
+            <div id="index-bottom-signup">
+              <form class="row g-3 align-items-center justify-content-center w-50">
+                <div class="col-auto1">
+                  <a th:href="@{/regi}" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기
+                    &gt; </a>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-    </div>
 
+        <footer class="content-footer footer bg-footer-theme text-center">
+          <h1>푸터영역</h1>
+        </footer>
 
-    <div id="interval"></div>
-    
-    <div class="netflix-qna" >
-       <div class="text-center">
-       <h1><strong>자주묻는 질문</strong></h1>
-        <div class="align-self-center wrap ">
-            <div class="panel-group p-3" id="accParent" role="tablist">
-                <!--패널 콜렙스-->
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style=" font-size: 1.3em;">
-                                넷플릭스에서 어떤 콘텐츠를 시청할 수 있나요?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            넷플릭스는 장편 영화, 애니메이션, 각종 상을 수상한 영화 등 수많은 콘텐츠를 확보하고 있습니다. 마음에 드는 콘틴츠를 원하는 시간에 원하는 만큼 시청하실 수 있습니다.
-                        </div>
-                    </div>
-                </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+        </body>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style=" font-size: 1.3em;">
-                                넷플릭스란 무엇인가요?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            넷플릭스는 각종 수상 경력에 및나는 영화, 에니메이션등 다양한 콘텐츠를 인터넷 연결이 가능한 수천 종의 디바이스에서 시청할 수 있는 스트리밍 서비스 입니다.
-                            <br><br>
-                            저렴한 월 요금으로 원하는 시간에 원하는 만큼 즐길 수 있습니다. 무궁무진한 콘텐츠가 준비되어 있으며 매주 새로운 시리즈와 영화가 제공됩니다.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style=" font-size: 1.3em;">
-                                넷플릭스 요금은 얼마인가요?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                        <div class="panel-body">
-                            스마트폰, 태블릿, 스마트TV, 노트북, 스트리밍 디바이스 등 다양한 디바이스에서 월정액 요금 하나로 넷플릭스를 시청하세요. 멤버십 요금은 다양합니다. 추가 비용이나 약정이 없습니다.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFour">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style=" font-size: 1.3em;">
-                                어디에서 시청할수 있나요?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                        <div class="panel-body">
-                            언제 어디서나 시청할 수 있습니다. 넷플릭스 계정으로 로그인하면 PC에서 바로 시청할 수 있으며, 인터넷이 연결되어 있고 넷플릭스 앱을 지원하는 디바이스(스마트 TV, 스마트폰, 태블릿, 스트리밍 미디어 플레이어, 게임 콘솔 등)에서도 언제든지 시청할 수 있습니다.
-                            <br><br>
-                            iOS, Android, Windows 10용 앱에서는 좋아하는 시리즈를 저장할 수도 있습니다. 저장 기능을 이용해 이동 중이나 인터넷에 연결할 수 없는 곳에서도 시청하세요. 넷플릭스는 어디서든 함께니까요.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFive">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style=" font-size: 1.3em;">
-                                멤버십을 해지하려면 어떻게 하나요?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                        <div class="panel-body">
-                            넷플릭스는 부담 없이 간편합니다. 성가신 계약도, 약정도 없으니까요. 멤버십 해지도 온라인에서 클릭 두 번이면 완료할 수 있습니다. 해지 수수료도 없으니 원할 때 언제든 계정을 시작하거나 종료하세요.
-                        </div>
-                    </div>
-                </div>
-            </div> 
-    
-            <div class="text-center">
-                <h4>시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.</h4>
-                <div id="index-bottom-signup">
-                    <form class="row g-3 align-items-center justify-content-center w-50">
-                        <div class="col-auto1">
-                            <a th:href="@{/regi}" class="btn btn-danger btn-lg" style="background-color: rgba(255, 0, 0);"> 시작하기 &gt; </a>
-                        </div>
-                    </form>
-                </div>
-            </div> 
-    </div>
-    
-    <footer class="content-footer footer bg-footer-theme text-center"><h1>푸터영역</h1></footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    </body>
 </html>
 =======
+
 </html>
 >>>>>>> d5dcc758dabf2acea625a81c0a74a3a5c6f1b36e
 =======
+
 </html>
 >>>>>>> 9a5789519bdd0fca87fbc889629fa62ae0e93e47
