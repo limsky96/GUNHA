@@ -68,7 +68,7 @@
   </th:block>
 
   <th:block layout:fragment="content">
-    <div th:switch="${#authentication.principal.selectedProfile}">
+    <div th:switch="${#authentication.principal.userVO.selectedProfile}">
       <div th:case="null" id="modalWrap">
         <div id="modalBody">
           <span id="closeBtn">&times;</span>

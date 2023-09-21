@@ -836,11 +836,26 @@ CREATE TABLE NETFLIX_FAVORITES(
     favorites_member_id varchar2(60) not null,
     favorites_member_profile_name VARCHAR2(50) NOT NULL,
     favorites_movie_id NUMBER NOT NULL,
-    constraint ix_favorites_member UNIQUE(favorites_member_id, favorites_member_profile_name),
+    constraint ix_fav_member_favorite UNIQUE(favorites_member_id, favorites_member_profile_name, favorites_movie_id),
     CONSTRAINT fk_fav_movie
         FOREIGN KEY (favorites_movie_id) REFERENCES NETFLIX_MOVIE(movie_id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    constraint fk_fav_member_id
+        foreign key (favorites_member_id) REFERENCES NETFLIX_MEMBER(member_id)
+        on delete cascade
 );
+
+
+select * from NETFLIX_MEMBER_PROFILE mp, NETFLIX_FAVORITES nf
+    where mp.member_profile_member_id = nf.favorites_member_id and mp.member_profile_name = nf.favorites_member_profile_name;
+
+
+--    DELETE FROM NETFLIEX_FAVORITES
+--    WHERE favorites_member_profile_name = :old.col1 and favorites_member_id='tatelulove4@naver.com_kakao';
+
+--    UPDATE NETFLIX_FAVORITES
+--    SET favorites_member_profile_name = :new.col1
+--    WHERE favorites_member_profile_name = :old.col1 and favorites_member_id='tatelulove4@naver.com_kakao';
 
 --------------------------------
 
@@ -902,7 +917,9 @@ select * from NETFLIX_MEMBER m, NETFLIX_MEMBER_PROFILE mp where m.member_id = mp
 
 select * from netflix_order where order_member_id = 'seralove4@gmail.com';
 
-
+select * from netflix_order where order_member_id = 'tatelulove4@naver.com_kakao'
+      and order_id <= (select max(order_id) from netflix_order
+      where order_member_id = 'tatelulove4@naver.com_kakao' and order_imp_uid not like '%임시%') and rownum <= 10 order by order_id desc ;
 select * from NETFLIX_MEMBER;
 select * from NETFLIX_AUTH;
 select * from NETFLIX_MEMBER_PROFILE;
@@ -916,12 +933,12 @@ select * from netflix_social;
 
 
 
-delete from netflix_member where member_id = 'seralove4@gmail.com';
+-- delete from netflix_member where member_id = 'seralove4@gmail.com';
 
 
 commit;
 
-delete from netflix_member_profile where member_profile_member_id = 'tatelulove4@naver.com_kakao';
+-- delete from netflix_member_profile where member_profile_member_id = 'tatelulove4@naver.com_kakao';
 
 
 --insert into netflix_member_profile values('tatelulove4@naver.com_kakao', '테스트1');
@@ -946,7 +963,7 @@ select * from netflix_member mb, netflix_auth au, netflix_member_profile mp
     where mb.member_id = au.auth_member_id and mb.member_id = 'seralove4@gmail.com_google' and mb.member_id = mp.member_profile_member_id;
 
 --------------------
-delete from netflix_member where member_id = 'seralove4@gmail.com_google';
-delete from netflix_member where member_email = 'user@example.com';
-delete from netflix_member where member_id = 'tatelulove4@naver.com_naver';
-delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';
+--delete from netflix_member where member_id = 'seralove4@gmail.com_google';
+--delete from netflix_member where member_email = 'user@example.com';
+--delete from netflix_member where member_id = 'tatelulove4@naver.com_naver';
+--delete from netflix_member where member_id = 'tatelulove4@naver.com_kakao';

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/header.css">
   <!-- script링크연결 -->
-  <script href="/js/bootstrap/bootstrap.bundle.min.js" ></script>
+  <script href="/js/bootstrap/bootstrap.bundle.min.js"></script>
   <!-- 아이콘 -->
   <script src="https://kit.fontawesome.com/cc89ddadc0.js" crossorigin="anonymous"></script>
 </head>
@@ -30,13 +30,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">홈</a>
+              <a class="nav-link active" aria-current="page" th:href="@{/}">홈</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/movie">영화</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/mylist" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
+              <a class="nav-link" th:href="@{/movie}">영화</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/my/mylist}" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
             </li>
           </ul>
           <!-- <%--반응형 드롭다운 메뉴--%> -->
@@ -44,9 +47,10 @@
             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
               aria-expanded="false">메뉴</a>
             <ul class="dropdown-menu dropdown-main-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-main-item" href="#">홈</a></li>
-              <li><a class="dropdown-main-item" href="#">영화</a></li>
-              <li><a class="dropdown-main-item" href="#">내가 찜한 콘텐츠</a></li>
+              <li><a class="dropdown-main-item" th:href="@{/}">홈</a></li>
+              <li><a class="dropdown-main-item" href="#">시리즈</a></li>
+              <li><a class="dropdown-main-item" th:href="@{/movie}">영화</a></li>
+              <li><a class="dropdown-main-item" th:href="@{/my/mylist}">내가 찜한 콘텐츠</a></li>
             </ul>
           </div>
           <!-- 오른쪽 메뉴 -->
@@ -68,55 +72,57 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
               </div>
               <div class="menu-item"><i class="fas fa-bell"></i></div>
+              <div class="menu-item" sec:authorize="isAnonymous()">
+                <a class="btn-danger btn" th:href="@{/login}">로그인</a>
+              </div>
             </div>
-
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle custom-btn" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item profile-item" href="#">
-                    <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                    <span class="profile-name">Profile 1</span>
-                  </a></li>
-                <li><a class="dropdown-item profile-item" href="#">
-                    <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                    <span class="profile-name">Profile 2</span>
-                  </a></li>
-                <li><a class="dropdown-item profile-item" href="#">
-                    <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                    <span class="profile-name">Profile 3</span>
-                  </a></li>
-                <li><a class="dropdown-item profile-item" href="#">
-                    <img src="/images/header_Netflix-avatar1.png" alt="Dropdown Image">
-                    <span class="profile-name">Profile 4</span>
-                  </a></li>
-                <hr>
-                <li><a class="dropdown-item" href="/profile/manage">프로필 관리</a></li>
-                <hr>
-                <li><a class="dropdown-item" href="/my/account">계정</a></li>
-                <li><a class="dropdown-item" href="#">고객 센터</a></li>
-                <li sec:authorize="isAnonymous()">
-                  <a class="dropdown-item" th:href="@{/login}"> 로그인</a>
-                </li>
-                <li>
-                  <form id="logoutForm" action="/logout" method="POST">
-                    <a class="dropdown-item" href="#">Netflix에서 로그아웃</a>    
-                  </form>
-                </li>
-              </ul>
-            </div>
+            <th:block sec:authorize="hasRole('USER')">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle custom-btn" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                  <th:block th:switch="${#authentication.principal.userVO.selectedProfile}">
+                    <div th:case="null">
+                      <script th:inline="javascript">
+                        if ("/home" !== location.pathname) {
+                          location.href = "/home"
+                        }
+                      </script>
+                    </div>
+                    <th:block th:case="*">
+                      <th:block th:each="profile, profileStat:${#authentication.principal.userVO.profileList}">
+                        <img th:if="${profile.profileName == #authentication.principal.userVO.selectedProfile}"
+                          th:src="'/images/profile/profile-'+ ${profileStat.index+1} + '.png'" alt="Dropdown Image">
+                      </th:block>
+                    </th:block>
+                  </th:block>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                  <li th:each="profile, profileStat:${#authentication.principal.userVO.profileList}">
+                    <th:block th:if="${profile.profileName != #authentication.principal.userVO.selectedProfile}">
+                      <a class="dropdown-item profile-item" href="#">
+                        <img th:src="'/images/profile/profile-'+ ${profileStat.index+1} + '.png'" alt="Dropdown Image">
+                        <span th:attr="data-profile-name=${profile.profileName}" class="profile-name"
+                          th:text="${profile.profileName}"></span>
+                      </a>
+                    </th:block>
+                  </li>
+                  <hr>
+                  <li>
+                    <a class="dropdown-item" href="/profile/manage">프로필 관리</a>
+                  </li>
+                  <hr>
+                  <li><a class="dropdown-item" href="/my/account">계정</a></li>
+                  <li><a class="dropdown-item" href="/qna">고객 센터</a></li>
+                  <li>
+                    <form id="logoutForm" action="/logout" method="POST">
+                      <input type="submit" class="dropdown-item" href="#" value="Netflix에서 로그아웃"></input>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </th:block>
           </div>
 
-          <div sec:authorize="isAuthenticated()">
-            <form id="logoutForm" th:action="@{/logout}" method="POST">
-              <button type="submit">logout</button>
-            </form>
-            <a href="/my/account"><input type="button" value="마이페이지"></a>
-            <div id="open-modal"><input type="button" value="프로필창 열기"></div>
-            <div th:text="${selectedProfile}"></div>
-          </div>
         </div>
 
         <!-- <div sec:authorize="isAnonymous()">

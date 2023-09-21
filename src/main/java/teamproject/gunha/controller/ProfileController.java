@@ -110,5 +110,20 @@ public class ProfileController {
     return json; 
   }
 
+  @PostMapping("/mylist")
+  @ResponseBody
+  public Map<String, Object> addFavorite(@RequestBody Map<String, Object> jsonObject){
+
+    Map<String, Object> json = new HashMap<>();
+
+    // if(profileService.addFavorite(jsonObject)){
+
+    // }
+
+
+    return jsonObject;
+
+  }
+
 
 }
