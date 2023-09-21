@@ -52,11 +52,14 @@ body {
 
 /* card */
 /* .credit-card { position: relative; width: 100%; padding-bottom: 5px; margin-top: 0px;} */
-
+/* .credit-card{
+  color: #8c8c8c;
+} */
 
 input[type="text"], input[type="password"] {
   /* padding: 10px; */
   border: 1px solid #8c8c8c; /*테두리*/
+  color: #000;
 }
 
 .card-box{
@@ -221,3 +224,6 @@ border: 1px solid #c52e27
 /* @media (min-width: 880px) {
   .container, .container-sm { max-width: 90%; margin: 0 auto; }
 }  */
+
+
+

@@ -8,11 +8,19 @@
 </head>
 
 <body>
-  <th:block layout:fragment="css">
+  <th:block layout:fragment="css"> 
     <link rel="stylesheet" href="/css/category/movie.css" />
     <style>
       div {
         color: white;
+      }    
+      header{
+        position: relative;
+        z-index: 100;
+        color:#000000;
+      }
+      .home {
+        top: -110px;
       }
     </style>
   </th:block>
@@ -150,7 +158,7 @@
 
               async function getMovies() {
                 const { data } = await axios.get(`/movies/api/movies?startIndex=${currentDataIndex}&count=10`);
-
+    
                 if (data.length < 10) {
                   isAllDataReceived = true; // 모든 데이터를 받아왔다고 표시
                 }

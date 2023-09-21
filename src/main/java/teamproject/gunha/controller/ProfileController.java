@@ -57,9 +57,10 @@ public class ProfileController {
 
   @PostMapping("/create")
   @ResponseBody
-  public Map<String, Object> createProfile(
-    ProfileVO profileVO){
+  public Map<String, Object> createProfile(ProfileVO profileVO){
+    log.info("createProfile() :...");
     log.info(profileVO + "");
+    
     Map<String, Object> json = new HashMap<>();
     if(profileService.createProfile(profileVO)){
       json.put("msg", "create done");
