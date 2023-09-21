@@ -22,6 +22,7 @@
       .home {
         top: -110px;
       }
+      
     </style>
   </th:block>
 
@@ -51,13 +52,16 @@
         </div>
       </div>
 
+      <!--포스터 컨테이너 생성-->
       <div class="category-list" id="category-list">
         <div class="category" id="category">
 
         </div>
       </div>
+
     </div>
 
+    <!--모달창 생성-->
     <div id="detailModal" class="modal">
       <div class="video-container">
         <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
@@ -138,7 +142,7 @@
         var isLoading = false; //새 콘텐츠 로딩여부 추적
         var count = 1;
         var containerZindex = 10;
-
+        
         //무한스크롤 START
         //DOCUMENT 스크롤 이벤트 감지
         $(document).scroll(function () {
@@ -163,6 +167,7 @@
                   isAllDataReceived = true; // 모든 데이터를 받아왔다고 표시
                 }
 
+                console.log(data);
 
                 let containerHtml;
 
@@ -276,7 +281,9 @@
               }
               isLoading = false; // 로딩 상태 초기화
             }, 1000); //1초 딜레이 지정
+            
           }
+
         })
 
       }
@@ -313,6 +320,10 @@
         //$("#detail").modal('show');
         console.log(data);
       }
+
+      
+
+      
     </script>
   </th:block>
 </body>
