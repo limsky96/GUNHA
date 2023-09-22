@@ -6,6 +6,7 @@
 
 /* 푸터 스타일 */
 footer {
+    background-color: #000;
 
     color: #fff;
     padding: 20px 0;
@@ -116,7 +117,7 @@ ol {
     background-color: #000;
 }
 
-img {
+#koreadownimg {
     /* width: auto; height: inherit;  */
     width: 1.6rem;
     height: 1.6rem;

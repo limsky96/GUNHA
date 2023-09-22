@@ -1,3 +1,6 @@
+:root{
+    --bs-accordion-border-radius: 0;
+}
 .wrap {max-width: calc(80% - 6rem); margin: 0 auto; }
 
 /* qna-main */
@@ -13,22 +16,22 @@ body {
 
 
 /*패널*/
-.panel-default { 
+.accordion { 
     border-color: black;
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(253, 13, 13, 0.416);
+    --bs-accordion-active-color: white;
+    --bs-accordion-active-bg: #333;
+
 }
 
 /*패널과 패널 사이*/
-.panel-group .panel {
+.accordion .accordion-item {
     margin-bottom: 0.5em;
     border-radius: 0px;
 }
-.panel-default>.panel-heading> h4> a {
-    text-decoration: none;
-    font-size: x-large;
-}
 
 /*패널 머리*/
-.panel-default>.panel-heading {
+.accordion-button {
     color: white;
     background-color: #333;
     border-radius: 0%;
@@ -36,21 +39,16 @@ body {
     padding-top: 1.3em;
 }
 
-.panel-default>.panel-heading> h4> a {
-    text-decoration: none;
-    font-size: medium;
-}
-
 /*패널 대답*/
-.panel-body {
-    padding: 15px;
-    font-size: 1.3em;
+.accordion-collapse {
+    /* padding: 15px; */
+    font-size: 1em;
     background-color: dimgray;
 }
 
 /*register container*/
 .text-center{
-    margin-top: 2em;
+    margin-top: 5em;
     margin-bottom: 2em;
 }
 
@@ -65,3 +63,9 @@ body {
     margin-top: 2em;
     margin-bottom: 4em;
 }
+
+.accordion-body {
+    padding: 1.5em;
+    font-size: revert;
+}
+

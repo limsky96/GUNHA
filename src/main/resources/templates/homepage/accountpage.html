@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{/layouts/layout}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>acouunt</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link href="/css/account-style.css" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/179a863a03.js" crossorigin="anonymous"></script>
+  
 </head>
 
 <body>
-  <!--헤더 영역-->
-  <div th:include="/header/header.html"></div>
-  <!-- 로그인 페이지에 넣을거 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-  $('header').addClass('hd-white-logout'); // 화이트 헤더 로그아웃 버전
-  </script>
-
+  <th:block layout:fragment="css">
+    <link href="/css/account-style.css" rel="stylesheet">
+  </th:block>
+  
+  <th:block layout:fragment="content">
   <!--본문 영역-->
   <div class="wrap w-50">
     <!--계정 헤더 영역-->
@@ -32,7 +24,7 @@
       </div>
     </div>
     <hr>
-
+    
     <!--멤버십 정보 영역-->
     <div class="d-flex justify-content-between">
       <div class="left">
@@ -121,31 +113,7 @@
       </div>
     </div>
     <hr>
-    <!--멤버십 보안 & 개인정보 영역-->
-    <div class="d-flex" id="d-flex">
-      <!-- <div id="membership-info">
-                <h5 style="color: dimgray">보안 & 개인 정보 </h5>
-            </div>
 
-            <div class="d-flex" id="membership-detail">
-                <div id="membership-info-left">
-                    <p>이 계정에 대한 접근 권한을 관리하고 가장 최근에 사용된 디바이스 등을 확인하세요.</p>
-                </div>
-                <div class="row">
-                    <a href="#"> 엑세스 및 디바이스 관리</a>
-                    <a href="#"> 모든 디바이스에서 로그아웃</a>
-                </div>
-            </div>
-            <div class="d-flex" id="membership-detail">  
-                <div  id="membership-info-left">
-                    <p>이 계정에 대한 접근 권한을 관리하고 가장 최근에 사용된 디바이스 등을 확인하세요.</p>          
-                </div>   
-                <div  class="row">
-                    <a href="/nodata"> 엑세스 및 디바이스 관리</a>
-                    <a href="/nodata"> 모든 디바이스에서 로그아웃</a>
-                </div>      
-            </div>      -->
-    </div>
     <hr>
     <!--멤버십 프로필 정보 영역-->
     <div class="d-flex">
@@ -168,13 +136,16 @@
     <hr>
 
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <script>
-    const cardNumber = document.querySelector("#card-number");
-    const maskedValue = (inputValue) => {
+
+
+  </th:block>
+
+  <th:block layout:fragment="js">
+    <script >
+      $('header').addClass('hd-white');
+      // $('header').addClass('hd-white-logout');
+      const cardNumber = document.querySelector("#card-number");
+      const maskedValue = (inputValue) => {
       return inputValue.replace(/(\d{4})-(\d{4})-(\d{4})-(\d{4})/, '$1-****-****-$4');
     }
     cardNumber.textContent = maskedValue(cardNumber.textContent);
@@ -184,7 +155,7 @@
       orderCancel.addEventListener("click", async e => {
         e.preventDefault()
         const userId = e.target.dataset.userId;
-
+        
         const { data } = await axios.delete("/my/cancel", header = {
           headers: {
             "Content-Type": "application/json; charset=utf-8",
@@ -209,9 +180,9 @@
         location.href = "/payment-card";
       })
     }
+    </script>
 
-
-  </script>
+</th:block>
 </body>
 
 

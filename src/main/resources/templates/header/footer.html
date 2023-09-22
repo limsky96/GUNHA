@@ -12,11 +12,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- <%-- 아이콘--%> -->
     <script src="https://kit.fontawesome.com/cc89ddadc0.js" crossorigin="anonymous"></script>
-
+    
 </head>
  
 <body>
-    <footer>
+    <footer th:fragment="footer">        
         <div class="footer-content">
             <div class="footer-title">
                 질문이 있으신가요? 문의 전화: 02-701-1712
@@ -24,7 +24,7 @@
             <div class="footer-link">
                 <div class="footer-question">
                     <ul>
-                        <li><a class="footer-link" href="/">자주 묻는 질문</a></li>
+                        <li><a class="footer-link" href="/qna">자주 묻는 질문</a></li>
                         <li><a class="footer-link" href="/about">계정</a></li>
                         <li><a class="footer-link" href="/services">투자 정보(IR)</a></li>
                         <li><a class="footer-link" href="/contact">넷플릭스 지원 디바이스</a></li>
@@ -78,7 +78,7 @@
 
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-ceter p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/images/translation-key.png" alt="대체 텍스트" class="text-kor w-auto h-100"><span class="h-100">한국어</span>
+                    <img src="/images/translation-key.png" alt="대체 텍스트" clsaa="text-kor w-auto h-100" id="koreadownimg"><span class="h-100" >한국어</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="#" style="text-align: center; background-color: #fff;" onmouseover="this.style.backgroundColor='#1967d2'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff';">&nbsp;한국어</a></li>

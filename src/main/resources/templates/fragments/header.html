@@ -36,9 +36,6 @@
               <a class="nav-link" href="/movie">영화</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/movie}">영화</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" th:href="@{/my/mylist}" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
             </li>
           </ul>
@@ -83,7 +80,8 @@
                   <th:block th:switch="${#authentication.principal.userVO.selectedProfile}">
                     <div th:case="null">
                       <script th:inline="javascript">
-                        if ("/home" !== location.pathname) {
+                        if ("/home" !== location.pathname && "/regi" !== location.pathname && "/regi2" !== location.pathname
+                           && "/regi3" !== location.pathname && "/planform" !== location.pathname) {
                           location.href = "/home"
                         }
                       </script>

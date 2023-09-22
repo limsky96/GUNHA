@@ -1,4 +1,5 @@
 * {
+* {
   /* border: 1px solid greenyellow; */
 }
 a { color: inherit; text-decoration: none; }
@@ -47,7 +48,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .nav-link {
-  font-size: 15px; /* 원하는 텍스트 크기 설정 */
+  font-size: 13px;
+  /* 원하는 텍스트 크기 설정 */
 }
 
 
@@ -172,14 +174,16 @@ a { color: inherit; text-decoration: none; }
   color: white;
 }
 
-.menu-item{
-  padding: 8px 15px; /*오른 메누 아이콘 간격*/
+.menu-item {
+  padding: 8px 10px;
+  /*오른 메누 아이콘 간격*/
 
 
 }
 
-.menu-item i { /* 오른 메뉴 아이콘 크기 조절 */
-  font-size: 24px; 
+.menu-item i {
+  /* 오른 메뉴 아이콘 크기 조절 */
+  font-size: 18px;
 }
 
 /*프로필 사진*/
