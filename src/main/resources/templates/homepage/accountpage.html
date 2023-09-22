@@ -10,10 +10,7 @@
 <body>
   <th:block layout:fragment="css">
     <link href="/css/account-style.css" rel="stylesheet">
-
   </th:block>
-  <!-- 로그인 페이지에 넣을거 -->
-  
   
   <th:block layout:fragment="content">
   <!--본문 영역-->
@@ -140,8 +137,8 @@
 
 
   </th:block>
-  <th:block layout:fragment="js">
 
+  <th:block layout:fragment="js">
     <script >
       $('header').addClass('hd-white');
       // $('header').addClass('hd-white-logout');
@@ -181,9 +178,8 @@
         location.href = "/payment-card";
       })
     }
-    
-    
     </script>
+
 </th:block>
 </body>
 
