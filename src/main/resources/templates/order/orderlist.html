@@ -18,10 +18,9 @@
         <span><b>아이디: </b> <span th:text="${userId}"></span>
       </div>
       <table class="container table">
-
         <thead class="thead-light">
           <tr>
-            <th scope="col">order number</th>
+            <th scope="col">주문번호</th>
             <th scope="col">카드</th>
             <th scope="col">카드번호</th>
             <th scope="col">상품</th>
@@ -33,7 +32,7 @@
         <th:block th:if="${order != null}"  th:each="order: ${orderList}">
           <tbody>
             <tr>
-              <th scope="col" th:text="${order.orderId}">1</th>
+              <th scope="col" th:text="${order.orderId}"></th>
               <td scope="col" th:text="${order.orderData.card_name}"></td>
               <td scope="col" th:text="${order.orderData.card_number}"></td>
               <td scope="col" th:text="${order.orderData.name}"></td>

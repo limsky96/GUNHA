@@ -1,7 +1,7 @@
 * {
     /* border: 1px solid greenyellow; */
-    background-color: #000;
-    position: sticky;
+    /* background-color: #000; */
+    /* position: sticky; */
 }
 
 /* 푸터 스타일 */
@@ -108,6 +108,13 @@ ol {
 :not(.btn-check)+.btn:active {
     background-color: #000;
 }
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
+    background-color: #000;
+}
 
 img {
     /* width: auto; height: inherit;  */
@@ -138,13 +145,9 @@ img {
     
 }
 
-/* .dropdown-menu {
-    
-} */
-
-
-
-/* .dropdown > ul.dropdown-menu > li > a.dropdown-item:hover { background: #1967d2; } */
+        
+        
+        /* .dropdown > ul.dropdown-menu > li > a.dropdown-item:hover { background: #1967d2; } */
 
 
 .footer-text-line {
@@ -214,8 +217,3 @@ img {
         min-width: 130px;
     }
 }
-
-/*화이트 푸터*/
-header.ft-white {
-    
-  }

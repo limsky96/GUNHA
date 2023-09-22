@@ -39,5 +39,15 @@ class OrderMapperTest {
 
   }
 
+  @Test
+  void testSelectLastOrderId(){
+    log.info(orderMapper.selectLastOrderId()+"");
+  }
+
+    @Test
+  void testSelectNextOrderId(){
+    log.info(orderMapper.selectNextOrderId()+"");
+  }
+
 
 }

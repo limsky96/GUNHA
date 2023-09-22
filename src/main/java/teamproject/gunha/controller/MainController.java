@@ -57,7 +57,7 @@ public class MainController {
       Model model) {
     if (netflixUserDetails != null) {
       UserVO userVO = netflixUserDetails.getUserVO();
-      String profile = netflixUserDetails.getSelectedProfile();
+      String profile = netflixUserDetails.getUserVO().getSelectedProfile();
       if ("결제정보 없음" == userVO.getCardNumber() || 0 == userVO.getMembershipNo()) {
         return "redirect:/regi3";
       }
@@ -169,11 +169,6 @@ public class MainController {
   //   return "/admins/admin-movie-add";
   // }
 
-  // @GetMapping("/mylist")
-  // public String mylist() {
-  //   log.info("hello()...");
-  //   return "/homepage/mylist";
-  // }
 
 
 }
