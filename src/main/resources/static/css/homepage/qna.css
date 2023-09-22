@@ -21,7 +21,8 @@ body {
     --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(253, 13, 13, 0.416);
     --bs-accordion-active-color: white;
     --bs-accordion-active-bg: #333;
-
+    padding-bottom: 15rem;
+    padding-top: 3rem;
 }
 
 /*패널과 패널 사이*/
