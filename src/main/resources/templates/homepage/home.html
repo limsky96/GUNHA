@@ -45,7 +45,7 @@
         padding: 30px 30px;
         margin: 0 auto;
         border: 1px solid #777;
-        background-color: #fff;
+        background-color: #000;
       }
 
       #closeBtn {
@@ -65,9 +65,14 @@
           <span id="closeBtn">&times;</span>
           <p>modal-popup 입니다.</p>
           <div id="profile-container" style="display: flex; justify-content: center;">
-            <div th:each="profile: ${user.profileList}" th:text="${profile.profileName}"
-              th:attr="data-profile-name=${profile.profileName}"
-              style="text-align: center; line-height: 100px; width:100px; height:100px;">
+            <div th:each="profile, profileStat: ${user.profileList}"
+            th:attr="data-profile-name=${profile.profileName}"
+            style="text-align: center; line-height: 100px; width:100px; height:100px;">
+              <img th:src="@{/images/profile/profile-{index}.png(index=${profileStat.index+1})}"
+                style="width: 88px; height: 88px; margin-right: 10px; margin-left: 10px; border-radius: 2px;" />
+              <div type="button" th:text="${profile.profileName}"
+                style="width: 100px; height: 30px; text-align: center; line-height: 30px; color: #fff; font-size: 12px;">
+              </div>
             </div>
           </div>
           <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
@@ -78,9 +83,14 @@
           <span id="closeBtn">&times;</span>
           <p>modal-popup 입니다.</p>
           <div id="profile-container" style="display: flex; justify-content: center;">
-            <div th:each="profile: ${user.profileList}" th:text="${profile.profileName}"
+            <div th:each="profile, profileStat: ${user.profileList}"
               th:attr="data-profile-name=${profile.profileName}"
               style="text-align: center; line-height: 100px; width:100px; height:100px;">
+              <img th:src="@{/images/profile/profile-{index}.png(index=${profileStat.index+1})}"
+              style="width: 88px; height: 88px; margin-right: 10px; margin-left: 10px; border-radius: 2px;" />
+              <div type="button" th:text="${profile.profileName}"
+                style="width: 100px; height: 30px; text-align: center; line-height: 30px; color: #fff; font-size: 12px;">
+              </div>
             </div>
           </div>
           <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>

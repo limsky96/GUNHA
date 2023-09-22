@@ -42,6 +42,13 @@ public class MainController {
     return "header/footer";
   }
 
+    // 흰색 푸터
+    @GetMapping("/footerwh")
+    public String footerwh() {
+  
+      return "header/footer-white";
+    }
+
   // 결제창-카드
 
   @GetMapping("/")

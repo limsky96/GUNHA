@@ -11,11 +11,14 @@
 
 <body>
     <!--헤더 영역-->
-    <div th:include="/header/header.html"></div>
+    <div th:include="/fragments/header.html"></div>
     <!-- 로그인 페이지에 넣을거 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-    $('header').addClass('hd-white'); // 로그인 페이지에 넣을거
+        //$('header').addClass('hd-black-logout'); // 블랙 헤더 아무것도 없는버전
+
+        $('header').addClass('hd-white'); // 화이트 헤더 버전 로그인 버전
+
     </script>
     
     <!--본문 영역-->
@@ -128,6 +131,9 @@
             </div>
         </div>
     </div>
+
+    <div th:include="/header/footer.html"></div>
+
 
     <!--유효성 검사 영역-->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
