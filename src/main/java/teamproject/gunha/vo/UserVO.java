@@ -20,4 +20,5 @@ public class UserVO {
   private List<ProfileVO> profileList;
   private OrderVO lastOrder;
   private OrderVO secondLastOrder;
+  private String selectedProfile;
 }

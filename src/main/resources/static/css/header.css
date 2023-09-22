@@ -4,19 +4,8 @@
 
 /* 내비게이션 바 배경색과 텍스트 색상 변경 */
 .navbar {
-/* background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.1)); */
-background: black;
-height: 80px;
-position: relative;
-margin-bottom: 0px;
-border-radius: 0px;
-}
-
-.navbar-collapse{
--webkit-box-shadow :none;
-  /* background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.1)); */
-  background: black;
-  height: 80px;
+  background: #000;
+  height: 100px;
   position: relative;
   margin-bottom: 0px;
 }
@@ -32,9 +21,9 @@ height: 60px ;
 .navbar-brand { height: 100%;}
 
 .logo-img {  /*넷플릭스 로고*/
-  width: 100px ;
-  height: 30px ;
-  margin: 0px 5px 0px 15px;
+  width: 75px ;
+  height: 40px ;
+  margin: 0px 5px 0px 25px;
 }
 
 .navbar-nav .nav-link {
@@ -49,7 +38,7 @@ font-weight: bold;
 }
 
 .nav-link {
-  font-size: 13px; /* 원하는 텍스트 크기 설정 */
+  font-size: 15px; /* 원하는 텍스트 크기 설정 */
 }
 
 
@@ -125,9 +114,10 @@ color: white; /* 텍스트 색상을 백색으로 변경 */
 margin-bottom: 20px; /* 여기에 원하는 간격 값을 설정하세요 */
 }
 
-/*오른드롭*/
-.dropdown-menu a.dropdown-item {
-color: white; /* 흰색으로 변경 */
+  /*오른드롭*/
+.dropdown-menu a.dropdown-item,
+.dropdown-menu input.dropdown-item {
+  color: white; /* 흰색으로 변경 */
 }
 
 #headersearch{
@@ -152,13 +142,13 @@ color: white;
 }
 
 .menu-item{
-padding: 8px 10px; /*오른 메누 아이콘 간격*/
+  padding: 8px 15px; /*오른 메누 아이콘 간격*/
 
 
 }
 
 .menu-item i { /* 오른 메뉴 아이콘 크기 조절 */
-font-size: 18px; 
+  font-size: 24px; 
 }
 
 /*프로필 사진*/

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE mapper PUBLIC 
+      "-//mybatis.org//DTD Config 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamproject.gunha.mapper.FavoriteMapper">
+
+
+
+
+<select id="selectUserFavList" resultMap="favMap">
+  <![CDATA[ 
+  select * from NETFLIX_FAVORITES
+    where favorites_member_id =#{userId} and favorites_member_profile_name = #{profileName}
+  ]]>
+</select>
+<!-- <resultMap id="userMap" type="edu.global.demo.vo.UserVO">
+  <constructor>
+    <idArg column="member_id" javaType="java.lang.String" />
+    <arg column="member_email" javaType="java.lang.String" />
+    <arg column="member_password" javaType="java.lang.String" />
+    <arg column="member_card_number" javaType="java.lang.String" />
+    <arg column="member_membership_no" javaType="int" />
+    <arg column="member_social" javaType="java.lang.String" />
+  </constructor>
+  <collection property="authList" resultMap="authMap"></collection>
+</resultMap> -->
+
+
+<resultMap id="favMap" type="teamproject.gunha.vo.FavoriteVO">
+ <result property="userId" column="favorites_member_id"/>
+ <result property="profileName" column="favorites_member_profile_name"/>
+ <result property="movieId" column="favorites_movie_id" />
+</resultMap>
+
+<!-- <resultMap id="profileMap" type="teamproject.gunha.vo.ProfileVO">
+  <result property="userId" column="member_profile_member_id"/>
+  <result property="profileName" column="member_profile_name"/>
+  <collection property="favoriteList" resultMap="favMap"></collection>
+</resultMap> -->
+
+
+</mapper>

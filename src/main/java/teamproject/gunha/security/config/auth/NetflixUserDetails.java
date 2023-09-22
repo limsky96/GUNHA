@@ -26,7 +26,6 @@ import teamproject.gunha.vo.UserVO;
 public class NetflixUserDetails implements UserDetails, OAuth2User {
 
   private UserVO userVO;
-  private String selectedProfile;
   private List<GrantedAuthority> authorities;
   private Map<String, Object> attributes;
 

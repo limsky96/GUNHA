@@ -111,33 +111,6 @@ public class LoginController {
     return "update-member";
   }
 
-  @GetMapping("/my/account")
-  public String accountpage(Model model) {
-    NetflixUserDetails netflixUserDetails = userLoginService.loginAccount();
-    UserVO userVO = netflixUserDetails.getUserVO();
-    log.info(userVO + "");
-    
-    model.addAttribute("membership", membershipService.getMembership(userVO.getMembershipNo()));
-    model.addAttribute("user", userVO);
-    return "homepage/accountpage";
-  }
 
-  @GetMapping("/my/password")
-  public String changePasswordPage(@AuthenticationPrincipal NetflixUserDetails netflixUserDetails){
-    UserVO userVO = netflixUserDetails.getUserVO();
-    if("none".equals(userVO.getSocial())){
-      return "login/my/password";
-    }
-    return "redirect:/my/account";
-  }
-
-  @PatchMapping("/my/password")
-  @ResponseBody
-  public Map<String,Object> changePassword(@RequestBody Map<String, Object> jsonObject){
-    log.info(jsonObject.toString());
-
-    Map<String,Object> response = userLoginService.changeUserPassword(jsonObject);
-    return response;
-  }
 
 }
