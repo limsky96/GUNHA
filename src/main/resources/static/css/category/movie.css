@@ -222,6 +222,11 @@ iframe {
   justify-content: space-between;
 }
 
+#detailContent {
+  padding-bottom: 16px;
+}
+
+
 .detail-left {
   width: 480px;
   left: 0;

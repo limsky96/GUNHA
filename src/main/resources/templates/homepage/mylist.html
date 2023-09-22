@@ -87,6 +87,7 @@
 
     </div>
   </th:block>
+
   <th:block layout:fragment="js">
     <script th:inline="javascript">
       window.onload = () => {
@@ -107,30 +108,30 @@
 
         containerHtml = "";
         containerHtml += `
-                <div class="swiper-container Container">
-                <div class="swiper-wrapper">
-                  `;
-        for (let i = 0; i < data.length; i++) {
-          containerHtml += `
-                  <div class="swiper-slide">   
-                    <img id="modal-img-${i}" src="${data[i].moviepostUrl}" alt="" >
-                    <div class="imgbody">
-                      <section class="imgbody-detail">
-                        <div style="display:flex">
-                          <i id="playBtn2" class="fa-regular fa-circle-play card-icon" onclick="location.href='/watch?src=${data[i].movieId}'"></i>
-                          <i class="fa-solid fa-circle-plus card-icon"></i>
-                        </div>
-                        <a id="modal-button-${i}" class="fa-solid fa-circle-chevron-down card-icon"></a>                                           
-                      </section>
-                      <section class="imgbody-detail" >
-                        <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
-                        <div class="m-2 netflix-card-text text-white">Limited Series</div>
-                        <div class="border netflix-card-text p-1 text-white">HD</div>                
-                      </section>
-                      <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
-                    </div>              
+                <div class="mylist-container Container">
+                  <div class="mylist-wrapper">
+                    `;
+                    for (let i = 0; i < data.length; i++) {
+                      containerHtml += `
+                    <div class="mylist-post">   
+                      <img id="modal-img-${i}" src="${data[i].moviepostUrl}" alt="" >
+                      <div class="imgbody">
+                        <section class="imgbody-detail">
+                          <div style="display:flex">
+                            <i id="playBtn2" class="fa-regular fa-circle-play card-icon" onclick="location.href='/watch?src=${data[i].movieId}'"></i>
+                            <i class="fa-solid fa-circle-plus card-icon"></i>
+                          </div>  
+                          <a id="modal-button-${i}" class="fa-solid fa-circle-chevron-down card-icon"></a>                                           
+                        </section>
+                        <section class="imgbody-detail" >
+                          <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
+                          <div class="m-2 netflix-card-text text-white">Limited Series</div>
+                          <div class="border netflix-card-text p-1 text-white">HD</div>                
+                        </section>
+                        <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
+                      </div>              
+                    </div>
                   </div>
-                </div>
                 </div>`;
         }
         const container = document.createElement("div");
@@ -177,10 +178,6 @@
           location.href = `//localhost:8888/watch?src=${(id)}`;
           //location.href= "https://www.naver.com"
         });
-
-
-
-
 
         $("#detailModal").modal();
         /*통신전에 progress END*/

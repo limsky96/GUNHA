@@ -20,19 +20,6 @@ a {
   color: white;
   width: 850px;
 }
-/* 
-.content {
-  text-overflow: ellipsis;
-  white-space: normal;
-  line-height: 1.2;
-         height: 4.8em;
-  text-align: left;
-  word-wrap: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 7;보여주고싶은 줄의 갯수
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-} */
 
 .video-container {
 	position: relative;
@@ -51,7 +38,6 @@ a {
 	width: 100%;
 	height: 100%;
 }
-
 
 .home {
   position: relative;
@@ -222,6 +208,10 @@ iframe {
   justify-content: space-between;
 }
 
+#detailContent {
+  padding-bottom: 16px;
+}
+
 .detail-left {
   width: 480px;
   left: 0;
@@ -229,102 +219,4 @@ iframe {
 .detail-right {
   width: 240px;
   left: 0;
-}
-
-:root {
-  --swiper-theme-color: #e5e5e5 !important;
-  --swiper-navigation-sides-offset: 100%;
-}
-
-.swiper-button-prev {
-  left: 0;
-  position: absolute;
-
-}
-
-.swiper-button-next {
-  right: 20px;
-  position: absolute;
-
-}
-
-
-.swiper-container {
-  overflow: visible;
-}
-
-.swiper-wrapper {
-  display: flex;
-}
-
-.swiper-slide {
-  padding: 2px;
-  transition: all 300ms ease-in-out;
-  position: relative;
-  display: flex;
-
-}
-
-.imgbody {
-  display: none;
-  /* height: 0px; */
-  padding: 10px 15px;
-  position: absolute;
-  background-color: #141414;
-  top: 330px;
-  width: 100%;
-  /* max-width: 378px; */
-}
-
-.imgbody-detail {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  align-items: center;
-}
-
-.card-icon {
-  color: #fff;
-  padding: 5px !important;
-  font-size: 28px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-}
-
-.text-white {
-  font-size: 12px;
-  align-items: center;
-}
-
-.swiper-slide img {
-  width: 100%;
-  /* box-sizing: border-box; */
-  /* max-width: 18rem; */
-  cursor: grab;
-  /* object-fit: contain;
-  object-position: 100% 0%; */
-  height: 350px;
-}
-
-.swiper-slide img:active {
-  cursor: grabbing;
-}
-
-.swiper-slide:hover {
-  transform: scale(1.3);
-  transition: all 300ms ease-in-out;
-  transition-delay: 300ms;
-  z-index: 10;
-}
-
-.swiper-slide:hover img {
-  transition-delay: 300ms;
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
-}
-
-.swiper-slide:hover>.imgbody {
-  display: block;
-  transition-delay: 300ms;
-  /*z-index: 10;*/
 }

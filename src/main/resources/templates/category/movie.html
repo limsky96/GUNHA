@@ -177,31 +177,29 @@
               <div class="swiper-container list${[currentDataIndex / 10]}Container">
                 <div class="swiper-wrapper">
                 `;
-                //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
-                //  ${data[i*10+slideIndex].movieName}
-                for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
-                  let dataIndex = currentDataIndex + slideIndex;
-                  containerHtml += `
-                  <div class="swiper-slide">   
-                    <img id="modal-img-${dataIndex}" src="${data[slideIndex].moviepostUrl}" alt="" >
-                    <div class="imgbody">
-                      <section class="imgbody-detail">
-                        <div style="display:flex">
-                          <i id="playBtn2" class="fa-regular fa-circle-play card-icon" onclick="location.href='/watch?src=${dataIndex + 1}'"></i>
-                          <i class="fa-solid fa-circle-plus card-icon"></i>
-                        </div>
-                        <a id="modal-button-${dataIndex}" class="fa-solid fa-circle-chevron-down card-icon"></a>                                           
-                      </section>
-                      <section class="imgbody-detail" >
-                        <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
-                        <div class="m-2 netflix-card-text text-white">Limited Series</div>
-                        <div class="border netflix-card-text p-1 text-white">HD</div>                
-                      </section>
-                      <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
-                    </div>              
-                  </div>`;
-                }
-                containerHtml += `              
+                  for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
+                    let dataIndex = currentDataIndex + slideIndex;
+                    containerHtml += `
+                    <div class="swiper-slide">   
+                      <img id="modal-img-${dataIndex}" src="${data[slideIndex].moviepostUrl}" alt="" >
+                      <div class="imgbody">
+                        <section class="imgbody-detail">
+                          <div style="display:flex">
+                            <i id="playBtn2" class="fa-regular fa-circle-play card-icon" onclick="location.href='/watch?src=${dataIndex + 1}'"></i>
+                            <i class="fa-solid fa-circle-plus card-icon"></i>
+                          </div>
+                          <a id="modal-button-${dataIndex}" class="fa-solid fa-circle-chevron-down card-icon"></a>                                           
+                        </section>
+                        <section class="imgbody-detail" >
+                          <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
+                          <div class="m-2 netflix-card-text text-white">Limited Series</div>
+                          <div class="border netflix-card-text p-1 text-white">HD</div>                
+                        </section>
+                        <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
+                      </div>              
+                    </div>`;
+                  }
+                  containerHtml += `              
                 </div>
               </div>
               <div class="swiper-button-next list${[currentDataIndex / 10]}Next"></div>
@@ -309,10 +307,6 @@
           //location.href= "https://www.naver.com"
         });
 
-
-
-
-
         $("#detailModal").modal();
         /*통신전에 progress END*/
         //모달창 구성하기
@@ -320,10 +314,7 @@
         //$("#detail").modal('show');
         console.log(data);
       }
-
-      
-
-      
+            
     </script>
   </th:block>
 </body>
