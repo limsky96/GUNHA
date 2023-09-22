@@ -1,5 +1,6 @@
 package teamproject.gunha.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,5 +16,10 @@ public interface FavoriteMapper {
   public int insertFavorite(FavoriteVO FavoriteVO);
 
   public List<FavoriteVO> selectUserFavList(FavoriteVO favoriteVO);
+
+
+  @Delete("Delete from NETFLIX_FAVORITES where favorites_member_id=${userId} and"
+        + " favorites_member_profile_name = #{profileName} and favorites_movie_id = #{movieId}")
+  public int deleteFavorite(FavoriteVO FavoriteVO);
 
 }
