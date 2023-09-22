@@ -15,6 +15,8 @@ public interface OrderMapper {
   
   public int selectLastOrderId();
 
+  public int selectNextOrderId();
+
   public OrderVO selectOrderByOrderId(int orderId);
 
   public int selectUserLastOrderId(String userId);
@@ -28,6 +30,8 @@ public interface OrderMapper {
   public List<OrderVO> selectOrderList();
 
   public int updateOrder(OrderVO orderVO);
+
+  public int deleteOrder(OrderVO orderVO);
 
 
 }
