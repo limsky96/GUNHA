@@ -122,11 +122,11 @@
           </div>
 
         </div>
-
+        
         <div sec:authorize="isAnonymous()">
-          <div style="color: white; text-decoration-line: none;"><a th:href="@{/login}"> 로그인</a></div>
-          <!-- <div><a href="/regi">회원가입</a></div> -->
+          <a class="btn-danger btn" th:href="@{/login}">로그인</a>
         </div>
+
         </div>
         <!-- <span th:text="${#authentication}"></span><br />
         <div sec:authorize="isAuthenticated()">
