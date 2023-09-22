@@ -29,12 +29,12 @@
       .container {
         width: 95%;
       }
-
     </style>
   </th:block>
 
   <th:block layout:fragment="content">
-    <div id="user-data" th:attr="data-user-id=${#authentication.principal.userVO.userId}, data-profile-name=${#authentication.principal.userVO.selectedProfile}">
+    <div id="user-data"
+      th:attr="data-user-id=${#authentication.principal.userVO.userId}, data-profile-name=${#authentication.principal.userVO.selectedProfile}">
 
     </div>
 
@@ -45,7 +45,7 @@
           <h3>내가 찜한 콘텐츠</h3>
         </div>
         <div id="category" class="category">
-          
+
         </div>
       </div>
     </div>
@@ -88,30 +88,30 @@
     </div>
   </th:block>
   <th:block layout:fragment="js">
-  <script th:inline="javascript">
-    window.onload = () =>{
-      getMovieData();
-    }
-    async function getMovieData(){
-
-      const userData = document.querySelector("#user-data");
-      const requestBody = {
-        "userId": userData.getAttribute("data-user-id"),
-        "profileName": userData.getAttribute("data-profile-name"),
+    <script th:inline="javascript">
+      window.onload = () => {
+        getMovieData();
       }
-      const response = await axios.post("/api/fav", requestBody, {
-        "Content-Type": "application/json;charset=UTF-8"
-      })
-      const {data} = response;
-      let containerHtml;
+      async function getMovieData() {
 
-                containerHtml = "";
-                containerHtml += `
+        const userData = document.querySelector("#user-data");
+        const requestBody = {
+          "userId": userData.getAttribute("data-user-id"),
+          "profileName": userData.getAttribute("data-profile-name"),
+        }
+        const response = await axios.post("/api/fav", requestBody, {
+          "Content-Type": "application/json;charset=UTF-8"
+        })
+        const { data } = response;
+        let containerHtml;
+
+        containerHtml = "";
+        containerHtml += `
                 <div class="swiper-container Container">
                 <div class="swiper-wrapper">
                   `;
-                  for (let i = 0; i < data.length; i++) {
-                  containerHtml += `
+        for (let i = 0; i < data.length; i++) {
+          containerHtml += `
                   <div class="swiper-slide">   
                     <img id="modal-img-${i}" src="${data[i].moviepostUrl}" alt="" >
                     <div class="imgbody">
@@ -132,71 +132,65 @@
                   </div>
                 </div>
                 </div>`;
-              }
-                const container = document.createElement("div");
-                container.setAttribute("class", "category-container d-flex flex-wrap");
-                // container.setAttribute("style", "z-index:" + containerZindex);
-                // containerZindex--;
-                container.innerHTML = containerHtml;
-                const list = document.querySelector("#category");
-                list.appendChild(container);
+        }
+        const container = document.createElement("div");
+        container.setAttribute("class", "category-container d-flex flex-wrap");
+        // container.setAttribute("style", "z-index:" + containerZindex);
+        // containerZindex--;
+        container.innerHTML = containerHtml;
+        const list = document.querySelector("#category");
+        list.appendChild(container);
 
 
-                //호버창에서 모달 여는 이벤트
-                for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
-                  let dataIndex = currentDataIndex + slideIndex;
-                  const modalOpen = document.querySelector(`#modal-img-${dataIndex}`);
-                  modalOpen.addEventListener("click", function (e) {
-                    console.log(e.target);
-                    console.log(dataIndex);
-                    getOneMovie(dataIndex + 1);
-                  })
-                }
+        //호버창에서 모달 여는 이벤트
+        for (let i = 0; i < data.length; i++) {
+          const modalOpen = document.querySelector(`#modal-img-${i}`);
+          modalOpen.addEventListener("click", function (e) {            
+            getOneMovie(data[i].movieId);
+          })
+        }
 
-                for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
-                  let dataIndex = currentDataIndex + slideIndex;
-                  const modalOpen = document.querySelector(`#modal-button-${dataIndex}`);
-                  modalOpen.addEventListener("click", function (e) {
-                    console.log(e.target);
-                    console.log(dataIndex);
-                    getOneMovie(dataIndex + 1);
-                  })
-                }
-    }
-    async function getOneMovie(id) {
+        for (let i = 0; i < data.length; i++) {
+          const modalOpen = document.querySelector(`#modal-button-${i}`);
+          modalOpen.addEventListener("click", function (e) {  
+            getOneMovie(data[i].movieId);
+          })
+        }
+      }
+      async function getOneMovie(id) {
 
-/*통신전에 progress START*/
-const { data } = await axios.get(`/movies/api/movies/${id}`);
-/*통신전에 progress END*/
-console.log(id);
-$("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
-$("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
-$("#detailContent").text(data.movieContent);
-$("#detailCast").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
-$("#detailGenre").text('장르 : ' + data.movieGenre);
-$("#detailCast2").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
-$("#detailGenre2").text('장르 : ' + data.movieGenre);
-$("#detailReleaseDate").text('개봉일자 : ' + new Date(data.movieReleaseDate).toLocaleDateString());
-$("#playBtn").click(function (e) {
-  // var srcCd = $("#mainVideo")
-  //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
-  location.href = `//localhost:8888/watch?src=${(id)}`;
-  //location.href= "https://www.naver.com"
-});
+        /*통신전에 progress START*/
+        const { data } = await axios.get(`/movies/api/movies/${id}`);
+        /*통신전에 progress END*/
+        console.log(id);
+        $("#detailFrame").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
+        $("#mainVideo").val(data.movietrailerUrl.split("?")[0] + "?mute=1&autoplay=1&loop=1&playlist=" + data.movietrailerUrl.split("/").pop().split("?")[0] + "&controls=0");
+        $("#detailContent").text(data.movieContent);
+        $("#detailCast").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
+        $("#detailGenre").text('장르 : ' + data.movieGenre);
+        $("#detailCast2").text('출연 : ' + data.movieCast.replace(/[\[\]"']/g, ''));
+        $("#detailGenre2").text('장르 : ' + data.movieGenre);
+        $("#detailReleaseDate").text('개봉일자 : ' + new Date(data.movieReleaseDate).toLocaleDateString());
+        $("#playBtn").click(function (e) {
+          // var srcCd = $("#mainVideo")
+          //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
+          location.href = `//localhost:8888/watch?src=${(id)}`;
+          //location.href= "https://www.naver.com"
+        });
 
 
 
 
 
-$("#detailModal").modal();
-/*통신전에 progress END*/
-//모달창 구성하기
-//modal.style.display = `block`;
-//$("#detail").modal('show');
-console.log(data);
-}
+        $("#detailModal").modal();
+        /*통신전에 progress END*/
+        //모달창 구성하기
+        //modal.style.display = `block`;
+        //$("#detail").modal('show');
+        console.log(data);
+      }
 
-  </script>
+    </script>
 
   </th:block>
 </body>
