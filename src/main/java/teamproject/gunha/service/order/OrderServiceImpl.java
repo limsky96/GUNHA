@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 
     return accessTokenResponse;
   }
-
+/*
   @Override
   @Transactional
   public Map<String, Object> issueBilling(PortOneVO portOneVO) {
@@ -74,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
     Map<String, Object> getToken = getAccessToken();
     String accessToken = (String) getToken.get("access_token");
     int lastOrderId = orderMapper.selectLastOrderId();
-    String orderId = String.format("%06d", lastOrderId + 1);
+    String orderId = String.format("%06d", lastOrderId);
     String userOrderId = String.format("%06d", orderMapper.selectUserLastOrderId(portOneVO.getUserId()));
     String merchantUid = mUid + orderId;
     String customerUid = portOneVO.getUserId() + cUid + userOrderId;
@@ -118,6 +118,7 @@ public class OrderServiceImpl implements OrderService {
         .impUid("임시imps_uid")
         .build();
 
+    //빌링키 응답 받아온다.
     ResponseEntity<Map> billResponse = rt.exchange(url, HttpMethod.POST,
         billRequest, Map.class);
     log.info("billResponse: " + billResponse);
@@ -140,69 +141,100 @@ public class OrderServiceImpl implements OrderService {
     }
     return resp;
   }
+*/
 
   @Override
-  @Transactional
-  public Map<String, Object> issueScheduleBilling(PortOneVO portOneVO) {
+  public Map<String, Object> payOnetime(PortOneVO portOneVO) {
+    log.info("payOneTime 첫결제 하고 예약까지.");
     Map<String, Object> getToken = getAccessToken();
-    log.info(getToken.toString());
+
     String accessToken = (String) getToken.get("access_token");
-    issueBilling(portOneVO);
+    log.info("access_token :" + accessToken);
+
     log.info("portOneVO: " + portOneVO.toString());
-    RestTemplate rt = new RestTemplate();
-    OrderVO orderVO = orderMapper.selectUserLastOrder(portOneVO.getUserId());
-    UserVO userVO = UserVO.builder()
-        .userId(portOneVO.getUserId())
-        .cardNumber(portOneVO.getCardNumber())
-        .membershipNo(portOneVO.getMembershipNo())
-        .build();
-    log.info(orderVO.toString());
-    // 빌링키를 가져와서
-    if (portOneVO.getCustomerUid() == null) {
-      // 없으면 테이블 거
-      portOneVO.setCustomerUid(orderVO.getCustomerUid());
+    // 결제 요청해야됨
+    String orderId = String.format("%06d", orderMapper.selectNextOrderId());
+    String userOrderId = String.format("%06d", orderMapper.selectUserLastOrderId(portOneVO.getUserId()) + 1);
+    String merchantUid = mUid + orderId;
+    String customerUid = portOneVO.getUserId() + cUid + userOrderId;
+    if (portOneVO.getUserId() != null) {
+      portOneVO.setMerchantUid(merchantUid);
+      portOneVO.setCustomerUid(customerUid);
     }
-    // HttpHeader 오브젝트 생성
+    log.info(portOneVO.toString());
+
+    // 헤더에 액세스 토큰 추가
     HttpHeaders requestHeader = new HttpHeaders();
     requestHeader.add("Authorization", accessToken);
 
-    // Http Body 오브젝트 생성
-    String url = "https://api.iamport.kr/subscribe/payments/schedule";
-
-    Map<String, Object> schedules = new HashMap<>();
-    schedules.put("merchant_uid", portOneVO.getMerchantUid());
-    schedules.put("schedule_at", Timestamp.valueOf(LocalDateTime.now().plusSeconds(3)).getTime() / 1000);
-    schedules.put("amount", portOneVO.getAmount());
-    schedules.put("name", portOneVO.getName() + " 구독");
-    schedules.put("buyer_email", userMapper.selectUserId(portOneVO.getUserId()).getUserEmail());
-    List<Map<String, Object>> scheduleList = new ArrayList<>();
-    scheduleList.add(schedules);
     Map<String, Object> requestBody = new HashMap<>();
-    requestBody.put("customer_uid", portOneVO.getCustomerUid());
-    requestBody.put("schedules", scheduleList);
-    // HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-    HttpEntity<Map<String, Object>> scheduleRequest = new HttpEntity<>(requestBody, requestHeader);
 
-    // 요청 후 response 받기
-    ResponseEntity<Map> scheduleResponse = rt.exchange(url, HttpMethod.POST,
-        scheduleRequest, Map.class);
-    
-    log.info("issueScheduleBilling()...scheduleResponse : "+scheduleResponse);
+    requestBody.put("merchant_uid", portOneVO.getMerchantUid());
+    requestBody.put("customer_uid", portOneVO.getCustomerUid());
+    requestBody.put("card_number", portOneVO.getCardNumber());
+    requestBody.put("expiry", portOneVO.getExpiry());
+    requestBody.put("birth", portOneVO.getBirth());
+    requestBody.put("pwd_2digit", portOneVO.getPwd2digit());
+    requestBody.put("pg", PG);
+    requestBody.put("amount", portOneVO.getAmount());
+    requestBody.put("name", portOneVO.getName() + " 구독");
+    requestBody.put("buyer_email", userMapper.selectUserId(portOneVO.getUserId()).getUserEmail());
+
+    log.info(requestBody.toString());
+    String url = "https://api.iamport.kr/subscribe/payments/onetime";
+
+    RestTemplate rt = new RestTemplate();
+
+    HttpEntity<Map<String, Object>> payRequest = new HttpEntity<>(requestBody, requestHeader);
+
+    // // 결제 요청 후 response 받기
+    ResponseEntity<Map> payResponse = rt.exchange(url, HttpMethod.POST,
+        payRequest, Map.class);
+
+    log.info(payResponse.toString());
+    int code = (int) payResponse.getBody().get("code");
+    Map<String, Object> responseData = (Map<String, Object>) payResponse.getBody().get("response");
+
     Map<String, Object> resp = new HashMap<>();
     resp.put("status", "failed");
-    int code = (int) scheduleResponse.getBody().get("code");
     if (code == 0) {
+      String impUid = (String) responseData.get("imp_uid");
+      OrderVO onetimeOrder = OrderVO.builder()
+          .cardNumber(portOneVO.getCardNumber())
+          .memberId(portOneVO.getUserId())
+          .startDate(new Date(new java.util.Date().getTime()))
+          .orderValid("V")
+          .customerUid(customerUid)
+          .impUid(impUid)
+          .build();
+
       resp.put("status", "success");
       resp.put("message", "Billing has successfully issued");
-      orderVO.setOrderValid("V");
-      if (orderMapper.updateOrder(orderVO) < 1) {
+      int insertRn = orderMapper.insertOrder(onetimeOrder);
+      log.info("insertRn : " + insertRn);
+      if (insertRn < 1) {
         resp.put("status", "failed");
         resp.put("message", "DB update 문제");
+        return resp;
       }
+      UserVO userVO = UserVO.builder()
+        .userId(portOneVO.getUserId())
+        .membershipNo(portOneVO.getMembershipNo())
+        .cardNumber(portOneVO.getCardNumber())
+        .build();
+      log.info(onetimeOrder.toString());
+      log.info(userVO.toString());
       userMapper.updateUser(userVO);
+      Map<String, Object> jsonObject = new HashMap<>();
+      String scheOrderId = String.format("%06d", orderMapper.selectLastOrderId());
+      String scheMerchantUid = mUid + scheOrderId;
+      jsonObject.put("merchant_uid", scheMerchantUid);
+      jsonObject.put("imp_uid", impUid);
+      log.info(jsonObject.toString());
+
     } else {
       resp.put("status", "failed");
-      resp.put("message", (String) scheduleResponse.getBody().get("message"));
+      resp.put("message", (String) payResponse.getBody().get("message"));
     }
     return resp;
   }
@@ -231,7 +263,6 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  @Transactional(rollbackFor = Exception.class)
   public Map<String, Object> issueSchedulePayment(Map<String, Object> jsonObject) {
 
     RestTemplate rt = new RestTemplate();
@@ -244,7 +275,7 @@ public class OrderServiceImpl implements OrderService {
     String status = (String) response.get("status");
     String failReason = (String) response.get("fail_reason");
     String impUid = (String) response.get("imp_uid");
-    log.info("imp_uid: " + impUid);
+    log.info("imp_uid: " + impUid +", merchant_uid: " + merchantUid);
     if ("paid".equals(status) && failReason == null) {
       String[] mList = merchantUid.split("_");
       int orderId = Integer.parseInt(mList[mList.length - 1]);
@@ -253,12 +284,14 @@ public class OrderServiceImpl implements OrderService {
       nextStartAt /= 1000;
 
 
+      log.info("orderId: " + orderId);
       OrderVO orderVO = orderMapper.selectOrderByOrderId(orderId);
 
-      log.info("orderId: " + orderId + ", getOrderId(): " + orderVO.getOrderId());
+      log.info("getOrderId(): " + orderVO.getOrderId());
       HttpHeaders requestHeader = new HttpHeaders();
       requestHeader.add("Authorization", accessToken);
-      String nextMerchantUid = mUid + String.format("%06d", orderMapper.selectLastOrderId() + 1);
+      String nextMerchantUid = mUid + String.format("%06d", orderMapper.selectNextOrderId());
+      log.info(nextMerchantUid);
       Map<String, Object> requestBody = new HashMap<>();
       Map<String, Object> schedules = new HashMap<>();
       schedules.put("merchant_uid", nextMerchantUid);
@@ -316,6 +349,8 @@ public class OrderServiceImpl implements OrderService {
     requestBody.put("merchant_uid", orderVO.getMerchantUid());
     requestBody.put("customer_uid", orderVO.getCustomerUid());
 
+    log.info("orderVO: " + orderVO);
+    log.info("requestBody: " + requestBody);
 
     String url = "https://api.iamport.kr/subscribe/payments/unschedule";
     HttpEntity<Map<String, Object>> cancelScheduleRequest = new HttpEntity<>(requestBody, requestHeader);
@@ -337,7 +372,7 @@ public class OrderServiceImpl implements OrderService {
         String message = "멤버십 해지가 정상적으로 완료되었습니다. 다음달부터 멤버십이 해지됩니다.";
         response.put("status", status);
         response.put("message", message);
-        orderMapper.updateOrder(orderVO);
+        orderMapper.deleteOrder(orderVO);
       }
     } else {
       int status = 200;

@@ -84,7 +84,7 @@ public class OrderController {
   @ResponseBody
   public Map<String, Object> scheduleSubscription(PortOneVO portOneVO) {
 
-    Map<String, Object> responseMap = orderService.issueScheduleBilling(portOneVO);
+    Map<String, Object> responseMap = orderService.payOnetime(portOneVO);
 
     userLoginService.loginAccount();
 
