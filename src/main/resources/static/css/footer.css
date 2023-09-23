@@ -6,6 +6,7 @@
 
 /* 푸터 스타일 */
 footer {
+    background-color: #000;
 
     color: #fff;
     padding: 20px 0;
@@ -80,7 +81,7 @@ ol {
     list-style: none;
 }
 
-.btn {
+#dropdownMenuButton1 {
     width: 110px;
     height: 30px;
     border-radius: 2px;
@@ -88,7 +89,7 @@ ol {
     margin-bottom: 20px;
 }
 
-.btn:hover {
+#dropdownMenuButton1> .btn:hover {
     background-color: #000;
     border: 2px solid #ccc;
 }
@@ -101,7 +102,7 @@ ol {
     background-color: #000;
 }
 
-img {
+#koreadownimg {
     /* width: auto; height: inherit;  */
     width: 1.6rem;
     height: 1.6rem;
