@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,39 +34,50 @@ public class SecurityConfig {
   private OAuth2UserDetailsService oAuth2UserDetailsService;
 
   @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) -> web.ignoring()
+        .antMatchers("/favicon.ico")
+        .antMatchers("/css/**", "/icons/**", "/images/**", "/views/**", "/bootstrap/**");
+  }
+
+  @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     // 로그인 시 csrf토큰을 받아야 하는가
-    http.csrf().disable();
+    http.csrf(csrf -> csrf.disable());
 
-    http.sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-        .sessionFixation().migrateSession()
-        .and()
-        .authorizeHttpRequests()
-        .antMatchers("/css/**", "/icons/**", "/images/**", "/views/**", "/bootstrap/**").permitAll()
-        .antMatchers("/emp/**", "/profile/**", "/my/**", "/payment-card", "/home/**").hasAnyRole("USER")
-        .antMatchers("/admin/**").hasAnyRole("ADMIN")
-        .antMatchers("/**", "/login").permitAll()
-        .and()
-        .exceptionHandling()
-        .accessDeniedPage("/");
 
-    http.formLogin()
-        .loginPage("/login") // 미인증자일경우 해당 uri를 호출
-        .loginProcessingUrl("/login") // login 주소가 호출되면 시큐리티가 낚아 채서(post로 오는것) 대신 로그인 진행 -> 컨트롤러를 안만들어도 된다.
-        .successHandler(authenticationSuccessHandler())
-        .failureUrl("/login?error");
+    http.authorizeHttpRequests(auth -> auth
+          .antMatchers("/emp/**", "/profile/**", "/my/**", "/payment-card", "/home/**").hasAnyRole("USER")
+          .antMatchers("/admin/**").hasAnyRole("ADMIN")
+          .antMatchers("/**", "/login").permitAll()
+        )
+        .exceptionHandling(access -> access.
+          accessDeniedPage("/")
+        );
+        
 
-    http.oauth2Login()
-        .loginPage("/login")
-        .defaultSuccessUrl("/")
-        .userInfoEndpoint()
-        .userService(oAuth2UserDetailsService);
+    http.formLogin(login -> login
+          .loginPage("/login")  // 미인증자일경우 해당 uri를 호출
+          .loginProcessingUrl("/login")  // login 주소가 호출되면 시큐리티가 낚아 채서(post로 오는것) 대신 로그인 진행 -> 컨트롤러를 안만들어도 된다.
+          .successHandler(authenticationSuccessHandler())
+          .failureUrl("/login?error")
+        );
+        
 
-    http.logout()
-        .logoutUrl("/logout")
-        .logoutSuccessUrl("/");
+    http.oauth2Login(oauth2 -> oauth2
+          .loginPage("/login")
+          .defaultSuccessUrl("/")
+          .userInfoEndpoint()
+          .userService(oAuth2UserDetailsService)
+        );
+        
+
+    http.logout(t -> t
+          .logoutUrl("/logout")
+          .logoutSuccessUrl("/")
+    );
+        
 
     return http.build();
   }
@@ -93,5 +105,3 @@ class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
   }
 
 }
-    
-    
