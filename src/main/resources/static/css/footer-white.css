@@ -59,8 +59,13 @@ footer {
     margin: 6.2px;
     font-size: 12px;
     text-decoration: none;
-    color: #000;
+    color: #000 !important;
     text-align: left;
+}
+
+.footer-link2 a{
+    /* text-decoration: none; */
+    color: inherit;
 }
 
 .footer-link2>* {
