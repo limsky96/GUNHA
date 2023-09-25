@@ -13,7 +13,7 @@
     <style>
       * {
         box-sizing: border-box;
-        border: 1px solid greenyellow; 
+        /* border: 1px solid greenyellow;  */
 
       }
 
@@ -94,7 +94,7 @@
             th:attr="data-profile-name=${profile.profileName}"
             style="text-align: center; width:120px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
          <img th:src="@{/images/profile/profile-{index}.png(index=${profileStat.index+1})}"
-              style="width: 88px; height: 88px; margin: 0 30px; border-radius: 2px;" />
+              style="width: 88px; height: 88px; margin: 0 30px; border-radius: 2px;">
          <div type="button" th:text="${profile.profileName}"
               style="width: 100px; height: 30px; line-height: 30px; color: #fff; font-size: 12px;">
          </div>
@@ -268,7 +268,7 @@
           'use strict'
 
           elmnt.addEventListener("click", async e => {
-            const profileName = e.target.dataset.profileName;
+            const profileName = elmnt.dataset.profileName;
             console.log(profileName);
             const requestBody = {
               "selected_name": profileName
@@ -277,6 +277,7 @@
               "Content-type": "application/json"
             });
             const { data, status } = response;
+
             if (status === 200) {
               location.href = "/home"
             }
