@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <th:block th:replace="/fragments/config::config" />
+  <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">NETFLIX</title>
+
+  <th:block th:replace="/fragments/common-css2::common-css"/>
+  
+  <th:block layout:fragment="css"/>
+</head>
+<body>
+  
+
+  <th:block th:replace="/fragments/header::header" />
+
+  <th:block layout:fragment="content"/>
+
+  <th:block th:replace="/fragments/footerwhite::footerwhite"/>
+
+  <th:block th:replace="/fragments/common-js::js"/>
+
+  <th:block layout:fragment="js"/>
+
+</body>
+</html>
