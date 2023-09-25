@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/layout}">
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/layoutwhite}">
 
 <head>
 
@@ -53,6 +53,8 @@
 
   <th:block layout:fragment="js">
     <script>
+      $('header').addClass('hd-white');
+      
       document.querySelectorAll(".payment-date").forEach(elmnt => {
         const date = new Date(elmnt.dataset.paymentDate * 1000);
         const formattedTime = `${date.getFullYear()}년 ` + `0${date.getMonth() + 1}`.substr(-2) + '월 ' + `0${date.getDate()}`.substr(-2) + '일 ' + date.getHours() + ':' + `0${date.getMinutes()}`.substr(-2) + ':' + `0${date.getSeconds()}`.substr(-2);
