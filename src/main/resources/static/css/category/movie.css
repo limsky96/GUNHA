@@ -20,19 +20,6 @@ a {
   color: white;
   width: 850px;
 }
-/* 
-.content {
-  text-overflow: ellipsis;
-  white-space: normal;
-  line-height: 1.2;
-         height: 4.8em;
-  text-align: left;
-  word-wrap: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 7;보여주고싶은 줄의 갯수
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-} */
 
 .video-container {
 	position: relative;
@@ -56,9 +43,7 @@ a {
 .home {
   position: relative;
   background-color: rgb(20, 20, 20);
-  /* width: 100%; */
   height: 100%;
-  /* overflow-x: hidden; 입력했더니 2중 스크롤이생김*/
 }
 
 video {
@@ -190,9 +175,7 @@ iframe {
 
 .category-list {
   position: relative;
-  /* width: clac(100% - 50px); */
   top: -70px;
-  /* left: 50px; */
 }
 
 .category .title {
@@ -200,7 +183,6 @@ iframe {
   font-weight: 900;
   color: white;
   padding: 15px 0;
-  /* 여기부터 추가한 부분 */
   display: flex;
   justify-content: space-between;
   margin-right: 0;
@@ -209,7 +191,6 @@ iframe {
 
 .list {
   display: flex;
-  /* overflow-x: hidden; */
 }
 
 .info {
@@ -277,13 +258,11 @@ iframe {
 
 .imgbody {
   display: none;
-  /* height: 0px; */
   padding: 10px 15px;
   position: absolute;
   background-color: #141414;
   top: 330px;
   width: 100%;
-  /* max-width: 378px; */
 }
 
 .imgbody-detail {
@@ -309,11 +288,7 @@ iframe {
 
 .swiper-slide img {
   width: 100%;
-  /* box-sizing: border-box; */
-  /* max-width: 18rem; */
   cursor: grab;
-  /* object-fit: contain;
-  object-position: 100% 0%; */
   height: 350px;
 }
 
@@ -336,5 +311,4 @@ iframe {
 .swiper-slide:hover>.imgbody {
   display: block;
   transition-delay: 300ms;
-  /*z-index: 10;*/
 }

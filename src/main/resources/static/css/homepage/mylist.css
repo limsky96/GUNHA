@@ -96,13 +96,11 @@ iframe {
 
 .imgbody {
   display: none;
-  /* height: 0px; */
   padding: 10px 15px;
   position: absolute;
   background-color: #141414;
   top: 330px;
   width: 100%;
-  /* max-width: 378px; */
 }
 
 .imgbody-detail {
@@ -128,11 +126,7 @@ iframe {
 
 .mylist-post img {
   width: 100%;
-  /* box-sizing: border-box; */
-  /* max-width: 18rem; */
   cursor: grab;
-  /* object-fit: contain;
-  object-position: 100% 0%; */
   height: 350px;
 }
 
@@ -155,5 +149,4 @@ iframe {
 .mylist-post:hover>.imgbody {
   display: block;
   transition-delay: 300ms;
-  /*z-index: 10;*/
 }

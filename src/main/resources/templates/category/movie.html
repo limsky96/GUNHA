@@ -41,7 +41,6 @@
           <div class="buttons">
             <div id="mainMovePlay" class="white-button" style="cursor: pointer">
               <i class="fa-solid fa-play">재생</i>
-              <!-- <input type="hidden" id="mainVideo" value=""> -->
             </div>
             <div id="mainDetailModal" class="grey-button" style="cursor: pointer">
               <i class="fa-solid fa-circle-info"></i>
@@ -123,7 +122,6 @@
           console.log(randomNumber)
           //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
           location.href = `//localhost:8888/watch?src=${(randomNumber + 1)}`;
-          //location.href= "https://www.naver.com"
         });
 
 
@@ -204,7 +202,7 @@
               </div>
               <div class="swiper-button-next list${[currentDataIndex / 10]}Next"></div>
               <div class="swiper-button-prev list${[currentDataIndex / 10]}Prev"></div>
-            `;
+              `;
 
                 const container = document.createElement("div");
                 container.setAttribute("class", "category-container");
@@ -304,17 +302,13 @@
           // var srcCd = $("#mainVideo")
           //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
           location.href = `//localhost:8888/watch?src=${(id)}`;
-          //location.href= "https://www.naver.com"
         });
 
         $("#detailModal").modal();
         /*통신전에 progress END*/
-        //모달창 구성하기
-        //modal.style.display = `block`;
-        //$("#detail").modal('show');
-        console.log(data);
+        //모달창 구성하기   
       }
-            
+
     </script>
   </th:block>
 </body>
