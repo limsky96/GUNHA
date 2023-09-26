@@ -1,17 +1,18 @@
 package teamproject.gunha.vo;
 
-import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @NoArgsConstructor @AllArgsConstructor
-@Builder
-public class FavoriteVO {
-  private String userId;
-  private String profileName;
+@SuperBuilder
+public class FavoriteVO extends ProfileVO {
   private int movieId;
 }

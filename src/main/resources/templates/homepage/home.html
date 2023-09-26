@@ -13,6 +13,8 @@
     <style>
       * {
         box-sizing: border-box;
+        /* border: 1px solid greenyellow;  */
+
       }
 
       div {
@@ -24,7 +26,7 @@
         /* Stay in place */
         z-index: 1;
         /* Sit on top */
-        padding-top: 100px;
+        /* padding-top: 100px; */
         /* Location of the box */
         left: 0;
         top: 0;
@@ -40,12 +42,19 @@
       }
 
       #modalBody {
-        width: 500px;
-        height: 300px;
+        width: 100%;
+        height: 100%;
         padding: 30px 30px;
         margin: 0 auto;
         border: 1px solid #777;
-        background-color: #fff;
+        background-color: #000;
+      }
+
+      #modalBody p {
+        margin: 70px 0px;
+        font-size: 32px;
+        color: #fff;
+        text-align: center;
       }
 
       #closeBtn {
@@ -54,6 +63,12 @@
         color: #777;
         font-size: 25px;
         cursor: pointer;
+      }
+
+      #profile-container {
+        display: flex;
+        justify-content: center;
+        margin-top: -30px; /* 원하는 만큼 음수 값을 조정하여 위로 올립니다 */
       }
 
       header {
@@ -73,24 +88,37 @@
       <div th:case="null" id="modalWrap">
         <div id="modalBody">
           <span id="closeBtn">&times;</span>
-          <p>modal-popup 입니다.</p>
+          <p>프로필 선택</p>
           <div id="profile-container" style="display: flex; justify-content: center;">
-            <div th:each="profile: ${user.profileList}" th:text="${profile.profileName}"
-              th:attr="data-profile-name=${profile.profileName}"
-              style="text-align: center; line-height: 100px; width:100px; height:100px;">
-            </div>
+            <div th:each="profile, profileStat: ${user.profileList}"
+            th:attr="data-profile-name=${profile.profileName}"
+            style="text-align: center; width:120px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+         <img th:src="@{/images/profile/profile-{index}.png(index=${profileStat.index+1})}"
+              style="width: 88px; height: 88px; margin: 0 30px; border-radius: 2px;">
+         <div type="button" th:text="${profile.profileName}"
+              style="width: 100px; height: 30px; line-height: 30px; color: #fff; font-size: 12px;">
+         </div>
+       </div>
           </div>
-          <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
-        </div>
+<!-- 버튼 -->
+            <div style="display: flex; justify-content: center;">
+              <a href="/profile/manage" style="display: inline-block; margin:70px; padding: 10px 20px; background-color: #fff; color: #000; text-decoration: none; border-radius: 2px; text-align: center;">프로필 관리</a>
+            </div>        
+          </div>
       </div>
       <div th:case="*" id="modalWrap" style="display: none;">
         <div id="modalBody">
           <span id="closeBtn">&times;</span>
           <p>modal-popup 입니다.</p>
           <div id="profile-container" style="display: flex; justify-content: center;">
-            <div th:each="profile: ${user.profileList}" th:text="${profile.profileName}"
+            <div th:each="profile, profileStat: ${user.profileList}"
               th:attr="data-profile-name=${profile.profileName}"
               style="text-align: center; line-height: 100px; width:100px; height:100px;">
+              <img th:src="@{/images/profile/profile-{index}.png(index=${profileStat.index+1})}"
+              style="width: 88px; height: 88px; margin-right: 10px; margin-left: 10px; border-radius: 2px;" />
+              <div type="button" th:text="${profile.profileName}"
+                style="width: 100px; height: 30px; text-align: center; line-height: 30px; color: #fff; font-size: 12px;">
+              </div>
             </div>
           </div>
           <div style="display: flex; justify-content: center;"><a href="/profile/manage">프로필 관리</a></div>
@@ -235,7 +263,7 @@
           'use strict'
 
           elmnt.addEventListener("click", async e => {
-            const profileName = e.target.dataset.profileName;
+            const profileName = elmnt.dataset.profileName;
             console.log(profileName);
             const requestBody = {
               "selected_name": profileName
@@ -244,6 +272,7 @@
               "Content-type": "application/json"
             });
             const { data, status } = response;
+
             if (status === 200) {
               location.href = "/home"
             }

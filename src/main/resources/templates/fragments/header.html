@@ -33,7 +33,7 @@
               <a class="nav-link active" aria-current="page" th:href="@{/}">홈</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/movie}">영화</a>
+              <a class="nav-link"  th:href="@{/movie}">영화</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/my/mylist}" tabindex="-1" aria-disabled="true">내가 찜한 콘텐츠</a>
@@ -79,7 +79,8 @@
                   <th:block th:switch="${#authentication.principal.userVO.selectedProfile}">
                     <div th:case="null">
                       <script th:inline="javascript">
-                        if ("/home" !== location.pathname) {
+                        if ("/home" !== location.pathname && "/regi" !== location.pathname && "/regi2" !== location.pathname
+                           && "/regi3" !== location.pathname && "/planform" !== location.pathname) {
                           location.href = "/home"
                         }
                       </script>
@@ -120,13 +121,13 @@
           </div>
 
         </div>
+        
+        <div sec:authorize="isAnonymous()">
+          <a class="btn-danger btn" th:href="@{/login}">로그인</a>
+        </div>
 
-        <!-- <div sec:authorize="isAnonymous()">
-          <div><a th:href="@{/login}"> 로그인</a></div>
-          <div><a href="/regi">회원가입</a></div>
         </div>
-        </div>
-        <span th:text="${#authentication}"></span><br />
+        <!-- <span th:text="${#authentication}"></span><br />
         <div sec:authorize="isAuthenticated()">
           <span th:text="${#authentication.principal}"></span>님 환영합니다<br />
           <span sec:authentication="principal.username"></span>님 환영합니다<br />
@@ -136,8 +137,8 @@
             <a href="/my/account"><input type="button" value="마이페이지"></a>
             <div id="open-modal"><input type="button" value="프로필창 열기"></div>
             <div th:text="${selectedProfile}"></div>
-          </form> -->
-      </div>
+          </form>
+      </div> -->
 
     </nav>
   </header>
@@ -147,7 +148,7 @@
 <script>
     //$('header').addClass('hd-black-logout'); // 블랙 헤더 로그아웃 버전
 
-    //$('header').addClass('hd-white'); // 화이트 헤더 버전
+    $('header').addClass('hd-white'); // 화이트 헤더 버전
 
     //$('header').addClass('hd-white-logout'); // 화이트 헤더 로그아웃 버전
 
