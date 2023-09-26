@@ -879,6 +879,21 @@ select * from NETFLIX_MEMBER_PROFILE mp, NETFLIX_FAVORITES nf
 --    SET favorites_member_profile_name = :new.col1
 --    WHERE favorites_member_profile_name = :old.col1 and favorites_member_id='tatelulove4@naver.com_kakao';
 
+commit;
+--insert into netflix_favorites values('user@example.com', '주현', 3);
+--insert into netflix_favorites values('user@example.com', '주현', 8);
+--insert into netflix_favorites values('user@example.com', '주현', 11);
+--insert into netflix_favorites values('user@example.com', '주현', 20);
+--insert into netflix_favorites values('user@example.com', '주현', 21);
+--insert into netflix_favorites values('user@example.com', '주현', 28);
+--insert into netflix_favorites values('user@example.com', '주현', 31);
+--insert into netflix_favorites values('user@example.com', '주현', 39);
+--insert into netflix_favorites values('user@example.com', '주현', 41);
+--insert into netflix_favorites values('user@example.com', '주현', 47);
+
+--delete from netflix_favorites where favorites_movie_id > 25;
+
+
 --------------------------------
 
 -- drop table NETFLIX_SOCIAL_ACCOUNT cascade constraints;
@@ -956,8 +971,8 @@ select * from netflix_member where member_id = 'taterulove4@gmail.com';
 
 --update NETFLIX_ORDER set order_imp_uid = 'imps_555059110557' where order_id = 253;
 
-commit;
---insert into netflix_favorites values('ggouma34@gmail.com_google', '테스트', 25);
+
+
 
 -- delete from netflix_member where member_id = 'seralove4@gmail.com';
    select * from (select rownum rnum, d.* from (select o.* from netflix_order o where order_member_id = 'taterulove4@gmail.com'  
