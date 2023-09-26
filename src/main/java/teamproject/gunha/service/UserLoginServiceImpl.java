@@ -50,7 +50,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     log.info("user: " + user);
     if (user != null) {
       if (passwordEncoder.matches(password, user.getPassword())) {
-        loginAccount();
+        loginAccount(user);
         return true;
       } else {
         return false;

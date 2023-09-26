@@ -58,6 +58,8 @@ insert into netflix_member values(
     'naver'
 );
 
+-- update netflix_member set member_email = 'user@example.com' where member_id='user@example.com';
+
 ----------------------------------------------------------
 
 drop table NETFLIX_AUTH cascade constraints;
