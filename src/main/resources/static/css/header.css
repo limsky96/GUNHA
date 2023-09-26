@@ -76,14 +76,14 @@ a { color: inherit; text-decoration: none; }
 
 .dropdown-toggle {
   width: 50px;
-  font-size: 15px;
+  font-size: 10px;
   /*드롭 "메뉴" 글자 크기*/
   color: #ffffff;
 }
 
-.dropdown-toggle::after {
+#dropdownMenuButtonheader::after {
   margin-left: 5px;
-  size: 20px;
+  size: 20px; /*크기 안먹음..*/
 }
 
 .dropdown-toggle,
@@ -243,6 +243,7 @@ a { color: inherit; text-decoration: none; }
 
 .dropdown-menu>li>a {
   color: white;
+  font-size: small;
 }
 
 .dropdown-menu>li>a:hover {
@@ -250,10 +251,18 @@ a { color: inherit; text-decoration: none; }
 }
 
 /*반응형이랑 오른쪽 둘다 만들어드롭다운 메뉴 배경색과 텍스트 색상 변경 */
-.dropdown-menu {
-  background-color: rgba(0, 0, 0, 0.8);
+#dropdownprofile {
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 0px;
+  color: #fff;
+  font-size: small;
+  width: max-content;
   /* 검은색 배경과 투명도 조절 */
+}
+
+/*프로필 이름 크기 줄이기*/
+#dropdownprofile>li>a>span{
+  font-size: small;
 }
 
 /* 둘다 만들어야 */
