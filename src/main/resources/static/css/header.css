@@ -268,6 +268,10 @@ a { color: inherit; text-decoration: none; }
   display: none;
 }
 
+#btn-login{
+  display: none;
+}
+
 
 
 @media screen and (max-width: 880px) {
@@ -323,11 +327,14 @@ header.hd-black-logout {
   .navbar-toggler .navbar-nav,
   .dropdown-main,
   .right-menu,
-  .nav-link,
-  .custom-btn {
+  .nav-link
+  {
     display: none;
   }
 
+  #btn-login{
+    display: block;
+  }
 }
 
 
@@ -349,10 +356,11 @@ header.hd-white {
   }
   .navbar-toggler .navbar-nav,
   .dropdown-main,
-  .right-menu,
-  .custom-btn {
+  .right-menu
+   {
     display: none;
   }
+
 
   .login-text{
     display: block;

@@ -121,36 +121,37 @@
             </th:block>
           </div>
 
+        </div>
+        
+        <div sec:authorize="isAnonymous()">
+          <a class="btn-danger btn" th:href="@{/login}">로그인</a>
+        </div>
 
-          <div  class="logout-text" sec:authorize="isAuthenticated()">
-            <form id="logoutForm" th:action="@{/logout}" method="POST">
-              <button  type="submit">로그아웃</button>
-            </form>
+        </div>
+        <!-- <span th:text="${#authentication}"></span><br />
+        <div sec:authorize="isAuthenticated()">
+          <span th:text="${#authentication.principal}"></span>님 환영합니다<br />
+          <span sec:authentication="principal.username"></span>님 환영합니다<br />
+          <form id="logoutForm" action="/logout" method="POST">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit">logout</button>
             <a href="/my/account"><input type="button" value="마이페이지"></a>
             <div id="open-modal"><input type="button" value="프로필창 열기"></div>
             <div th:text="${selectedProfile}"></div>
-          </div>
-        </div>
-
-        <div class="login-text"sec:authorize="isAnonymous()">
-          <div><a th:href="@{/login}">로그인</a></div>
-        </div>
-        </div>
+          </form>
+      </div> -->
 
     </nav>
   </header>
-
 </body>
 <!-- 로그인 페이지에 넣을거 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    //$('header').addClass('hd-black-logout'); // 블랙 헤더 로그아웃 버전
 
-    //$('header').addClass('hd-black-logout'); // 블랙 헤더 아무것도 없는버전
+    $('header').addClass('hd-white'); // 화이트 헤더 버전
 
-    //$('header').addClass('hd-white'); // 화이트 헤더 버전 로그인 버전
-
-    //$('header').addClass('none'); // 없는 버전
-
+    //$('header').addClass('hd-white-logout'); // 화이트 헤더 로그아웃 버전
 
 </script>
 
