@@ -43,7 +43,7 @@
               <div th:switch="${user.lastOrder.orderValid}">
                 <button th:case="'T'" id="order-cancel" th:attr="data-userId=${user.userId}" type="button"
                   class="w-100 border-0 btn-cancel" th:text="'멤버십 해지'"></button>
-                <button id="order-renew" th:case="'C'" type="button" class="w-100 border-0 btn-cancel"
+                <button id="order-renew" th:case="*" type="button" class="w-100 border-0 btn-cancel"
                   th:text="'멤버십 다시 가입하기'"></button>
               </div>
             </div>
@@ -59,7 +59,6 @@
       <div class="right">
         <div id="" class="d-flex justify-content-between">
           <p><b>이메일주소</b>: <span th:text="${user.userEmail}"></span></p>
-          <a href="#"> 계정이메일 변경</a>
         </div>
         <div th:if="${user.social == 'none'}" class="d-flex justify-content-between">
           <p ><b>비밀번호: </b> ******** </p>
@@ -67,9 +66,6 @@
         </div>
         <div th:unless="${user.social == 'none'}"  class="d-flex justify-content-between">
           <p><b>소셜 회원: </b> <span th:text="${user.social}"></span></p>
-          <!-- <p>전화번호:</p>          -->
-
-          <!-- <a href="#"> 전화번호 변경</a>  -->
         </div>
         <hr>
         <div class="d-flex justify-content-between">
@@ -78,9 +74,6 @@
             <!-- <p>다음결제일은 입니다</p>        -->
           </div>
           <div class="">
-            <div>
-              <a href="#"> 결제 정보 관리</a>
-            </div>
             <!-- <a href="#"> 예비 결제 수단 등록</a> -->
             <div>
               <a href="/my/order"> 결제 상세 정보</a>
@@ -103,8 +96,9 @@
             <span th:if="${user.secondLastOrder == null}">등급 없음</span>
           </div>
           <div th:if="${user.secondLastOrder != null}">
-            <div th:switch="${user.secondLastOrder.orderValid}">
+            <div th:switch="${user.lastOrder.orderValid}">
               <span th:case="'V'" th:text="${membership.grade}"></span>
+              <span th:case="'T'" th:if="${user.secondLastOrder.orderValid != 'E'}" th:text="${membership.grade}"></span>
               <span th:case="*" th:text="'마지막 결제 멤버십 등급: ' + ${membership.grade} + ' 유효하지 않음'"></span>
             </div>
           </div>
