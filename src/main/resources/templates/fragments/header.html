@@ -68,13 +68,14 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
               </div>
               <div class="menu-item"><i class="fas fa-bell"></i></div>
-              <div class="menu-item" sec:authorize="isAnonymous()">
+              <!--이거풀면 로그인 버튼 2개 생김 
+                <div class="menu-item" sec:authorize="isAnonymous()">
                 <a class="btn-danger btn" th:href="@{/login}">로그인</a>
-              </div>
+              </div> -->
             </div>
             <th:block sec:authorize="hasRole('USER')">
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle custom-btn" type="button" id="dropdownMenuButton1"
+                <button class="btn btn-secondary dropdown-toggle custom-btn" type="button" id="dropdownMenuButtonheader"
                   data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
                   <th:block th:switch="${#authentication.principal.userVO.selectedProfile}">
                     <div th:case="null">
@@ -93,7 +94,7 @@
                     </th:block>
                   </th:block>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1" id="dropdownprofile">
                   <li th:each="profile, profileStat:${#authentication.principal.userVO.profileList}">
                     <th:block th:if="${profile.profileName != #authentication.principal.userVO.selectedProfile}">
                       <a class="dropdown-item profile-item" href="#">
@@ -112,7 +113,7 @@
                   <li><a class="dropdown-item" href="/qna">고객 센터</a></li>
                   <li>
                     <form id="logoutForm" action="/logout" method="POST">
-                      <input type="submit" class="dropdown-item" href="#" value="Netflix에서 로그아웃"></input>
+                      <input type="submit" class="dropdown-item" href="#" value="Netflix에서 로그아웃" style="color:white; font-size: small;"></input>
                     </form>
                   </li>
                 </ul>
