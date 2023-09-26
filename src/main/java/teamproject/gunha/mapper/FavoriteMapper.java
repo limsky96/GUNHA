@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 import teamproject.gunha.vo.FavoriteVO;
+import teamproject.gunha.vo.ProfileVO;
 
 @Mapper
 public interface FavoriteMapper {
@@ -15,7 +16,7 @@ public interface FavoriteMapper {
         + " values(#{userId}, #{profileName}, #{movieId})")
   public int insertFavorite(FavoriteVO FavoriteVO);
 
-  public List<FavoriteVO> selectUserFavList(FavoriteVO favoriteVO);
+  public List<FavoriteVO> selectUserFavList(ProfileVO profileVO);
 
 
   @Delete("Delete from NETFLIX_FAVORITES where favorites_member_id=${userId} and"

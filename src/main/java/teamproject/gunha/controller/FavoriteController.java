@@ -35,8 +35,6 @@ public class FavoriteController {
 
     for(int favMovieId : favMovieIdList){
       movieList.add(movieService.getMovieById((long)favMovieId));
-
-
     }
     log.info("movieList: " + movieList.toString());
     return movieList;
