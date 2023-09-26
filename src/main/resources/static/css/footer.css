@@ -130,20 +130,20 @@ ol {
 }
 
 /*한국어 토클*/
-.dropdown-toggle::after {
+/* .dropdown-toggle::after {
     position: relative;
     top: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
-}
+} */
 
-.dropdown-menu {
+/* .dropdown-menu {
     background-color: #fff;
     border-radius: 2px;
     width: 110px;
     min-width: auto;
     
-}
+} */
 
         
         
