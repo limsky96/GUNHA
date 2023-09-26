@@ -68,9 +68,10 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
               </div>
               <div class="menu-item"><i class="fas fa-bell"></i></div>
-              <div class="menu-item" sec:authorize="isAnonymous()">
+              <!--이거풀면 로그인 버튼 2개 생김 
+                <div class="menu-item" sec:authorize="isAnonymous()">
                 <a class="btn-danger btn" th:href="@{/login}">로그인</a>
-              </div>
+              </div> -->
             </div>
             <th:block sec:authorize="hasRole('USER')">
               <div class="dropdown">
