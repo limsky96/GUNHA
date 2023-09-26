@@ -12,9 +12,9 @@
   ]]>
 </select>
 
-<select id="getProfileList" resultMap="profileMap">
+<select id="getUserProfiles" resultMap="profileMap">
   <![CDATA[ 
-    select * from NETFLIX_MEMBER_PROFILE
+    select * from NETFLIX_MEMBER_PROFILE where member_profile_member_id = #{userId}
   ]]>
 </select>
 <!-- <resultMap id="userMap" type="edu.global.demo.vo.UserVO">

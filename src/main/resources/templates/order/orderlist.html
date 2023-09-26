@@ -9,14 +9,25 @@
 </head>
 
 <body>
-  <!-- 헤더 -->
+
+  <th:block layout:fragment="css">
+    <style>
+
+      .container{ padding: 15px; }
+      .table{ margin-bottom: 10rem; }
+      .row{margin-left: 20px;}
+      .btn-danger{ width: 6em; margin-left: 10px; } 
+    </style>
+  </th:block>  
 
   <section layout:fragment="content">
     <div>
       <h1 class="container">결제 상세 정보</h1>
-      <div class="container">
+      <div class="container row">
+        <a class="btn btn-danger text-decoration-none" href="/my/account">뒤로가기</a>
         <span><b>아이디: </b> <span th:text="${userId}"></span>
       </div>
+      
       <table class="container table">
         <thead class="thead-light">
           <tr>
@@ -47,7 +58,6 @@
 
         </th:block>
       </table>
-      <a class="btn btn-secondary text-decoration-none" href="/my/account">뒤로가기</a>
     </div>
   </section>
 

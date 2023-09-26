@@ -13,6 +13,14 @@ footer {
     text-align: center;
 }
 
+.footer-content{
+    z-index: 10;
+}
+
+.footer-inform{
+    z-index: 9;
+}
+
 /*질문이 있으신가요 타이틀*/
 .footer-title {
     text-align: left;
@@ -101,6 +109,13 @@ ol {
 :not(.btn-check)+.btn:active {
     background-color: #000;
 }
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
+    background-color: #000;
+}
 
 #koreadownimg {
     /* width: auto; height: inherit;  */
@@ -126,17 +141,14 @@ ol {
 .dropdown-menu {
     background-color: #fff;
     border-radius: 2px;
-}
-
-.dropdown-menu {
     width: 110px;
     min-width: auto;
-    overflow: hidden;
+    
 }
 
-
-
-/* .dropdown > ul.dropdown-menu > li > a.dropdown-item:hover { background: #1967d2; } */
+        
+        
+        /* .dropdown > ul.dropdown-menu > li > a.dropdown-item:hover { background: #1967d2; } */
 
 
 .footer-text-line {
@@ -148,6 +160,7 @@ ol {
     text-align: left;
     margin-left: 24px;
     font-size: 10px;
+    z-index: 9;
 }
 
 .footer-inform p {
