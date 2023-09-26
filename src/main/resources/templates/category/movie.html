@@ -22,6 +22,7 @@
       .home {
         top: -110px;
       }
+      
     </style>
   </th:block>
 
@@ -40,7 +41,6 @@
           <div class="buttons">
             <div id="mainMovePlay" class="white-button" style="cursor: pointer">
               <i class="fa-solid fa-play">재생</i>
-              <!-- <input type="hidden" id="mainVideo" value=""> -->
             </div>
             <div id="mainDetailModal" class="grey-button" style="cursor: pointer">
               <i class="fa-solid fa-circle-info"></i>
@@ -51,13 +51,16 @@
         </div>
       </div>
 
+      <!--포스터 컨테이너 생성-->
       <div class="category-list" id="category-list">
         <div class="category" id="category">
 
         </div>
       </div>
+
     </div>
 
+    <!--모달창 생성-->
     <div id="detailModal" class="modal">
       <div class="video-container">
         <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
@@ -119,7 +122,6 @@
           console.log(randomNumber)
           //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
           location.href = `//localhost:8888/watch?src=${(randomNumber + 1)}`;
-          //location.href= "https://www.naver.com"
         });
 
 
@@ -138,7 +140,7 @@
         var isLoading = false; //새 콘텐츠 로딩여부 추적
         var count = 1;
         var containerZindex = 10;
-
+        
         //무한스크롤 START
         //DOCUMENT 스크롤 이벤트 감지
         $(document).scroll(function () {
@@ -163,6 +165,7 @@
                   isAllDataReceived = true; // 모든 데이터를 받아왔다고 표시
                 }
 
+                console.log(data);
 
                 let containerHtml;
 
@@ -172,36 +175,34 @@
               <div class="swiper-container list${[currentDataIndex / 10]}Container">
                 <div class="swiper-wrapper">
                 `;
-                //  <img src="${data[i*10+slideIndex].movieUrl}" alt="">
-                //  ${data[i*10+slideIndex].movieName}
-                for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
-                  let dataIndex = currentDataIndex + slideIndex;
-                  containerHtml += `
-                  <div class="swiper-slide">   
-                    <img id="modal-img-${dataIndex}" src="${data[slideIndex].moviepostUrl}" alt="" >
-                    <div class="imgbody">
-                      <section class="imgbody-detail">
-                        <div style="display:flex">
-                          <i id="playBtn2" class="fa-regular fa-circle-play card-icon" onclick="location.href='/watch?src=${dataIndex + 1}'"></i>
-                          <i class="fa-solid fa-circle-plus card-icon"></i>
-                        </div>
-                        <a id="modal-button-${dataIndex}" class="fa-solid fa-circle-chevron-down card-icon"></a>                                           
-                      </section>
-                      <section class="imgbody-detail" >
-                        <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
-                        <div class="m-2 netflix-card-text text-white">Limited Series</div>
-                        <div class="border netflix-card-text p-1 text-white">HD</div>                
-                      </section>
-                      <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
-                    </div>              
-                  </div>`;
-                }
-                containerHtml += `              
+                  for (let slideIndex = 0; slideIndex < 10; slideIndex++) {
+                    let dataIndex = currentDataIndex + slideIndex;
+                    containerHtml += `
+                    <div class="swiper-slide">   
+                      <img id="modal-img-${dataIndex}" src="${data[slideIndex].moviepostUrl}" alt="" >
+                      <div class="imgbody">
+                        <section class="imgbody-detail">
+                          <div style="display:flex">
+                            <i id="playBtn2" class="fa-regular fa-circle-play card-icon" onclick="location.href='/watch?src=${dataIndex + 1}'"></i>
+                            <i class="fa-solid fa-circle-plus card-icon"></i>
+                          </div>
+                          <a id="modal-button-${dataIndex}" class="fa-solid fa-circle-chevron-down card-icon"></a>                                           
+                        </section>
+                        <section class="imgbody-detail" >
+                          <p class="netflix-card-text m-0" style="color: rgb(0, 186, 0);">97% match</p> 
+                          <div class="m-2 netflix-card-text text-white">Limited Series</div>
+                          <div class="border netflix-card-text p-1 text-white">HD</div>                
+                        </section>
+                        <div class="netflix-card-text text-white">Provocative • Psychological • Thriller</div>
+                      </div>              
+                    </div>`;
+                  }
+                  containerHtml += `              
                 </div>
               </div>
               <div class="swiper-button-next list${[currentDataIndex / 10]}Next"></div>
               <div class="swiper-button-prev list${[currentDataIndex / 10]}Prev"></div>
-            `;
+              `;
 
                 const container = document.createElement("div");
                 container.setAttribute("class", "category-container");
@@ -276,7 +277,9 @@
               }
               isLoading = false; // 로딩 상태 초기화
             }, 1000); //1초 딜레이 지정
+            
           }
+
         })
 
       }
@@ -299,20 +302,13 @@
           // var srcCd = $("#mainVideo")
           //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
           location.href = `//localhost:8888/watch?src=${(id)}`;
-          //location.href= "https://www.naver.com"
         });
-
-
-
-
 
         $("#detailModal").modal();
         /*통신전에 progress END*/
-        //모달창 구성하기
-        //modal.style.display = `block`;
-        //$("#detail").modal('show');
-        console.log(data);
+        //모달창 구성하기   
       }
+
     </script>
   </th:block>
 </body>
