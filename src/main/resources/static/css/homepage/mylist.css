@@ -21,6 +21,10 @@ a {
   width: 850px;
 }
 
+.modal::-webkit-scrollbar {
+  display: none;
+}
+
 iframe {
   width: 100%;
 }
