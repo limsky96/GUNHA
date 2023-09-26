@@ -306,8 +306,11 @@ public class OrderServiceImpl implements OrderService {
       requestBody.put("schedules", scheduleList);
 
       OrderVO prevOrder = orderMapper.selectUserSecondLastOrder(orderVO.getMemberId());
-      prevOrder.setOrderValid("E");
-      orderMapper.updateOrder(prevOrder);
+      if(prevOrder !=null){
+
+        prevOrder.setOrderValid("E");
+        orderMapper.updateOrder(prevOrder);
+      }
       orderVO.setImpUid(impUid);
       orderVO.setOrderValid("V");
       orderMapper.updateOrder(orderVO);
