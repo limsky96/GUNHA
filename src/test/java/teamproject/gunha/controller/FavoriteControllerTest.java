@@ -1,5 +1,8 @@
 package teamproject.gunha.controller;
 
+
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -17,7 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
-import com.jayway.jsonpath.JsonPath;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.vo.FavoriteVO;
@@ -36,6 +41,7 @@ class FavoriteControllerTest {
 
   @Test
   @Transactional
+  @WithMockUser(username = "tatelulove4@naver.com_kakao", roles={"USER"})
   @DisplayName("내가 찜한 컨텐츠 목록 가져오기")
   void testGetFavoriteList() throws Exception{
     
@@ -53,10 +59,10 @@ class FavoriteControllerTest {
             .andReturn();
 
     MockHttpServletResponse response = result.getResponse();
-    
-    log.info(response.toString());
-
-
+    Type jsonMapType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+    List<Map<String, Object>> respJson = fromJson(response.getContentAsString(), jsonMapType);
+    log.info(result.toString());
+    log.info(respJson.toString());
 
   }
 
@@ -64,6 +70,10 @@ class FavoriteControllerTest {
     return gson.toJson(data);
   }
 
+  private <T> T fromJson(String data, Type typeOfT) throws JsonSyntaxException{
+    
+    return gson.fromJson(data, typeOfT);
+  }
 
 
 }

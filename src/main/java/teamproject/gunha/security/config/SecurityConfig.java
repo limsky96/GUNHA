@@ -48,7 +48,7 @@ public class SecurityConfig {
 
 
     http.authorizeHttpRequests(auth -> auth
-          .antMatchers("/emp/**", "/profile/**", "/my/**", "/payment-card", "/home/**").hasAnyRole("USER")
+          .antMatchers("/emp/**", "/profile/**", "/my/**", "/payment-card", "/home/**", "/api/**").hasAnyRole("USER")
           .antMatchers("/admin/**").hasAnyRole("ADMIN")
           .antMatchers("/**", "/login").permitAll()
         )
