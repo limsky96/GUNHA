@@ -1,11 +1,13 @@
 package teamproject.gunha.mapper;
 
 import org.apache.tomcat.jni.User;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
 import teamproject.gunha.vo.UserVO;
@@ -22,6 +24,8 @@ class UserMapperTest {
 
 
   @Test
+  @Transactional
+  @DisplayName("유저 정보 수정")
   void testUserUpdate(){
     log.info("userupdate test");
 

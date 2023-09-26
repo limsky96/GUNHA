@@ -1,6 +1,8 @@
+
 * {
   /* border: 1px solid greenyellow; */
 }
+a { color: inherit; text-decoration: none; }
 
 /* 내비게이션 바 배경색과 텍스트 색상 변경 */
 .navbar {
@@ -141,10 +143,10 @@
   /* 여기에 원하는 간격 값을 설정하세요 */
 }
 
-  /*오른드롭*/
-.dropdown-menu a.dropdown-item,
-.dropdown-menu input.dropdown-item {
-  color: white; /* 흰색으로 변경 */
+/*오른드롭*/
+.dropdown-menu a.dropdown-item {
+  color: white;
+  /* 흰색으로 변경 */
 }
 
 #headersearch {
@@ -261,9 +263,15 @@
   border-color: #ffffff;
   /* 원하는 색상으로 변경 */
 }
-.btn.btn-danger3 {
+
+.login-text {
   display: none;
 }
+
+#btn-login{
+  display: none;
+}
+
 
 
 @media screen and (max-width: 880px) {
@@ -302,62 +310,42 @@
   }
 }
 
-/* 스크립트 - 블랙 헤더 로그 아웃 버전 css 부분 */
-header.hd-black-logout {
 
-  /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
+
+/* 블랙 헤더 아무것도 없는 버전*/
+header.hd-black-logout {
   .navbar {
     background: black;
     height: 80px;
     position: relative;
   }
-
   .logo-img {
     width: 100px;
     height: 30px;
     margin: 0px 5px 0px 15px;
   }
-
-  /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
   .navbar-toggler .navbar-nav,
   .dropdown-main,
   .right-menu,
-  .nav-link,
-  .custom-btn {
+  .nav-link
+  {
     display: none;
   }
 
-  /* 화이트 헤더의 로그인 버튼 */
-  #login-btn {
-    display: inline-block;
-    text-decoration: solid;
-    color: #333;
-    margin-right: 20px;
-    font-size: 15px;
-    border: 2px solid #e50914;
-    border-radius: 4px;
-    background-color: #e50914;
-    width: 80px;
-    height: 30px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    color: white;
-    padding: 0 15px;
+  #btn-login{
+    display: block;
   }
 }
 
-/* 스크립트 - 화이트 헤더 css 부분 */
+
+/*화이트 헤더 로그인 버전*/
 header.hd-white {
-
-  /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
-  .navbar {
+  .navbar{
     background: #fff !important;
     color: #333 !important;
     border-bottom: 1px solid #e6e6e6;
     height: 93px;
   }
-
   .navbar-collapse {
     background-color: white;
   }
@@ -365,69 +353,67 @@ header.hd-white {
     width: 180px;
     height: 50px;
     margin-left: 8px;
-    /* 수평으로 이동 (원하는 만큼 조절) */
   }
-
-
-  /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
   .navbar-toggler .navbar-nav,
   .dropdown-main,
-  .right-menu,
-  .custom-btn {
+  .right-menu
+   {
     display: none;
   }
 
 
-  /* 화이트 헤더의 로그인 버튼 */
-  #login-btn {
-    display: inline-block;
-    text-decoration: solid;
-    color: #333;
-    margin-right: 30px;
+  .login-text{
+    display: block;
+    color: #000; 
+    text-decoration: none; 
+    margin-right: 20px;
     font-size: 18px;
   }
 
+  .logout-text{
+    margin-left: auto;
+  }
+
+  #open-modal,
+a[href="/my/account"] {
+  display: none;
 }
 
-/* 스크립트 - 화이트 헤더  로그아웃 버전 css 부분 */
-header.hd-white-logout {
+#logoutForm button[type="submit"] {
+  background-color: #fff; 
+  border: 1px solid #fff; 
+  color: black; 
+  font-size: 18px;
+  margin-right: 15px;
+}
+}
 
-  /* 화이트 헤더에서 style 주려면 여기에 아래에 코드 작성해야한다. */
-  .navbar {
+
+/*화이트 헤더  로그아웃 버전*/
+/* header.hd-white-logout {
+  .navbar{
     background: #fff !important;
     color: #333 !important;
     border-bottom: 1px solid #e6e6e6;
     height: 93px;
   }
-
+  .navbar-collapse {
+    background-color: white;
+  }
   .logo img {
     width: 180px;
     height: 50px;
     margin-left: 8px;
-    /* 수평으로 이동 (원하는 만큼 조절) */
   }
-
-  .navbar-collapse {
-    background-color: white;
-  }
-
-  /* 화이트 헤더 적용시 카테고리, 드롭메뉴, 내비 없애는 코드 */
   .navbar-toggler .navbar-nav,
   .dropdown-main,
   .right-menu,
   .custom-btn {
     display: none;
   }
+} */
+/* $('header').addClass('hd-white-logout'); // 화이트 헤더 로그아웃 버전 */
 
-  /* 화이트 헤더의 로그인 버튼 */
-  .login-btn1 {
-    display: inline-block;
-    text-decoration: solid;
-    color: #333;
-    margin-right: 30px;
-    font-size: 18px;
-  }
-}
 
 header.none{
   display:none !important;
