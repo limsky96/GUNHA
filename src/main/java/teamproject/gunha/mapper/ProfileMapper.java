@@ -11,7 +11,7 @@ import teamproject.gunha.vo.ProfileVO;
 @Mapper
 public interface ProfileMapper {
   
-  public List<ProfileVO> getProfileList();
+  public List<ProfileVO> getUserProfiles(String userId);
 
   public int getNumberOfUserProfile(ProfileVO profileVO);
 

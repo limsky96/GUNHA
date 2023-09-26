@@ -45,6 +45,17 @@
 
 </select>
 
+<select id="existsById" resultType="boolean">
+  <![CDATA[ 
+  select count(*) from NETFLIX_MOVIE where movie_id = #{id}
+  ]]>
+</select>
+
+<delete id="deleteById">
+  <![CDATA[
+  delete from NETFLIX_MOVIE where movie_id = #{id}
+  ]]>
+</delete>
 
 <resultMap id="authMap" type="teamproject.gunha.vo.AuthVO">
  <result property="userId" column="auth_member_id"/>
