@@ -63,7 +63,7 @@ public class AdminController {
     public String mylist() {
         log.info("hello()...");
         return "/homepage/mylist";
-    }
+    } 
 
 }
 
