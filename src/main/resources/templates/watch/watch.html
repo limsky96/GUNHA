@@ -9,7 +9,6 @@
     <script src="/js/jquery/3.7.0/jquery-3.7.0.min.js"></script>
     <script src="https://kit.fontawesome.com/cc89ddadc0.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!--<link rel="stylesheet" href="/css/index.css"/>-->
     <style>
         html,
         body {
@@ -48,9 +47,9 @@
     currentUrl = location.href;
     let urlParams = new URLSearchParams(currentUrl.split('?')[1]); // ? 이후의 파라미터 문자열 추출
 
-// 'src' 파라미터 값 가져오기
+    // 'src' 파라미터 값 가져오기
     let srcParam = urlParams.get('src');
-// 'src' 파라미터 값을 JSON으로 파싱
+    // 'src' 파라미터 값을 JSON으로 파싱
     // location.pathname =
     getOneMovie(srcParam);
   }
@@ -66,6 +65,5 @@ $("#moviePlay").attr('src', data.movietrailerUrl.split("?")[0] + "?mute=1&autopl
 }
    
 
-//  }
  </script>
 </html>

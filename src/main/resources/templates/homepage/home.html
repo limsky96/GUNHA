@@ -157,9 +157,6 @@
     </div>
 
     <div id="detailModal" class="modal">
-      <!--<video src="/mp4/abouttime.mp4" poster="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140225_187%2Fjjy6374_1393262077172sH29y_PNG%2FAbout_Time3.png&type=sc960_832"
-      autoplay muted>
-    </video>-->
       <div class="video-container">
         <iframe id="detailFrame" width="850" height="480" src="" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -220,7 +217,6 @@
           console.log(randomNumber)
           //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
           location.href = `//localhost:8888/watch?src=${(randomNumber + 1)}`;
-          //location.href= "https://www.naver.com"
         });
 
         $(".video-stream").attr('style', 'top:0px');
@@ -232,8 +228,7 @@
         //임시 TITLE 증가값
         var count = 1;
         currentDataIndex = 0;
-        //무한스크롤 START
-        //DOCUMENT 스크롤 이벤트 감지
+       
         $(document).ready(function () {
 
           if (currentDataIndex <= 40)
@@ -304,15 +299,11 @@
           var srcCd = $("#mainVideo")
           //쿼리스트링 / Controller에서 쿼리스트링 다음페이지로 넘기는방법
           location.href = `//localhost:8888/watch?src=${(id)}`;
-          //location.href= "https://www.naver.com"
         });
 
         $("#detailModal").modal();
         /*통신전에 progress END*/
         //모달창 구성하기
-        //modal.style.display = `block`;
-        //$("#detail").modal('show');
-        console.log(data);
       }
     </script>
   </th:block>
